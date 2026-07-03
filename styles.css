@@ -1,0 +1,2809 @@
+/* ============================================================================
+   NEXUSFLOW: SOVEREIGN FORM ARCHITECT
+   Cyber-Organic Design System — Complete Stylesheet
+   
+   A premium dark-mode interface fusing glassmorphism, neon luminescence,
+   PCB circuit traces, and fluid-electrical micro-interactions into a
+   cohesive, sci-fi control-interface aesthetic.
+   
+   Table of Contents:
+   ──────────────────
+    0.  Google Fonts Import
+    1.  Design Tokens (Custom Properties)
+    2.  CSS Reset & Base Styles
+    3.  Custom Scrollbar
+    4.  App Container
+    5.  Canvas Layers (PCB / Effects)
+    6.  Top Bar
+    7.  Logo
+    8.  Form Title Input
+    9.  Top Actions
+   10.  Cyber Buttons
+   11.  Main Workspace Grid
+   12.  Glass Panel (Shared)
+   13.  Fabricator Panel (Left Sidebar)
+   14.  Module Cards
+   15.  Hydration Canvas (Center)
+   16.  Question Block
+   17.  Laser Input
+   18.  Reactor Radio
+   19.  Reactor Checkbox
+   20.  Mechanical Dropdown
+   21.  File Upload Hatch
+   22.  Logic Panel (Right Sidebar)
+   23.  Logic Node
+   24.  Logic Wire (SVG)
+   25.  Progress Tube
+   26.  Data Sink
+   27.  Respondent Overlay
+   28.  Empty State
+   29.  Toast / Notification
+   30.  Modal
+   31.  Keyframe Animations
+   32.  Drag & Drop States
+   33.  Shockwave Effect
+   34.  Utility Classes
+   35.  Responsive Breakpoints
+   ============================================================================ */
+
+
+/* ============================================================================
+   0. GOOGLE FONTS IMPORT
+   Rajdhani — geometric, techy display face for headings & status text
+   Inter    — clean, highly legible neo-grotesque for body copy
+   ============================================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Rajdhani:wght@400;500;600;700&display=swap');
+
+
+/* ============================================================================
+   1. DESIGN TOKENS (Custom Properties)
+   All colors, typography scales, spacing, radii, and shadows are defined
+   here as CSS custom properties so the entire theme can be swapped by
+   overriding this single block.
+   ============================================================================ */
+:root {
+  /* ── Color Palette ─────────────────────────────────────────────────────── */
+
+  /* Base Canvas — the deepest background layer, obsidian with a cool blue tint */
+  --base-canvas:            #080B10;
+  --base-darker:            #050810;
+
+  /* Glass Surfaces — translucent panels for glassmorphism effect */
+  --surface-glass:          rgba(16, 24, 40, 0.6);
+  --surface-glass-hover:    rgba(16, 24, 40, 0.75);
+  --surface-glass-elevated: rgba(20, 30, 50, 0.65);
+
+  /* Primary Accent — Electric Cyan, the dominant neon color */
+  --electric-cyan:          #00F0FF;
+  --electric-cyan-dim:      rgba(0, 240, 255, 0.15);
+  --electric-cyan-micro:    rgba(0, 240, 255, 0.06);
+
+  /* Secondary Accent — Neon Purple for logic wires, secondary highlights */
+  --neon-purple:            #8A2BE2;
+  --neon-purple-dim:        rgba(138, 43, 226, 0.15);
+  --neon-purple-micro:      rgba(138, 43, 226, 0.06);
+
+  /* Tertiary Accent — Fluid Blue for progress fills, links */
+  --fluid-blue:             #00A3FF;
+  --fluid-blue-glow:        rgba(0, 163, 255, 0.3);
+
+  /* Semantic Colors */
+  --error-red:              #FF2D55;
+  --error-red-dim:          rgba(255, 45, 85, 0.15);
+  --success-green:          #00FF88;
+  --success-green-dim:      rgba(0, 255, 136, 0.15);
+  --warning-amber:          #FFB800;
+  --warning-amber-dim:      rgba(255, 184, 0, 0.15);
+
+  /* Text Hierarchy */
+  --text-primary:           #E8ECF4;
+  --text-secondary:         #A0AECB;
+  --text-muted:             #6B7A99;
+  --text-disabled:          #3E4A63;
+
+  /* Borders — glass-edge borders for panels and interactive elements */
+  --border-glass:           rgba(0, 240, 255, 0.08);
+  --border-glass-active:    rgba(0, 240, 255, 0.25);
+  --border-glass-strong:    rgba(0, 240, 255, 0.40);
+
+  /* ── Typography ────────────────────────────────────────────────────────── */
+  --font-display:           'Rajdhani', 'Segoe UI', sans-serif;
+  --font-body:              'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  --fs-xs:    0.75rem;   /* 12px */
+  --fs-sm:    0.875rem;  /* 14px */
+  --fs-base:  1rem;      /* 16px */
+  --fs-lg:    1.125rem;  /* 18px */
+  --fs-xl:    1.25rem;   /* 20px */
+  --fs-2xl:   1.5rem;    /* 24px */
+  --fs-3xl:   2rem;      /* 32px */
+  --fs-4xl:   2.5rem;    /* 40px */
+
+  --fw-light:    300;
+  --fw-regular:  400;
+  --fw-medium:   500;
+  --fw-semibold: 600;
+  --fw-bold:     700;
+
+  --lh-tight:    1.2;
+  --lh-normal:   1.5;
+  --lh-relaxed:  1.7;
+
+  /* ── Spacing Scale ─────────────────────────────────────────────────────── */
+  --space-1:   0.25rem;  /* 4px  */
+  --space-2:   0.5rem;   /* 8px  */
+  --space-3:   0.75rem;  /* 12px */
+  --space-4:   1rem;     /* 16px */
+  --space-5:   1.25rem;  /* 20px */
+  --space-6:   1.5rem;   /* 24px */
+  --space-7:   1.75rem;  /* 28px */
+  --space-8:   2rem;     /* 32px */
+  --space-9:   2.25rem;  /* 36px */
+  --space-10:  2.5rem;   /* 40px */
+  --space-11:  2.75rem;  /* 44px */
+  --space-12:  3rem;     /* 48px */
+
+  /* ── Border Radius ─────────────────────────────────────────────────────── */
+  --radius-xs:   4px;
+  --radius-sm:   8px;
+  --radius-md:   12px;
+  --radius-lg:   16px;
+  --radius-xl:   24px;
+  --radius-full: 999px;
+
+  /* ── Shadows ───────────────────────────────────────────────────────────── */
+  --shadow-sm:          0 1px 3px rgba(0, 0, 0, 0.4),
+                        0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md:          0 4px 12px rgba(0, 0, 0, 0.5),
+                        0 2px 4px rgba(0, 0, 0, 0.3);
+  --shadow-lg:          0 12px 40px rgba(0, 0, 0, 0.6),
+                        0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-neon-cyan:   0 0 12px rgba(0, 240, 255, 0.25),
+                        0 0 30px rgba(0, 240, 255, 0.08);
+  --shadow-neon-purple: 0 0 12px rgba(138, 43, 226, 0.25),
+                        0 0 30px rgba(138, 43, 226, 0.08);
+  --shadow-neon-glow:   0 0 20px rgba(0, 240, 255, 0.35),
+                        0 0 60px rgba(0, 240, 255, 0.12);
+
+  /* ── Transitions ───────────────────────────────────────────────────────── */
+  --ease-out-expo:      cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring:        cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-bounce:        cubic-bezier(0.34, 1.56, 0.64, 1);
+  --transition-fast:    0.15s var(--ease-spring);
+  --transition-normal:  0.3s var(--ease-spring);
+  --transition-slow:    0.5s var(--ease-out-expo);
+
+  /* ── Z-Index Scale ─────────────────────────────────────────────────────── */
+  --z-canvas:       0;
+  --z-workspace:    10;
+  --z-panel:        20;
+  --z-topbar:       50;
+  --z-effects:      100;
+  --z-dropdown:     200;
+  --z-toast:        500;
+  --z-modal:        900;
+  --z-overlay:      1000;
+}
+
+
+/* ============================================================================
+   2. CSS RESET & BASE STYLES
+   Modern reset that strips browser defaults while preserving accessibility.
+   ============================================================================ */
+
+/* Box-sizing border-box globally */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Remove default list styling */
+ul, ol {
+  list-style: none;
+}
+
+/* Prevent text-size adjustments on orientation change */
+html {
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  font-size: 16px;
+  line-height: var(--lh-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Full viewport body — base-canvas background, hidden overflow */
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: var(--base-canvas);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-normal);
+}
+
+/* Reset form element fonts */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+  outline: none;
+}
+
+/* Remove link underlines by default */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Responsive images */
+img, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Remove button defaults */
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Focus visible — cyan ring for keyboard navigation */
+:focus-visible {
+  outline: 2px solid var(--electric-cyan);
+  outline-offset: 2px;
+}
+
+/* Selection highlight */
+::selection {
+  background: rgba(0, 240, 255, 0.2);
+  color: var(--text-primary);
+}
+
+
+/* ============================================================================
+   3. CUSTOM SCROLLBAR
+   Thin, dark scrollbar with a subtle cyan accent on the thumb.
+   Works in Chromium-based browsers and Firefox.
+   ============================================================================ */
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 240, 255, 0.15) transparent;
+}
+
+/* Chromium / WebKit */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 240, 255, 0.12);
+  border-radius: var(--radius-full);
+  transition: background var(--transition-normal);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 240, 255, 0.3);
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+
+/* ============================================================================
+   4. APP CONTAINER
+   Root container — full viewport grid with a fixed top bar row.
+   ============================================================================ */
+#nexusflow-app {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 64px auto;
+  overflow: hidden;
+  background-color: var(--base-canvas);
+}
+
+
+/* ============================================================================
+   5. CANVAS LAYERS (PCB / EFFECTS)
+   Background canvas for procedural PCB-trace visuals and foreground
+   particle / ripple effects. Both are pointer-events: none so they
+   don't interfere with interaction.
+   ============================================================================ */
+#pcb-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: var(--z-canvas);
+  opacity: 0.4;
+}
+
+#effects-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: var(--z-effects);
+}
+
+
+/* ============================================================================
+   6. TOP BAR
+   Fixed-height command bar with glass backdrop, flex-row layout.
+   Sits above everything except modals and overlays.
+   ============================================================================ */
+#top-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 64px;
+  padding: 0 var(--space-6);
+  gap: var(--space-4);
+  background: var(--surface-glass);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid var(--border-glass);
+  z-index: var(--z-topbar);
+  position: relative;
+}
+
+/* Subtle bottom-edge glow line */
+#top-bar::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--electric-cyan-dim) 20%,
+    rgba(0, 240, 255, 0.12) 50%,
+    var(--electric-cyan-dim) 80%,
+    transparent 100%
+  );
+}
+
+
+/* ============================================================================
+   7. LOGO
+   Rajdhani display type with a pulsing cyan dot indicator.
+   ============================================================================ */
+#logo {
+  font-family: var(--font-display);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-2xl);
+  color: var(--electric-cyan);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-shadow:
+    0 0 8px rgba(0, 240, 255, 0.4),
+    0 0 20px rgba(0, 240, 255, 0.15);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  user-select: none;
+  flex-shrink: 0;
+  cursor: default;
+}
+
+/* Pulsing cyan dot — reactor status indicator */
+#logo::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--electric-cyan);
+  box-shadow:
+    0 0 6px var(--electric-cyan),
+    0 0 14px rgba(0, 240, 255, 0.3);
+  animation: reactorPulse 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+
+/* ============================================================================
+   8. FORM TITLE INPUT
+   Transparent inline input for naming the form, with a glowing underline
+   on focus.
+   ============================================================================ */
+.form-title-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid rgba(0, 240, 255, 0.08);
+  padding: var(--space-2) var(--space-3);
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-semibold);
+  color: var(--text-primary);
+  letter-spacing: 0.5px;
+  transition: border-color var(--transition-normal),
+              box-shadow var(--transition-normal);
+}
+
+.form-title-input::placeholder {
+  color: var(--text-muted);
+  font-weight: var(--fw-regular);
+}
+
+.form-title-input:focus {
+  border-bottom-color: var(--electric-cyan);
+  box-shadow: 0 2px 12px rgba(0, 240, 255, 0.12);
+}
+
+
+/* ============================================================================
+   9. TOP ACTIONS
+   Action button group aligned to the right of the top bar.
+   ============================================================================ */
+.top-actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-3);
+  flex-shrink: 0;
+}
+
+
+/* ============================================================================
+   10. CYBER BUTTONS
+   Multi-variant button system with glass surfaces, neon borders,
+   scan-line hover effects, and spring-like active states.
+   ============================================================================ */
+
+/* ── Base Button ─────────────────────────────────────────────────────────── */
+.cyber-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: 10px 24px;
+  background: var(--surface-glass);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-md);
+  font-family: var(--font-display);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  overflow: hidden;
+  user-select: none;
+  white-space: nowrap;
+  transition: all 0.3s var(--ease-spring);
+}
+
+.cyber-btn:hover {
+  border-color: var(--border-glass-active);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-neon-cyan);
+  background: var(--surface-glass-hover);
+}
+
+.cyber-btn:active {
+  transform: scale(0.96);
+  transition-duration: 0.08s;
+}
+
+/* Horizontal scan-line on hover */
+.cyber-btn::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--electric-cyan) 50%,
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+  animation: scanLine 1.5s linear infinite;
+  animation-play-state: paused;
+}
+
+.cyber-btn:hover::after {
+  opacity: 0.6;
+  animation-play-state: running;
+}
+
+/* ── Primary Variant ─────────────────────────────────────────────────────── */
+.cyber-btn--primary {
+  border-color: var(--electric-cyan);
+  color: var(--electric-cyan);
+  background: var(--electric-cyan-dim);
+}
+
+.cyber-btn--primary:hover {
+  background: var(--electric-cyan);
+  color: var(--base-canvas);
+  box-shadow: var(--shadow-neon-glow);
+  text-shadow: none;
+}
+
+.cyber-btn--primary:active {
+  background: var(--electric-cyan);
+  filter: brightness(0.9);
+}
+
+/* ── Danger Variant ──────────────────────────────────────────────────────── */
+.cyber-btn--danger {
+  border-color: var(--error-red);
+  color: var(--error-red);
+  background: var(--error-red-dim);
+}
+
+.cyber-btn--danger:hover {
+  background: var(--error-red);
+  color: var(--base-canvas);
+  box-shadow: 0 0 12px rgba(255, 45, 85, 0.3),
+              0 0 30px rgba(255, 45, 85, 0.1);
+}
+
+/* ── Success Variant ─────────────────────────────────────────────────────── */
+.cyber-btn--success {
+  border-color: var(--success-green);
+  color: var(--success-green);
+  background: var(--success-green-dim);
+}
+
+.cyber-btn--success:hover {
+  background: var(--success-green);
+  color: var(--base-canvas);
+  box-shadow: 0 0 12px rgba(0, 255, 136, 0.3),
+              0 0 30px rgba(0, 255, 136, 0.1);
+}
+
+/* ── Icon-Only Variant ───────────────────────────────────────────────────── */
+.cyber-btn--icon {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-lg);
+}
+
+/* ── Small Variant ───────────────────────────────────────────────────────── */
+.cyber-btn--sm {
+  padding: 6px 16px;
+  font-size: var(--fs-xs);
+}
+
+/* ── Ghost Variant ───────────────────────────────────────────────────────── */
+.cyber-btn--ghost {
+  background: transparent;
+  border-color: transparent;
+}
+
+.cyber-btn--ghost:hover {
+  background: var(--surface-glass);
+  border-color: var(--border-glass);
+}
+
+
+/* ============================================================================
+   11. MAIN WORKSPACE GRID
+   Three-column layout: Fabricator (left) | Hydration Canvas (center) | Logic (right)
+   ============================================================================ */
+#workspace {
+  display: grid;
+  grid-template-columns: 280px 1fr 320px;
+  gap: 0;
+  height: calc(100vh - 64px);
+  z-index: var(--z-workspace);
+  position: relative;
+}
+
+
+/* ============================================================================
+   12. GLASS PANEL (Shared)
+   Reusable glassmorphism panel with frosted-glass backdrop, subtle
+   inner highlight, and consistent border styling.
+   ============================================================================ */
+.glass-panel {
+  background: var(--surface-glass);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid var(--border-glass);
+  box-shadow: var(--shadow-md),
+              inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+
+/* ============================================================================
+   13. FABRICATOR PANEL (Left Sidebar)
+   Contains draggable module cards for building forms.
+   ============================================================================ */
+#fabricator-panel {
+  background: var(--surface-glass);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-right: 1px solid var(--border-glass);
+  padding: var(--space-5) var(--space-4);
+  overflow-y: auto;
+  position: relative;
+  box-shadow: var(--shadow-md),
+              inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Panel section header */
+.panel-header {
+  font-family: var(--font-display);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-2);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* Small cyan accent bar before header text */
+.panel-header::before {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 2px;
+  background: var(--electric-cyan);
+  border-radius: var(--radius-full);
+  box-shadow: 0 0 6px rgba(0, 240, 255, 0.3);
+}
+
+/* Section divider within the fabricator panel */
+.panel-section {
+  margin-bottom: var(--space-6);
+}
+
+.panel-section:last-child {
+  margin-bottom: 0;
+}
+
+
+/* ============================================================================
+   14. MODULE CARDS
+   Draggable cards representing form field types. Feature a pneumatic
+   3D tilt on hover, glowing left border, and icon/label layout.
+   ============================================================================ */
+.module-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 14px var(--space-4);
+  margin-bottom: var(--space-2);
+  background: var(--surface-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-glass);
+  border-left: 3px solid transparent;
+  border-radius: var(--radius-md);
+  cursor: grab;
+  position: relative;
+  overflow: hidden;
+  transform: perspective(800px) rotateY(0deg);
+  transition: all 0.4s var(--ease-spring);
+  user-select: none;
+}
+
+/* Electrical edge glow — slides in from left on hover */
+.module-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 240, 255, 0.06) 0%,
+    transparent 60%
+  );
+  transition: left 0.5s var(--ease-out-expo);
+  pointer-events: none;
+}
+
+/* ── Pneumatic Hover State ───────────────────────────────────────────────── */
+.module-card:hover {
+  transform: perspective(800px) rotateY(-4deg) translateX(8px) scale(1.02);
+  border-left-color: var(--electric-cyan);
+  background: var(--surface-glass-hover);
+  box-shadow: var(--shadow-neon-cyan);
+}
+
+.module-card:hover::before {
+  left: 0;
+}
+
+/* Active grab state */
+.module-card:active {
+  cursor: grabbing;
+  transform: perspective(800px) rotateY(-2deg) scale(0.98);
+}
+
+/* ── Icon ────────────────────────────────────────────────────────────────── */
+.module-card__icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  background: var(--electric-cyan-dim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--fs-xl);
+  color: var(--electric-cyan);
+  flex-shrink: 0;
+  transition: all 0.3s var(--ease-spring);
+}
+
+.module-card:hover .module-card__icon {
+  background: rgba(0, 240, 255, 0.25);
+  transform: scale(1.08);
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.2);
+}
+
+/* ── Text Content ────────────────────────────────────────────────────────── */
+.module-card__info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.module-card__label {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: var(--fw-semibold);
+  color: var(--text-secondary);
+  transition: color var(--transition-normal);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.module-card:hover .module-card__label {
+  color: var(--text-primary);
+}
+
+.module-card__desc {
+  font-family: var(--font-body);
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* ============================================================================
+   15. HYDRATION CANVAS (Center Workspace)
+   The main form building area. Features a subtle radial gradient that
+   draws the eye to center. Contains question blocks.
+   ============================================================================ */
+#hydration-canvas {
+  padding: var(--space-8) var(--space-10);
+  overflow-y: auto;
+  position: relative;
+  min-height: 100%;
+  background:
+    radial-gradient(
+      ellipse at 50% 30%,
+      rgba(16, 24, 40, 0.3) 0%,
+      transparent 70%
+    ),
+    var(--base-canvas);
+}
+
+/* Subtle grid pattern overlay for PCB aesthetic */
+#hydration-canvas::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0, 240, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 240, 255, 0.015) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Ensure content sits above the grid pattern */
+#hydration-canvas > * {
+  position: relative;
+  z-index: 1;
+}
+
+
+/* ============================================================================
+   16. QUESTION BLOCK
+   Individual form field containers. Feature scan-line overlays,
+   glow borders on active state, and error flicker animation.
+   ============================================================================ */
+.question-block {
+  background: var(--surface-glass);
+  backdrop-filter: blur(16px) saturate(170%);
+  -webkit-backdrop-filter: blur(16px) saturate(170%);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  margin-bottom: var(--space-5);
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+  transition: all 0.4s var(--ease-spring);
+  animation: bootSequence 0.5s var(--ease-out-expo) backwards;
+}
+
+/* Stagger animation for multiple blocks */
+.question-block:nth-child(1) { animation-delay: 0s; }
+.question-block:nth-child(2) { animation-delay: 0.08s; }
+.question-block:nth-child(3) { animation-delay: 0.16s; }
+.question-block:nth-child(4) { animation-delay: 0.24s; }
+.question-block:nth-child(5) { animation-delay: 0.32s; }
+.question-block:nth-child(6) { animation-delay: 0.40s; }
+.question-block:nth-child(7) { animation-delay: 0.48s; }
+.question-block:nth-child(8) { animation-delay: 0.56s; }
+
+/* Subtle horizontal scan-line overlay */
+.question-block::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 240, 255, 0.008) 2px,
+    rgba(0, 240, 255, 0.008) 4px
+  );
+  opacity: 0.02;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Active State ────────────────────────────────────────────────────────── */
+.question-block.active {
+  border-color: var(--border-glass-active);
+  box-shadow: var(--shadow-neon-cyan);
+}
+
+.question-block.active::before {
+  opacity: 0.05;
+}
+
+/* ── Error State ─────────────────────────────────────────────────────────── */
+.question-block.error {
+  border-color: var(--error-red);
+  animation: errorFlicker 0.5s ease infinite;
+}
+
+/* ── Question Block Header ───────────────────────────────────────────────── */
+.question-block__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-4);
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Question Number — ghost watermark in top-right ──────────────────────── */
+.question-block__number {
+  font-family: var(--font-display);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-3xl);
+  color: var(--electric-cyan);
+  opacity: 0.3;
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  line-height: 1;
+  user-select: none;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Title Input ─────────────────────────────────────────────────────────── */
+.question-block__title-input {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid rgba(0, 240, 255, 0.1);
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-medium);
+  color: var(--text-primary);
+  padding: var(--space-2) 0;
+  transition: border-color var(--transition-normal),
+              box-shadow var(--transition-normal);
+  position: relative;
+  z-index: 1;
+}
+
+.question-block__title-input::placeholder {
+  color: var(--text-muted);
+  font-weight: var(--fw-regular);
+}
+
+.question-block__title-input:focus {
+  border-bottom-color: var(--electric-cyan);
+  box-shadow: 0 2px 10px rgba(0, 240, 255, 0.08);
+}
+
+/* ── Description Input ───────────────────────────────────────────────────── */
+.question-block__desc-input {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(0, 240, 255, 0.06);
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-regular);
+  color: var(--text-secondary);
+  padding: var(--space-1) 0;
+  margin-top: var(--space-2);
+  transition: border-color var(--transition-normal);
+  position: relative;
+  z-index: 1;
+}
+
+.question-block__desc-input::placeholder {
+  color: var(--text-muted);
+}
+
+.question-block__desc-input:focus {
+  border-bottom-color: rgba(0, 240, 255, 0.25);
+}
+
+/* ── Question Block Content (field area) ─────────────────────────────────── */
+.question-block__content {
+  margin-top: var(--space-4);
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Toolbar — appears on hover ──────────────────────────────────────────── */
+.question-block__toolbar {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border-glass);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.3s var(--ease-spring),
+              transform 0.3s var(--ease-spring);
+  position: relative;
+  z-index: 1;
+}
+
+.question-block:hover .question-block__toolbar,
+.question-block.active .question-block__toolbar {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* ============================================================================
+   17. LASER INPUT
+   Text input with a scanning laser-line animation at the bottom.
+   ============================================================================ */
+.laser-input {
+  position: relative;
+  overflow: hidden;
+}
+
+.laser-input input,
+.laser-input textarea {
+  width: 100%;
+  padding: 12px 16px;
+  background: var(--surface-glass);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  color: var(--text-primary);
+  transition: border-color var(--transition-normal),
+              box-shadow var(--transition-normal);
+}
+
+.laser-input input::placeholder,
+.laser-input textarea::placeholder {
+  color: var(--text-muted);
+}
+
+.laser-input input:focus,
+.laser-input textarea:focus {
+  border-color: var(--border-glass-active);
+  box-shadow: 0 0 0 3px var(--electric-cyan-micro);
+}
+
+/* Scanning laser line */
+.laser-input::after {
+  content: '';
+  position: absolute;
+  bottom: 1px;
+  left: -40px;
+  width: 40px;
+  height: 2px;
+  background: var(--electric-cyan);
+  border-radius: var(--radius-full);
+  box-shadow: 0 0 8px var(--electric-cyan),
+              0 0 16px rgba(0, 240, 255, 0.3);
+  opacity: 0;
+  animation: laserScan 3s ease-in-out infinite;
+  animation-play-state: paused;
+  pointer-events: none;
+}
+
+/* Run the laser only when the input is focused */
+.laser-input:focus-within::after {
+  animation-play-state: running;
+  opacity: 1;
+}
+
+/* Textarea specific */
+.laser-input textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+
+/* ============================================================================
+   18. REACTOR RADIO
+   Custom radio buttons with a glowing core that scales in on selection.
+   Features a radial pulse outward on select.
+   ============================================================================ */
+.reactor-radio {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin: var(--space-2) 0;
+  cursor: pointer;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-glass);
+  background: transparent;
+  transition: all 0.3s var(--ease-spring);
+  position: relative;
+}
+
+.reactor-radio:hover {
+  border-color: var(--border-glass-active);
+  background: var(--surface-glass-hover);
+}
+
+/* Hide native radio */
+.reactor-radio input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* ── Radio Core (outer ring) ─────────────────────────────────────────────── */
+.reactor-radio__core {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid var(--text-muted);
+  position: relative;
+  flex-shrink: 0;
+  transition: border-color 0.3s var(--ease-spring);
+}
+
+/* Inner filled dot */
+.reactor-radio__core::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--electric-cyan);
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.3s var(--ease-bounce),
+              box-shadow 0.3s var(--ease-spring);
+}
+
+/* ── Selected State ──────────────────────────────────────────────────────── */
+.reactor-radio.selected,
+.reactor-radio:has(input:checked) {
+  border-color: var(--border-glass-active);
+  background: var(--electric-cyan-micro);
+}
+
+.reactor-radio.selected .reactor-radio__core,
+.reactor-radio:has(input:checked) .reactor-radio__core {
+  border-color: var(--electric-cyan);
+}
+
+.reactor-radio.selected .reactor-radio__core::after,
+.reactor-radio:has(input:checked) .reactor-radio__core::after {
+  transform: translate(-50%, -50%) scale(1);
+  box-shadow:
+    0 0 6px var(--electric-cyan),
+    0 0 14px rgba(0, 240, 255, 0.3);
+}
+
+/* Radial glow outward on selection */
+.reactor-radio.selected .reactor-radio__core::before,
+.reactor-radio:has(input:checked) .reactor-radio__core::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 240, 255, 0.15);
+  animation: reactorPulse 2s ease-in-out infinite;
+}
+
+/* ── Label ───────────────────────────────────────────────────────────────── */
+.reactor-radio__label {
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  color: var(--text-secondary);
+  transition: color var(--transition-normal);
+}
+
+.reactor-radio.selected .reactor-radio__label,
+.reactor-radio:has(input:checked) .reactor-radio__label {
+  color: var(--text-primary);
+}
+
+
+/* ============================================================================
+   19. REACTOR CHECKBOX
+   Square variant of the reactor radio with a checkmark SVG on selection.
+   ============================================================================ */
+.reactor-checkbox {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin: var(--space-2) 0;
+  cursor: pointer;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-glass);
+  background: transparent;
+  transition: all 0.3s var(--ease-spring);
+  position: relative;
+}
+
+.reactor-checkbox:hover {
+  border-color: var(--border-glass-active);
+  background: var(--surface-glass-hover);
+}
+
+/* Hide native checkbox */
+.reactor-checkbox input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* ── Checkbox Core (square with rounded corners) ─────────────────────────── */
+.reactor-checkbox__core {
+  width: 22px;
+  height: 22px;
+  border-radius: var(--radius-xs);
+  border: 2px solid var(--text-muted);
+  position: relative;
+  flex-shrink: 0;
+  transition: all 0.3s var(--ease-spring);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Checkmark SVG */
+.reactor-checkbox__core::after {
+  content: '';
+  width: 12px;
+  height: 12px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23080B10' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  transform: scale(0);
+  transition: transform 0.3s var(--ease-bounce);
+}
+
+/* ── Checked State ───────────────────────────────────────────────────────── */
+.reactor-checkbox.checked .reactor-checkbox__core,
+.reactor-checkbox:has(input:checked) .reactor-checkbox__core {
+  background: var(--electric-cyan);
+  border-color: var(--electric-cyan);
+  box-shadow:
+    0 0 8px rgba(0, 240, 255, 0.3),
+    0 0 16px rgba(0, 240, 255, 0.1);
+}
+
+.reactor-checkbox.checked .reactor-checkbox__core::after,
+.reactor-checkbox:has(input:checked) .reactor-checkbox__core::after {
+  transform: scale(1);
+}
+
+.reactor-checkbox.checked,
+.reactor-checkbox:has(input:checked) {
+  border-color: var(--border-glass-active);
+  background: var(--electric-cyan-micro);
+}
+
+/* ── Label ───────────────────────────────────────────────────────────────── */
+.reactor-checkbox__label {
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  color: var(--text-secondary);
+  transition: color var(--transition-normal);
+}
+
+.reactor-checkbox.checked .reactor-checkbox__label,
+.reactor-checkbox:has(input:checked) .reactor-checkbox__label {
+  color: var(--text-primary);
+}
+
+
+/* ============================================================================
+   20. MECHANICAL DROPDOWN
+   Glass-surfaced select / custom dropdown with a cyan chevron and
+   sliding open animation.
+   ============================================================================ */
+.mech-dropdown {
+  position: relative;
+  width: 100%;
+}
+
+/* ── Trigger ─────────────────────────────────────────────────────────────── */
+.mech-dropdown__trigger {
+  width: 100%;
+  padding: 12px 40px 12px 16px;
+  background: var(--surface-glass);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  color: var(--text-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all var(--transition-normal);
+  position: relative;
+}
+
+.mech-dropdown__trigger:hover {
+  border-color: var(--border-glass-active);
+  background: var(--surface-glass-hover);
+}
+
+/* Chevron arrow */
+.mech-dropdown__arrow {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%) rotate(0deg);
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid var(--electric-cyan);
+  border-bottom: 2px solid var(--electric-cyan);
+  transform-origin: center;
+  transition: transform 0.3s var(--ease-spring);
+  transform: translateY(-60%) rotate(45deg);
+}
+
+.mech-dropdown.open .mech-dropdown__arrow {
+  transform: translateY(-30%) rotate(-135deg);
+}
+
+/* ── Options Panel ───────────────────────────────────────────────────────── */
+.mech-dropdown__options {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  width: 100%;
+  max-height: 0;
+  overflow: hidden;
+  background: var(--surface-glass-elevated);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-lg);
+  z-index: var(--z-dropdown);
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: all 0.35s var(--ease-spring),
+              max-height 0.35s var(--ease-out-expo);
+}
+
+.mech-dropdown.open .mech-dropdown__options {
+  max-height: 240px;
+  opacity: 1;
+  transform: translateY(0);
+  overflow-y: auto;
+}
+
+/* ── Individual Option ───────────────────────────────────────────────────── */
+.mech-dropdown__option {
+  padding: 10px 16px;
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+.mech-dropdown__option:hover {
+  background: var(--electric-cyan-dim);
+  color: var(--text-primary);
+  padding-left: 20px;
+}
+
+/* Active option glow */
+.mech-dropdown__option.active {
+  color: var(--electric-cyan);
+  background: var(--electric-cyan-micro);
+}
+
+.mech-dropdown__option.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 3px;
+  height: 100%;
+  background: var(--electric-cyan);
+  box-shadow: 0 0 8px rgba(0, 240, 255, 0.3);
+}
+
+/* Native select fallback styling */
+.mech-dropdown select {
+  width: 100%;
+  padding: 12px 40px 12px 16px;
+  background: var(--surface-glass);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  color: var(--text-primary);
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  transition: all var(--transition-normal);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2300F0FF' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+}
+
+.mech-dropdown select:hover,
+.mech-dropdown select:focus {
+  border-color: var(--border-glass-active);
+  box-shadow: 0 0 0 3px var(--electric-cyan-micro);
+}
+
+.mech-dropdown select option {
+  background: #0E1420;
+  color: var(--text-primary);
+  padding: 8px;
+}
+
+
+/* ============================================================================
+   21. FILE UPLOAD HATCH
+   Dashed drop zone with "hatch doors" that open on hover/dragover.
+   Features a pulsing icon and a vacuum-pull animation on drag.
+   ============================================================================ */
+.hatch-upload {
+  position: relative;
+  border: 2px dashed var(--border-glass-active);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+  text-align: center;
+  background: var(--surface-glass);
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.5s var(--ease-out-expo);
+}
+
+/* ── Top Hatch Door ──────────────────────────────────────────────────────── */
+.hatch-upload::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 240, 255, 0.03) 0%,
+    transparent 100%
+  );
+  border-bottom: 1px solid var(--border-glass);
+  transition: transform 0.5s var(--ease-out-expo);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── Bottom Hatch Door ───────────────────────────────────────────────────── */
+.hatch-upload::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: linear-gradient(
+    0deg,
+    rgba(0, 240, 255, 0.03) 0%,
+    transparent 100%
+  );
+  border-top: 1px solid var(--border-glass);
+  transition: transform 0.5s var(--ease-out-expo);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── Hatches Open on Hover / Dragover ────────────────────────────────────── */
+.hatch-upload:hover,
+.hatch-upload.dragover {
+  background: rgba(0, 240, 255, 0.04);
+  border-color: var(--electric-cyan);
+  box-shadow: var(--shadow-neon-cyan);
+}
+
+.hatch-upload:hover::before,
+.hatch-upload.dragover::before {
+  transform: translateY(-8px) scaleY(0.9);
+}
+
+.hatch-upload:hover::after,
+.hatch-upload.dragover::after {
+  transform: translateY(8px) scaleY(0.9);
+}
+
+/* ── Upload Icon ─────────────────────────────────────────────────────────── */
+.hatch-upload__icon {
+  font-size: var(--fs-4xl);
+  color: var(--electric-cyan);
+  margin-bottom: var(--space-4);
+  display: inline-block;
+  position: relative;
+  z-index: 2;
+  transition: transform 0.5s var(--ease-out-expo);
+}
+
+.hatch-upload:hover .hatch-upload__icon,
+.hatch-upload.dragover .hatch-upload__icon {
+  animation: dataPulse 1.5s ease-in-out infinite;
+}
+
+/* ── Upload Text ─────────────────────────────────────────────────────────── */
+.hatch-upload__label {
+  font-family: var(--font-display);
+  font-size: var(--fs-base);
+  font-weight: var(--fw-semibold);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-2);
+  position: relative;
+  z-index: 2;
+}
+
+.hatch-upload__hint {
+  font-family: var(--font-body);
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  position: relative;
+  z-index: 2;
+}
+
+/* Hidden file input */
+.hatch-upload input[type="file"] {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 3;
+}
+
+
+/* ============================================================================
+   22. LOGIC PANEL (Right Sidebar)
+   Conditional logic and branching configuration panel.
+   ============================================================================ */
+#logic-panel {
+  background: var(--surface-glass);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-left: 1px solid var(--border-glass);
+  padding: var(--space-5) var(--space-4);
+  overflow-y: auto;
+  box-shadow: var(--shadow-md),
+              inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  position: relative;
+}
+
+
+/* ============================================================================
+   23. LOGIC NODE
+   Small cards representing conditional logic sources and targets.
+   ============================================================================ */
+.logic-node {
+  background: var(--surface-glass);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3);
+  margin-bottom: var(--space-2);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  transition: all var(--transition-normal);
+  cursor: pointer;
+}
+
+.logic-node:hover {
+  border-color: var(--border-glass-active);
+  background: var(--surface-glass-hover);
+}
+
+/* Node status dot */
+.logic-node__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.logic-node__dot--source {
+  background: var(--electric-cyan);
+  box-shadow: 0 0 6px rgba(0, 240, 255, 0.4);
+}
+
+.logic-node__dot--target {
+  background: var(--neon-purple);
+  box-shadow: 0 0 6px rgba(138, 43, 226, 0.4);
+}
+
+/* Node title */
+.logic-node__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.logic-node:hover .logic-node__title {
+  color: var(--text-primary);
+}
+
+/* Connection indicator */
+.logic-node__connector {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid var(--border-glass);
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all var(--transition-normal);
+}
+
+.logic-node__connector.connected {
+  border-color: var(--neon-purple);
+  background: var(--neon-purple-dim);
+}
+
+.logic-node__connector.connected::after {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--neon-purple);
+}
+
+
+/* ============================================================================
+   24. LOGIC WIRE (SVG)
+   Animated SVG paths connecting logic nodes with flowing current.
+   ============================================================================ */
+.logic-wire path {
+  stroke: var(--neon-purple);
+  stroke-width: 2;
+  fill: none;
+  stroke-dasharray: 6 4;
+  animation: wireFlow 1s linear infinite;
+}
+
+.logic-wire path.active {
+  stroke: var(--electric-cyan);
+  stroke-width: 2.5;
+  filter: drop-shadow(0 0 4px rgba(0, 240, 255, 0.4));
+}
+
+/* Wire endpoint dots */
+.logic-wire circle {
+  fill: var(--neon-purple);
+  r: 3;
+}
+
+.logic-wire circle.active {
+  fill: var(--electric-cyan);
+  filter: drop-shadow(0 0 4px rgba(0, 240, 255, 0.5));
+}
+
+
+/* ============================================================================
+   25. PROGRESS TUBE
+   Horizontal progress bar with a fluid gradient fill, wave animation,
+   and reflection highlight.
+   ============================================================================ */
+#progress-tube-container {
+  width: 200px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  background: var(--surface-glass);
+  border: 1px solid var(--border-glass);
+  overflow: hidden;
+  position: relative;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* ── Fill Bar ────────────────────────────────────────────────────────────── */
+.progress-tube__fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  background: linear-gradient(
+    90deg,
+    var(--fluid-blue) 0%,
+    var(--electric-cyan) 100%
+  );
+  background-size: 200% 100%;
+  transition: width 0.8s var(--ease-spring);
+  position: relative;
+  min-width: 0;
+}
+
+/* Wave animation on the leading edge */
+.progress-tube__fill::before {
+  content: '';
+  position: absolute;
+  right: -2px;
+  top: 0;
+  width: 12px;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  border-radius: var(--radius-full);
+  animation: glowPulse 1.5s ease-in-out infinite;
+}
+
+/* Reflection highlight strip */
+.progress-tube__fill::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 8px;
+  right: 8px;
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.15) 30%,
+    rgba(255, 255, 255, 0.15) 70%,
+    transparent 100%
+  );
+  border-radius: var(--radius-full);
+}
+
+/* Progress percentage label */
+.progress-tube__label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  color: var(--text-primary);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+
+/* ============================================================================
+   26. DATA SINK
+   Submission / data collection visualization. Fixed to bottom center,
+   appears during form submission with a reactor-core glow.
+   ============================================================================ */
+#data-sink-container {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: var(--z-panel);
+  display: none;
+}
+
+#data-sink-container.active {
+  display: block;
+  animation: scaleIn 0.5s var(--ease-out-expo);
+}
+
+/* Reactor core */
+.data-sink__core {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 40% 40%,
+    rgba(0, 240, 255, 0.4) 0%,
+    rgba(0, 240, 255, 0.15) 40%,
+    transparent 70%
+  );
+  border: 2px solid rgba(0, 240, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: dataPulse 2s ease-in-out infinite;
+  box-shadow: var(--shadow-neon-glow);
+}
+
+.data-sink__core-icon {
+  font-size: var(--fs-2xl);
+  color: var(--electric-cyan);
+  text-shadow: 0 0 10px var(--electric-cyan);
+}
+
+/* Data sink label */
+.data-sink__label {
+  font-family: var(--font-display);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-align: center;
+  margin-top: var(--space-2);
+}
+
+
+/* ============================================================================
+   27. RESPONDENT OVERLAY
+   Full-screen overlay for respondent/preview mode. Shows one question
+   at a time with cinematic transitions.
+   ============================================================================ */
+#respondent-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-overlay);
+  background: rgba(5, 8, 16, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8);
+}
+
+#respondent-overlay.hidden {
+  display: none;
+}
+
+/* Respondent question container */
+.respondent-card {
+  max-width: 640px;
+  width: 100%;
+  background: var(--surface-glass);
+  backdrop-filter: blur(24px) saturate(200%);
+  -webkit-backdrop-filter: blur(24px) saturate(200%);
+  border: 1px solid var(--border-glass-active);
+  border-radius: var(--radius-xl);
+  padding: var(--space-10) var(--space-8);
+  box-shadow: var(--shadow-lg), var(--shadow-neon-cyan);
+  animation: scaleIn 0.5s var(--ease-out-expo);
+  position: relative;
+}
+
+/* Respondent progress indicator */
+.respondent-progress {
+  display: flex;
+  gap: var(--space-2);
+  margin-bottom: var(--space-8);
+}
+
+.respondent-progress__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border-glass);
+  transition: all 0.3s var(--ease-spring);
+}
+
+.respondent-progress__dot.active {
+  background: var(--electric-cyan);
+  box-shadow: 0 0 6px rgba(0, 240, 255, 0.4);
+  transform: scale(1.3);
+}
+
+.respondent-progress__dot.completed {
+  background: var(--success-green);
+  box-shadow: 0 0 4px rgba(0, 255, 136, 0.3);
+}
+
+/* Respondent navigation */
+.respondent-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--space-8);
+}
+
+
+/* ============================================================================
+   28. EMPTY STATE
+   Placeholder displayed in the hydration canvas when no questions
+   have been added yet.
+   ============================================================================ */
+.empty-canvas {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  padding: var(--space-12);
+  text-align: center;
+  position: relative;
+}
+
+/* Pulsing dashed border container */
+.empty-canvas__zone {
+  width: 100%;
+  max-width: 480px;
+  padding: var(--space-12) var(--space-8);
+  border: 2px dashed var(--border-glass-active);
+  border-radius: var(--radius-xl);
+  animation: reactorPulse 3s ease-in-out infinite;
+  position: relative;
+}
+
+/* Circuit trace decorations — top-left corner */
+.empty-canvas__zone::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 20px;
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--electric-cyan) 0%,
+    transparent 100%
+  );
+  opacity: 0.4;
+}
+
+/* Circuit trace — bottom-right corner */
+.empty-canvas__zone::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  right: 20px;
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(
+    270deg,
+    var(--neon-purple) 0%,
+    transparent 100%
+  );
+  opacity: 0.4;
+}
+
+.empty-canvas__icon {
+  font-size: var(--fs-4xl);
+  color: var(--text-muted);
+  margin-bottom: var(--space-4);
+  opacity: 0.4;
+}
+
+.empty-canvas__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-semibold);
+  color: var(--text-muted);
+  margin-bottom: var(--space-2);
+}
+
+.empty-canvas__subtitle {
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  color: var(--text-disabled);
+}
+
+
+/* ============================================================================
+   29. TOAST / NOTIFICATION
+   Slide-in notification cards anchored to top-right. Feature a colored
+   left-border accent and auto-dismiss animation.
+   ============================================================================ */
+.nexus-toast-container {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  z-index: var(--z-toast);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  pointer-events: none;
+}
+
+.nexus-toast {
+  pointer-events: auto;
+  min-width: 320px;
+  max-width: 420px;
+  padding: 14px var(--space-4) 14px var(--space-5);
+  background: var(--surface-glass-elevated);
+  backdrop-filter: blur(24px) saturate(200%);
+  -webkit-backdrop-filter: blur(24px) saturate(200%);
+  border: 1px solid var(--border-glass);
+  border-left: 4px solid var(--electric-cyan);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  animation: slideInRight 0.4s var(--ease-out-expo);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+/* Auto-dismiss fade out */
+.nexus-toast.dismissing {
+  animation: slideInRight 0.3s var(--ease-spring) reverse forwards;
+}
+
+/* ── Variants ────────────────────────────────────────────────────────────── */
+.nexus-toast--success {
+  border-left-color: var(--success-green);
+}
+
+.nexus-toast--error {
+  border-left-color: var(--error-red);
+}
+
+.nexus-toast--warning {
+  border-left-color: var(--warning-amber);
+}
+
+/* Toast icon */
+.nexus-toast__icon {
+  font-size: var(--fs-lg);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.nexus-toast--success .nexus-toast__icon { color: var(--success-green); }
+.nexus-toast--error .nexus-toast__icon   { color: var(--error-red); }
+.nexus-toast--warning .nexus-toast__icon { color: var(--warning-amber); }
+
+/* Toast text */
+.nexus-toast__content {
+  flex: 1;
+}
+
+.nexus-toast__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.nexus-toast__message {
+  font-family: var(--font-body);
+  font-size: var(--fs-xs);
+  color: var(--text-secondary);
+  line-height: var(--lh-relaxed);
+}
+
+/* Toast close button */
+.nexus-toast__close {
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-xs);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all var(--transition-fast);
+}
+
+.nexus-toast__close:hover {
+  background: var(--surface-glass);
+  color: var(--text-primary);
+}
+
+
+/* ============================================================================
+   30. MODAL
+   Centered overlay dialog with scale-up entrance, blurred backdrop,
+   and glass-panel body.
+   ============================================================================ */
+.nexus-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  background: rgba(5, 8, 16, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8);
+  animation: fadeIn 0.2s ease;
+}
+
+.nexus-modal-backdrop.hidden {
+  display: none;
+}
+
+.nexus-modal {
+  width: 100%;
+  max-width: 520px;
+  background: var(--surface-glass-elevated);
+  backdrop-filter: blur(24px) saturate(200%);
+  -webkit-backdrop-filter: blur(24px) saturate(200%);
+  border: 1px solid var(--border-glass-active);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg), var(--shadow-neon-cyan);
+  animation: scaleIn 0.35s var(--ease-out-expo);
+  overflow: hidden;
+}
+
+/* Modal header */
+.nexus-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-5) var(--space-6);
+  border-bottom: 1px solid var(--border-glass);
+}
+
+.nexus-modal__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-bold);
+  color: var(--text-primary);
+  letter-spacing: 0.5px;
+}
+
+.nexus-modal__close {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.nexus-modal__close:hover {
+  background: var(--surface-glass);
+  color: var(--text-primary);
+}
+
+/* Modal body */
+.nexus-modal__body {
+  padding: var(--space-6);
+}
+
+/* Modal footer */
+.nexus-modal__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-6);
+  border-top: 1px solid var(--border-glass);
+}
+
+
+/* ============================================================================
+   31. KEYFRAME ANIMATIONS
+   All animation sequences used throughout the design system.
+   ============================================================================ */
+
+/* Laser scanning line for input fields */
+@keyframes laserScan {
+  0%, 100% {
+    left: -40px;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    left: calc(100% + 40px);
+    opacity: 0;
+  }
+}
+
+/* Error state border flicker */
+@keyframes errorFlicker {
+  0%, 100% {
+    border-color: var(--error-red);
+    opacity: 1;
+  }
+  25% {
+    border-color: transparent;
+    opacity: 0.7;
+  }
+  50% {
+    border-color: var(--error-red);
+    opacity: 1;
+  }
+  75% {
+    border-color: transparent;
+    opacity: 0.8;
+  }
+}
+
+/* Reactor core / logo dot pulsation */
+@keyframes reactorPulse {
+  0%, 100% {
+    box-shadow:
+      0 0 5px var(--electric-cyan),
+      0 0 10px var(--electric-cyan-dim);
+  }
+  50% {
+    box-shadow:
+      0 0 15px var(--electric-cyan),
+      0 0 30px var(--electric-cyan-dim);
+  }
+}
+
+/* Pneumatic card slide */
+@keyframes pneumaticSlide {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(6px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* Fluid gradient wave motion */
+@keyframes fluidWave {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Vertical scan line for button hover effects */
+@keyframes scanLine {
+  0% {
+    top: -2px;
+  }
+  100% {
+    top: 100%;
+  }
+}
+
+/* Generic glow pulse for highlights */
+@keyframes glowPulse {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Slide in from right for toasts */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Scale-up entrance for modals and overlays */
+@keyframes scaleIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Hatch door opening animation */
+@keyframes hatchOpen {
+  0% {
+    transform: translateY(0) scaleY(1);
+  }
+  100% {
+    transform: translateY(-8px) scaleY(0.9);
+  }
+}
+
+/* Data/submission pulsation */
+@keyframes dataPulse {
+  0% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.05);
+    filter: brightness(1.3);
+  }
+  100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+}
+
+/* Boot sequence — staggered fade-up for question blocks */
+@keyframes bootSequence {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* SVG wire current flow */
+@keyframes wireFlow {
+  0% {
+    stroke-dashoffset: 20;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Shockwave ring expansion */
+@keyframes shockwaveRing {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+    border-width: 3px;
+  }
+  100% {
+    transform: scale(4);
+    opacity: 0;
+    border-width: 0.5px;
+  }
+}
+
+/* Simple fade in */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Fade out for auto-dismiss */
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+}
+
+/* Circuit trace drawing animation */
+@keyframes circuitDraw {
+  from {
+    stroke-dashoffset: 100;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Breathing ambient glow for the empty canvas zone */
+@keyframes breathe {
+  0%, 100% {
+    border-color: rgba(0, 240, 255, 0.1);
+  }
+  50% {
+    border-color: rgba(0, 240, 255, 0.25);
+  }
+}
+
+
+/* ============================================================================
+   32. DRAG & DROP STATES
+   Visual feedback for drag operations — applied dynamically via JS.
+   ============================================================================ */
+
+/* Element currently being dragged */
+.dragging {
+  opacity: 0.5;
+  transform: scale(0.95) !important;
+  cursor: grabbing !important;
+  pointer-events: none;
+}
+
+/* Container receiving a dragged element */
+.drag-over {
+  border-color: var(--electric-cyan) !important;
+  background: rgba(0, 240, 255, 0.04) !important;
+  box-shadow: inset 0 0 20px rgba(0, 240, 255, 0.06),
+              var(--shadow-neon-cyan) !important;
+}
+
+/* Drop target indicator — pulsing border */
+.drop-target-active {
+  border-color: var(--electric-cyan) !important;
+  animation: breathe 1.5s ease-in-out infinite !important;
+  position: relative;
+}
+
+/* Drop target guide line */
+.drop-target-active::after {
+  content: '';
+  position: absolute;
+  left: var(--space-6);
+  right: var(--space-6);
+  height: 2px;
+  background: var(--electric-cyan);
+  border-radius: var(--radius-full);
+  box-shadow: 0 0 8px var(--electric-cyan),
+              0 0 16px rgba(0, 240, 255, 0.2);
+  animation: glowPulse 1s ease-in-out infinite;
+}
+
+/* Drop target line position variants */
+.drop-target-active.drop-before::after {
+  top: -1px;
+}
+
+.drop-target-active.drop-after::after {
+  bottom: -1px;
+}
+
+
+/* ============================================================================
+   33. SHOCKWAVE EFFECT
+   Expanding ring triggered on significant interactions (drop, submit).
+   ============================================================================ */
+.shockwave-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid var(--electric-cyan);
+  animation: shockwaveRing 0.8s ease-out forwards;
+  pointer-events: none;
+  z-index: var(--z-effects);
+  width: 40px;
+  height: 40px;
+  margin-left: -20px;
+  margin-top: -20px;
+}
+
+/* Purple shockwave variant for logic connections */
+.shockwave-ring--purple {
+  border-color: var(--neon-purple);
+}
+
+
+/* ============================================================================
+   34. UTILITY CLASSES
+   Quick-access helper classes for common layout and text needs.
+   ============================================================================ */
+
+/* Display */
+.hidden       { display: none !important; }
+.block        { display: block; }
+.inline-block { display: inline-block; }
+.flex         { display: flex; }
+.inline-flex  { display: inline-flex; }
+.grid         { display: grid; }
+
+/* Flex utilities */
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.gap-1 { gap: var(--space-1); }
+.gap-2 { gap: var(--space-2); }
+.gap-3 { gap: var(--space-3); }
+.gap-4 { gap: var(--space-4); }
+.gap-6 { gap: var(--space-6); }
+
+/* Text colors */
+.text-cyan     { color: var(--electric-cyan); }
+.text-purple   { color: var(--neon-purple); }
+.text-blue     { color: var(--fluid-blue); }
+.text-red      { color: var(--error-red); }
+.text-green    { color: var(--success-green); }
+.text-amber    { color: var(--warning-amber); }
+.text-primary  { color: var(--text-primary); }
+.text-secondary { color: var(--text-secondary); }
+.text-muted    { color: var(--text-muted); }
+
+/* Text glow effects */
+.glow-cyan {
+  text-shadow:
+    0 0 6px rgba(0, 240, 255, 0.4),
+    0 0 12px rgba(0, 240, 255, 0.15);
+}
+
+.glow-purple {
+  text-shadow:
+    0 0 6px rgba(138, 43, 226, 0.4),
+    0 0 12px rgba(138, 43, 226, 0.15);
+}
+
+/* Typography */
+.font-rajdhani { font-family: var(--font-display); }
+.font-inter    { font-family: var(--font-body); }
+
+.text-xs   { font-size: var(--fs-xs); }
+.text-sm   { font-size: var(--fs-sm); }
+.text-base { font-size: var(--fs-base); }
+.text-lg   { font-size: var(--fs-lg); }
+.text-xl   { font-size: var(--fs-xl); }
+.text-2xl  { font-size: var(--fs-2xl); }
+.text-3xl  { font-size: var(--fs-3xl); }
+
+.font-light    { font-weight: var(--fw-light); }
+.font-regular  { font-weight: var(--fw-regular); }
+.font-medium   { font-weight: var(--fw-medium); }
+.font-semibold { font-weight: var(--fw-semibold); }
+.font-bold     { font-weight: var(--fw-bold); }
+
+.uppercase     { text-transform: uppercase; }
+.tracking-wide { letter-spacing: 1px; }
+.tracking-wider { letter-spacing: 2px; }
+.text-center   { text-align: center; }
+
+/* Spacing */
+.p-0  { padding: 0; }
+.p-2  { padding: var(--space-2); }
+.p-4  { padding: var(--space-4); }
+.p-6  { padding: var(--space-6); }
+.p-8  { padding: var(--space-8); }
+
+.m-0  { margin: 0; }
+.mt-2 { margin-top: var(--space-2); }
+.mt-4 { margin-top: var(--space-4); }
+.mb-2 { margin-bottom: var(--space-2); }
+.mb-4 { margin-bottom: var(--space-4); }
+
+/* Borders & Radii */
+.rounded-sm   { border-radius: var(--radius-sm); }
+.rounded-md   { border-radius: var(--radius-md); }
+.rounded-lg   { border-radius: var(--radius-lg); }
+.rounded-xl   { border-radius: var(--radius-xl); }
+.rounded-full { border-radius: var(--radius-full); }
+
+/* Overflow */
+.overflow-hidden { overflow: hidden; }
+.overflow-auto   { overflow: auto; }
+
+/* Positioning */
+.relative { position: relative; }
+.absolute { position: absolute; }
+.fixed    { position: fixed; }
+
+/* Opacity */
+.opacity-0   { opacity: 0; }
+.opacity-50  { opacity: 0.5; }
+.opacity-100 { opacity: 1; }
+
+/* Pointer events */
+.pointer-events-none { pointer-events: none; }
+.pointer-events-auto { pointer-events: auto; }
+
+/* Cursor */
+.cursor-pointer { cursor: pointer; }
+.cursor-grab    { cursor: grab; }
+
+/* Transitions */
+.transition-all {
+  transition: all var(--transition-normal);
+}
+
+.transition-fast {
+  transition: all var(--transition-fast);
+}
+
+/* User select */
+.select-none { user-select: none; }
+
+/* Truncate */
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* ============================================================================
+   35. RESPONSIVE BREAKPOINTS
+   Adaptive layout for medium and small viewports.
+   ============================================================================ */
+
+/* ── Medium screens (≤ 1200px): Logic panel collapses to icon strip ──────── */
+@media (max-width: 1200px) {
+  #workspace {
+    grid-template-columns: 280px 1fr 56px;
+  }
+
+  #logic-panel {
+    padding: var(--space-3) var(--space-2);
+    overflow: visible;
+  }
+
+  /* Collapse logic panel to icon-only strip */
+  #logic-panel .panel-header span,
+  #logic-panel .logic-node__title,
+  #logic-panel .logic-node__connector {
+    display: none;
+  }
+
+  #logic-panel .panel-header {
+    justify-content: center;
+  }
+
+  #logic-panel .panel-header::before {
+    width: 12px;
+  }
+
+  #logic-panel .logic-node {
+    justify-content: center;
+    padding: var(--space-2);
+  }
+
+  #logic-panel .logic-node__dot {
+    width: 10px;
+    height: 10px;
+  }
+
+  /* Expand logic panel on hover */
+  #logic-panel:hover {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 320px;
+    z-index: var(--z-panel);
+    padding: var(--space-5) var(--space-4);
+    box-shadow: var(--shadow-lg);
+  }
+
+  #logic-panel:hover .panel-header span,
+  #logic-panel:hover .logic-node__title,
+  #logic-panel:hover .logic-node__connector {
+    display: initial;
+  }
+
+  #logic-panel:hover .logic-node {
+    justify-content: flex-start;
+    padding: var(--space-3);
+  }
+}
+
+/* ── Small screens (≤ 900px): Single column, slide-out drawers ───────────── */
+@media (max-width: 900px) {
+  #workspace {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+  }
+
+  /* Fabricator becomes a slide-out drawer from left */
+  #fabricator-panel {
+    position: fixed;
+    left: 0;
+    top: 64px;
+    bottom: 0;
+    width: 280px;
+    z-index: var(--z-panel);
+    transform: translateX(-100%);
+    transition: transform 0.4s var(--ease-out-expo);
+    box-shadow: var(--shadow-lg);
+  }
+
+  #fabricator-panel.open {
+    transform: translateX(0);
+  }
+
+  /* Logic panel becomes a slide-out drawer from right */
+  #logic-panel {
+    position: fixed;
+    right: 0;
+    top: 64px;
+    bottom: 0;
+    width: 320px;
+    z-index: var(--z-panel);
+    transform: translateX(100%);
+    transition: transform 0.4s var(--ease-out-expo);
+    box-shadow: var(--shadow-lg);
+  }
+
+  #logic-panel.open {
+    transform: translateX(0);
+  }
+
+  /* Hydration canvas takes full width with reduced padding */
+  #hydration-canvas {
+    padding: var(--space-5) var(--space-4);
+  }
+
+  /* Reduce question block padding */
+  .question-block {
+    padding: var(--space-4);
+  }
+
+  /* Respondent card reduced padding */
+  .respondent-card {
+    padding: var(--space-6) var(--space-4);
+    border-radius: var(--radius-lg);
+  }
+
+  /* Toast goes full width */
+  .nexus-toast {
+    min-width: unset;
+    max-width: calc(100vw - 40px);
+  }
+
+  /* Progress tube shrinks */
+  #progress-tube-container {
+    width: 140px;
+    height: 28px;
+  }
+}
+
+/* ── Extra small screens (≤ 600px) ───────────────────────────────────────── */
+@media (max-width: 600px) {
+  #top-bar {
+    padding: 0 var(--space-3);
+    gap: var(--space-2);
+  }
+
+  #logo {
+    font-size: var(--fs-lg);
+    letter-spacing: 1px;
+  }
+
+  .form-title-input {
+    font-size: var(--fs-base);
+  }
+
+  .cyber-btn {
+    padding: 8px 14px;
+    font-size: var(--fs-xs);
+    letter-spacing: 0.5px;
+  }
+
+  .cyber-btn--icon {
+    width: 34px;
+    height: 34px;
+  }
+
+  #hydration-canvas {
+    padding: var(--space-4) var(--space-3);
+  }
+
+  .question-block {
+    padding: var(--space-3);
+    border-radius: var(--radius-md);
+  }
+
+  .question-block__number {
+    font-size: var(--fs-2xl);
+  }
+
+  .nexus-modal {
+    max-width: calc(100vw - 32px);
+    border-radius: var(--radius-md);
+  }
+
+  .hatch-upload {
+    padding: var(--space-6);
+  }
+}
+
+
+/* ============================================================================
+   END OF NEXUSFLOW STYLESHEET
+   ============================================================================ */

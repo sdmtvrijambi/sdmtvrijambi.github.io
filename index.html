@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitoring SKP TVRI</title>
+    
+    <!-- Google Fonts: Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loader">
+            <div class="glow"></div>
+            <i class="fa-solid fa-tv text-primary" style="font-size: 2rem;"></i>
+        </div>
+        <p>Memuat Data Dashboard...</p>
+    </div>
+
+    <!-- Electric Flow Animation Elements -->
+    <div class="bg-animations">
+        <!-- Glow Pulses -->
+        <div class="electric-pulse electric-pulse-1"></div>
+        <div class="electric-pulse electric-pulse-2"></div>
+        <div class="electric-pulse electric-pulse-3"></div>
+
+        <!-- Circuit Lines -->
+        <div class="circuit-line circuit-line-h cl-1"></div>
+        <div class="circuit-line circuit-line-h cl-2"></div>
+        <div class="circuit-line circuit-line-h cl-3"></div>
+        <div class="circuit-line circuit-line-v cl-4"></div>
+        <div class="circuit-line circuit-line-v cl-5"></div>
+
+        <!-- Moving Dots -->
+        <div class="circuit-dot cd-1"></div>
+        <div class="circuit-dot cd-2"></div>
+        <div class="circuit-dot cd-3"></div>
+        <div class="circuit-dot cd-4"></div>
+        <div class="circuit-dot cd-5"></div>
+
+        <!-- Floating Hexagons -->
+        <div class="hex-shape hex-1"></div>
+        <div class="hex-shape hex-2"></div>
+        <div class="hex-shape hex-3"></div>
+        <div class="hex-shape hex-4"></div>
+
+        <!-- Floating Circles -->
+        <div class="float-circle fc-1"></div>
+        <div class="float-circle fc-2"></div>
+        <div class="float-circle fc-3"></div>
+        <div class="float-circle fc-4"></div>
+        <div class="float-circle fc-5"></div>
+
+        <!-- Node Connection Points -->
+        <div class="node-point np-1"></div>
+        <div class="node-point np-2"></div>
+        <div class="node-point np-3"></div>
+        <div class="node-point np-4"></div>
+        <div class="node-point np-5"></div>
+        <div class="node-point np-6"></div>
+
+        <!-- Scanning Line -->
+        <div class="scan-line"></div>
+
+        <!-- Robot Snakes chasing circles -->
+        <canvas id="snake-canvas" class="snake-canvas"></canvas>
+    </div>
+
+    <div class="app-container">
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="top-header">
+                <div class="header-left">
+                    <h1 class="page-title">MONITORING PENCAPAIAN HASIL KERJA SKP TAHUN 2026 (TRIWULAN II)</h1>
+                    <p class="page-subtitle">TVRI STASIUN JAMBI</p>
+                </div>
+                
+                <div class="header-right">
+                    <button class="glass-btn btn-action" id="btn-export-excel">
+                        <i class="fa-solid fa-file-excel"></i> Export Excel
+                    </button>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="content-wrapper">
+                
+                <!-- Stat Cards -->
+                <section class="stats-grid">
+                    <div class="stat-card glass-card">
+                        <div class="stat-icon bg-primary-transparent text-primary">
+                            <i class="fa-solid fa-user-group"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>TOTAL PEGAWAI ASN</h3>
+                            <div class="stat-value">
+                                <h2 id="stat-total-pegawai" class="animated-number">0</h2>
+                                <span>Orang</span>
+                            </div>
+                            <p class="stat-subtext">Seluruh Pegawai</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card glass-card">
+                        <div class="stat-icon bg-primary-transparent text-primary">
+                            <i class="fa-solid fa-briefcase"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>TIM KERJA</h3>
+                            <div class="stat-value">
+                                <h2 id="stat-tm-kerja" class="animated-number">0</h2>
+                                <span>Unit Kerja</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card glass-card">
+                        <div class="stat-icon bg-success-transparent text-success">
+                            <i class="fa-regular fa-circle-check"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>EVIDEN SELESAI</h3>
+                            <div class="stat-value">
+                                <h2 id="stat-eviden-selesai" class="animated-number">0</h2>
+                                <span id="stat-eviden-selesai-pct" class="text-success pct-text">(0%)</span>
+                            </div>
+                            <p class="stat-subtext">Pegawai</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card glass-card">
+                        <div class="stat-icon bg-warning-transparent text-warning">
+                            <i class="fa-regular fa-clock"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>EVIDEN PROSES</h3>
+                            <div class="stat-value">
+                                <h2 id="stat-eviden-proses" class="animated-number">0</h2>
+                                <span id="stat-eviden-proses-pct" class="text-warning pct-text">(0%)</span>
+                            </div>
+                            <p class="stat-subtext">Pegawai</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card glass-card">
+                        <div class="stat-icon bg-danger-transparent text-danger">
+                            <i class="fa-regular fa-circle-xmark"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>BELUM SELESAI</h3>
+                            <div class="stat-value">
+                                <h2 id="stat-belum-selesai" class="animated-number">0</h2>
+                                <span id="stat-belum-selesai-pct" class="text-danger pct-text">(0%)</span>
+                            </div>
+                            <p class="stat-subtext">Pegawai</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Table Section -->
+                <section class="table-section">
+                    <div class="glass-card table-container">
+                        <div class="table-top-header">
+                            <div class="table-title">
+                                <h3>DATA MONITORING PENCAPAIAN SKP</h3>
+                                <p id="current-time-display">Data diperbarui: --</p>
+                            </div>
+                            <div class="table-actions">
+                                <div class="search-box">
+                                    <i class="fa-solid fa-search"></i>
+                                    <input type="text" id="custom-search" placeholder="Cari nama pegawai, unit kerja...">
+                                </div>
+                                <button class="glass-btn btn-action" id="btn-columns">
+                                    <i class="fa-solid fa-sliders"></i> Columns
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="skpTable" class="display" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Nama Pegawai</th>
+                                            <th>TIM KERJA</th>
+                                            <th>Jabatan</th>
+                                            <th>Status Pengerjaan Eviden SKP</th>
+                                            <th>Keterangan</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Data will be populated by JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Footer -->
+            <footer class="app-footer">
+                <div class="footer-snake-wrap">
+                    <div class="footer-inner">
+                        <span class="footer-copy">Satria &copy; 2026</span>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Back to top button -->
+    <button id="back-to-top" class="back-to-top glass-btn"><i class="fa-solid fa-arrow-up"></i></button>
+
+    <!-- jQuery (required for DataTables) -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    
+    <!-- DataTables & Plugins -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.colVis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+    
+    <!-- Custom Scripts -->
+    <script src="js/app.js"></script>
+    <script src="js/sheet.js"></script>
+    <script src="js/table.js"></script>
+    <script src="js/snake.js"></script>
+</body>
+</html>

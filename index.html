@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SDM Cyber Portal - Form Interaktif Next-Gen</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Share+Tech+Mono&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        .font-orbitron { font-family: 'Orbitron', sans-serif; }
+        .font-mono-tech { font-family: 'Share Tech Mono', monospace; }
+
+        /* Animation Keyframes */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(1.5deg); }
+        }
+        @keyframes blink {
+            0%, 90%, 100% { height: 12px; transform: scaleY(1); }
+            95% { height: 2px; transform: scaleY(0.1); }
+        }
+        @keyframes orbit {
+            0% { transform: rotate(0deg) scaleX(1.8) rotate(0deg); }
+            100% { transform: rotate(360deg) scaleX(1.8) rotate(-360deg); }
+        }
+        @keyframes scanline {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(1000%); }
+        }
+        @keyframes borderFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.4; filter: drop-shadow(0 0 15px rgba(0, 243, 255, 0.6)); }
+            50% { opacity: 0.8; filter: drop-shadow(0 0 25px rgba(168, 85, 247, 0.8)); }
+        }
+        @keyframes radarSweep {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .robot-float { animation: float 3.5s ease-in-out infinite; }
+        .robot-eye { animation: blink 4s infinite; }
+        
+        /* Cyber Panel Styling */
+        .cyber-panel {
+            background: rgba(8, 15, 30, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 243, 255, 0.25);
+            box-shadow: 0 0 35px rgba(0, 243, 255, 0.12), inset 0 0 15px rgba(0, 243, 255, 0.05);
+            position: relative;
+        }
+
+        .cyber-panel::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 1.1rem;
+            padding: 2px;
+            background: linear-gradient(90deg, #00f3ff, #8b5cf6, #ec4899, #00f3ff);
+            background-size: 300% 300%;
+            animation: borderFlow 6s ease infinite;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .neon-text-cyan {
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.7), 0 0 20px rgba(0, 243, 255, 0.4);
+        }
+
+        .neon-input {
+            background: rgba(3, 10, 24, 0.85);
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .neon-input:focus {
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.35), inset 0 0 8px rgba(0, 243, 255, 0.15);
+            border-color: rgba(0, 243, 255, 0.9);
+            background: rgba(5, 16, 38, 0.95);
+        }
+
+        /* Scanline Effect */
+        .scanline-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 15px;
+            background: linear-gradient(to bottom, transparent, rgba(0, 243, 255, 0.25), transparent);
+            animation: scanline 8s linear infinite;
+            pointer-events: none;
+        }
+
+        #flow-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: #020617;
+        }
+
+        /* Orbit Ring */
+        .orbit-ring {
+            position: absolute;
+            width: 140px;
+            height: 140px;
+            border: 1px dashed rgba(0, 243, 255, 0.5);
+            border-radius: 50%;
+            top: -10px;
+            left: -10px;
+            animation: radarSweep 10s linear infinite;
+            pointer-events: none;
+        }
+
+        /* Corner Brackets */
+        .hud-corner {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-color: rgba(0, 243, 255, 0.8);
+            pointer-events: none;
+        }
+        .hud-top-left { top: 10px; left: 10px; border-top: 2px solid; border-left: 2px solid; }
+        .hud-top-right { top: 10px; right: 10px; border-top: 2px solid; border-right: 2px solid; }
+        .hud-bottom-left { bottom: 10px; left: 10px; border-bottom: 2px solid; border-left: 2px solid; }
+        .hud-bottom-right { bottom: 10px; right: 10px; border-bottom: 2px solid; border-right: 2px solid; }
+
+        .hidden { display: none; }
+    </style>
+</head>
+<body class="text-gray-100 min-h-screen flex flex-col justify-between overflow-x-hidden relative bg-slate-950 selection:bg-cyan-500 selection:text-slate-950">
+
+    <!-- Active Holographic Flying Glow Canvas -->
+    <canvas id="flow-bg"></canvas>
+
+    <div class="max-w-2xl mx-auto w-full my-6 p-4 flex-grow flex flex-col justify-center relative z-10">
+        
+        <!-- ROBOT AI COMPANION HEADER -->
+        <div class="flex flex-col items-center mb-6 relative">
+            
+            <!-- Dynamic Robot Speech Bubble -->
+            <div class="bg-slate-900/90 border border-cyan-400/80 text-cyan-300 px-5 py-2.5 rounded-2xl text-xs font-mono-tech mb-4 shadow-[0_0_20px_rgba(0,243,255,0.2)] max-w-sm text-center relative backdrop-blur-md">
+                <div class="flex items-center justify-center space-x-2 mb-1">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                    <span class="text-[10px] text-cyan-400 font-orbitron tracking-widest uppercase">AI ASSISTANT // ACTIVE MODE</span>
+                </div>
+                <p id="robot-bubble" class="transition-all duration-300 text-slate-100 text-sm">Sistem Siap. Silakan isi identitas Anda, Agen SDM!</p>
+                <div class="absolute bottom-[-7px] left-1/2 transform -translate-x-1/2 w-3.5 h-3.5 bg-slate-900 border-r border-b border-cyan-400 rotate-45"></div>
+            </div>
+
+            <!-- Avatar Container -->
+            <div class="relative flex items-center justify-center">
+                <div class="orbit-ring"></div>
+                
+                <!-- Robot Head -->
+                <div id="robot-head" class="robot-float w-28 h-28 bg-gradient-to-b from-slate-800 via-slate-900 to-slate-950 border-2 border-cyan-400 rounded-3xl flex flex-col items-center justify-center p-2.5 shadow-[0_0_30px_rgba(0,243,255,0.4)] relative transition-all duration-300">
+                    
+                    <!-- Antenna & Signal Lights -->
+                    <div class="w-1.5 h-5 bg-cyan-400 absolute top-[-20px] rounded-full shadow-[0_0_10px_#00f3ff]"></div>
+                    <div class="w-3.5 h-3.5 bg-cyan-400 rounded-full absolute top-[-28px] animate-ping"></div>
+                    <div class="w-3.5 h-3.5 bg-cyan-300 rounded-full absolute top-[-28px] shadow-[0_0_12px_#00f3ff]"></div>
+                    
+                    <!-- Side Ears/Sensors -->
+                    <div class="w-2.5 h-5 bg-slate-700 border border-cyan-400 absolute left-[-10px] rounded-l-md shadow-md"></div>
+                    <div class="w-2.5 h-5 bg-slate-700 border border-cyan-400 absolute right-[-10px] rounded-r-md shadow-md"></div>
+
+                    <!-- Cyber Visor & Interactive Pupil Eyes -->
+                    <div class="w-full h-14 bg-slate-950 border border-cyan-500/70 rounded-xl flex items-center justify-center space-x-4 p-1.5 relative overflow-hidden shadow-inner">
+                        <div class="absolute inset-0 bg-cyan-500/5 bg-[radial-gradient(#00f3ff_1px,transparent_1px)] [background-size:8px_8px]"></div>
+                        
+                        <!-- Eye Left -->
+                        <div class="w-4 h-4 bg-cyan-950 rounded-full border border-cyan-400/80 flex items-center justify-center relative shadow-[0_0_10px_rgba(0,243,255,0.5)]">
+                            <div id="eye-l" class="robot-eye w-3 h-3 bg-cyan-400 rounded-full shadow-[0_0_12px_rgba(0,243,255,1)] transition-transform duration-75"></div>
+                        </div>
+
+                        <!-- Eye Right -->
+                        <div class="w-4 h-4 bg-cyan-950 rounded-full border border-cyan-400/80 flex items-center justify-center relative shadow-[0_0_10px_rgba(0,243,255,0.5)]">
+                            <div id="eye-r" class="robot-eye w-3 h-3 bg-cyan-400 rounded-full shadow-[0_0_12px_rgba(0,243,255,1)] transition-transform duration-75"></div>
+                        </div>
+                    </div>
+
+                    <!-- Robot Mouth -->
+                    <div id="robot-mouth" class="w-12 h-1.5 bg-cyan-400 rounded-full mt-2.5 transition-all duration-300 shadow-[0_0_8px_rgba(0,243,255,0.9)]"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FORM CONTAINER HUD PANEL -->
+        <div class="cyber-panel p-6 sm:p-8 rounded-2xl relative overflow-hidden">
+            <div class="scanline-overlay"></div>
+            
+            <!-- Corner Brackets -->
+            <div class="hud-corner hud-top-left"></div>
+            <div class="hud-corner hud-top-right"></div>
+            <div class="hud-corner hud-bottom-left"></div>
+            <div class="hud-corner hud-bottom-right"></div>
+
+            <form id="cyber-form" class="space-y-6 relative z-10">
+                <!-- Header Title -->
+                <div class="text-center border-b border-cyan-500/20 pb-4">
+                    <div class="flex justify-between items-center text-[10px] font-mono-tech text-cyan-400/70 mb-2 uppercase tracking-widest">
+                        <span>[SYS-ID: SDM-994]</span>
+                        <span class="animate-pulse">● LIVE UPLINK</span>
+                        <span>[ENCRYPTION: AES-256]</span>
+                    </div>
+                    <h2 class="text-2xl font-orbitron font-extrabold text-cyan-400 tracking-wider neon-text-cyan">FORMULIR DATA INPUT SDM</h2>
+                    <p class="text-xs text-slate-400 font-mono-tech mt-1 tracking-widest">SECURE TRANSMISSION PROTOCOL TO GOOGLE MATRIX</p>
+                </div>
+
+                <!-- Input: Nama -->
+                <div>
+                    <label class="block text-xs font-mono-tech tracking-widest text-cyan-400 mb-1.5 flex items-center space-x-1.5">
+                        <span class="text-pink-500">▶</span>
+                        <span>NAMA LENGKAP</span>
+                    </label>
+                    <input type="text" name="Nama" id="input-nama" required 
+                           onfocus="updateRobot('nama')" 
+                           placeholder="Masukkan nama lengkap..."
+                           class="neon-input w-full rounded-xl p-3.5 text-sm text-cyan-200 font-mono-tech focus:outline-none placeholder-slate-600">
+                </div>
+
+                <!-- Input: NIP -->
+                <div>
+                    <label class="block text-xs font-mono-tech tracking-widest text-cyan-400 mb-1.5 flex items-center space-x-1.5">
+                        <span class="text-pink-500">▶</span>
+                        <span>NIP / NOMOR PEGAWAI</span>
+                    </label>
+                    <input type="text" name="NIP" id="input-nip" required 
+                           onfocus="updateRobot('nip')" 
+                           placeholder="Contoh: 19880123 201503 1 001"
+                           class="neon-input w-full rounded-xl p-3.5 text-sm text-cyan-200 font-mono-tech focus:outline-none placeholder-slate-600">
+                </div>
+
+                <!-- Input: Jabatan -->
+                <div>
+                    <label class="block text-xs font-mono-tech tracking-widest text-cyan-400 mb-1.5 flex items-center space-x-1.5">
+                        <span class="text-pink-500">▶</span>
+                        <span>JABATAN / DIVISI</span>
+                    </label>
+                    <input type="text" name="Jabatan" id="input-jabatan" required 
+                           onfocus="updateRobot('jabatan')" 
+                           placeholder="Contoh: IT Security Specialist / Divisi SDM"
+                           class="neon-input w-full rounded-xl p-3.5 text-sm text-cyan-200 font-mono-tech focus:outline-none placeholder-slate-600">
+                </div>
+
+                <!-- Input: Keperluan -->
+                <div>
+                    <label class="block text-xs font-mono-tech tracking-widest text-cyan-400 mb-1.5 flex items-center space-x-1.5">
+                        <span class="text-pink-500">▶</span>
+                        <span>DESKRIPSI KEPERLUAN / ALASAN</span>
+                    </label>
+                    <textarea name="Keperluan" id="input-keperluan" rows="3" required 
+                              onfocus="updateRobot('keperluan')" 
+                              placeholder="Tuliskan alasan pengajuan Anda..."
+                              class="neon-input w-full rounded-xl p-3.5 text-sm text-cyan-200 font-mono-tech focus:outline-none placeholder-slate-600 resize-none"></textarea>
+                </div>
+
+                <!-- Input: File Upload -->
+                <div>
+                    <label class="block text-xs font-mono-tech tracking-widest text-cyan-400 mb-1.5 flex items-center space-x-1.5">
+                        <span class="text-pink-500">▶</span>
+                        <span>UPLOAD SCREENSHOT / BUKTI PENDUKUNG</span>
+                    </label>
+                    <div class="relative w-full bg-slate-950/90 border border-slate-700/80 rounded-xl p-3 text-sm text-cyan-200 font-mono-tech focus-within:ring-1 focus-within:ring-cyan-400 focus-within:border-cyan-400 transition-all flex items-center">
+                        <input type="file" id="input-file" accept="image/*" 
+                               onchange="handleFileChange()" 
+                               onfocus="updateRobot('file')" class="hidden">
+                        <label for="input-file" class="cursor-pointer bg-gradient-to-r from-cyan-950 to-slate-900 hover:from-cyan-900 hover:to-slate-800 border border-cyan-500/60 text-cyan-300 px-4 py-2 rounded-lg text-xs font-orbitron font-bold mr-3 tracking-wider transition-all shadow-[0_0_10px_rgba(0,243,255,0.2)] hover:shadow-[0_0_15px_rgba(0,243,255,0.4)]">
+                            📁 BROWSE FILE
+                        </label>
+                        <span id="file-name" class="text-xs text-slate-500 truncate max-w-[240px]">Belum ada file dipilih...</span>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="pt-3">
+                    <button type="submit" id="btn-submit" 
+                            class="w-full relative group overflow-hidden bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:via-blue-500 hover:to-indigo-500 text-slate-950 font-orbitron font-black tracking-widest py-4 px-6 rounded-xl shadow-[0_0_25px_rgba(6,182,212,0.5)] hover:shadow-[0_0_35px_rgba(0,243,255,0.8)] transition-all duration-300 transform active:scale-[0.98]">
+                        <span class="relative z-10 flex items-center justify-center space-x-2">
+                            <span>EXECUTE TRANSMISSION</span>
+                            <span class="text-lg">⚡</span>
+                        </span>
+                        <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center py-4 text-[11px] font-mono-tech tracking-widest text-slate-500 relative z-10 flex items-center justify-center space-x-3">
+        <span>SDM JAMBI MATRIX SYSTEM &copy; 2026</span>
+        <span class="text-cyan-500">//</span>
+        <span class="text-cyan-400/80 animate-pulse">STATUS: ENCRYPTED</span>
+    </footer>
+
+    <!-- INTERACTIVE SCRIPT -->
+    <script>
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwvoo0YlOHwoMF1OLfNM8AOfOiWmDY9T9jYW5ckYngujuVAUga9gNmcspU3R6l3nlfkQw/exec';
+
+        // 1. KONTROL INTERAKSI ROBOT
+        const robotBubble = document.getElementById('robot-bubble');
+        const eyeL = document.getElementById('eye-l');
+        const eyer = document.getElementById('eye-r');
+        const mouth = document.getElementById('robot-mouth');
+
+        function updateRobot(field) {
+            eyeL.className = eyer.className = "robot-eye w-3 h-3 bg-cyan-400 rounded-full shadow-[0_0_12px_rgba(0,243,255,1)] transition-transform duration-75";
+            mouth.className = "w-12 h-1.5 bg-cyan-400 rounded-full mt-2.5 transition-all duration-300 shadow-[0_0_8px_rgba(0,243,255,0.9)]";
+
+            if (field === 'nama') {
+                robotBubble.innerText = "Ketik nama lengkap Anda dengan benar ya, Agen!";
+            } else if (field === 'nip') {
+                robotBubble.innerText = "NIP digunakan untuk enkripsi & verifikasi data pusat.";
+            } else if (field === 'jabatan') {
+                robotBubble.innerText = "Di divisi / unit mana Anda bertugas saat ini?";
+                mouth.className = "w-12 h-3 bg-cyan-400 rounded-b-full mt-2 transition-all duration-300 shadow-[0_0_10px_rgba(0,243,255,1)]";
+            } else if (field === 'keperluan') {
+                robotBubble.innerText = "Jelaskan alasan pengajuan Anda secara ringkas & jelas.";
+            } else if (field === 'file') {
+                robotBubble.innerText = "Unggah file screenshot bukti pendukung di sini!";
+            }
+        }
+
+        // Mouse Eye Tracking for Robot
+        document.addEventListener('mousemove', (e) => {
+            const head = document.getElementById('robot-head');
+            if (!head) return;
+            const rect = head.getBoundingClientRect();
+            const headX = rect.left + rect.width / 2;
+            const headY = rect.top + rect.height / 2;
+
+            const angle = Math.atan2(e.clientY - headY, e.clientX - headX);
+            const distance = Math.min(3, Math.hypot(e.clientX - headX, e.clientY - headY) / 100);
+            
+            const moveX = Math.cos(angle) * distance;
+            const moveY = Math.sin(angle) * distance;
+
+            eyeL.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            eyer.style.transform = `translate(${moveX}px, ${moveY}px)`;
+        });
+
+        // Object Global Penyimpan Data File Gambar
+        let uploadedFileData = { base64: '', name: '', type: '' };
+
+        function handleFileChange() {
+            const fileInput = document.getElementById('input-file');
+            const fileNameSpan = document.getElementById('file-name');
+            
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                fileNameSpan.innerText = file.name;
+                fileNameSpan.className = "text-xs text-cyan-300 font-bold font-mono-tech truncate max-w-[240px]";
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    uploadedFileData.base64 = e.target.result.split(',')[1];
+                    uploadedFileData.name = file.name;
+                    uploadedFileData.type = file.type;
+                    robotBubble.innerText = "File ter-enkripsi dan siap dikirim ke Cloud Matrix!";
+                };
+                reader.readAsDataURL(file);
+            } else {
+                fileNameSpan.innerText = "Belum ada file dipilih...";
+                fileNameSpan.className = "text-xs text-slate-500 truncate max-w-[240px]";
+                uploadedFileData = { base64: '', name: '', type: '' };
+            }
+        }
+
+        // 2. ULTRA ACTIVE FLYING GLOW & CYBER MATRIX CANVAS ENGINE
+        const canvas = document.getElementById('flow-bg');
+        const ctx = canvas.getContext('2d');
+        let mouse = { x: null, y: null, radius: 180 };
+
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // High Active Glow Particle Class
+        class ActiveGlowParticle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height + Math.random() * 150;
+                // Faster & more active speed
+                this.speedY = -(Math.random() * 2.8 + 1.2);
+                this.speedX = (Math.random() - 0.5) * 1.5;
+                this.size = Math.random() * 70 + 30;
+                this.baseSize = this.size;
+                
+                // Color palette: Cyan, Electric Indigo, Neon Purple, Bright Magenta, Emerald Glow
+                const colorPalette = [
+                    { r: 0, g: 243, b: 255 },    // Neon Cyan
+                    { r: 139, g: 92, b: 246 },   // Electric Purple
+                    { r: 236, g: 72, b: 153 },   // Bright Pink/Magenta
+                    { r: 59, g: 130, b: 246 },   // Royal Blue
+                    { r: 16, g: 185, b: 129 }    // Emerald
+                ];
+                this.color = colorPalette[Math.floor(Math.random() * colorPalette.length)];
+                this.alpha = Math.random() * 0.45 + 0.15;
+                this.pulseSpeed = Math.random() * 0.05 + 0.02;
+                this.pulseAngle = Math.random() * Math.PI * 2;
+                this.waveFrequency = Math.random() * 0.02 + 0.01;
+            }
+
+            update() {
+                this.y += this.speedY;
+                this.pulseAngle += this.pulseSpeed;
+                this.x += Math.sin(this.y * this.waveFrequency) * 1.5 + this.speedX;
+
+                // Dynamic Pulse
+                this.size = this.baseSize + Math.sin(this.pulseAngle) * 15;
+
+                // Mouse Repulsion & Glow Amplification
+                if (mouse.x !== null && mouse.y !== null) {
+                    let dx = mouse.x - this.x;
+                    let dy = mouse.y - this.y;
+                    let dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < mouse.radius) {
+                        let force = (mouse.radius - dist) / mouse.radius;
+                        this.x -= (dx / dist) * force * 4;
+                        this.y -= (dy / dist) * force * 4;
+                        this.alpha = Math.min(0.8, this.alpha + 0.02);
+                    }
+                }
+
+                if (this.y < -this.size * 2) {
+                    this.reset();
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                
+                // Create Glowing Radial Gradient
+                let gradient = ctx.createRadialGradient(
+                    this.x, this.y, 0,
+                    this.x, this.y, this.size
+                );
+                const { r, g, b } = this.color;
+                gradient.addColorStop(0, `rgba(${r}, ${g}, ${b}, 1)`);
+                gradient.addColorStop(0.3, `rgba(${r}, ${g}, ${b}, 0.5)`);
+                gradient.addColorStop(0.7, `rgba(${r}, ${g}, ${b}, 0.15)`);
+                gradient.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`);
+
+                ctx.fillStyle = gradient;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        // Fast Micro Energy Sparks
+        class FastSpark {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height + 20;
+                this.speedY = -(Math.random() * 4 + 2);
+                this.speedX = (Math.random() - 0.5) * 2;
+                this.size = Math.random() * 2.5 + 1;
+                this.alpha = Math.random() * 0.8 + 0.2;
+            }
+
+            update() {
+                this.y += this.speedY;
+                this.x += this.speedX;
+                if (this.y < -10) this.reset();
+            }
+
+            draw() {
+                ctx.save();
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = '#00f3ff';
+                ctx.fillStyle = `rgba(0, 243, 255, ${this.alpha})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        // Initialize Particles
+        const mainGlowParticles = [];
+        const glowCount = 65; // High density active glows
+        for (let i = 0; i < glowCount; i++) {
+            mainGlowParticles.push(new ActiveGlowParticle());
+        }
+
+        const sparks = [];
+        const sparkCount = 40;
+        for (let i = 0; i < sparkCount; i++) {
+            sparks.push(new FastSpark());
+        }
+
+        // Animated Background Grid with Scanning Beam
+        let gridOffset = 0;
+        function drawCyberGrid() {
+            ctx.strokeStyle = 'rgba(0, 243, 255, 0.04)';
+            ctx.lineWidth = 1;
+            const gridSize = 40;
+
+            gridOffset = (gridOffset + 0.4) % gridSize;
+
+            for (let x = 0; x < canvas.width; x += gridSize) {
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, canvas.height);
+                ctx.stroke();
+            }
+
+            for (let y = gridOffset; y < canvas.height; y += gridSize) {
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(canvas.width, y);
+                ctx.stroke();
+            }
+        }
+
+        // Laser Connection Lines between Close Glowing Particles
+        function drawConstellations() {
+            for (let i = 0; i < mainGlowParticles.length; i++) {
+                for (let j = i + 1; j < mainGlowParticles.length; j++) {
+                    let dx = mainGlowParticles[i].x - mainGlowParticles[j].x;
+                    let dy = mainGlowParticles[i].y - mainGlowParticles[j].y;
+                    let dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < 120) {
+                        let alpha = (1 - dist / 120) * 0.15;
+                        ctx.strokeStyle = `rgba(0, 243, 255, ${alpha})`;
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(mainGlowParticles[i].x, mainGlowParticles[i].y);
+                        ctx.lineTo(mainGlowParticles[j].x, mainGlowParticles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        // Animation Loop
+        function renderScene() {
+            ctx.fillStyle = '#020617';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            drawCyberGrid();
+
+            mainGlowParticles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            sparks.forEach(s => {
+                s.update();
+                s.draw();
+            });
+
+            drawConstellations();
+
+            requestAnimationFrame(renderScene);
+        }
+        renderScene();
+
+        // 3. SUBMIT FORM KE GOOGLE SHEETS
+        const form = document.getElementById('cyber-form');
+        const btnSubmit = document.getElementById('btn-submit');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            robotBubble.innerText = "⚡ MEMULAI ENKRIPSI & UPLINK TRANSMISSION TO CLOUD...";
+            eyeL.className = eyer.className = "w-3 h-3 bg-emerald-400 rounded-full shadow-[0_0_15px_rgba(52,211,153,1)]";
+            mouth.className = "w-12 h-3 bg-emerald-400 rounded-b-full mt-2 transition-all duration-300 shadow-[0_0_12px_rgba(52,211,153,1)]";
+
+            btnSubmit.innerHTML = `<span class="relative z-10 flex items-center justify-center space-x-2"><span class="animate-spin text-lg">⚙️</span><span>TRANSMITTING DATA...</span></span>`;
+            btnSubmit.disabled = true;
+
+            const payload = {
+                "Nama": document.getElementById('input-nama').value,
+                "NIP": document.getElementById('input-nip').value,
+                "Jabatan": document.getElementById('input-jabatan').value,
+                "Keperluan": document.getElementById('input-keperluan').value,
+                "File_Base64": uploadedFileData.base64,
+                "File_Name": uploadedFileData.name,
+                "File_Type": uploadedFileData.type
+            };
+
+            try {
+                await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                robotBubble.innerText = " Transmisi Sukses! Data & screenshot telah diamankan di Google Drive & Sheets.";
+                alert("Data & File Berhasil Terkirim ke Google Sheets!");
+                form.reset();
+                document.getElementById('file-name').innerText = "Belum ada file dipilih...";
+                uploadedFileData = { base64: '', name: '', type: '' };
+            } catch (error) {
+                console.error(error);
+                eyeL.className = eyer.className = "w-3 h-3 bg-rose-500 rounded-full shadow-[0_0_15px_rgba(244,63,94,1)]";
+                robotBubble.innerText = "❌ Warning! Terjadi kegagalan uplink transmisi.";
+                alert("Gagal Mengirim Data.");
+            } finally {
+                btnSubmit.innerHTML = `<span class="relative z-10 flex items-center justify-center space-x-2"><span>EXECUTE TRANSMISSION</span><span class="text-lg">⚡</span></span>`;
+                btnSubmit.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

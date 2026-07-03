@@ -1,0 +1,6514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="NexusFlow: Sovereign Form Architect — A cyber-organic data-inflow engine for building premium interactive forms with stunning visual effects." />
+  <meta name="theme-color" content="#080B10" />
+  <title>NexusFlow — Sovereign Form Architect</title>
+
+  <!-- Typography: Rajdhani (robotic/status) + Inter (body text) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Styles -->
+  <style>
+/* ============================================================================
+   NEXUSFLOW: SOVEREIGN FORM ARCHITECT
+   Cyber-Organic Design System — Complete Stylesheet
+   
+   A premium dark-mode interface fusing glassmorphism, neon luminescence,
+   PCB circuit traces, and fluid-electrical micro-interactions into a
+   cohesive, sci-fi control-interface aesthetic.
+   
+   Table of Contents:
+   ──────────────────
+    0.  Google Fonts Import
+    1.  Design Tokens (Custom Properties)
+    2.  CSS Reset & Base Styles
+    3.  Custom Scrollbar
+    4.  App Container
+    5.  Canvas Layers (PCB / Effects)
+    6.  Top Bar
+    7.  Logo
+    8.  Form Title Input
+    9.  Top Actions
+   10.  Cyber Buttons
+   11.  Main Workspace Grid
+   12.  Glass Panel (Shared)
+   13.  Fabricator Panel (Left Sidebar)
+   14.  Module Cards
+   15.  Hydration Canvas (Center)
+   16.  Question Block
+   17.  Laser Input
+   18.  Reactor Radio
+   19.  Reactor Checkbox
+   20.  Mechanical Dropdown
+   21.  File Upload Hatch
+   22.  Logic Panel (Right Sidebar)
+   23.  Logic Node
+   24.  Logic Wire (SVG)
+   25.  Progress Tube
+   26.  Data Sink
+   27.  Respondent Overlay
+   28.  Empty State
+   29.  Toast / Notification
+   30.  Modal
+   31.  Keyframe Animations
+   32.  Drag & Drop States
+   33.  Shockwave Effect
+   34.  Utility Classes
+   35.  Responsive Breakpoints
+   ============================================================================ */
+
+
+/* ============================================================================
+   0. GOOGLE FONTS IMPORT
+   Rajdhani — geometric, techy display face for headings & status text
+   Inter    — clean, highly legible neo-grotesque for body copy
+   ============================================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Rajdhani:wght@400;500;600;700&display=swap');
+
+
+/* ============================================================================
+   1. DESIGN TOKENS (Custom Properties)
+   All colors, typography scales, spacing, radii, and shadows are defined
+   here as CSS custom properties so the entire theme can be swapped by
+   overriding this single block.
+   ============================================================================ */
+:root {
+  /* ── Color Palette ─────────────────────────────────────────────────────── */
+
+  /* Base Canvas — the deepest background layer, obsidian with a cool blue tint */
+  --base-canvas:            #080B10;
+  --base-darker:            #050810;
+
+  /* Glass Surfaces — translucent panels for glassmorphism effect */
+  --surface-glass:          rgba(16, 24, 40, 0.6);
+  --surface-glass-hover:    rgba(16, 24, 40, 0.75);
+  --surface-glass-elevated: rgba(20, 30, 50, 0.65);
+
+  /* Primary Accent — Electric Cyan, the dominant neon color */
+  --electric-cyan:          #00F0FF;
+  --electric-cyan-dim:      rgba(0, 240, 255, 0.15);
+  --electric-cyan-micro:    rgba(0, 240, 255, 0.06);
+
+  /* Secondary Accent — Neon Purple for logic wires, secondary highlights */
+  --neon-purple:            #8A2BE2;
+  --neon-purple-dim:        rgba(138, 43, 226, 0.15);
+  --neon-purple-micro:      rgba(138, 43, 226, 0.06);
+
+  /* Tertiary Accent — Fluid Blue for progress fills, links */
+  --fluid-blue:             #00A3FF;
+  --fluid-blue-glow:        rgba(0, 163, 255, 0.3);
+
+  /* Semantic Colors */
+  --error-red:              #FF2D55;
+  --error-red-dim:          rgba(255, 45, 85, 0.15);
+  --success-green:          #00FF88;
+  --success-green-dim:      rgba(0, 255, 136, 0.15);
+  --warning-amber:          #FFB800;
+  --warning-amber-dim:      rgba(255, 184, 0, 0.15);
+
+  /* Text Hierarchy */
+  --text-primary:           #E8ECF4;
+  --text-secondary:         #A0AECB;
+  --text-muted:             #6B7A99;
+  --text-disabled:          #3E4A63;
+
+  /* Borders — glass-edge borders for panels and interactive elements */
+  --border-glass:           rgba(0, 240, 255, 0.08);
+  --border-glass-active:    rgba(0, 240, 255, 0.25);
+  --border-glass-strong:    rgba(0, 240, 255, 0.40);
+
+  /* ── Typography ────────────────────────────────────────────────────────── */
+  --font-display:           'Rajdhani', 'Segoe UI', sans-serif;
+  --font-body:              'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  --fs-xs:    0.75rem;   /* 12px */
+  --fs-sm:    0.875rem;  /* 14px */
+  --fs-base:  1rem;      /* 16px */
+  --fs-lg:    1.125rem;  /* 18px */
+  --fs-xl:    1.25rem;   /* 20px */
+  --fs-2xl:   1.5rem;    /* 24px */
+  --fs-3xl:   2rem;      /* 32px */
+  --fs-4xl:   2.5rem;    /* 40px */
+
+  --fw-light:    300;
+  --fw-regular:  400;
+  --fw-medium:   500;
+  --fw-semibold: 600;
+  --fw-bold:     700;
+
+  --lh-tight:    1.2;
+  --lh-normal:   1.5;
+  --lh-relaxed:  1.7;
+
+  /* ── Spacing Scale ─────────────────────────────────────────────────────── */
+  --space-1:   0.25rem;  /* 4px  */
+  --space-2:   0.5rem;   /* 8px  */
+  --space-3:   0.75rem;  /* 12px */
+  --space-4:   1rem;     /* 16px */
+  --space-5:   1.25rem;  /* 20px */
+  --space-6:   1.5rem;   /* 24px */
+  --space-7:   1.75rem;  /* 28px */
+  --space-8:   2rem;     /* 32px */
+  --space-9:   2.25rem;  /* 36px */
+  --space-10:  2.5rem;   /* 40px */
+  --space-11:  2.75rem;  /* 44px */
+  --space-12:  3rem;     /* 48px */
+
+  /* ── Border Radius ─────────────────────────────────────────────────────── */
+  --radius-xs:   4px;
+  --radius-sm:   8px;
+  --radius-md:   12px;
+  --radius-lg:   16px;
+  --radius-xl:   24px;
+  --radius-full: 999px;
+
+  /* ── Shadows ───────────────────────────────────────────────────────────── */
+  --shadow-sm:          0 1px 3px rgba(0, 0, 0, 0.4),
+                        0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md:          0 4px 12px rgba(0, 0, 0, 0.5),
+                        0 2px 4px rgba(0, 0, 0, 0.3);
+  --shadow-lg:          0 12px 40px rgba(0, 0, 0, 0.6),
+                        0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-neon-cyan:   0 0 12px rgba(0, 240, 255, 0.25),
+                        0 0 30px rgba(0, 240, 255, 0.08);
+  --shadow-neon-purple: 0 0 12px rgba(138, 43, 226, 0.25),
+                        0 0 30px rgba(138, 43, 226, 0.08);
+  --shadow-neon-glow:   0 0 20px rgba(0, 240, 255, 0.35),
+                        0 0 60px rgba(0, 240, 255, 0.12);
+
+  /* ── Transitions ───────────────────────────────────────────────────────── */
+  --ease-out-expo:      cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring:        cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-bounce:        cubic-bezier(0.34, 1.56, 0.64, 1);
+  --transition-fast:    0.15s var(--ease-spring);
+  --transition-normal:  0.3s var(--ease-spring);
+  --transition-slow:    0.5s var(--ease-out-expo);
+
+  /* ── Z-Index Scale ─────────────────────────────────────────────────────── */
+  --z-canvas:       0;
+  --z-workspace:    10;
+  --z-panel:        20;
+  --z-topbar:       50;
+  --z-effects:      100;
+  --z-dropdown:     200;
+  --z-toast:        500;
+  --z-modal:        900;
+  --z-overlay:      1000;
+}
+
+
+/* ============================================================================
+   2. CSS RESET & BASE STYLES
+   Modern reset that strips browser defaults while preserving accessibility.
+   ============================================================================ */
+
+/* Box-sizing border-box globally */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Remove default list styling */
+ul, ol {
+  list-style: none;
+}
+
+/* Prevent text-size adjustments on orientation change */
+html {
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  font-size: 16px;
+  line-height: var(--lh-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Full viewport body — base-canvas background, hidden overflow */
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: var(--base-canvas);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-normal);
+}
+
+/* Reset form element fonts */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+  outline: none;
+}
+
+/* Remove link underlines by default */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Responsive images */
+img, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Remove button defaults */
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Focus visible — cyan ring for keyboard navigation */
+:focus-visible {
+  outline: 2px solid var(--electric-cyan);
+  outline-offset: 2px;
+}
+
+/* Selection highlight */
+::selection {
+  background: rgba(0, 240, 255, 0.2);
+  color: var(--text-primary);
+}
+
+
+/* ============================================================================
+   3. CUSTOM SCROLLBAR
+   Thin, dark scrollbar with a subtle cyan accent on the thumb.
+   Works in Chromium-based browsers and Firefox.
+   ============================================================================ */
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 240, 255, 0.15) transparent;
+}
+
+/* Chromium / WebKit */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 240, 255, 0.12);
+  border-radius: var(--radius-full);
+  transition: background var(--transition-normal);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 240, 255, 0.3);
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+
+/* ============================================================================
+   4. APP CONTAINER
+   Root container — full viewport grid with a fixed top bar row.
+   ============================================================================ */
+#nexusflow-app {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 64px auto;
+  overflow: hidden;
+  background-color: var(--base-canvas);
+}
+
+
+/* ============================================================================
+   5. CANVAS LAYERS (PCB / EFFECTS)
+   Background canvas for procedural PCB-trace visuals and foreground
+   particle / ripple effects. Both are pointer-events: none so they
+   don't interfere with interaction.
+   ============================================================================ */
+#pcb-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: var(--z-canvas);
+  opacity: 0.4;
+}
+
+#effects-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: var(--z-effects);
+}
+
+
+/* ============================================================================
+   6. TOP BAR
+   Fixed-height command bar with glass backdrop, flex-row layout.
+   Sits above everything except modals and overlays.
+   ============================================================================ */
+#top-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 64px;
+  padding: 0 var(--space-6);
+  gap: var(--space-4);
+  background: var(--surface-glass);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid var(--border-glass);
+  z-index: var(--z-topbar);
+  position: relative;
+}
+
+/* Subtle bottom-edge glow line */
+#top-bar::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--electric-cyan-dim) 20%,
+    rgba(0, 240, 255, 0.12) 50%,
+    var(--electric-cyan-dim) 80%,
+    transparent 100%
+  );
+}
+
+
+/* ============================================================================
+   7. LOGO
+   Rajdhani display type with a pulsing cyan dot indicator.
+   ============================================================================ */
+#logo {
+  font-family: var(--font-display);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-2xl);
+  color: var(--electric-cyan);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-shadow:
+    0 0 8px rgba(0, 240, 255, 0.4),
+    0 0 20px rgba(0, 240, 255, 0.15);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  user-select: none;
+  flex-shrink: 0;
+  cursor: default;
+}
+
+/* Pulsing cyan dot — reactor status indicator */
+#logo::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--electric-cyan);
+  box-shadow:
+    0 0 6px var(--electric-cyan),
+    0 0 14px rgba(0, 240, 255, 0.3);
+  animation: reactorPulse 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+
+/* ============================================================================
+   8. FORM TITLE INPUT
+   Transparent inline input for naming the form, with a glowing underline
+   on focus.
+   ============================================================================ */
+.form-title-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid rgba(0, 240, 255, 0.08);
+  padding: var(--space-2) var(--space-3);
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-semibold);
+  color: var(--text-primary);
+  letter-spacing: 0.5px;
+  transition: border-color var(--transition-normal),
+              box-shadow var(--transition-normal);
+}
+
+.form-title-input::placeholder {
+  color: var(--text-muted);
+  font-weight: var(--fw-regular);
+}
+
+.form-title-input:focus {
+  border-bottom-color: var(--electric-cyan);
+  box-shadow: 0 2px 12px rgba(0, 240, 255, 0.12);
+}
+
+
+/* ============================================================================
+   9. TOP ACTIONS
+   Action button group aligned to the right of the top bar.
+   ============================================================================ */
+.top-actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-3);
+  flex-shrink: 0;
+}
+
+
+/* ============================================================================
+   10. CYBER BUTTONS
+   Multi-variant button system with glass surfaces, neon borders,
+   scan-line hover effects, and spring-like active states.
+   ============================================================================ */
+
+/* ── Base Button ─────────────────────────────────────────────────────────── */
+.cyber-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: 10px 24px;
+  background: var(--surface-glass);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-md);
+  font-family: var(--font-display);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  overflow: hidden;
+  user-select: none;
+  white-space: nowrap;
+  transition: all 0.3s var(--ease-spring);
+}
+
+.cyber-btn:hover {
+  border-color: var(--border-glass-active);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-neon-cyan);
+  background: var(--surface-glass-hover);
+}
+
+.cyber-btn:active {
+  transform: scale(0.96);
+  transition-duration: 0.08s;
+}
+
+/* Horizontal scan-line on hover */
+.cyber-btn::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--electric-cyan) 50%,
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+  animation: scanLine 1.5s linear infinite;
+  animation-play-state: paused;
+}
+
+.cyber-btn:hover::after {
+  opacity: 0.6;
+  animation-play-state: running;
+}
+
+/* ── Primary Variant ─────────────────────────────────────────────────────── */
+.cyber-btn--primary {
+  border-color: var(--electric-cyan);
+  color: var(--electric-cyan);
+  background: var(--electric-cyan-dim);
+}
+
+.cyber-btn--primary:hover {
+  background: var(--electric-cyan);
+  color: var(--base-canvas);
+  box-shadow: var(--shadow-neon-glow);
+  text-shadow: none;
+}
+
+.cyber-btn--primary:active {
+  background: var(--electric-cyan);
+  filter: brightness(0.9);
+}
+
+/* ── Danger Variant ──────────────────────────────────────────────────────── */
+.cyber-btn--danger {
+  border-color: var(--error-red);
+  color: var(--error-red);
+  background: var(--error-red-dim);
+}
+
+.cyber-btn--danger:hover {
+  background: var(--error-red);
+  color: var(--base-canvas);
+  box-shadow: 0 0 12px rgba(255, 45, 85, 0.3),
+              0 0 30px rgba(255, 45, 85, 0.1);
+}
+
+/* ── Success Variant ─────────────────────────────────────────────────────── */
+.cyber-btn--success {
+  border-color: var(--success-green);
+  color: var(--success-green);
+  background: var(--success-green-dim);
+}
+
+.cyber-btn--success:hover {
+  background: var(--success-green);
+  color: var(--base-canvas);
+  box-shadow: 0 0 12px rgba(0, 255, 136, 0.3),
+              0 0 30px rgba(0, 255, 136, 0.1);
+}
+
+/* ── Icon-Only Variant ───────────────────────────────────────────────────── */
+.cyber-btn--icon {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-lg);
+}
+
+/* ── Small Variant ───────────────────────────────────────────────────────── */
+.cyber-btn--sm {
+  padding: 6px 16px;
+  font-size: var(--fs-xs);
+}
+
+/* ── Ghost Variant ───────────────────────────────────────────────────────── */
+.cyber-btn--ghost {
+  background: transparent;
+  border-color: transparent;
+}
+
+.cyber-btn--ghost:hover {
+  background: var(--surface-glass);
+  border-color: var(--border-glass);
+}
+
+
+/* ============================================================================
+   11. MAIN WORKSPACE GRID
+   Three-column layout: Fabricator (left) | Hydration Canvas (center) | Logic (right)
+   ============================================================================ */
+#workspace {
+  display: grid;
+  grid-template-columns: 280px 1fr 320px;
+  gap: 0;
+  height: calc(100vh - 64px);
+  z-index: var(--z-workspace);
+  position: relative;
+}
+
+
+/* ============================================================================
+   12. GLASS PANEL (Shared)
+   Reusable glassmorphism panel with frosted-glass backdrop, subtle
+   inner highlight, and consistent border styling.
+   ============================================================================ */
+.glass-panel {
+  background: var(--surface-glass);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid var(--border-glass);
+  box-shadow: var(--shadow-md),
+              inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+
+/* ============================================================================
+   13. FABRICATOR PANEL (Left Sidebar)
+   Contains draggable module cards for building forms.
+   ============================================================================ */
+#fabricator-panel {
+  background: var(--surface-glass);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-right: 1px solid var(--border-glass);
+  padding: var(--space-5) var(--space-4);
+  overflow-y: auto;
+  position: relative;
+  box-shadow: var(--shadow-md),
+              inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Panel section header */
+.panel-header {
+  font-family: var(--font-display);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-2);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* Small cyan accent bar before header text */
+.panel-header::before {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 2px;
+  background: var(--electric-cyan);
+  border-radius: var(--radius-full);
+  box-shadow: 0 0 6px rgba(0, 240, 255, 0.3);
+}
+
+/* Section divider within the fabricator panel */
+.panel-section {
+  margin-bottom: var(--space-6);
+}
+
+.panel-section:last-child {
+  margin-bottom: 0;
+}
+
+
+/* ============================================================================
+   14. MODULE CARDS
+   Draggable cards representing form field types. Feature a pneumatic
+   3D tilt on hover, glowing left border, and icon/label layout.
+   ============================================================================ */
+.module-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 14px var(--space-4);
+  margin-bottom: var(--space-2);
+  background: var(--surface-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-glass);
+  border-left: 3px solid transparent;
+  border-radius: var(--radius-md);
+  cursor: grab;
+  position: relative;
+  overflow: hidden;
+  transform: perspective(800px) rotateY(0deg);
+  transition: all 0.4s var(--ease-spring);
+  user-select: none;
+}
+
+/* Electrical edge glow — slides in from left on hover */
+.module-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 240, 255, 0.06) 0%,
+    transparent 60%
+  );
+  transition: left 0.5s var(--ease-out-expo);
+  pointer-events: none;
+}
+
+/* ── Pneumatic Hover State ───────────────────────────────────────────────── */
+.module-card:hover {
+  transform: perspective(800px) rotateY(-4deg) translateX(8px) scale(1.02);
+  border-left-color: var(--electric-cyan);
+  background: var(--surface-glass-hover);
+  box-shadow: var(--shadow-neon-cyan);
+}
+
+.module-card:hover::before {
+  left: 0;
+}
+
+/* Active grab state */
+.module-card:active {
+  cursor: grabbing;
+  transform: perspective(800px) rotateY(-2deg) scale(0.98);
+}
+
+/* ── Icon ────────────────────────────────────────────────────────────────── */
+.module-card__icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  background: var(--electric-cyan-dim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--fs-xl);
+  color: var(--electric-cyan);
+  flex-shrink: 0;
+  transition: all 0.3s var(--ease-spring);
+}
+
+.module-card:hover .module-card__icon {
+  background: rgba(0, 240, 255, 0.25);
+  transform: scale(1.08);
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.2);
+}
+
+/* ── Text Content ────────────────────────────────────────────────────────── */
+.module-card__info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.module-card__label {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: var(--fw-semibold);
+  color: var(--text-secondary);
+  transition: color var(--transition-normal);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.module-card:hover .module-card__label {
+  color: var(--text-primary);
+}
+
+.module-card__desc {
+  font-family: var(--font-body);
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* ============================================================================
+   15. HYDRATION CANVAS (Center Workspace)
+   The main form building area. Features a subtle radial gradient that
+   draws the eye to center. Contains question blocks.
+   ============================================================================ */
+#hydration-canvas {
+  padding: var(--space-8) var(--space-10);
+  overflow-y: auto;
+  position: relative;
+  min-height: 100%;
+  background:
+    radial-gradient(
+      ellipse at 50% 30%,
+      rgba(16, 24, 40, 0.3) 0%,
+      transparent 70%
+    ),
+    var(--base-canvas);
+}
+
+/* Subtle grid pattern overlay for PCB aesthetic */
+#hydration-canvas::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0, 240, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 240, 255, 0.015) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Ensure content sits above the grid pattern */
+#hydration-canvas > * {
+  position: relative;
+  z-index: 1;
+}
+
+
+/* ============================================================================
+   16. QUESTION BLOCK
+   Individual form field containers. Feature scan-line overlays,
+   glow borders on active state, and error flicker animation.
+   ============================================================================ */
+.question-block {
+  background: var(--surface-glass);
+  backdrop-filter: blur(16px) saturate(170%);
+  -webkit-backdrop-filter: blur(16px) saturate(170%);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  margin-bottom: var(--space-5);
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+  transition: all 0.4s var(--ease-spring);
+  animation: bootSequence 0.5s var(--ease-out-expo) backwards;
+}
+
+/* Stagger animation for multiple blocks */
+.question-block:nth-child(1) { animation-delay: 0s; }
+.question-block:nth-child(2) { animation-delay: 0.08s; }
+.question-block:nth-child(3) { animation-delay: 0.16s; }
+.question-block:nth-child(4) { animation-delay: 0.24s; }
+.question-block:nth-child(5) { animation-delay: 0.32s; }
+.question-block:nth-child(6) { animation-delay: 0.40s; }
+.question-block:nth-child(7) { animation-delay: 0.48s; }
+.question-block:nth-child(8) { animation-delay: 0.56s; }
+
+/* Subtle horizontal scan-line overlay */
+.question-block::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 240, 255, 0.008) 2px,
+    rgba(0, 240, 255, 0.008) 4px
+  );
+  opacity: 0.02;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Active State ────────────────────────────────────────────────────────── */
+.question-block.active {
+  border-color: var(--border-glass-active);
+  box-shadow: var(--shadow-neon-cyan);
+}
+
+.question-block.active::before {
+  opacity: 0.05;
+}
+
+/* ── Error State ─────────────────────────────────────────────────────────── */
+.question-block.error {
+  border-color: var(--error-red);
+  animation: errorFlicker 0.5s ease infinite;
+}
+
+/* ── Question Block Header ───────────────────────────────────────────────── */
+.question-block__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-4);
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Question Number — ghost watermark in top-right ──────────────────────── */
+.question-block__number {
+  font-family: var(--font-display);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-3xl);
+  color: var(--electric-cyan);
+  opacity: 0.3;
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  line-height: 1;
+  user-select: none;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Title Input ─────────────────────────────────────────────────────────── */
+.question-block__title-input {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid rgba(0, 240, 255, 0.1);
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-medium);
+  color: var(--text-primary);
+  padding: var(--space-2) 0;
+  transition: border-color var(--transition-normal),
+              box-shadow var(--transition-normal);
+  position: relative;
+  z-index: 1;
+}
+
+.question-block__title-input::placeholder {
+  color: var(--text-muted);
+  font-weight: var(--fw-regular);
+}
+
+.question-block__title-input:focus {
+  border-bottom-color: var(--electric-cyan);
+  box-shadow: 0 2px 10px rgba(0, 240, 255, 0.08);
+}
+
+/* ── Description Input ───────────────────────────────────────────────────── */
+.question-block__desc-input {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(0, 240, 255, 0.06);
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-regular);
+  color: var(--text-secondary);
+  padding: var(--space-1) 0;
+  margin-top: var(--space-2);
+  transition: border-color var(--transition-normal);
+  position: relative;
+  z-index: 1;
+}
+
+.question-block__desc-input::placeholder {
+  color: var(--text-muted);
+}
+
+.question-block__desc-input:focus {
+  border-bottom-color: rgba(0, 240, 255, 0.25);
+}
+
+/* ── Question Block Content (field area) ─────────────────────────────────── */
+.question-block__content {
+  margin-top: var(--space-4);
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Toolbar — appears on hover ──────────────────────────────────────────── */
+.question-block__toolbar {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border-glass);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.3s var(--ease-spring),
+              transform 0.3s var(--ease-spring);
+  position: relative;
+  z-index: 1;
+}
+
+.question-block:hover .question-block__toolbar,
+.question-block.active .question-block__toolbar {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* ============================================================================
+   17. LASER INPUT
+   Text input with a scanning laser-line animation at the bottom.
+   ============================================================================ */
+.laser-input {
+  position: relative;
+  overflow: hidden;
+}
+
+.laser-input input,
+.laser-input textarea {
+  width: 100%;
+  padding: 12px 16px;
+  background: var(--surface-glass);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  color: var(--text-primary);
+  transition: border-color var(--transition-normal),
+              box-shadow var(--transition-normal);
+}
+
+.laser-input input::placeholder,
+.laser-input textarea::placeholder {
+  color: var(--text-muted);
+}
+
+.laser-input input:focus,
+.laser-input textarea:focus {
+  border-color: var(--border-glass-active);
+  box-shadow: 0 0 0 3px var(--electric-cyan-micro);
+}
+
+/* Scanning laser line */
+.laser-input::after {
+  content: '';
+  position: absolute;
+  bottom: 1px;
+  left: -40px;
+  width: 40px;
+  height: 2px;
+  background: var(--electric-cyan);
+  border-radius: var(--radius-full);
+  box-shadow: 0 0 8px var(--electric-cyan),
+              0 0 16px rgba(0, 240, 255, 0.3);
+  opacity: 0;
+  animation: laserScan 3s ease-in-out infinite;
+  animation-play-state: paused;
+  pointer-events: none;
+}
+
+/* Run the laser only when the input is focused */
+.laser-input:focus-within::after {
+  animation-play-state: running;
+  opacity: 1;
+}
+
+/* Textarea specific */
+.laser-input textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+
+/* ============================================================================
+   18. REACTOR RADIO
+   Custom radio buttons with a glowing core that scales in on selection.
+   Features a radial pulse outward on select.
+   ============================================================================ */
+.reactor-radio {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin: var(--space-2) 0;
+  cursor: pointer;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-glass);
+  background: transparent;
+  transition: all 0.3s var(--ease-spring);
+  position: relative;
+}
+
+.reactor-radio:hover {
+  border-color: var(--border-glass-active);
+  background: var(--surface-glass-hover);
+}
+
+/* Hide native radio */
+.reactor-radio input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* ── Radio Core (outer ring) ─────────────────────────────────────────────── */
+.reactor-radio__core {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid var(--text-muted);
+  position: relative;
+  flex-shrink: 0;
+  transition: border-color 0.3s var(--ease-spring);
+}
+
+/* Inner filled dot */
+.reactor-radio__core::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--electric-cyan);
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.3s var(--ease-bounce),
+              box-shadow 0.3s var(--ease-spring);
+}
+
+/* ── Selected State ──────────────────────────────────────────────────────── */
+.reactor-radio.selected,
+.reactor-radio:has(input:checked) {
+  border-color: var(--border-glass-active);
+  background: var(--electric-cyan-micro);
+}
+
+.reactor-radio.selected .reactor-radio__core,
+.reactor-radio:has(input:checked) .reactor-radio__core {
+  border-color: var(--electric-cyan);
+}
+
+.reactor-radio.selected .reactor-radio__core::after,
+.reactor-radio:has(input:checked) .reactor-radio__core::after {
+  transform: translate(-50%, -50%) scale(1);
+  box-shadow:
+    0 0 6px var(--electric-cyan),
+    0 0 14px rgba(0, 240, 255, 0.3);
+}
+
+/* Radial glow outward on selection */
+.reactor-radio.selected .reactor-radio__core::before,
+.reactor-radio:has(input:checked) .reactor-radio__core::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 240, 255, 0.15);
+  animation: reactorPulse 2s ease-in-out infinite;
+}
+
+/* ── Label ───────────────────────────────────────────────────────────────── */
+.reactor-radio__label {
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  color: var(--text-secondary);
+  transition: color var(--transition-normal);
+}
+
+.reactor-radio.selected .reactor-radio__label,
+.reactor-radio:has(input:checked) .reactor-radio__label {
+  color: var(--text-primary);
+}
+
+
+/* ============================================================================
+   19. REACTOR CHECKBOX
+   Square variant of the reactor radio with a checkmark SVG on selection.
+   ============================================================================ */
+.reactor-checkbox {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin: var(--space-2) 0;
+  cursor: pointer;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-glass);
+  background: transparent;
+  transition: all 0.3s var(--ease-spring);
+  position: relative;
+}
+
+.reactor-checkbox:hover {
+  border-color: var(--border-glass-active);
+  background: var(--surface-glass-hover);
+}
+
+/* Hide native checkbox */
+.reactor-checkbox input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* ── Checkbox Core (square with rounded corners) ─────────────────────────── */
+.reactor-checkbox__core {
+  width: 22px;
+  height: 22px;
+  border-radius: var(--radius-xs);
+  border: 2px solid var(--text-muted);
+  position: relative;
+  flex-shrink: 0;
+  transition: all 0.3s var(--ease-spring);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Checkmark SVG */
+.reactor-checkbox__core::after {
+  content: '';
+  width: 12px;
+  height: 12px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23080B10' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  transform: scale(0);
+  transition: transform 0.3s var(--ease-bounce);
+}
+
+/* ── Checked State ───────────────────────────────────────────────────────── */
+.reactor-checkbox.checked .reactor-checkbox__core,
+.reactor-checkbox:has(input:checked) .reactor-checkbox__core {
+  background: var(--electric-cyan);
+  border-color: var(--electric-cyan);
+  box-shadow:
+    0 0 8px rgba(0, 240, 255, 0.3),
+    0 0 16px rgba(0, 240, 255, 0.1);
+}
+
+.reactor-checkbox.checked .reactor-checkbox__core::after,
+.reactor-checkbox:has(input:checked) .reactor-checkbox__core::after {
+  transform: scale(1);
+}
+
+.reactor-checkbox.checked,
+.reactor-checkbox:has(input:checked) {
+  border-color: var(--border-glass-active);
+  background: var(--electric-cyan-micro);
+}
+
+/* ── Label ───────────────────────────────────────────────────────────────── */
+.reactor-checkbox__label {
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  color: var(--text-secondary);
+  transition: color var(--transition-normal);
+}
+
+.reactor-checkbox.checked .reactor-checkbox__label,
+.reactor-checkbox:has(input:checked) .reactor-checkbox__label {
+  color: var(--text-primary);
+}
+
+
+/* ============================================================================
+   20. MECHANICAL DROPDOWN
+   Glass-surfaced select / custom dropdown with a cyan chevron and
+   sliding open animation.
+   ============================================================================ */
+.mech-dropdown {
+  position: relative;
+  width: 100%;
+}
+
+/* ── Trigger ─────────────────────────────────────────────────────────────── */
+.mech-dropdown__trigger {
+  width: 100%;
+  padding: 12px 40px 12px 16px;
+  background: var(--surface-glass);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  color: var(--text-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all var(--transition-normal);
+  position: relative;
+}
+
+.mech-dropdown__trigger:hover {
+  border-color: var(--border-glass-active);
+  background: var(--surface-glass-hover);
+}
+
+/* Chevron arrow */
+.mech-dropdown__arrow {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%) rotate(0deg);
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid var(--electric-cyan);
+  border-bottom: 2px solid var(--electric-cyan);
+  transform-origin: center;
+  transition: transform 0.3s var(--ease-spring);
+  transform: translateY(-60%) rotate(45deg);
+}
+
+.mech-dropdown.open .mech-dropdown__arrow {
+  transform: translateY(-30%) rotate(-135deg);
+}
+
+/* ── Options Panel ───────────────────────────────────────────────────────── */
+.mech-dropdown__options {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  width: 100%;
+  max-height: 0;
+  overflow: hidden;
+  background: var(--surface-glass-elevated);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-lg);
+  z-index: var(--z-dropdown);
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: all 0.35s var(--ease-spring),
+              max-height 0.35s var(--ease-out-expo);
+}
+
+.mech-dropdown.open .mech-dropdown__options {
+  max-height: 240px;
+  opacity: 1;
+  transform: translateY(0);
+  overflow-y: auto;
+}
+
+/* ── Individual Option ───────────────────────────────────────────────────── */
+.mech-dropdown__option {
+  padding: 10px 16px;
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+.mech-dropdown__option:hover {
+  background: var(--electric-cyan-dim);
+  color: var(--text-primary);
+  padding-left: 20px;
+}
+
+/* Active option glow */
+.mech-dropdown__option.active {
+  color: var(--electric-cyan);
+  background: var(--electric-cyan-micro);
+}
+
+.mech-dropdown__option.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 3px;
+  height: 100%;
+  background: var(--electric-cyan);
+  box-shadow: 0 0 8px rgba(0, 240, 255, 0.3);
+}
+
+/* Native select fallback styling */
+.mech-dropdown select {
+  width: 100%;
+  padding: 12px 40px 12px 16px;
+  background: var(--surface-glass);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  color: var(--text-primary);
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  transition: all var(--transition-normal);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2300F0FF' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+}
+
+.mech-dropdown select:hover,
+.mech-dropdown select:focus {
+  border-color: var(--border-glass-active);
+  box-shadow: 0 0 0 3px var(--electric-cyan-micro);
+}
+
+.mech-dropdown select option {
+  background: #0E1420;
+  color: var(--text-primary);
+  padding: 8px;
+}
+
+
+/* ============================================================================
+   21. FILE UPLOAD HATCH
+   Dashed drop zone with "hatch doors" that open on hover/dragover.
+   Features a pulsing icon and a vacuum-pull animation on drag.
+   ============================================================================ */
+.hatch-upload {
+  position: relative;
+  border: 2px dashed var(--border-glass-active);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+  text-align: center;
+  background: var(--surface-glass);
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.5s var(--ease-out-expo);
+}
+
+/* ── Top Hatch Door ──────────────────────────────────────────────────────── */
+.hatch-upload::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 240, 255, 0.03) 0%,
+    transparent 100%
+  );
+  border-bottom: 1px solid var(--border-glass);
+  transition: transform 0.5s var(--ease-out-expo);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── Bottom Hatch Door ───────────────────────────────────────────────────── */
+.hatch-upload::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: linear-gradient(
+    0deg,
+    rgba(0, 240, 255, 0.03) 0%,
+    transparent 100%
+  );
+  border-top: 1px solid var(--border-glass);
+  transition: transform 0.5s var(--ease-out-expo);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── Hatches Open on Hover / Dragover ────────────────────────────────────── */
+.hatch-upload:hover,
+.hatch-upload.dragover {
+  background: rgba(0, 240, 255, 0.04);
+  border-color: var(--electric-cyan);
+  box-shadow: var(--shadow-neon-cyan);
+}
+
+.hatch-upload:hover::before,
+.hatch-upload.dragover::before {
+  transform: translateY(-8px) scaleY(0.9);
+}
+
+.hatch-upload:hover::after,
+.hatch-upload.dragover::after {
+  transform: translateY(8px) scaleY(0.9);
+}
+
+/* ── Upload Icon ─────────────────────────────────────────────────────────── */
+.hatch-upload__icon {
+  font-size: var(--fs-4xl);
+  color: var(--electric-cyan);
+  margin-bottom: var(--space-4);
+  display: inline-block;
+  position: relative;
+  z-index: 2;
+  transition: transform 0.5s var(--ease-out-expo);
+}
+
+.hatch-upload:hover .hatch-upload__icon,
+.hatch-upload.dragover .hatch-upload__icon {
+  animation: dataPulse 1.5s ease-in-out infinite;
+}
+
+/* ── Upload Text ─────────────────────────────────────────────────────────── */
+.hatch-upload__label {
+  font-family: var(--font-display);
+  font-size: var(--fs-base);
+  font-weight: var(--fw-semibold);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-2);
+  position: relative;
+  z-index: 2;
+}
+
+.hatch-upload__hint {
+  font-family: var(--font-body);
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  position: relative;
+  z-index: 2;
+}
+
+/* Hidden file input */
+.hatch-upload input[type="file"] {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 3;
+}
+
+
+/* ============================================================================
+   22. LOGIC PANEL (Right Sidebar)
+   Conditional logic and branching configuration panel.
+   ============================================================================ */
+#logic-panel {
+  background: var(--surface-glass);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-left: 1px solid var(--border-glass);
+  padding: var(--space-5) var(--space-4);
+  overflow-y: auto;
+  box-shadow: var(--shadow-md),
+              inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  position: relative;
+}
+
+
+/* ============================================================================
+   23. LOGIC NODE
+   Small cards representing conditional logic sources and targets.
+   ============================================================================ */
+.logic-node {
+  background: var(--surface-glass);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3);
+  margin-bottom: var(--space-2);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  transition: all var(--transition-normal);
+  cursor: pointer;
+}
+
+.logic-node:hover {
+  border-color: var(--border-glass-active);
+  background: var(--surface-glass-hover);
+}
+
+/* Node status dot */
+.logic-node__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.logic-node__dot--source {
+  background: var(--electric-cyan);
+  box-shadow: 0 0 6px rgba(0, 240, 255, 0.4);
+}
+
+.logic-node__dot--target {
+  background: var(--neon-purple);
+  box-shadow: 0 0 6px rgba(138, 43, 226, 0.4);
+}
+
+/* Node title */
+.logic-node__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.logic-node:hover .logic-node__title {
+  color: var(--text-primary);
+}
+
+/* Connection indicator */
+.logic-node__connector {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid var(--border-glass);
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all var(--transition-normal);
+}
+
+.logic-node__connector.connected {
+  border-color: var(--neon-purple);
+  background: var(--neon-purple-dim);
+}
+
+.logic-node__connector.connected::after {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--neon-purple);
+}
+
+
+/* ============================================================================
+   24. LOGIC WIRE (SVG)
+   Animated SVG paths connecting logic nodes with flowing current.
+   ============================================================================ */
+.logic-wire path {
+  stroke: var(--neon-purple);
+  stroke-width: 2;
+  fill: none;
+  stroke-dasharray: 6 4;
+  animation: wireFlow 1s linear infinite;
+}
+
+.logic-wire path.active {
+  stroke: var(--electric-cyan);
+  stroke-width: 2.5;
+  filter: drop-shadow(0 0 4px rgba(0, 240, 255, 0.4));
+}
+
+/* Wire endpoint dots */
+.logic-wire circle {
+  fill: var(--neon-purple);
+  r: 3;
+}
+
+.logic-wire circle.active {
+  fill: var(--electric-cyan);
+  filter: drop-shadow(0 0 4px rgba(0, 240, 255, 0.5));
+}
+
+
+/* ============================================================================
+   25. PROGRESS TUBE
+   Horizontal progress bar with a fluid gradient fill, wave animation,
+   and reflection highlight.
+   ============================================================================ */
+#progress-tube-container {
+  width: 200px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  background: var(--surface-glass);
+  border: 1px solid var(--border-glass);
+  overflow: hidden;
+  position: relative;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* ── Fill Bar ────────────────────────────────────────────────────────────── */
+.progress-tube__fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  background: linear-gradient(
+    90deg,
+    var(--fluid-blue) 0%,
+    var(--electric-cyan) 100%
+  );
+  background-size: 200% 100%;
+  transition: width 0.8s var(--ease-spring);
+  position: relative;
+  min-width: 0;
+}
+
+/* Wave animation on the leading edge */
+.progress-tube__fill::before {
+  content: '';
+  position: absolute;
+  right: -2px;
+  top: 0;
+  width: 12px;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  border-radius: var(--radius-full);
+  animation: glowPulse 1.5s ease-in-out infinite;
+}
+
+/* Reflection highlight strip */
+.progress-tube__fill::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 8px;
+  right: 8px;
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.15) 30%,
+    rgba(255, 255, 255, 0.15) 70%,
+    transparent 100%
+  );
+  border-radius: var(--radius-full);
+}
+
+/* Progress percentage label */
+.progress-tube__label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  color: var(--text-primary);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+
+/* ============================================================================
+   26. DATA SINK
+   Submission / data collection visualization. Fixed to bottom center,
+   appears during form submission with a reactor-core glow.
+   ============================================================================ */
+#data-sink-container {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: var(--z-panel);
+  display: none;
+}
+
+#data-sink-container.active {
+  display: block;
+  animation: scaleIn 0.5s var(--ease-out-expo);
+}
+
+/* Reactor core */
+.data-sink__core {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 40% 40%,
+    rgba(0, 240, 255, 0.4) 0%,
+    rgba(0, 240, 255, 0.15) 40%,
+    transparent 70%
+  );
+  border: 2px solid rgba(0, 240, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: dataPulse 2s ease-in-out infinite;
+  box-shadow: var(--shadow-neon-glow);
+}
+
+.data-sink__core-icon {
+  font-size: var(--fs-2xl);
+  color: var(--electric-cyan);
+  text-shadow: 0 0 10px var(--electric-cyan);
+}
+
+/* Data sink label */
+.data-sink__label {
+  font-family: var(--font-display);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-align: center;
+  margin-top: var(--space-2);
+}
+
+
+/* ============================================================================
+   27. RESPONDENT OVERLAY
+   Full-screen overlay for respondent/preview mode. Shows one question
+   at a time with cinematic transitions.
+   ============================================================================ */
+#respondent-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-overlay);
+  background: rgba(5, 8, 16, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8);
+}
+
+#respondent-overlay.hidden {
+  display: none;
+}
+
+/* Respondent question container */
+.respondent-card {
+  max-width: 640px;
+  width: 100%;
+  background: var(--surface-glass);
+  backdrop-filter: blur(24px) saturate(200%);
+  -webkit-backdrop-filter: blur(24px) saturate(200%);
+  border: 1px solid var(--border-glass-active);
+  border-radius: var(--radius-xl);
+  padding: var(--space-10) var(--space-8);
+  box-shadow: var(--shadow-lg), var(--shadow-neon-cyan);
+  animation: scaleIn 0.5s var(--ease-out-expo);
+  position: relative;
+}
+
+/* Respondent progress indicator */
+.respondent-progress {
+  display: flex;
+  gap: var(--space-2);
+  margin-bottom: var(--space-8);
+}
+
+.respondent-progress__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border-glass);
+  transition: all 0.3s var(--ease-spring);
+}
+
+.respondent-progress__dot.active {
+  background: var(--electric-cyan);
+  box-shadow: 0 0 6px rgba(0, 240, 255, 0.4);
+  transform: scale(1.3);
+}
+
+.respondent-progress__dot.completed {
+  background: var(--success-green);
+  box-shadow: 0 0 4px rgba(0, 255, 136, 0.3);
+}
+
+/* Respondent navigation */
+.respondent-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--space-8);
+}
+
+
+/* ============================================================================
+   28. EMPTY STATE
+   Placeholder displayed in the hydration canvas when no questions
+   have been added yet.
+   ============================================================================ */
+.empty-canvas {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  padding: var(--space-12);
+  text-align: center;
+  position: relative;
+}
+
+/* Pulsing dashed border container */
+.empty-canvas__zone {
+  width: 100%;
+  max-width: 480px;
+  padding: var(--space-12) var(--space-8);
+  border: 2px dashed var(--border-glass-active);
+  border-radius: var(--radius-xl);
+  animation: reactorPulse 3s ease-in-out infinite;
+  position: relative;
+}
+
+/* Circuit trace decorations — top-left corner */
+.empty-canvas__zone::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 20px;
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--electric-cyan) 0%,
+    transparent 100%
+  );
+  opacity: 0.4;
+}
+
+/* Circuit trace — bottom-right corner */
+.empty-canvas__zone::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  right: 20px;
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(
+    270deg,
+    var(--neon-purple) 0%,
+    transparent 100%
+  );
+  opacity: 0.4;
+}
+
+.empty-canvas__icon {
+  font-size: var(--fs-4xl);
+  color: var(--text-muted);
+  margin-bottom: var(--space-4);
+  opacity: 0.4;
+}
+
+.empty-canvas__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-semibold);
+  color: var(--text-muted);
+  margin-bottom: var(--space-2);
+}
+
+.empty-canvas__subtitle {
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  color: var(--text-disabled);
+}
+
+
+/* ============================================================================
+   29. TOAST / NOTIFICATION
+   Slide-in notification cards anchored to top-right. Feature a colored
+   left-border accent and auto-dismiss animation.
+   ============================================================================ */
+.nexus-toast-container {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  z-index: var(--z-toast);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  pointer-events: none;
+}
+
+.nexus-toast {
+  pointer-events: auto;
+  min-width: 320px;
+  max-width: 420px;
+  padding: 14px var(--space-4) 14px var(--space-5);
+  background: var(--surface-glass-elevated);
+  backdrop-filter: blur(24px) saturate(200%);
+  -webkit-backdrop-filter: blur(24px) saturate(200%);
+  border: 1px solid var(--border-glass);
+  border-left: 4px solid var(--electric-cyan);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  animation: slideInRight 0.4s var(--ease-out-expo);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+/* Auto-dismiss fade out */
+.nexus-toast.dismissing {
+  animation: slideInRight 0.3s var(--ease-spring) reverse forwards;
+}
+
+/* ── Variants ────────────────────────────────────────────────────────────── */
+.nexus-toast--success {
+  border-left-color: var(--success-green);
+}
+
+.nexus-toast--error {
+  border-left-color: var(--error-red);
+}
+
+.nexus-toast--warning {
+  border-left-color: var(--warning-amber);
+}
+
+/* Toast icon */
+.nexus-toast__icon {
+  font-size: var(--fs-lg);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.nexus-toast--success .nexus-toast__icon { color: var(--success-green); }
+.nexus-toast--error .nexus-toast__icon   { color: var(--error-red); }
+.nexus-toast--warning .nexus-toast__icon { color: var(--warning-amber); }
+
+/* Toast text */
+.nexus-toast__content {
+  flex: 1;
+}
+
+.nexus-toast__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.nexus-toast__message {
+  font-family: var(--font-body);
+  font-size: var(--fs-xs);
+  color: var(--text-secondary);
+  line-height: var(--lh-relaxed);
+}
+
+/* Toast close button */
+.nexus-toast__close {
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-xs);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all var(--transition-fast);
+}
+
+.nexus-toast__close:hover {
+  background: var(--surface-glass);
+  color: var(--text-primary);
+}
+
+
+/* ============================================================================
+   30. MODAL
+   Centered overlay dialog with scale-up entrance, blurred backdrop,
+   and glass-panel body.
+   ============================================================================ */
+.nexus-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  background: rgba(5, 8, 16, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8);
+  animation: fadeIn 0.2s ease;
+}
+
+.nexus-modal-backdrop.hidden {
+  display: none;
+}
+
+.nexus-modal {
+  width: 100%;
+  max-width: 520px;
+  background: var(--surface-glass-elevated);
+  backdrop-filter: blur(24px) saturate(200%);
+  -webkit-backdrop-filter: blur(24px) saturate(200%);
+  border: 1px solid var(--border-glass-active);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg), var(--shadow-neon-cyan);
+  animation: scaleIn 0.35s var(--ease-out-expo);
+  overflow: hidden;
+}
+
+/* Modal header */
+.nexus-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-5) var(--space-6);
+  border-bottom: 1px solid var(--border-glass);
+}
+
+.nexus-modal__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-bold);
+  color: var(--text-primary);
+  letter-spacing: 0.5px;
+}
+
+.nexus-modal__close {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.nexus-modal__close:hover {
+  background: var(--surface-glass);
+  color: var(--text-primary);
+}
+
+/* Modal body */
+.nexus-modal__body {
+  padding: var(--space-6);
+}
+
+/* Modal footer */
+.nexus-modal__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-6);
+  border-top: 1px solid var(--border-glass);
+}
+
+
+/* ============================================================================
+   31. KEYFRAME ANIMATIONS
+   All animation sequences used throughout the design system.
+   ============================================================================ */
+
+/* Laser scanning line for input fields */
+@keyframes laserScan {
+  0%, 100% {
+    left: -40px;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    left: calc(100% + 40px);
+    opacity: 0;
+  }
+}
+
+/* Error state border flicker */
+@keyframes errorFlicker {
+  0%, 100% {
+    border-color: var(--error-red);
+    opacity: 1;
+  }
+  25% {
+    border-color: transparent;
+    opacity: 0.7;
+  }
+  50% {
+    border-color: var(--error-red);
+    opacity: 1;
+  }
+  75% {
+    border-color: transparent;
+    opacity: 0.8;
+  }
+}
+
+/* Reactor core / logo dot pulsation */
+@keyframes reactorPulse {
+  0%, 100% {
+    box-shadow:
+      0 0 5px var(--electric-cyan),
+      0 0 10px var(--electric-cyan-dim);
+  }
+  50% {
+    box-shadow:
+      0 0 15px var(--electric-cyan),
+      0 0 30px var(--electric-cyan-dim);
+  }
+}
+
+/* Pneumatic card slide */
+@keyframes pneumaticSlide {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(6px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* Fluid gradient wave motion */
+@keyframes fluidWave {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Vertical scan line for button hover effects */
+@keyframes scanLine {
+  0% {
+    top: -2px;
+  }
+  100% {
+    top: 100%;
+  }
+}
+
+/* Generic glow pulse for highlights */
+@keyframes glowPulse {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Slide in from right for toasts */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Scale-up entrance for modals and overlays */
+@keyframes scaleIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Hatch door opening animation */
+@keyframes hatchOpen {
+  0% {
+    transform: translateY(0) scaleY(1);
+  }
+  100% {
+    transform: translateY(-8px) scaleY(0.9);
+  }
+}
+
+/* Data/submission pulsation */
+@keyframes dataPulse {
+  0% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.05);
+    filter: brightness(1.3);
+  }
+  100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+}
+
+/* Boot sequence — staggered fade-up for question blocks */
+@keyframes bootSequence {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* SVG wire current flow */
+@keyframes wireFlow {
+  0% {
+    stroke-dashoffset: 20;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Shockwave ring expansion */
+@keyframes shockwaveRing {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+    border-width: 3px;
+  }
+  100% {
+    transform: scale(4);
+    opacity: 0;
+    border-width: 0.5px;
+  }
+}
+
+/* Simple fade in */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Fade out for auto-dismiss */
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+}
+
+/* Circuit trace drawing animation */
+@keyframes circuitDraw {
+  from {
+    stroke-dashoffset: 100;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Breathing ambient glow for the empty canvas zone */
+@keyframes breathe {
+  0%, 100% {
+    border-color: rgba(0, 240, 255, 0.1);
+  }
+  50% {
+    border-color: rgba(0, 240, 255, 0.25);
+  }
+}
+
+
+/* ============================================================================
+   32. DRAG & DROP STATES
+   Visual feedback for drag operations — applied dynamically via JS.
+   ============================================================================ */
+
+/* Element currently being dragged */
+.dragging {
+  opacity: 0.5;
+  transform: scale(0.95) !important;
+  cursor: grabbing !important;
+  pointer-events: none;
+}
+
+/* Container receiving a dragged element */
+.drag-over {
+  border-color: var(--electric-cyan) !important;
+  background: rgba(0, 240, 255, 0.04) !important;
+  box-shadow: inset 0 0 20px rgba(0, 240, 255, 0.06),
+              var(--shadow-neon-cyan) !important;
+}
+
+/* Drop target indicator — pulsing border */
+.drop-target-active {
+  border-color: var(--electric-cyan) !important;
+  animation: breathe 1.5s ease-in-out infinite !important;
+  position: relative;
+}
+
+/* Drop target guide line */
+.drop-target-active::after {
+  content: '';
+  position: absolute;
+  left: var(--space-6);
+  right: var(--space-6);
+  height: 2px;
+  background: var(--electric-cyan);
+  border-radius: var(--radius-full);
+  box-shadow: 0 0 8px var(--electric-cyan),
+              0 0 16px rgba(0, 240, 255, 0.2);
+  animation: glowPulse 1s ease-in-out infinite;
+}
+
+/* Drop target line position variants */
+.drop-target-active.drop-before::after {
+  top: -1px;
+}
+
+.drop-target-active.drop-after::after {
+  bottom: -1px;
+}
+
+
+/* ============================================================================
+   33. SHOCKWAVE EFFECT
+   Expanding ring triggered on significant interactions (drop, submit).
+   ============================================================================ */
+.shockwave-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid var(--electric-cyan);
+  animation: shockwaveRing 0.8s ease-out forwards;
+  pointer-events: none;
+  z-index: var(--z-effects);
+  width: 40px;
+  height: 40px;
+  margin-left: -20px;
+  margin-top: -20px;
+}
+
+/* Purple shockwave variant for logic connections */
+.shockwave-ring--purple {
+  border-color: var(--neon-purple);
+}
+
+
+/* ============================================================================
+   34. UTILITY CLASSES
+   Quick-access helper classes for common layout and text needs.
+   ============================================================================ */
+
+/* Display */
+.hidden       { display: none !important; }
+.block        { display: block; }
+.inline-block { display: inline-block; }
+.flex         { display: flex; }
+.inline-flex  { display: inline-flex; }
+.grid         { display: grid; }
+
+/* Flex utilities */
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.gap-1 { gap: var(--space-1); }
+.gap-2 { gap: var(--space-2); }
+.gap-3 { gap: var(--space-3); }
+.gap-4 { gap: var(--space-4); }
+.gap-6 { gap: var(--space-6); }
+
+/* Text colors */
+.text-cyan     { color: var(--electric-cyan); }
+.text-purple   { color: var(--neon-purple); }
+.text-blue     { color: var(--fluid-blue); }
+.text-red      { color: var(--error-red); }
+.text-green    { color: var(--success-green); }
+.text-amber    { color: var(--warning-amber); }
+.text-primary  { color: var(--text-primary); }
+.text-secondary { color: var(--text-secondary); }
+.text-muted    { color: var(--text-muted); }
+
+/* Text glow effects */
+.glow-cyan {
+  text-shadow:
+    0 0 6px rgba(0, 240, 255, 0.4),
+    0 0 12px rgba(0, 240, 255, 0.15);
+}
+
+.glow-purple {
+  text-shadow:
+    0 0 6px rgba(138, 43, 226, 0.4),
+    0 0 12px rgba(138, 43, 226, 0.15);
+}
+
+/* Typography */
+.font-rajdhani { font-family: var(--font-display); }
+.font-inter    { font-family: var(--font-body); }
+
+.text-xs   { font-size: var(--fs-xs); }
+.text-sm   { font-size: var(--fs-sm); }
+.text-base { font-size: var(--fs-base); }
+.text-lg   { font-size: var(--fs-lg); }
+.text-xl   { font-size: var(--fs-xl); }
+.text-2xl  { font-size: var(--fs-2xl); }
+.text-3xl  { font-size: var(--fs-3xl); }
+
+.font-light    { font-weight: var(--fw-light); }
+.font-regular  { font-weight: var(--fw-regular); }
+.font-medium   { font-weight: var(--fw-medium); }
+.font-semibold { font-weight: var(--fw-semibold); }
+.font-bold     { font-weight: var(--fw-bold); }
+
+.uppercase     { text-transform: uppercase; }
+.tracking-wide { letter-spacing: 1px; }
+.tracking-wider { letter-spacing: 2px; }
+.text-center   { text-align: center; }
+
+/* Spacing */
+.p-0  { padding: 0; }
+.p-2  { padding: var(--space-2); }
+.p-4  { padding: var(--space-4); }
+.p-6  { padding: var(--space-6); }
+.p-8  { padding: var(--space-8); }
+
+.m-0  { margin: 0; }
+.mt-2 { margin-top: var(--space-2); }
+.mt-4 { margin-top: var(--space-4); }
+.mb-2 { margin-bottom: var(--space-2); }
+.mb-4 { margin-bottom: var(--space-4); }
+
+/* Borders & Radii */
+.rounded-sm   { border-radius: var(--radius-sm); }
+.rounded-md   { border-radius: var(--radius-md); }
+.rounded-lg   { border-radius: var(--radius-lg); }
+.rounded-xl   { border-radius: var(--radius-xl); }
+.rounded-full { border-radius: var(--radius-full); }
+
+/* Overflow */
+.overflow-hidden { overflow: hidden; }
+.overflow-auto   { overflow: auto; }
+
+/* Positioning */
+.relative { position: relative; }
+.absolute { position: absolute; }
+.fixed    { position: fixed; }
+
+/* Opacity */
+.opacity-0   { opacity: 0; }
+.opacity-50  { opacity: 0.5; }
+.opacity-100 { opacity: 1; }
+
+/* Pointer events */
+.pointer-events-none { pointer-events: none; }
+.pointer-events-auto { pointer-events: auto; }
+
+/* Cursor */
+.cursor-pointer { cursor: pointer; }
+.cursor-grab    { cursor: grab; }
+
+/* Transitions */
+.transition-all {
+  transition: all var(--transition-normal);
+}
+
+.transition-fast {
+  transition: all var(--transition-fast);
+}
+
+/* User select */
+.select-none { user-select: none; }
+
+/* Truncate */
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* ============================================================================
+   35. RESPONSIVE BREAKPOINTS
+   Adaptive layout for medium and small viewports.
+   ============================================================================ */
+
+/* ── Medium screens (≤ 1200px): Logic panel collapses to icon strip ──────── */
+@media (max-width: 1200px) {
+  #workspace {
+    grid-template-columns: 280px 1fr 56px;
+  }
+
+  #logic-panel {
+    padding: var(--space-3) var(--space-2);
+    overflow: visible;
+  }
+
+  /* Collapse logic panel to icon-only strip */
+  #logic-panel .panel-header span,
+  #logic-panel .logic-node__title,
+  #logic-panel .logic-node__connector {
+    display: none;
+  }
+
+  #logic-panel .panel-header {
+    justify-content: center;
+  }
+
+  #logic-panel .panel-header::before {
+    width: 12px;
+  }
+
+  #logic-panel .logic-node {
+    justify-content: center;
+    padding: var(--space-2);
+  }
+
+  #logic-panel .logic-node__dot {
+    width: 10px;
+    height: 10px;
+  }
+
+  /* Expand logic panel on hover */
+  #logic-panel:hover {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 320px;
+    z-index: var(--z-panel);
+    padding: var(--space-5) var(--space-4);
+    box-shadow: var(--shadow-lg);
+  }
+
+  #logic-panel:hover .panel-header span,
+  #logic-panel:hover .logic-node__title,
+  #logic-panel:hover .logic-node__connector {
+    display: initial;
+  }
+
+  #logic-panel:hover .logic-node {
+    justify-content: flex-start;
+    padding: var(--space-3);
+  }
+}
+
+/* ── Small screens (≤ 900px): Single column, slide-out drawers ───────────── */
+@media (max-width: 900px) {
+  #workspace {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+  }
+
+  /* Fabricator becomes a slide-out drawer from left */
+  #fabricator-panel {
+    position: fixed;
+    left: 0;
+    top: 64px;
+    bottom: 0;
+    width: 280px;
+    z-index: var(--z-panel);
+    transform: translateX(-100%);
+    transition: transform 0.4s var(--ease-out-expo);
+    box-shadow: var(--shadow-lg);
+  }
+
+  #fabricator-panel.open {
+    transform: translateX(0);
+  }
+
+  /* Logic panel becomes a slide-out drawer from right */
+  #logic-panel {
+    position: fixed;
+    right: 0;
+    top: 64px;
+    bottom: 0;
+    width: 320px;
+    z-index: var(--z-panel);
+    transform: translateX(100%);
+    transition: transform 0.4s var(--ease-out-expo);
+    box-shadow: var(--shadow-lg);
+  }
+
+  #logic-panel.open {
+    transform: translateX(0);
+  }
+
+  /* Hydration canvas takes full width with reduced padding */
+  #hydration-canvas {
+    padding: var(--space-5) var(--space-4);
+  }
+
+  /* Reduce question block padding */
+  .question-block {
+    padding: var(--space-4);
+  }
+
+  /* Respondent card reduced padding */
+  .respondent-card {
+    padding: var(--space-6) var(--space-4);
+    border-radius: var(--radius-lg);
+  }
+
+  /* Toast goes full width */
+  .nexus-toast {
+    min-width: unset;
+    max-width: calc(100vw - 40px);
+  }
+
+  /* Progress tube shrinks */
+  #progress-tube-container {
+    width: 140px;
+    height: 28px;
+  }
+}
+
+/* ── Extra small screens (≤ 600px) ───────────────────────────────────────── */
+@media (max-width: 600px) {
+  #top-bar {
+    padding: 0 var(--space-3);
+    gap: var(--space-2);
+  }
+
+  #logo {
+    font-size: var(--fs-lg);
+    letter-spacing: 1px;
+  }
+
+  .form-title-input {
+    font-size: var(--fs-base);
+  }
+
+  .cyber-btn {
+    padding: 8px 14px;
+    font-size: var(--fs-xs);
+    letter-spacing: 0.5px;
+  }
+
+  .cyber-btn--icon {
+    width: 34px;
+    height: 34px;
+  }
+
+  #hydration-canvas {
+    padding: var(--space-4) var(--space-3);
+  }
+
+  .question-block {
+    padding: var(--space-3);
+    border-radius: var(--radius-md);
+  }
+
+  .question-block__number {
+    font-size: var(--fs-2xl);
+  }
+
+  .nexus-modal {
+    max-width: calc(100vw - 32px);
+    border-radius: var(--radius-md);
+  }
+
+  .hatch-upload {
+    padding: var(--space-6);
+  }
+}
+
+
+/* ============================================================================
+   END OF NEXUSFLOW STYLESHEET
+   ============================================================================ */
+
+</style>
+</head>
+<body>
+
+  <div id="nexusflow-app">
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         CANVAS LAYERS (behind everything)
+         PCB Circuit traces + overlay effects
+    ═══════════════════════════════════════════════════════════════ -->
+    <canvas id="pcb-canvas" aria-hidden="true"></canvas>
+    <canvas id="effects-canvas" aria-hidden="true"></canvas>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         TOP BAR — Logo, Form Title, Progress Tube, Actions
+    ═══════════════════════════════════════════════════════════════ -->
+    <header id="top-bar">
+      <div id="logo">
+        <span class="logo__pulse"></span>
+        <span class="logo__text">NEXUS<span class="logo__accent">FLOW</span></span>
+      </div>
+
+      <div class="top-bar__divider"></div>
+
+      <input
+        type="text"
+        id="form-title"
+        class="form-title-input"
+        value="Untitled Form"
+        placeholder="Enter form title..."
+        spellcheck="false"
+        aria-label="Form title"
+      />
+
+      <div id="progress-tube-container"></div>
+
+      <div class="top-bar__divider"></div>
+
+      <div id="top-actions" class="top-actions">
+        <button id="sound-toggle" class="cyber-btn cyber-btn--icon" title="Toggle Sound" aria-label="Toggle sound effects">
+          🔊
+        </button>
+        <button id="preview-btn" class="cyber-btn" title="Preview Form">
+          <span class="btn-icon">👁</span>
+          <span class="btn-label">PREVIEW</span>
+        </button>
+        <button id="publish-btn" class="cyber-btn cyber-btn--primary" title="Publish Form">
+          <span class="btn-icon">⚡</span>
+          <span class="btn-label">PUBLISH</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         MAIN WORKSPACE — Three floating panels
+    ═══════════════════════════════════════════════════════════════ -->
+    <main id="workspace">
+
+      <!-- ─── Panel Left: Component Fabricator ─── -->
+      <aside id="fabricator-panel" class="glass-panel">
+        <!-- Populated by ui.js -->
+      </aside>
+
+      <!-- ─── Panel Center: The Hydration Canvas ─── -->
+      <section id="hydration-canvas">
+        <div id="questions-container">
+          <!-- Question blocks appended here by app.js -->
+        </div>
+      </section>
+
+      <!-- ─── Panel Right: Energy & Logic Controller ─── -->
+      <aside id="logic-panel" class="glass-panel">
+        <!-- Populated by ui.js -->
+      </aside>
+
+    </main>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         DATA SINK — Fusion reactor visualization (bottom, hidden)
+    ═══════════════════════════════════════════════════════════════ -->
+    <div id="data-sink-container" class="hidden" aria-hidden="true"></div>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         RESPONDENT OVERLAY — Full-screen form filling experience
+    ═══════════════════════════════════════════════════════════════ -->
+    <div id="respondent-overlay" class="hidden" aria-hidden="true"></div>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         BOOT SCREEN — Shown briefly on load
+    ═══════════════════════════════════════════════════════════════ -->
+    <div id="boot-screen">
+      <div class="boot-screen__content">
+        <div class="boot-screen__logo">
+          <span class="boot-screen__nx">NX</span>
+          <div class="boot-screen__circuit-line"></div>
+        </div>
+        <div class="boot-screen__text">
+          <span class="boot-screen__label">INITIALIZING</span>
+          <span class="boot-screen__dots">
+            <span>.</span><span>.</span><span>.</span>
+          </span>
+        </div>
+        <div class="boot-screen__bar">
+          <div class="boot-screen__bar-fill"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Application Entry Point -->
+  <script>
+/**
+ * NexusFlow Canvas Rendering Engine
+ * ==================================
+ * Handles all canvas-based visual effects for the NexusFlow form builder:
+ *   - PCB circuit background with animated electric pulses
+ *   - Particle systems for shockwave, error, and submission effects
+ *   - Optimized render loop with delta-time and visibility handling
+ *
+ * @module canvas
+ */
+
+// ─── Color Constants ────────────────────────────────────────────────────────────
+const COLORS = {
+  CYAN:       '#00F0FF',
+  CYAN_RGB:   [0, 240, 255],
+  PURPLE:     '#8A2BE2',
+  PURPLE_RGB: [138, 43, 226],
+  FLUID:      '#00A3FF',
+  FLUID_RGB:  [0, 163, 255],
+  BASE:       '#080B10',
+  ERROR:      '#FF2D55',
+  ERROR_RGB:  [255, 45, 85],
+};
+
+// ─── Easing & Utility Functions ─────────────────────────────────────────────────
+
+/** @param {number} t - Progress 0-1 @returns {number} */
+function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+
+/** @param {number} t - Progress 0-1 @returns {number} */
+function easeOutQuad(t) { return 1 - (1 - t) * (1 - t); }
+
+/** @param {number} t - Progress 0-1 @returns {number} */
+function easeInCubic(t) { return t * t * t; }
+
+/** @param {number} a @param {number} b @param {number} t @returns {number} */
+function lerp(a, b, t) { return a + (b - a) * t; }
+
+/** @param {number} min @param {number} max @returns {number} */
+function randomRange(min, max) { return Math.random() * (max - min) + min; }
+
+/** @param {number} min @param {number} max @returns {number} inclusive */
+function randomInt(min, max) { return Math.floor(randomRange(min, max + 1)); }
+
+/**
+ * Clamp a value between min and max.
+ * @param {number} v @param {number} lo @param {number} hi @returns {number}
+ */
+function clamp(v, lo, hi) { return v < lo ? lo : v > hi ? hi : v; }
+
+// ─── Particle ───────────────────────────────────────────────────────────────────
+
+/**
+ * Individual particle used across all effect types.
+ */
+class Particle {
+  /**
+   * @param {number} x
+   * @param {number} y
+   * @param {number} vx - velocity x (px/s)
+   * @param {number} vy - velocity y (px/s)
+   * @param {number} radius
+   * @param {number[]} rgb - [r, g, b]
+   * @param {number} life - total lifetime in seconds
+   * @param {number} [glow=0] - shadow blur radius for glow effect
+   */
+  constructor(x, y, vx, vy, radius, rgb, life, glow = 0) {
+    this.x = x;
+    this.y = y;
+    this.vx = vx;
+    this.vy = vy;
+    this.radius = radius;
+    this.rgb = rgb;
+    this.life = life;
+    this.maxLife = life;
+    this.glow = glow;
+    this.alive = true;
+  }
+
+  /** @param {number} dt - delta time in seconds */
+  update(dt) {
+    if (!this.alive) return;
+    this.x += this.vx * dt;
+    this.y += this.vy * dt;
+    this.life -= dt;
+    if (this.life <= 0) {
+      this.alive = false;
+    }
+  }
+
+  /** @param {CanvasRenderingContext2D} ctx */
+  draw(ctx) {
+    if (!this.alive) return;
+    const alpha = clamp(this.life / this.maxLife, 0, 1);
+    const [r, g, b] = this.rgb;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.radius * (0.3 + 0.7 * alpha), 0, Math.PI * 2);
+    if (this.glow > 0) {
+      ctx.shadowColor = `rgba(${r},${g},${b},${alpha})`;
+      ctx.shadowBlur = this.glow * alpha;
+    }
+    ctx.fillStyle = `rgba(${r},${g},${b},${alpha})`;
+    ctx.fill();
+    if (this.glow > 0) {
+      ctx.shadowBlur = 0;
+    }
+  }
+
+  /** @returns {boolean} */
+  get isDead() { return !this.alive; }
+}
+
+// ─── Particle System ────────────────────────────────────────────────────────────
+
+const MAX_PARTICLES = 500;
+
+/**
+ * Manages pools of particles for all effect types.
+ */
+class ParticleSystem {
+  constructor() {
+    /** @type {Particle[]} */
+    this.particles = [];
+  }
+
+  /**
+   * Emit particles from configuration.
+   * @param {Object} config
+   * @param {number} config.x
+   * @param {number} config.y
+   * @param {number} config.count
+   * @param {number[]} config.rgb
+   * @param {number} [config.radiusMin=1]
+   * @param {number} [config.radiusMax=3]
+   * @param {number} [config.speedMin=30]
+   * @param {number} [config.speedMax=150]
+   * @param {number} [config.lifeMin=0.3]
+   * @param {number} [config.lifeMax=0.8]
+   * @param {number} [config.glow=0]
+   * @param {number} [config.angleMin=0]
+   * @param {number} [config.angleMax=Math.PI*2]
+   * @param {Function} [config.customInit] - (particle, index) => void for custom setup
+   */
+  emit(config) {
+    const count = Math.min(config.count, MAX_PARTICLES - this.particles.length);
+    for (let i = 0; i < count; i++) {
+      const angle = randomRange(config.angleMin ?? 0, config.angleMax ?? Math.PI * 2);
+      const speed = randomRange(config.speedMin ?? 30, config.speedMax ?? 150);
+      const p = new Particle(
+        config.x,
+        config.y,
+        Math.cos(angle) * speed,
+        Math.sin(angle) * speed,
+        randomRange(config.radiusMin ?? 1, config.radiusMax ?? 3),
+        config.rgb,
+        randomRange(config.lifeMin ?? 0.3, config.lifeMax ?? 0.8),
+        config.glow ?? 0
+      );
+      if (config.customInit) config.customInit(p, i);
+      this.particles.push(p);
+    }
+  }
+
+  /**
+   * Directly add a particle.
+   * @param {Particle} p
+   */
+  add(p) {
+    if (this.particles.length < MAX_PARTICLES) {
+      this.particles.push(p);
+    }
+  }
+
+  /** @param {number} dt */
+  update(dt) {
+    for (let i = this.particles.length - 1; i >= 0; i--) {
+      this.particles[i].update(dt);
+      if (this.particles[i].isDead) {
+        // Swap-remove for perf
+        this.particles[i] = this.particles[this.particles.length - 1];
+        this.particles.pop();
+      }
+    }
+  }
+
+  /** @param {CanvasRenderingContext2D} ctx */
+  draw(ctx) {
+    for (const p of this.particles) {
+      p.draw(ctx);
+    }
+  }
+
+  get count() { return this.particles.length; }
+}
+
+// ─── Shockwave Ring ─────────────────────────────────────────────────────────────
+
+/**
+ * Expanding radial ring effect triggered on component drop.
+ */
+class Shockwave {
+  /**
+   * @param {number} x
+   * @param {number} y
+   * @param {number} maxRadius
+   * @param {number} duration - seconds
+   * @param {number[]} rgb
+   */
+  constructor(x, y, maxRadius = 200, duration = 0.6, rgb = COLORS.CYAN_RGB) {
+    this.x = x;
+    this.y = y;
+    this.maxRadius = maxRadius;
+    this.duration = duration;
+    this.rgb = rgb;
+    this.elapsed = 0;
+    this.alive = true;
+  }
+
+  /** @param {number} dt */
+  update(dt) {
+    if (!this.alive) return;
+    this.elapsed += dt;
+    if (this.elapsed >= this.duration) this.alive = false;
+  }
+
+  /** @param {CanvasRenderingContext2D} ctx */
+  draw(ctx) {
+    if (!this.alive) return;
+    const t = clamp(this.elapsed / this.duration, 0, 1);
+    const eased = easeOutCubic(t);
+    const radius = eased * this.maxRadius;
+    const alpha = 1 - eased;
+    const [r, g, b] = this.rgb;
+
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, radius, 0, Math.PI * 2);
+    ctx.strokeStyle = `rgba(${r},${g},${b},${alpha * 0.8})`;
+    ctx.lineWidth = lerp(3, 0.5, eased);
+    ctx.shadowColor = `rgba(${r},${g},${b},${alpha})`;
+    ctx.shadowBlur = 20 * alpha;
+    ctx.stroke();
+    ctx.shadowBlur = 0;
+
+    // Inner softer ring
+    if (radius > 10) {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, radius * 0.7, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(${r},${g},${b},${alpha * 0.3})`;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+  }
+
+  get isDead() { return !this.alive; }
+}
+
+// ─── Lightning Effect ───────────────────────────────────────────────────────────
+
+/**
+ * Jagged lightning bolt for error flash effects.
+ */
+class LightningBolt {
+  /**
+   * @param {number} x - origin x
+   * @param {number} y - origin y
+   * @param {number[]} rgb
+   */
+  constructor(x, y, rgb = COLORS.ERROR_RGB) {
+    this.x = x;
+    this.y = y;
+    this.rgb = rgb;
+    this.elapsed = 0;
+    this.alive = true;
+    this.totalDuration = 0.5; // total seconds: flash on 100ms, off 50ms, on 80ms, fade 270ms
+    this.segments = this._generateBolts();
+  }
+
+  /**
+   * Generate 3-4 branching lightning paths.
+   * @returns {Array<Array<{x:number, y:number}>>}
+   */
+  _generateBolts() {
+    const bolts = [];
+    const count = randomInt(3, 4);
+    for (let b = 0; b < count; b++) {
+      const angle = randomRange(0, Math.PI * 2);
+      const length = randomRange(40, 100);
+      const steps = randomInt(4, 7);
+      const points = [{ x: this.x, y: this.y }];
+      for (let s = 1; s <= steps; s++) {
+        const t = s / steps;
+        const px = this.x + Math.cos(angle) * length * t + randomRange(-15, 15);
+        const py = this.y + Math.sin(angle) * length * t + randomRange(-15, 15);
+        points.push({ x: px, y: py });
+      }
+      bolts.push(points);
+    }
+    return bolts;
+  }
+
+  /** @param {number} dt */
+  update(dt) {
+    if (!this.alive) return;
+    this.elapsed += dt;
+    if (this.elapsed >= this.totalDuration) this.alive = false;
+  }
+
+  /**
+   * Determine visibility based on flash pattern.
+   * @returns {number} alpha 0-1
+   */
+  _getAlpha() {
+    const e = this.elapsed * 1000; // ms
+    if (e < 100) return 1.0;              // on
+    if (e < 150) return 0.0;              // off
+    if (e < 230) return 0.9;              // on
+    // fade out
+    const fadeT = (e - 230) / 270;
+    return clamp(1 - fadeT, 0, 1);
+  }
+
+  /** @param {CanvasRenderingContext2D} ctx */
+  draw(ctx) {
+    if (!this.alive) return;
+    const alpha = this._getAlpha();
+    if (alpha <= 0) return;
+    const [r, g, b] = this.rgb;
+
+    ctx.save();
+    ctx.shadowColor = `rgba(${r},${g},${b},${alpha})`;
+    ctx.shadowBlur = 15 * alpha;
+    ctx.strokeStyle = `rgba(${r},${g},${b},${alpha})`;
+    ctx.lineWidth = 2;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+
+    for (const bolt of this.segments) {
+      ctx.beginPath();
+      ctx.moveTo(bolt[0].x, bolt[0].y);
+      for (let i = 1; i < bolt.length; i++) {
+        ctx.lineTo(bolt[i].x, bolt[i].y);
+      }
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  get isDead() { return !this.alive; }
+}
+
+// ─── Submission Cascade ─────────────────────────────────────────────────────────
+
+/**
+ * Manages the staged particle cascade from form blocks to the data sink.
+ */
+class SubmissionCascade {
+  /**
+   * @param {Array<{x:number,y:number,width:number,height:number}>} sourceRects
+   * @param {{x:number,y:number,width:number,height:number}} sinkRect
+   * @param {ParticleSystem} particleSystem
+   */
+  constructor(sourceRects, sinkRect, particleSystem) {
+    this.sourceRects = sourceRects;
+    this.sinkRect = sinkRect;
+    this.ps = particleSystem;
+    this.elapsed = 0;
+    this.alive = true;
+    this.emitted = new Set();
+    this.staggerDelay = 0.1; // 100ms between each source
+    this.totalDuration = 2.0;
+    this.sinkCenterX = sinkRect.x + sinkRect.width / 2;
+    this.sinkCenterY = sinkRect.y + sinkRect.height / 2;
+    /** @type {Array<{x:number,y:number,timer:number}>} */
+    this.sinkFlashes = [];
+  }
+
+  /** @param {number} dt */
+  update(dt) {
+    if (!this.alive) return;
+    this.elapsed += dt;
+
+    // Emit particles for each source in staggered fashion
+    for (let i = 0; i < this.sourceRects.length; i++) {
+      const triggerTime = i * this.staggerDelay;
+      if (this.elapsed >= triggerTime && !this.emitted.has(i)) {
+        this.emitted.add(i);
+        this._emitFromSource(this.sourceRects[i]);
+      }
+    }
+
+    // Update sink flashes
+    for (let i = this.sinkFlashes.length - 1; i >= 0; i--) {
+      this.sinkFlashes[i].timer -= dt;
+      if (this.sinkFlashes[i].timer <= 0) {
+        this.sinkFlashes.splice(i, 1);
+      }
+    }
+
+    if (this.elapsed >= this.totalDuration) this.alive = false;
+  }
+
+  /**
+   * Emit particles from a source rect flowing toward sink.
+   * @param {{x:number,y:number,width:number,height:number}} rect
+   */
+  _emitFromSource(rect) {
+    const cx = rect.x + rect.width / 2;
+    const cy = rect.y + rect.height / 2;
+    const count = randomInt(20, 30);
+    const sinkX = this.sinkCenterX;
+    const sinkY = this.sinkCenterY;
+    const cascadeRef = this;
+
+    this.ps.emit({
+      x: cx,
+      y: cy,
+      count,
+      rgb: Math.random() > 0.5 ? COLORS.CYAN_RGB : COLORS.FLUID_RGB,
+      radiusMin: 2,
+      radiusMax: 5,
+      speedMin: 60,
+      speedMax: 120,
+      lifeMin: 1.0,
+      lifeMax: 1.8,
+      glow: 12,
+      angleMin: 0,
+      angleMax: Math.PI * 2,
+      customInit(p, idx) {
+        // Override velocity to flow toward sink with wave motion
+        const dx = sinkX - cx;
+        const dy = sinkY - cy;
+        const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+        const speed = randomRange(150, 300);
+        const travelTime = dist / speed;
+
+        // Store target and wave parameters on particle
+        p._targetX = sinkX + randomRange(-20, 20);
+        p._targetY = sinkY + randomRange(-10, 10);
+        p._originX = cx + randomRange(-rect.width / 2, rect.width / 2);
+        p._originY = cy + randomRange(-rect.height / 4, rect.height / 4);
+        p._travelTime = travelTime;
+        p._waveAmp = randomRange(15, 40);
+        p._waveFreq = randomRange(3, 6);
+        p._elapsed = 0;
+        p._cascadeRef = cascadeRef;
+        p.x = p._originX;
+        p.y = p._originY;
+
+        // Override update to use guided flow
+        const origUpdate = p.update.bind(p);
+        p.update = function(dt) {
+          if (!this.alive) return;
+          this._elapsed += dt;
+          this.life -= dt;
+          if (this.life <= 0) { this.alive = false; return; }
+
+          const t = clamp(this._elapsed / this._travelTime, 0, 1);
+          const eased = easeOutQuad(t);
+
+          // Lerp position from origin to target
+          this.x = lerp(this._originX, this._targetX, eased);
+          this.y = lerp(this._originY, this._targetY, eased);
+
+          // Add wave motion perpendicular to path
+          const perpX = -(this._targetY - this._originY);
+          const perpY = (this._targetX - this._originX);
+          const perpLen = Math.sqrt(perpX * perpX + perpY * perpY) || 1;
+          const wave = Math.sin(this._elapsed * this._waveFreq * Math.PI * 2) * this._waveAmp * (1 - eased);
+          this.x += (perpX / perpLen) * wave;
+          this.y += (perpY / perpLen) * wave;
+
+          // Flash when reaching sink
+          if (t >= 0.95 && this.alive) {
+            this.alive = false;
+            if (this._cascadeRef && this._cascadeRef.alive) {
+              this._cascadeRef.sinkFlashes.push({
+                x: this.x,
+                y: this.y,
+                timer: 0.15
+              });
+            }
+          }
+        };
+      }
+    });
+  }
+
+  /** @param {CanvasRenderingContext2D} ctx */
+  drawFlashes(ctx) {
+    for (const flash of this.sinkFlashes) {
+      const alpha = clamp(flash.timer / 0.15, 0, 1);
+      const r = 8 * alpha;
+      ctx.beginPath();
+      ctx.arc(flash.x, flash.y, r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(0, 240, 255, ${alpha * 0.8})`;
+      ctx.shadowColor = `rgba(0, 240, 255, ${alpha})`;
+      ctx.shadowBlur = 15;
+      ctx.fill();
+      ctx.shadowBlur = 0;
+    }
+  }
+
+  get isDead() { return !this.alive; }
+}
+
+// ─── PCB Circuit Layout ─────────────────────────────────────────────────────────
+
+/**
+ * Generate and manage the static PCB circuit background.
+ */
+class PCBCircuit {
+  /**
+   * @param {number} width
+   * @param {number} height
+   */
+  constructor(width, height) {
+    this.width = width;
+    this.height = height;
+    this.gridSpacing = 80;
+    /** @type {Array<{x:number, y:number, isJunction:boolean}>} */
+    this.nodes = [];
+    /** @type {Array<{from:number, to:number, path:Array<{x:number,y:number}>}>} */
+    this.traces = [];
+    /** @type {Array<{x:number, y:number, w:number, h:number}>} */
+    this.pads = [];
+    /** @type {Array<{traceIdx:number, progress:number, speed:number, alive:boolean}>} */
+    this.pulses = [];
+    /** @type {Array<{nodeIdx:number, alpha:number, decay:number}>} */
+    this.nodeFlashes = [];
+    this.pulseTimer = 0;
+    this.flashTimer = 0;
+
+    /** @type {OffscreenCanvas|HTMLCanvasElement|null} */
+    this.staticLayer = null;
+
+    this._generate();
+  }
+
+  /** Generate the grid nodes, traces, and pads. */
+  _generate() {
+    const cols = Math.ceil(this.width / this.gridSpacing) + 1;
+    const rows = Math.ceil(this.height / this.gridSpacing) + 1;
+
+    // Create nodes with slight random offset
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        const x = c * this.gridSpacing + randomRange(-10, 10);
+        const y = r * this.gridSpacing + randomRange(-10, 10);
+        const isJunction = Math.random() < 0.15;
+        this.nodes.push({ x, y, isJunction });
+      }
+    }
+
+    // Connect nodes with orthogonal traces (horizontal-then-vertical)
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        const idx = r * cols + c;
+        // Connect right
+        if (c < cols - 1 && Math.random() < 0.35) {
+          const rightIdx = idx + 1;
+          this._addTrace(idx, rightIdx);
+        }
+        // Connect down
+        if (r < rows - 1 && Math.random() < 0.3) {
+          const downIdx = idx + cols;
+          this._addTrace(idx, downIdx);
+        }
+        // Occasional L-shaped traces (right then down)
+        if (c < cols - 1 && r < rows - 1 && Math.random() < 0.12) {
+          const cornerIdx = idx + 1;
+          const endIdx = idx + 1 + cols;
+          if (cornerIdx < this.nodes.length && endIdx < this.nodes.length) {
+            const from = this.nodes[idx];
+            const corner = this.nodes[cornerIdx];
+            const to = this.nodes[endIdx];
+            this.traces.push({
+              from: idx,
+              to: endIdx,
+              path: [
+                { x: from.x, y: from.y },
+                { x: corner.x, y: from.y },  // horizontal first
+                { x: corner.x, y: to.y }     // then vertical
+              ]
+            });
+          }
+        }
+      }
+    }
+
+    // Add component pads at random positions along some traces
+    for (const trace of this.traces) {
+      if (Math.random() < 0.08) {
+        const mid = Math.floor(trace.path.length / 2);
+        const pt = trace.path[mid] || trace.path[0];
+        this.pads.push({
+          x: pt.x - 4,
+          y: pt.y - 2.5,
+          w: 8,
+          h: 5
+        });
+      }
+    }
+  }
+
+  /**
+   * Add a straight orthogonal trace between two nodes.
+   * @param {number} fromIdx
+   * @param {number} toIdx
+   */
+  _addTrace(fromIdx, toIdx) {
+    const from = this.nodes[fromIdx];
+    const to = this.nodes[toIdx];
+    // Orthogonal: horizontal then vertical
+    if (Math.abs(from.x - to.x) > 2 && Math.abs(from.y - to.y) > 2) {
+      this.traces.push({
+        from: fromIdx,
+        to: toIdx,
+        path: [
+          { x: from.x, y: from.y },
+          { x: to.x, y: from.y },
+          { x: to.x, y: to.y }
+        ]
+      });
+    } else {
+      this.traces.push({
+        from: fromIdx,
+        to: toIdx,
+        path: [
+          { x: from.x, y: from.y },
+          { x: to.x, y: to.y }
+        ]
+      });
+    }
+  }
+
+  /**
+   * Render the static circuit to an offscreen buffer.
+   * @returns {OffscreenCanvas|HTMLCanvasElement}
+   */
+  renderStaticLayer() {
+    let canvas;
+    if (typeof OffscreenCanvas !== 'undefined') {
+      canvas = new OffscreenCanvas(this.width, this.height);
+    } else {
+      canvas = document.createElement('canvas');
+      canvas.width = this.width;
+      canvas.height = this.height;
+    }
+    const ctx = canvas.getContext('2d');
+
+    // Traces
+    ctx.strokeStyle = `rgba(${COLORS.CYAN_RGB.join(',')}, 0.15)`;
+    ctx.lineWidth = 0.7;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    for (const trace of this.traces) {
+      ctx.beginPath();
+      ctx.moveTo(trace.path[0].x, trace.path[0].y);
+      for (let i = 1; i < trace.path.length; i++) {
+        ctx.lineTo(trace.path[i].x, trace.path[i].y);
+      }
+      ctx.stroke();
+    }
+
+    // Junction nodes (larger circles)
+    for (const node of this.nodes) {
+      if (node.isJunction) {
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, randomRange(2.5, 4), 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${COLORS.CYAN_RGB.join(',')}, 0.12)`;
+        ctx.fill();
+        ctx.strokeStyle = `rgba(${COLORS.CYAN_RGB.join(',')}, 0.2)`;
+        ctx.lineWidth = 0.5;
+        ctx.stroke();
+      }
+    }
+
+    // Component pads
+    ctx.fillStyle = `rgba(${COLORS.CYAN_RGB.join(',')}, 0.1)`;
+    ctx.strokeStyle = `rgba(${COLORS.CYAN_RGB.join(',')}, 0.18)`;
+    ctx.lineWidth = 0.5;
+    for (const pad of this.pads) {
+      ctx.fillRect(pad.x, pad.y, pad.w, pad.h);
+      ctx.strokeRect(pad.x, pad.y, pad.w, pad.h);
+    }
+
+    this.staticLayer = canvas;
+    return canvas;
+  }
+
+  /**
+   * Update animated pulses and flashes.
+   * @param {number} dt
+   */
+  update(dt) {
+    // Spawn new pulses periodically
+    this.pulseTimer += dt;
+    if (this.pulseTimer > randomRange(0.8, 2.5)) {
+      this.pulseTimer = 0;
+      if (this.traces.length > 0 && this.pulses.length < 15) {
+        const traceIdx = randomInt(0, this.traces.length - 1);
+        this.pulses.push({
+          traceIdx,
+          progress: 0,
+          speed: randomRange(0.4, 1.2),
+          alive: true
+        });
+      }
+    }
+
+    // Spawn node flashes
+    this.flashTimer += dt;
+    if (this.flashTimer > randomRange(1.5, 4)) {
+      this.flashTimer = 0;
+      if (this.nodes.length > 0 && this.nodeFlashes.length < 8) {
+        const nodeIdx = randomInt(0, this.nodes.length - 1);
+        this.nodeFlashes.push({
+          nodeIdx,
+          alpha: 0.7,
+          decay: randomRange(0.5, 1.5)
+        });
+      }
+    }
+
+    // Update pulses
+    for (let i = this.pulses.length - 1; i >= 0; i--) {
+      const pulse = this.pulses[i];
+      pulse.progress += pulse.speed * dt;
+      if (pulse.progress >= 1) {
+        this.pulses.splice(i, 1);
+      }
+    }
+
+    // Update node flashes
+    for (let i = this.nodeFlashes.length - 1; i >= 0; i--) {
+      const flash = this.nodeFlashes[i];
+      flash.alpha -= flash.decay * dt;
+      if (flash.alpha <= 0) {
+        this.nodeFlashes.splice(i, 1);
+      }
+    }
+  }
+
+  /**
+   * Draw animated elements on top of the static layer.
+   * @param {CanvasRenderingContext2D} ctx
+   */
+  drawAnimated(ctx) {
+    // Draw pulses traveling along traces
+    for (const pulse of this.pulses) {
+      const trace = this.traces[pulse.traceIdx];
+      if (!trace) continue;
+      const pos = this._getPositionOnPath(trace.path, pulse.progress);
+      if (!pos) continue;
+
+      const alpha = pulse.progress < 0.1
+        ? pulse.progress / 0.1
+        : pulse.progress > 0.8
+          ? (1 - pulse.progress) / 0.2
+          : 1;
+
+      ctx.beginPath();
+      ctx.arc(pos.x, pos.y, 2, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${COLORS.CYAN_RGB.join(',')}, ${alpha * 0.7})`;
+      ctx.shadowColor = `rgba(${COLORS.CYAN_RGB.join(',')}, ${alpha * 0.5})`;
+      ctx.shadowBlur = 8;
+      ctx.fill();
+      ctx.shadowBlur = 0;
+
+      // Trail
+      const trailPos = this._getPositionOnPath(trace.path, Math.max(0, pulse.progress - 0.08));
+      if (trailPos) {
+        ctx.beginPath();
+        ctx.moveTo(trailPos.x, trailPos.y);
+        ctx.lineTo(pos.x, pos.y);
+        ctx.strokeStyle = `rgba(${COLORS.CYAN_RGB.join(',')}, ${alpha * 0.3})`;
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+      }
+    }
+
+    // Draw node flashes
+    for (const flash of this.nodeFlashes) {
+      const node = this.nodes[flash.nodeIdx];
+      if (!node) continue;
+      ctx.beginPath();
+      ctx.arc(node.x, node.y, 5, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${COLORS.CYAN_RGB.join(',')}, ${flash.alpha * 0.5})`;
+      ctx.shadowColor = `rgba(${COLORS.CYAN_RGB.join(',')}, ${flash.alpha})`;
+      ctx.shadowBlur = 12;
+      ctx.fill();
+      ctx.shadowBlur = 0;
+    }
+  }
+
+  /**
+   * Get interpolated position along a path of points.
+   * @param {Array<{x:number,y:number}>} path
+   * @param {number} t - 0 to 1
+   * @returns {{x:number, y:number}|null}
+   */
+  _getPositionOnPath(path, t) {
+    if (path.length < 2) return path[0] || null;
+
+    // Calculate total length
+    let totalLen = 0;
+    const segLens = [];
+    for (let i = 1; i < path.length; i++) {
+      const dx = path[i].x - path[i - 1].x;
+      const dy = path[i].y - path[i - 1].y;
+      const len = Math.sqrt(dx * dx + dy * dy);
+      segLens.push(len);
+      totalLen += len;
+    }
+    if (totalLen === 0) return path[0];
+
+    const targetDist = clamp(t, 0, 1) * totalLen;
+    let accumulated = 0;
+    for (let i = 0; i < segLens.length; i++) {
+      if (accumulated + segLens[i] >= targetDist) {
+        const segT = (targetDist - accumulated) / segLens[i];
+        return {
+          x: lerp(path[i].x, path[i + 1].x, segT),
+          y: lerp(path[i].y, path[i + 1].y, segT)
+        };
+      }
+      accumulated += segLens[i];
+    }
+    return path[path.length - 1];
+  }
+}
+
+// ─── Canvas Engine ──────────────────────────────────────────────────────────────
+
+/**
+ * Main canvas rendering engine for NexusFlow.
+ * Manages PCB background, overlay effects, particle systems, and the render loop.
+ */
+class CanvasEngine {
+  /**
+   * @param {HTMLCanvasElement} pcbCanvas - Background PCB circuit canvas
+   * @param {HTMLCanvasElement} effectsCanvas - Overlay effects canvas
+   */
+  constructor(pcbCanvas, effectsCanvas) {
+    /** @type {HTMLCanvasElement} */
+    this.pcbCanvas = pcbCanvas;
+    /** @type {HTMLCanvasElement} */
+    this.effectsCanvas = effectsCanvas;
+    /** @type {CanvasRenderingContext2D} */
+    this.pcbCtx = pcbCanvas.getContext('2d');
+    /** @type {CanvasRenderingContext2D} */
+    this.effectsCtx = effectsCanvas.getContext('2d');
+
+    /** @type {PCBCircuit|null} */
+    this.pcb = null;
+    /** @type {ParticleSystem} */
+    this.particles = new ParticleSystem();
+    /** @type {Shockwave[]} */
+    this.shockwaves = [];
+    /** @type {LightningBolt[]} */
+    this.lightningBolts = [];
+    /** @type {SubmissionCascade[]} */
+    this.cascades = [];
+
+    /** @type {number} */
+    this.progressLevel = 0;
+
+    /** @type {number|null} */
+    this._rafId = null;
+    /** @type {number} */
+    this._lastTime = 0;
+    /** @type {boolean} */
+    this._running = false;
+    /** @type {boolean} */
+    this._visible = true;
+
+    // Bind methods
+    this._tick = this._tick.bind(this);
+    this._onResize = this._onResize.bind(this);
+    this._onVisibility = this._onVisibility.bind(this);
+  }
+
+  /** Initialize both canvases and start the render loop. */
+  init() {
+    this._syncCanvasSize();
+    this._buildPCB();
+
+    // Event listeners
+    window.addEventListener('resize', this._onResize);
+    document.addEventListener('visibilitychange', this._onVisibility);
+
+    // Start loop
+    this._running = true;
+    this._lastTime = performance.now();
+    this._rafId = requestAnimationFrame(this._tick);
+  }
+
+  /** Synchronize canvas dimensions with their display size. */
+  _syncCanvasSize() {
+    const dpr = window.devicePixelRatio || 1;
+
+    for (const canvas of [this.pcbCanvas, this.effectsCanvas]) {
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      const ctx = canvas.getContext('2d');
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+  }
+
+  /** Generate the PCB circuit layout and render static layer. */
+  _buildPCB() {
+    const rect = this.pcbCanvas.getBoundingClientRect();
+    this.pcb = new PCBCircuit(rect.width, rect.height);
+    this.pcb.renderStaticLayer();
+    this._drawPCBStatic();
+  }
+
+  /** Blit the static PCB layer to the pcb canvas. */
+  _drawPCBStatic() {
+    if (!this.pcb || !this.pcb.staticLayer) return;
+    this.pcbCtx.save();
+    this.pcbCtx.setTransform(1, 0, 0, 1, 0, 0);
+    this.pcbCtx.clearRect(0, 0, this.pcbCanvas.width, this.pcbCanvas.height);
+    this.pcbCtx.drawImage(this.pcb.staticLayer, 0, 0);
+    this.pcbCtx.restore();
+  }
+
+  /** Handle window resize. */
+  resize() {
+    this._onResize();
+  }
+
+  /** @private */
+  _onResize() {
+    this._syncCanvasSize();
+    this._buildPCB();
+  }
+
+  /** @private */
+  _onVisibility() {
+    this._visible = !document.hidden;
+    if (this._visible && this._running) {
+      this._lastTime = performance.now();
+      this._rafId = requestAnimationFrame(this._tick);
+    }
+  }
+
+  /**
+   * Main render loop tick.
+   * @param {number} now - timestamp from requestAnimationFrame
+   */
+  _tick(now) {
+    if (!this._running || !this._visible) return;
+
+    const dt = Math.min((now - this._lastTime) / 1000, 0.05); // Cap at 50ms
+    this._lastTime = now;
+
+    this._update(dt);
+    this._draw();
+
+    this._rafId = requestAnimationFrame(this._tick);
+  }
+
+  /**
+   * Update all systems.
+   * @param {number} dt
+   */
+  _update(dt) {
+    // PCB pulses
+    if (this.pcb) this.pcb.update(dt);
+
+    // Particles
+    this.particles.update(dt);
+
+    // Shockwaves
+    for (let i = this.shockwaves.length - 1; i >= 0; i--) {
+      this.shockwaves[i].update(dt);
+      if (this.shockwaves[i].isDead) this.shockwaves.splice(i, 1);
+    }
+
+    // Lightning
+    for (let i = this.lightningBolts.length - 1; i >= 0; i--) {
+      this.lightningBolts[i].update(dt);
+      if (this.lightningBolts[i].isDead) this.lightningBolts.splice(i, 1);
+    }
+
+    // Cascades
+    for (let i = this.cascades.length - 1; i >= 0; i--) {
+      this.cascades[i].update(dt);
+      if (this.cascades[i].isDead) this.cascades.splice(i, 1);
+    }
+  }
+
+  /** Render all visual layers. */
+  _draw() {
+    // PCB: redraw static + animated overlay
+    this._drawPCBStatic();
+    if (this.pcb) {
+      const dpr = window.devicePixelRatio || 1;
+      this.pcbCtx.save();
+      this.pcbCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      // Do NOT clear - static is already drawn, draw animated on top
+      this.pcb.drawAnimated(this.pcbCtx);
+      this.pcbCtx.restore();
+    }
+
+    // Effects canvas: clear and redraw everything
+    const ectx = this.effectsCtx;
+    ectx.save();
+    const dpr = window.devicePixelRatio || 1;
+    ectx.setTransform(1, 0, 0, 1, 0, 0);
+    ectx.clearRect(0, 0, this.effectsCanvas.width, this.effectsCanvas.height);
+    ectx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    // Shockwaves
+    for (const sw of this.shockwaves) sw.draw(ectx);
+
+    // Lightning
+    for (const lb of this.lightningBolts) lb.draw(ectx);
+
+    // Particles
+    this.particles.draw(ectx);
+
+    // Cascade sink flashes
+    for (const cascade of this.cascades) cascade.drawFlashes(ectx);
+
+    // Fluid progress overlay (subtle)
+    this._drawFluidOverlay(ectx);
+
+    ectx.restore();
+  }
+
+  /**
+   * Draw a subtle fluid shimmer overlay for the progress tube area.
+   * This adds a bioluminescent ripple effect on top of the CSS progress bar.
+   * @param {CanvasRenderingContext2D} ctx
+   */
+  _drawFluidOverlay(ctx) {
+    if (this.progressLevel <= 0) return;
+
+    // Find the progress tube element if it exists
+    const tube = document.querySelector('[data-progress-tube]');
+    if (!tube) return;
+
+    const rect = tube.getBoundingClientRect();
+    const canvasRect = this.effectsCanvas.getBoundingClientRect();
+    const x = rect.left - canvasRect.left;
+    const y = rect.top - canvasRect.top;
+    const w = rect.width;
+    const h = rect.height;
+    const fillW = w * this.progressLevel;
+
+    if (fillW <= 0) return;
+
+    const now = performance.now() / 1000;
+
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+
+    // Subtle moving wave highlights
+    for (let i = 0; i < 3; i++) {
+      const waveX = x + (Math.sin(now * (1.5 + i * 0.5) + i * 2) * 0.5 + 0.5) * fillW;
+      const waveY = y + h / 2 + Math.sin(now * 2 + i) * (h * 0.2);
+      const gradient = ctx.createRadialGradient(waveX, waveY, 0, waveX, waveY, 20);
+      gradient.addColorStop(0, `rgba(${COLORS.CYAN_RGB.join(',')}, 0.15)`);
+      gradient.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = gradient;
+      ctx.fillRect(x, y, fillW, h);
+    }
+
+    ctx.restore();
+  }
+
+  // ─── Public Effect Triggers ─────────────────────────────────────────────────
+
+  /**
+   * Trigger an electric shockwave at the given position.
+   * Used when a form component is dropped into the builder.
+   * @param {number} x - X coordinate (CSS pixels relative to effects canvas)
+   * @param {number} y - Y coordinate (CSS pixels relative to effects canvas)
+   */
+  triggerShockwave(x, y) {
+    // Add expanding ring
+    this.shockwaves.push(new Shockwave(x, y, 200, 0.6, COLORS.CYAN_RGB));
+
+    // Spawn 8-12 spark particles flying outward
+    this.particles.emit({
+      x, y,
+      count: randomInt(8, 12),
+      rgb: COLORS.CYAN_RGB,
+      radiusMin: 1.5,
+      radiusMax: 3,
+      speedMin: 120,
+      speedMax: 300,
+      lifeMin: 0.25,
+      lifeMax: 0.45,
+      glow: 10,
+      angleMin: 0,
+      angleMax: Math.PI * 2
+    });
+
+    // Secondary smaller ring for depth
+    setTimeout(() => {
+      if (this._running) {
+        this.shockwaves.push(new Shockwave(x, y, 120, 0.4, COLORS.PURPLE_RGB));
+      }
+    }, 80);
+  }
+
+  /**
+   * Trigger an error flash with lightning at the given position.
+   * Used when a validation error occurs on a form component.
+   * @param {number} x - X coordinate
+   * @param {number} y - Y coordinate
+   */
+  triggerErrorFlash(x, y) {
+    // Lightning bolt
+    this.lightningBolts.push(new LightningBolt(x, y, COLORS.ERROR_RGB));
+
+    // Red particle burst
+    this.particles.emit({
+      x, y,
+      count: randomInt(10, 18),
+      rgb: COLORS.ERROR_RGB,
+      radiusMin: 1,
+      radiusMax: 3,
+      speedMin: 50,
+      speedMax: 180,
+      lifeMin: 0.2,
+      lifeMax: 0.5,
+      glow: 8,
+      angleMin: 0,
+      angleMax: Math.PI * 2
+    });
+
+    // Screen flash: brief red overlay
+    const ectx = this.effectsCtx;
+    ectx.save();
+    ectx.fillStyle = `rgba(${COLORS.ERROR_RGB.join(',')}, 0.06)`;
+    const rect = this.effectsCanvas.getBoundingClientRect();
+    ectx.fillRect(0, 0, rect.width, rect.height);
+    ectx.restore();
+  }
+
+  /**
+   * Start submission particle cascade from source elements to data sink.
+   * Particles flow from each question block to the reactor sink.
+   * @param {Array<{x:number,y:number,width:number,height:number}>} sourceRects
+   * @param {{x:number,y:number,width:number,height:number}} sinkRect
+   */
+  triggerSubmission(sourceRects, sinkRect) {
+    if (!sourceRects || sourceRects.length === 0 || !sinkRect) return;
+    const cascade = new SubmissionCascade(sourceRects, sinkRect, this.particles);
+    this.cascades.push(cascade);
+  }
+
+  /**
+   * Update the progress tube fill level.
+   * @param {number} percent - Fill level from 0 to 1
+   */
+  updateProgress(percent) {
+    this.progressLevel = clamp(percent, 0, 1);
+  }
+
+  /** Clean up all resources and stop the render loop. */
+  destroy() {
+    this._running = false;
+    if (this._rafId !== null) {
+      cancelAnimationFrame(this._rafId);
+      this._rafId = null;
+    }
+    window.removeEventListener('resize', this._onResize);
+    document.removeEventListener('visibilitychange', this._onVisibility);
+
+    // Clear canvases
+    this.pcbCtx.clearRect(0, 0, this.pcbCanvas.width, this.pcbCanvas.height);
+    this.effectsCtx.clearRect(0, 0, this.effectsCanvas.width, this.effectsCanvas.height);
+
+    // Release references
+    this.pcb = null;
+    this.particles = new ParticleSystem();
+    this.shockwaves = [];
+    this.lightningBolts = [];
+    this.cascades = [];
+  }
+}
+
+export default CanvasEngine;
+
+/**
+ * @fileoverview NexusFlow UI Module
+ * Renders all UI components for the NexusFlow Sovereign Form Architect:
+ *   - Component Fabricator (left panel, drag source)
+ *   - Hydration Canvas question blocks (center)
+ *   - Logic Controller (right panel)
+ *   - Respondent Mode (form preview / fill)
+ *   - Audio Engine (Web Audio API synth sounds)
+ *   - Toast Notification system
+ *
+ * @module ui
+ */
+
+// ─────────────────────────────────────────────
+// Constants
+// ─────────────────────────────────────────────
+
+/**
+ * All supported question types with metadata.
+ * @type {Array<{type: string, label: string, icon: string, desc: string}>}
+ */
+const QUESTION_TYPES = [
+  { type: 'short-answer', label: 'Short Answer', icon: '⌨', desc: 'Single line text input' },
+  { type: 'paragraph',    label: 'Paragraph',    icon: '📝', desc: 'Multi-line text response' },
+  { type: 'multiple-choice', label: 'Multiple Choice', icon: '◉', desc: 'Select one option' },
+  { type: 'checkbox',     label: 'Checkboxes',   icon: '☑', desc: 'Select multiple options' },
+  { type: 'dropdown',     label: 'Dropdown',      icon: '▾', desc: 'Choose from a list' },
+  { type: 'file-upload',  label: 'File Upload',   icon: '⬆', desc: 'Upload attachment' },
+  { type: 'date',         label: 'Date',          icon: '📅', desc: 'Date selector' },
+  { type: 'scale',        label: 'Linear Scale',  icon: '◈', desc: 'Rating scale 1-10' },
+];
+
+/** Map type string → QUESTION_TYPES entry for O(1) lookups */
+const TYPE_MAP = Object.freeze(
+  QUESTION_TYPES.reduce((m, qt) => { m[qt.type] = qt; return m; }, {})
+);
+
+/** Toast icon map */
+const TOAST_ICONS = { info: 'ℹ', success: '✓', error: '✗' };
+
+// ─────────────────────────────────────────────
+// Audio Engine
+// ─────────────────────────────────────────────
+
+/**
+ * Synthesizes short UI sound effects via Web Audio API.
+ * Lazy-initialises the AudioContext on first user interaction.
+ */
+class AudioEngine {
+  constructor() {
+    /** @type {AudioContext|null} */
+    this.ctx = null;
+    /** @type {boolean} */
+    this.enabled = true;
+    /** @type {number} last hover timestamp for debounce */
+    this._lastHover = 0;
+  }
+
+  /** Create the AudioContext (call once after a user gesture). */
+  init() {
+    if (this.ctx) return;
+    try {
+      this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+    } catch (_) {
+      this.enabled = false;
+    }
+  }
+
+  /**
+   * Play a named sound effect.
+   * @param {'click'|'drop'|'error'|'success'|'hover'} type
+   */
+  play(type) {
+    if (!this.enabled) return;
+    // Lazy init on first audible interaction
+    if (!this.ctx) this.init();
+    if (!this.ctx) return;
+
+    switch (type) {
+      case 'click':   this._playClick(); break;
+      case 'drop':    this._playDrop(); break;
+      case 'error':   this._playError(); break;
+      case 'success': this._playSuccess(); break;
+      case 'hover':   this._playHover(); break;
+    }
+  }
+
+  /* ── Individual synth recipes ───────────────── */
+
+  /** Short high-freq tick */
+  _playClick() {
+    const t = this.ctx.currentTime;
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+    osc.type = 'square';
+    osc.frequency.setValueAtTime(800, t);
+    gain.gain.setValueAtTime(0.08, t);
+    gain.gain.exponentialRampToValueAtTime(0.001, t + 0.03);
+    osc.connect(gain).connect(this.ctx.destination);
+    osc.start(t);
+    osc.stop(t + 0.03);
+  }
+
+  /** Medium bass thump + sparkle overlay */
+  _playDrop() {
+    const t = this.ctx.currentTime;
+
+    // Bass thump
+    const bass = this.ctx.createOscillator();
+    const bassGain = this.ctx.createGain();
+    bass.type = 'sine';
+    bass.frequency.setValueAtTime(150, t);
+    bass.frequency.exponentialRampToValueAtTime(60, t + 0.15);
+    bassGain.gain.setValueAtTime(0.12, t);
+    bassGain.gain.exponentialRampToValueAtTime(0.001, t + 0.15);
+    bass.connect(bassGain).connect(this.ctx.destination);
+    bass.start(t);
+    bass.stop(t + 0.15);
+
+    // High sparkle
+    const sparkle = this.ctx.createOscillator();
+    const spkGain = this.ctx.createGain();
+    sparkle.type = 'sine';
+    sparkle.frequency.setValueAtTime(2000, t);
+    sparkle.frequency.exponentialRampToValueAtTime(3000, t + 0.05);
+    spkGain.gain.setValueAtTime(0.04, t);
+    spkGain.gain.exponentialRampToValueAtTime(0.001, t + 0.05);
+    sparkle.connect(spkGain).connect(this.ctx.destination);
+    sparkle.start(t);
+    sparkle.stop(t + 0.05);
+  }
+
+  /** Low sawtooth buzz with gain wobble */
+  _playError() {
+    const t = this.ctx.currentTime;
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+    osc.type = 'sawtooth';
+    osc.frequency.setValueAtTime(100, t);
+    gain.gain.setValueAtTime(0.1, t);
+    // wobble
+    gain.gain.linearRampToValueAtTime(0.04, t + 0.05);
+    gain.gain.linearRampToValueAtTime(0.1, t + 0.1);
+    gain.gain.linearRampToValueAtTime(0.04, t + 0.15);
+    gain.gain.exponentialRampToValueAtTime(0.001, t + 0.2);
+    osc.connect(gain).connect(this.ctx.destination);
+    osc.start(t);
+    osc.stop(t + 0.2);
+  }
+
+  /** Ascending dual-tone sweep */
+  _playSuccess() {
+    const t = this.ctx.currentTime;
+
+    const lo = this.ctx.createOscillator();
+    const loG = this.ctx.createGain();
+    lo.type = 'sine';
+    lo.frequency.setValueAtTime(500, t);
+    lo.frequency.exponentialRampToValueAtTime(800, t + 0.2);
+    loG.gain.setValueAtTime(0.08, t);
+    loG.gain.exponentialRampToValueAtTime(0.001, t + 0.2);
+    lo.connect(loG).connect(this.ctx.destination);
+    lo.start(t);
+    lo.stop(t + 0.2);
+
+    const hi = this.ctx.createOscillator();
+    const hiG = this.ctx.createGain();
+    hi.type = 'sine';
+    hi.frequency.setValueAtTime(700, t + 0.05);
+    hi.frequency.exponentialRampToValueAtTime(1100, t + 0.2);
+    hiG.gain.setValueAtTime(0.05, t + 0.05);
+    hiG.gain.exponentialRampToValueAtTime(0.001, t + 0.22);
+    hi.connect(hiG).connect(this.ctx.destination);
+    hi.start(t + 0.05);
+    hi.stop(t + 0.22);
+  }
+
+  /** Very subtle, barely-audible tick for hover */
+  _playHover() {
+    const now = performance.now();
+    if (now - this._lastHover < 80) return;   // debounce 80 ms
+    this._lastHover = now;
+
+    const t = this.ctx.currentTime;
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(1200, t);
+    gain.gain.setValueAtTime(0.025, t);
+    gain.gain.exponentialRampToValueAtTime(0.001, t + 0.015);
+    osc.connect(gain).connect(this.ctx.destination);
+    osc.start(t);
+    osc.stop(t + 0.015);
+  }
+}
+
+// ─────────────────────────────────────────────
+// Helpers
+// ─────────────────────────────────────────────
+
+/**
+ * Pad a number to two digits: 1 → "01".
+ * @param {number} n
+ * @returns {string}
+ */
+function pad2(n) {
+  return String(n).padStart(2, '0');
+}
+
+/**
+ * Create a DOM element with optional className and textContent.
+ * @param {string} tag
+ * @param {string} [className]
+ * @param {string} [text]
+ * @returns {HTMLElement}
+ */
+function el(tag, className, text) {
+  const e = document.createElement(tag);
+  if (className) e.className = className;
+  if (text !== undefined) e.textContent = text;
+  return e;
+}
+
+/**
+ * Determine whether a question type has user-editable options.
+ * @param {string} type
+ * @returns {boolean}
+ */
+function hasOptions(type) {
+  return ['multiple-choice', 'checkbox', 'dropdown'].includes(type);
+}
+
+// ─────────────────────────────────────────────
+// NexusFlowUI
+// ─────────────────────────────────────────────
+
+/**
+ * Main UI class for the NexusFlow form builder.
+ * All rendering, interaction logic, audio, and toast notifications
+ * are encapsulated here.
+ *
+ * Communication with the data layer happens through an EventTarget bus.
+ */
+class NexusFlowUI {
+  /**
+   * @param {EventTarget} eventBus - shared event bus for cross-module comms
+   */
+  constructor(eventBus) {
+    /** @type {EventTarget} */
+    this.eventBus = eventBus;
+
+    /** @type {AudioEngine} */
+    this.audio = new AudioEngine();
+
+    /**
+     * Map of questionId → DOM element for quick lookups.
+     * @type {Map<string, HTMLElement>}
+     */
+    this._blockElements = new Map();
+
+    /**
+     * Currently-active (selected) question id.
+     * @type {string|null}
+     */
+    this._activeQuestionId = null;
+
+    /** Hover sound debounce tracker */
+    this._lastHoverSoundTime = 0;
+  }
+
+  // ═══════════════════════════════════════════
+  // 1. FABRICATOR PANEL
+  // ═══════════════════════════════════════════
+
+  /**
+   * Render the Component Fabricator panel into a container.
+   * Creates draggable module cards for each question type.
+   * @param {HTMLElement} container
+   */
+  renderFabricator(container) {
+    container.innerHTML = '';
+
+    // ── Panel header ──
+    const header = el('div', 'panel-header');
+    const headerIcon = el('span', 'panel-header__icon', '⚙');
+    const headerTitle = el('span', 'panel-header__title', 'COMPONENT FABRICATOR');
+    header.append(headerIcon, headerTitle);
+    container.appendChild(header);
+
+    // ── Module list ──
+    const modules = el('div', 'fabricator-modules');
+
+    for (const qt of QUESTION_TYPES) {
+      const card = el('div', 'module-card');
+      card.draggable = true;
+      card.dataset.type = qt.type;
+
+      const icon = el('div', 'module-card__icon', qt.icon);
+      const info = el('div', 'module-card__info');
+      const label = el('div', 'module-card__label', qt.label);
+      const desc  = el('div', 'module-card__desc', qt.desc);
+      info.append(label, desc);
+      card.append(icon, info);
+
+      // ── Drag events ──
+      card.addEventListener('dragstart', (e) => {
+        e.dataTransfer.setData('application/nexusflow-type', qt.type);
+        e.dataTransfer.effectAllowed = 'copy';
+        card.classList.add('dragging');
+        this.playSound('click');
+      });
+
+      card.addEventListener('dragend', () => {
+        card.classList.remove('dragging');
+      });
+
+      // ── Hover sound (debounced via AudioEngine) ──
+      card.addEventListener('mouseenter', () => {
+        this.playSound('hover');
+      });
+
+      modules.appendChild(card);
+    }
+
+    container.appendChild(modules);
+  }
+
+  // ═══════════════════════════════════════════
+  // 2. QUESTION BLOCKS
+  // ═══════════════════════════════════════════
+
+  /**
+   * Create and return a new question-block DOM element.
+   * The element is also stored in the internal map.
+   *
+   * @param {Object} question - question data object
+   * @returns {HTMLElement} the created block element
+   */
+  createQuestionBlock(question) {
+    const meta = TYPE_MAP[question.type] || QUESTION_TYPES[0];
+    const block = el('div', 'question-block');
+    block.dataset.questionId = question.id;
+    block.dataset.type = question.type;
+
+    // ── Number badge ──
+    const number = el('div', 'question-block__number', pad2((question.order ?? 0) + 1));
+    block.appendChild(number);
+
+    // ── Header row ──
+    const header = el('div', 'question-block__header');
+    const titleInput = document.createElement('input');
+    titleInput.className = 'question-block__title-input';
+    titleInput.value = question.title || '';
+    titleInput.placeholder = 'Enter your question...';
+    titleInput.setAttribute('aria-label', 'Question title');
+
+    const badge = el('div', 'question-block__type-badge', `${meta.icon} ${meta.label}`);
+    header.append(titleInput, badge);
+    block.appendChild(header);
+
+    // ── Description ──
+    const descInput = document.createElement('input');
+    descInput.className = 'question-block__desc-input';
+    descInput.value = question.description || '';
+    descInput.placeholder = 'Add description (optional)';
+    descInput.setAttribute('aria-label', 'Question description');
+    block.appendChild(descInput);
+
+    // ── Type-specific content ──
+    const content = el('div', 'question-block__content');
+    this._renderTypeContent(content, question, false);
+    block.appendChild(content);
+
+    // ── Toolbar ──
+    const toolbar = el('div', 'question-block__toolbar');
+
+    // Required toggle
+    const reqLabel = document.createElement('label');
+    reqLabel.className = 'question-block__required';
+    const reqCheckbox = document.createElement('input');
+    reqCheckbox.type = 'checkbox';
+    reqCheckbox.checked = !!question.required;
+    reqLabel.append(reqCheckbox, document.createTextNode(' Required'));
+    toolbar.appendChild(reqLabel);
+
+    // Duplicate button
+    const dupeBtn = el('button', 'cyber-btn cyber-btn--icon', '⧉');
+    dupeBtn.title = 'Duplicate';
+    toolbar.appendChild(dupeBtn);
+
+    // Delete button
+    const delBtn = el('button', 'cyber-btn cyber-btn--icon cyber-btn--danger', '✕');
+    delBtn.title = 'Delete';
+    toolbar.appendChild(delBtn);
+
+    block.appendChild(toolbar);
+
+    // ── Wire events ──
+    this._bindBlockEvents(block, question);
+
+    // Store reference
+    this._blockElements.set(question.id, block);
+
+    return block;
+  }
+
+  /**
+   * Update an existing question block in-place.
+   * Re-renders number, title, description, type content, and required state.
+   *
+   * @param {string} questionId
+   * @param {Object} question - updated question data
+   */
+  updateQuestionBlock(questionId, question) {
+    const block = this._blockElements.get(questionId);
+    if (!block) return;
+
+    const meta = TYPE_MAP[question.type] || QUESTION_TYPES[0];
+
+    // Number
+    const numberEl = block.querySelector('.question-block__number');
+    if (numberEl) numberEl.textContent = pad2((question.order ?? 0) + 1);
+
+    // Title
+    const titleEl = block.querySelector('.question-block__title-input');
+    if (titleEl && document.activeElement !== titleEl) {
+      titleEl.value = question.title || '';
+    }
+
+    // Description
+    const descEl = block.querySelector('.question-block__desc-input');
+    if (descEl && document.activeElement !== descEl) {
+      descEl.value = question.description || '';
+    }
+
+    // Badge
+    const badgeEl = block.querySelector('.question-block__type-badge');
+    if (badgeEl) badgeEl.textContent = `${meta.icon} ${meta.label}`;
+
+    // Type-specific content
+    const contentEl = block.querySelector('.question-block__content');
+    if (contentEl) {
+      contentEl.innerHTML = '';
+      this._renderTypeContent(contentEl, question, false);
+    }
+
+    // Required
+    const reqCheckbox = block.querySelector('.question-block__required input[type="checkbox"]');
+    if (reqCheckbox) reqCheckbox.checked = !!question.required;
+
+    // Update data attrs
+    block.dataset.type = question.type;
+  }
+
+  /**
+   * Remove a question block from DOM and internal map.
+   * @param {string} questionId
+   */
+  removeQuestionBlock(questionId) {
+    const block = this._blockElements.get(questionId);
+    if (block) {
+      block.classList.add('question-block--removing');
+      // Animate out then remove
+      setTimeout(() => {
+        block.remove();
+        this._blockElements.delete(questionId);
+      }, 300);
+    }
+    if (this._activeQuestionId === questionId) {
+      this._activeQuestionId = null;
+    }
+  }
+
+  // ── Private: type-specific content renderers ──
+
+  /**
+   * Render type-specific content into a container.
+   * @param {HTMLElement} container
+   * @param {Object} question
+   * @param {boolean} respondentMode - if true, inputs are enabled
+   * @private
+   */
+  _renderTypeContent(container, question, respondentMode) {
+    switch (question.type) {
+      case 'short-answer': this._renderShortAnswer(container, question, respondentMode); break;
+      case 'paragraph':    this._renderParagraph(container, question, respondentMode); break;
+      case 'multiple-choice': this._renderMultipleChoice(container, question, respondentMode); break;
+      case 'checkbox':     this._renderCheckbox(container, question, respondentMode); break;
+      case 'dropdown':     this._renderDropdown(container, question, respondentMode); break;
+      case 'file-upload':  this._renderFileUpload(container, question, respondentMode); break;
+      case 'date':         this._renderDate(container, question, respondentMode); break;
+      case 'scale':        this._renderScale(container, question, respondentMode); break;
+      default:             this._renderShortAnswer(container, question, respondentMode); break;
+    }
+  }
+
+  /**
+   * Short Answer renderer
+   * @private
+   */
+  _renderShortAnswer(container, question, respondentMode) {
+    const wrapper = el('div', 'laser-input');
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.placeholder = 'Short answer text';
+    input.disabled = !respondentMode;
+    if (respondentMode) {
+      input.dataset.questionId = question.id;
+      input.addEventListener('input', () => {
+        this._emitRespondentInput(question.id, input.value);
+      });
+    }
+    wrapper.appendChild(input);
+    container.appendChild(wrapper);
+  }
+
+  /**
+   * Paragraph renderer
+   * @private
+   */
+  _renderParagraph(container, question, respondentMode) {
+    const wrapper = el('div', 'laser-input laser-input--multi');
+    const textarea = document.createElement('textarea');
+    textarea.placeholder = 'Long answer text';
+    textarea.rows = 3;
+    textarea.disabled = !respondentMode;
+    if (respondentMode) {
+      textarea.dataset.questionId = question.id;
+      textarea.addEventListener('input', () => {
+        this._emitRespondentInput(question.id, textarea.value);
+      });
+    }
+    wrapper.appendChild(textarea);
+    container.appendChild(wrapper);
+  }
+
+  /**
+   * Multiple Choice renderer
+   * @private
+   */
+  _renderMultipleChoice(container, question, respondentMode) {
+    const options = question.options || ['Option 1', 'Option 2'];
+    const list = el('div', 'options-list');
+
+    options.forEach((opt, i) => {
+      const row = el('div', 'reactor-radio');
+      row.dataset.index = String(i);
+
+      const core = el('div', 'reactor-radio__core');
+
+      if (respondentMode) {
+        // Clickable radio in respondent mode
+        row.addEventListener('click', () => {
+          list.querySelectorAll('.reactor-radio').forEach(r => r.classList.remove('selected'));
+          row.classList.add('selected');
+          this.playSound('click');
+          this._emitRespondentInput(question.id, opt);
+        });
+        const labelSpan = el('span', 'reactor-radio__label-text', opt);
+        row.append(core, labelSpan);
+      } else {
+        // Editable label in builder mode
+        const labelInput = document.createElement('input');
+        labelInput.className = 'reactor-radio__label-input';
+        labelInput.value = opt;
+        labelInput.addEventListener('change', () => {
+          this._emitOptionChange(question.id, i, labelInput.value);
+        });
+
+        const removeBtn = el('button', 'option-remove', '✕');
+        removeBtn.addEventListener('click', () => {
+          this._emitOptionRemove(question.id, i);
+        });
+
+        // Preview select in builder
+        core.addEventListener('click', () => {
+          list.querySelectorAll('.reactor-radio').forEach(r => r.classList.remove('selected'));
+          row.classList.add('selected');
+          this.playSound('click');
+        });
+
+        row.append(core, labelInput, removeBtn);
+      }
+
+      list.appendChild(row);
+    });
+
+    if (!respondentMode) {
+      const addBtn = el('button', 'add-option-btn cyber-btn', '+ Add Option');
+      addBtn.addEventListener('click', () => {
+        this._emitOptionAdd(question.id);
+        this.playSound('click');
+      });
+      list.appendChild(addBtn);
+    }
+
+    container.appendChild(list);
+  }
+
+  /**
+   * Checkbox renderer
+   * @private
+   */
+  _renderCheckbox(container, question, respondentMode) {
+    const options = question.options || ['Option 1', 'Option 2'];
+    const list = el('div', 'options-list');
+
+    options.forEach((opt, i) => {
+      const row = el('div', 'reactor-checkbox');
+      row.dataset.index = String(i);
+
+      const core = el('div', 'reactor-checkbox__core');
+
+      if (respondentMode) {
+        row.addEventListener('click', () => {
+          row.classList.toggle('selected');
+          this.playSound('click');
+          const selected = Array.from(list.querySelectorAll('.reactor-checkbox.selected'))
+            .map(r => options[parseInt(r.dataset.index, 10)]);
+          this._emitRespondentInput(question.id, selected);
+        });
+        const labelSpan = el('span', 'reactor-checkbox__label-text', opt);
+        row.append(core, labelSpan);
+      } else {
+        const labelInput = document.createElement('input');
+        labelInput.className = 'reactor-checkbox__label-input';
+        labelInput.value = opt;
+        labelInput.addEventListener('change', () => {
+          this._emitOptionChange(question.id, i, labelInput.value);
+        });
+
+        const removeBtn = el('button', 'option-remove', '✕');
+        removeBtn.addEventListener('click', () => {
+          this._emitOptionRemove(question.id, i);
+        });
+
+        core.addEventListener('click', () => {
+          row.classList.toggle('selected');
+          this.playSound('click');
+        });
+
+        row.append(core, labelInput, removeBtn);
+      }
+
+      list.appendChild(row);
+    });
+
+    if (!respondentMode) {
+      const addBtn = el('button', 'add-option-btn cyber-btn', '+ Add Option');
+      addBtn.addEventListener('click', () => {
+        this._emitOptionAdd(question.id);
+        this.playSound('click');
+      });
+      list.appendChild(addBtn);
+    }
+
+    container.appendChild(list);
+  }
+
+  /**
+   * Dropdown renderer
+   * @private
+   */
+  _renderDropdown(container, question, respondentMode) {
+    const options = question.options || ['Option 1', 'Option 2'];
+
+    if (respondentMode) {
+      const wrapper = el('div', 'mech-dropdown-preview');
+      const select = document.createElement('select');
+      select.className = 'mech-dropdown__select';
+
+      const placeholder = document.createElement('option');
+      placeholder.value = '';
+      placeholder.textContent = 'Select an option…';
+      placeholder.disabled = true;
+      placeholder.selected = true;
+      select.appendChild(placeholder);
+
+      options.forEach((opt) => {
+        const o = document.createElement('option');
+        o.value = opt;
+        o.textContent = opt;
+        select.appendChild(o);
+      });
+
+      select.addEventListener('change', () => {
+        this.playSound('click');
+        this._emitRespondentInput(question.id, select.value);
+      });
+
+      wrapper.appendChild(select);
+      container.appendChild(wrapper);
+    } else {
+      const wrapper = el('div', 'mech-dropdown-preview');
+      const list = el('div', 'options-list');
+
+      options.forEach((opt, i) => {
+        const row = el('div', 'reactor-radio');
+        row.dataset.index = String(i);
+
+        const indexLabel = el('span', 'dropdown-index', `${i + 1}.`);
+
+        const labelInput = document.createElement('input');
+        labelInput.className = 'reactor-radio__label-input';
+        labelInput.value = opt;
+        labelInput.addEventListener('change', () => {
+          this._emitOptionChange(question.id, i, labelInput.value);
+        });
+
+        const removeBtn = el('button', 'option-remove', '✕');
+        removeBtn.addEventListener('click', () => {
+          this._emitOptionRemove(question.id, i);
+        });
+
+        row.append(indexLabel, labelInput, removeBtn);
+        list.appendChild(row);
+      });
+
+      const addBtn = el('button', 'add-option-btn cyber-btn', '+ Add Option');
+      addBtn.addEventListener('click', () => {
+        this._emitOptionAdd(question.id);
+        this.playSound('click');
+      });
+      list.appendChild(addBtn);
+
+      wrapper.appendChild(list);
+      container.appendChild(wrapper);
+    }
+  }
+
+  /**
+   * File Upload renderer
+   * @private
+   */
+  _renderFileUpload(container, question, respondentMode) {
+    const hatch = el('div', 'hatch-upload');
+    const hatchIcon = el('div', 'hatch-upload__icon', '⬆');
+    const hatchText = el('div', 'hatch-upload__text', 'Drag files here or click to upload');
+    const hatchFormats = el('div', 'hatch-upload__formats', 'Supported: PDF, DOC, IMG');
+    hatch.append(hatchIcon, hatchText, hatchFormats);
+
+    if (respondentMode) {
+      const fileInput = document.createElement('input');
+      fileInput.type = 'file';
+      fileInput.className = 'hatch-upload__input';
+      fileInput.style.display = 'none';
+      fileInput.addEventListener('change', () => {
+        if (fileInput.files.length) {
+          hatchText.textContent = fileInput.files[0].name;
+          hatch.classList.add('hatch-upload--filled');
+          this.playSound('success');
+          this._emitRespondentInput(question.id, fileInput.files[0].name);
+        }
+      });
+      hatch.appendChild(fileInput);
+      hatch.addEventListener('click', () => fileInput.click());
+      hatch.style.cursor = 'pointer';
+
+      // Drag & drop visual feedback
+      hatch.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        hatch.classList.add('hatch-upload--dragover');
+      });
+      hatch.addEventListener('dragleave', () => {
+        hatch.classList.remove('hatch-upload--dragover');
+      });
+      hatch.addEventListener('drop', (e) => {
+        e.preventDefault();
+        hatch.classList.remove('hatch-upload--dragover');
+        if (e.dataTransfer.files.length) {
+          hatchText.textContent = e.dataTransfer.files[0].name;
+          hatch.classList.add('hatch-upload--filled');
+          this.playSound('success');
+          this._emitRespondentInput(question.id, e.dataTransfer.files[0].name);
+        }
+      });
+    }
+
+    container.appendChild(hatch);
+  }
+
+  /**
+   * Date renderer
+   * @private
+   */
+  _renderDate(container, question, respondentMode) {
+    const wrapper = el('div', 'laser-input');
+    const input = document.createElement('input');
+    input.type = 'date';
+    input.disabled = !respondentMode;
+    if (respondentMode) {
+      input.dataset.questionId = question.id;
+      input.addEventListener('change', () => {
+        this.playSound('click');
+        this._emitRespondentInput(question.id, input.value);
+      });
+    }
+    wrapper.appendChild(input);
+    container.appendChild(wrapper);
+  }
+
+  /**
+   * Linear Scale renderer (1-10)
+   * @private
+   */
+  _renderScale(container, question, respondentMode) {
+    const scaleContainer = el('div', 'scale-container');
+    const labelLow = el('span', 'scale-label', '1');
+    const points = el('div', 'scale-points');
+    const labelHigh = el('span', 'scale-label', '10');
+
+    for (let v = 1; v <= 10; v++) {
+      const point = el('div', 'scale-point');
+      point.dataset.value = String(v);
+      const core = el('div', 'reactor-radio__core');
+      const valueLabel = el('span', 'scale-point__value', String(v));
+      point.append(core, valueLabel);
+
+      point.addEventListener('click', () => {
+        points.querySelectorAll('.scale-point').forEach(p => p.classList.remove('selected'));
+        point.classList.add('selected');
+        this.playSound('click');
+        if (respondentMode) {
+          this._emitRespondentInput(question.id, v);
+        }
+      });
+
+      points.appendChild(point);
+    }
+
+    scaleContainer.append(labelLow, points, labelHigh);
+    container.appendChild(scaleContainer);
+  }
+
+  // ── Private: event binding for question blocks ──
+
+  /**
+   * Bind all interactive events for a question block.
+   * @param {HTMLElement} block
+   * @param {Object} question
+   * @private
+   */
+  _bindBlockEvents(block, question) {
+    const qid = question.id;
+
+    // ── Block selection ──
+    block.addEventListener('click', (e) => {
+      // Don't select when interacting with inputs/buttons inside
+      if (e.target.closest('input, button, textarea, select, label')) return;
+
+      this._setActiveBlock(qid);
+    });
+
+    // ── Title change ──
+    const titleInput = block.querySelector('.question-block__title-input');
+    if (titleInput) {
+      titleInput.addEventListener('input', () => {
+        this.eventBus.dispatchEvent(new CustomEvent('question:updated', {
+          detail: { id: qid, field: 'title', value: titleInput.value }
+        }));
+      });
+      titleInput.addEventListener('focus', () => this._setActiveBlock(qid));
+    }
+
+    // ── Description change ──
+    const descInput = block.querySelector('.question-block__desc-input');
+    if (descInput) {
+      descInput.addEventListener('input', () => {
+        this.eventBus.dispatchEvent(new CustomEvent('question:updated', {
+          detail: { id: qid, field: 'description', value: descInput.value }
+        }));
+      });
+      descInput.addEventListener('focus', () => this._setActiveBlock(qid));
+    }
+
+    // ── Required toggle ──
+    const reqCheckbox = block.querySelector('.question-block__required input[type="checkbox"]');
+    if (reqCheckbox) {
+      reqCheckbox.addEventListener('change', () => {
+        this.playSound('click');
+        this.eventBus.dispatchEvent(new CustomEvent('question:updated', {
+          detail: { id: qid, field: 'required', value: reqCheckbox.checked }
+        }));
+      });
+    }
+
+    // ── Delete ──
+    const delBtn = block.querySelector('.cyber-btn--danger');
+    if (delBtn) {
+      delBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        this.playSound('click');
+        this.eventBus.dispatchEvent(new CustomEvent('question:removed', {
+          detail: { id: qid }
+        }));
+      });
+    }
+
+    // ── Duplicate ──
+    const dupeBtn = block.querySelector('.cyber-btn--icon:not(.cyber-btn--danger)');
+    if (dupeBtn) {
+      dupeBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        this.playSound('click');
+        this.eventBus.dispatchEvent(new CustomEvent('question:duplicated', {
+          detail: { id: qid }
+        }));
+      });
+    }
+  }
+
+  /**
+   * Set a block as active (selected) and deselect the previous.
+   * @param {string} questionId
+   * @private
+   */
+  _setActiveBlock(questionId) {
+    if (this._activeQuestionId === questionId) return;
+
+    // Deselect previous
+    if (this._activeQuestionId) {
+      const prev = this._blockElements.get(this._activeQuestionId);
+      if (prev) prev.classList.remove('active');
+    }
+
+    this._activeQuestionId = questionId;
+    const block = this._blockElements.get(questionId);
+    if (block) {
+      block.classList.add('active');
+      this.playSound('click');
+    }
+
+    this.eventBus.dispatchEvent(new CustomEvent('question:selected', {
+      detail: { id: questionId }
+    }));
+  }
+
+  // ── Private: option mutation emitters ──
+
+  /** @private */
+  _emitOptionChange(questionId, index, value) {
+    this.eventBus.dispatchEvent(new CustomEvent('question:updated', {
+      detail: { id: questionId, field: 'option', index, value }
+    }));
+  }
+
+  /** @private */
+  _emitOptionRemove(questionId, index) {
+    this.playSound('click');
+    this.eventBus.dispatchEvent(new CustomEvent('question:updated', {
+      detail: { id: questionId, field: 'option-remove', index }
+    }));
+  }
+
+  /** @private */
+  _emitOptionAdd(questionId) {
+    this.eventBus.dispatchEvent(new CustomEvent('question:updated', {
+      detail: { id: questionId, field: 'option-add' }
+    }));
+  }
+
+  /** @private */
+  _emitRespondentInput(questionId, value) {
+    this.eventBus.dispatchEvent(new CustomEvent('respondent:input', {
+      detail: { id: questionId, value }
+    }));
+  }
+
+  // ═══════════════════════════════════════════
+  // 3. LOGIC PANEL
+  // ═══════════════════════════════════════════
+
+  /**
+   * Render the Logic Controller panel.
+   * Shows question nodes and existing branch rules.
+   *
+   * @param {HTMLElement} container
+   * @param {Object[]} questions - array of question data objects
+   * @param {Object[]} branches - array of {id, fromId, toId, condition}
+   */
+  renderLogicPanel(container, questions, branches) {
+    container.innerHTML = '';
+
+    // ── Panel header ──
+    const header = el('div', 'panel-header');
+    const headerIcon = el('span', 'panel-header__icon', '⚡');
+    const headerTitle = el('span', 'panel-header__title', 'LOGIC CONTROLLER');
+    header.append(headerIcon, headerTitle);
+    container.appendChild(header);
+
+    // ── Question nodes ──
+    const nodesContainer = el('div', 'logic-nodes');
+
+    if (questions.length === 0) {
+      const empty = el('div', 'logic-nodes__empty', 'No questions yet. Drag components from the Fabricator to begin.');
+      nodesContainer.appendChild(empty);
+    } else {
+      questions.forEach((q, i) => {
+        const meta = TYPE_MAP[q.type] || QUESTION_TYPES[0];
+        const node = el('div', 'logic-node');
+        node.dataset.questionId = q.id;
+
+        const dot = el('div', 'logic-node__dot');
+        // Cycle through accent colours for visual distinction
+        const hue = (i * 40 + 180) % 360;
+        dot.style.background = `hsl(${hue}, 90%, 55%)`;
+
+        const title = el('div', 'logic-node__title', q.title || `Question ${i + 1}`);
+        const type  = el('div', 'logic-node__type', `${meta.icon} ${meta.label}`);
+
+        node.append(dot, title, type);
+        nodesContainer.appendChild(node);
+      });
+    }
+
+    container.appendChild(nodesContainer);
+
+    // ── Branch rules ──
+    const branchContainer = el('div', 'logic-branches');
+
+    if (branches && branches.length > 0) {
+      const questionOrderMap = new Map();
+      questions.forEach((q, i) => questionOrderMap.set(q.id, i + 1));
+
+      branches.forEach((branch) => {
+        const branchEl = el('div', 'logic-branch');
+        branchEl.dataset.branchId = branch.id;
+
+        const fromLabel = el('span', 'logic-branch__from', `Q${questionOrderMap.get(branch.fromId) || '?'}`);
+        const arrow1    = el('span', 'logic-branch__arrow', '→');
+        const condition = el('span', 'logic-branch__condition', branch.condition || 'any');
+        const arrow2    = el('span', 'logic-branch__arrow', '→');
+        const toLabel   = el('span', 'logic-branch__to', `Q${questionOrderMap.get(branch.toId) || '?'}`);
+
+        const removeBtn = el('button', 'logic-branch__remove', '✕');
+        removeBtn.addEventListener('click', () => {
+          this.playSound('click');
+          this.eventBus.dispatchEvent(new CustomEvent('logic:branch-removed', {
+            detail: { id: branch.id }
+          }));
+        });
+
+        branchEl.append(fromLabel, arrow1, condition, arrow2, toLabel, removeBtn);
+        branchContainer.appendChild(branchEl);
+      });
+    } else {
+      const empty = el('div', 'logic-branches__empty', 'No branching logic defined.');
+      branchContainer.appendChild(empty);
+    }
+
+    container.appendChild(branchContainer);
+
+    // ── Add branch button ──
+    const addBtn = el('button', 'cyber-btn cyber-btn--primary add-logic-btn', '+ Add Logic Branch');
+    addBtn.addEventListener('click', () => {
+      this.playSound('click');
+      this.eventBus.dispatchEvent(new CustomEvent('logic:branch-add'));
+    });
+    container.appendChild(addBtn);
+  }
+
+  // ═══════════════════════════════════════════
+  // 4. RESPONDENT MODE
+  // ═══════════════════════════════════════════
+
+  /**
+   * Show the immersive respondent (form-filling) overlay.
+   *
+   * @param {HTMLElement} container - parent element to inject overlay into
+   * @param {Object[]} questions - array of question data
+   * @param {Object[]} branches - logic branches (for future skip logic)
+   */
+  showRespondentMode(container, questions, branches) {
+    // Remove any existing overlay first
+    this.hideRespondentMode(container);
+
+    const overlay = el('div');
+    overlay.id = 'respondent-overlay';
+
+    const respondentContainer = el('div', 'respondent-container');
+
+    // ── Header ──
+    const header = el('div', 'respondent-header');
+    const title = el('h1', 'respondent-title', 'NexusFlow Survey');
+    const desc  = el('p', 'respondent-desc', 'Complete the form below to submit your response.');
+    header.append(title, desc);
+    respondentContainer.appendChild(header);
+
+    // ── Progress bar ──
+    const progressWrap = el('div', 'respondent-progress');
+    const tube = el('div', 'progress-tube');
+    const tubeFill = el('div', 'progress-tube__fill');
+    tubeFill.style.width = '0%';
+    tube.appendChild(tubeFill);
+    const progressText = el('span', 'respondent-progress__text', `0 / ${questions.length}`);
+    progressWrap.append(tube, progressText);
+    respondentContainer.appendChild(progressWrap);
+
+    // ── Questions ──
+    const questionsWrap = el('div', 'respondent-questions');
+
+    /** Track which questions have been answered for progress */
+    const answered = new Set();
+
+    questions.forEach((q, i) => {
+      const meta = TYPE_MAP[q.type] || QUESTION_TYPES[0];
+
+      const card = el('div', 'respondent-question');
+      card.dataset.id = q.id;
+
+      const num = el('div', 'respondent-question__number', pad2(i + 1));
+      const qTitle = el('h2', 'respondent-question__title');
+      qTitle.textContent = q.title || `Question ${i + 1}`;
+      if (q.required) {
+        const reqMark = el('span', 'respondent-question__required', ' *');
+        qTitle.appendChild(reqMark);
+      }
+      const qDesc = el('p', 'respondent-question__desc', q.description || '');
+      if (!q.description) qDesc.style.display = 'none';
+
+      const inputWrap = el('div', 'respondent-question__input');
+      this._renderTypeContent(inputWrap, q, true);
+
+      card.append(num, qTitle, qDesc, inputWrap);
+      questionsWrap.appendChild(card);
+    });
+
+    respondentContainer.appendChild(questionsWrap);
+
+    // ── Progress updater ──
+    const updateProgress = () => {
+      const pct = questions.length ? (answered.size / questions.length) * 100 : 0;
+      tubeFill.style.width = `${pct}%`;
+      progressText.textContent = `${answered.size} / ${questions.length}`;
+    };
+
+    // Listen for respondent input events to update progress
+    const onInput = (e) => {
+      const { id, value } = e.detail;
+      const isEmpty = value === '' || value === null || value === undefined ||
+                      (Array.isArray(value) && value.length === 0);
+      if (isEmpty) {
+        answered.delete(id);
+      } else {
+        answered.add(id);
+      }
+      updateProgress();
+    };
+    this.eventBus.addEventListener('respondent:input', onInput);
+
+    // ── Actions ──
+    const actions = el('div', 'respondent-actions');
+    const submitBtn = el('button', 'cyber-btn cyber-btn--primary respondent-submit-btn', 'SUBMIT');
+    submitBtn.addEventListener('click', () => {
+      // Validate required questions
+      const unanswered = questions.filter(q => q.required && !answered.has(q.id));
+      if (unanswered.length > 0) {
+        this.playSound('error');
+        this.showToast(`Please answer all required questions (${unanswered.length} remaining)`, 'error');
+        // Highlight unanswered required questions
+        unanswered.forEach(q => {
+          const qCard = questionsWrap.querySelector(`[data-id="${q.id}"]`);
+          if (qCard) {
+            qCard.classList.add('respondent-question--error');
+            setTimeout(() => qCard.classList.remove('respondent-question--error'), 2000);
+          }
+        });
+        return;
+      }
+      this.playSound('success');
+      this.showToast('Response submitted successfully!', 'success');
+      this.eventBus.dispatchEvent(new CustomEvent('respondent:submitted'));
+      setTimeout(() => this.hideRespondentMode(container), 1200);
+    });
+    actions.appendChild(submitBtn);
+    respondentContainer.appendChild(actions);
+
+    // ── Close button ──
+    const closeBtn = el('button', 'respondent-close cyber-btn cyber-btn--icon', '✕');
+    closeBtn.addEventListener('click', () => {
+      this.playSound('click');
+      this.hideRespondentMode(container);
+    });
+    respondentContainer.appendChild(closeBtn);
+
+    // ── Store cleanup reference ──
+    overlay._cleanup = () => {
+      this.eventBus.removeEventListener('respondent:input', onInput);
+    };
+
+    overlay.appendChild(respondentContainer);
+
+    // Animate entrance
+    requestAnimationFrame(() => {
+      container.appendChild(overlay);
+      requestAnimationFrame(() => overlay.classList.add('respondent-overlay--visible'));
+    });
+
+    this.playSound('success');
+  }
+
+  /**
+   * Hide and clean up the respondent overlay.
+   * @param {HTMLElement} container
+   */
+  hideRespondentMode(container) {
+    const overlay = container.querySelector('#respondent-overlay') ||
+                    document.getElementById('respondent-overlay');
+    if (!overlay) return;
+
+    overlay.classList.remove('respondent-overlay--visible');
+    overlay.classList.add('respondent-overlay--exiting');
+
+    if (typeof overlay._cleanup === 'function') {
+      overlay._cleanup();
+    }
+
+    setTimeout(() => overlay.remove(), 500);
+  }
+
+  // ═══════════════════════════════════════════
+  // 5. AUDIO
+  // ═══════════════════════════════════════════
+
+  /**
+   * Play a UI sound effect.
+   * @param {'click'|'drop'|'error'|'success'|'hover'} type
+   */
+  playSound(type) {
+    this.audio.play(type);
+  }
+
+  // ═══════════════════════════════════════════
+  // 6. TOAST NOTIFICATIONS
+  // ═══════════════════════════════════════════
+
+  /**
+   * Display a toast notification that auto-dismisses.
+   * @param {string} message
+   * @param {'info'|'success'|'error'} [type='info']
+   */
+  showToast(message, type = 'info') {
+    const toast = el('div', `nexus-toast nexus-toast--${type}`);
+
+    const icon = el('span', 'nexus-toast__icon', TOAST_ICONS[type] || TOAST_ICONS.info);
+    const msg  = el('span', 'nexus-toast__message', message);
+
+    toast.append(icon, msg);
+
+    // Insert into toast container (create if needed)
+    let toastContainer = document.querySelector('.nexus-toast-container');
+    if (!toastContainer) {
+      toastContainer = el('div', 'nexus-toast-container');
+      document.body.appendChild(toastContainer);
+    }
+
+    toastContainer.appendChild(toast);
+
+    // Trigger enter animation
+    requestAnimationFrame(() => toast.classList.add('nexus-toast--enter'));
+
+    // Auto-dismiss
+    setTimeout(() => {
+      toast.classList.remove('nexus-toast--enter');
+      toast.classList.add('nexus-toast--exit');
+    }, 3000);
+
+    setTimeout(() => {
+      toast.remove();
+      // Clean up empty container
+      if (toastContainer && toastContainer.children.length === 0) {
+        toastContainer.remove();
+      }
+    }, 3500);
+  }
+}
+
+/**
+ * ═══════════════════════════════════════════════════════════════════
+ *  NexusFlow — Sovereign Form Architect
+ *  Main Application Orchestrator (app.js)
+ * ═══════════════════════════════════════════════════════════════════
+ *
+ *  This is the MAIN entry point loaded as type="module" from index.html.
+ *  Responsibilities:
+ *    • Initialize CanvasEngine and NexusFlowUI
+ *    • Own and mutate all application state
+ *    • Coordinate drag-and-drop question creation
+ *    • Manage respondent preview / publish workflows
+ *    • Keyboard shortcuts, progress tracking, boot animation
+ *
+ *  Architecture:
+ *    App  ←eventBus→  UI   (bidirectional events)
+ *    App  ———————→  Canvas  (imperative calls for visual FX)
+ *
+ *  @module app
+ */
+
+
+
+
+/* ──────────────────────────────────────────────────────────────────
+   Initial State Template
+   ────────────────────────────────────────────────────────────────── */
+
+/** @type {AppState} */
+const initialState = {
+  /** @type {QuestionObject[]} */
+  questions: [],
+  /** @type {LogicBranch[]} */
+  logic: [],
+  /** @type {{ title: string, description: string }} */
+  settings: {
+    title: 'Untitled Form',
+    description: 'Form description',
+  },
+  /** @type {'builder' | 'respondent'} */
+  mode: 'builder',
+  /** @type {string|null} */
+  activeQuestionId: null,
+  /** @type {string|null} */
+  draggedType: null,
+};
+
+/**
+ * @typedef {Object} QuestionObject
+ * @property {string}   id          - crypto.randomUUID()
+ * @property {string}   type        - e.g. 'short-answer', 'multiple-choice'
+ * @property {string}   title       - Display title
+ * @property {string}   description - Optional helper text
+ * @property {boolean}  required    - Whether the question is mandatory
+ * @property {string[]} options     - Answer options (for choice-based types)
+ * @property {number}   order       - Sort order index
+ */
+
+/**
+ * @typedef {Object} LogicBranch
+ * @property {string} id
+ * @property {string} sourceQuestionId
+ * @property {string} condition
+ * @property {string} targetQuestionId
+ */
+
+/**
+ * @typedef {Object} AppState
+ * @property {QuestionObject[]} questions
+ * @property {LogicBranch[]}    logic
+ * @property {{ title: string, description: string }} settings
+ * @property {'builder'|'respondent'} mode
+ * @property {string|null} activeQuestionId
+ * @property {string|null} draggedType
+ */
+
+/* ──────────────────────────────────────────────────────────────────
+   Utility: inject runtime keyframes
+   ────────────────────────────────────────────────────────────────── */
+
+/**
+ * Injects CSS keyframe animations that are used dynamically by
+ * the orchestrator (fade-outs, pulse effects, etc.).
+ * @private
+ */
+function injectRuntimeStyles() {
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 8px rgba(0, 255, 200, 0.3); }
+      50%      { box-shadow: 0 0 20px rgba(0, 255, 200, 0.6); }
+    }
+
+    @keyframes shakeError {
+      0%, 100% { transform: translateX(0); }
+      20%      { transform: translateX(-6px); }
+      40%      { transform: translateX(6px); }
+      60%      { transform: translateX(-4px); }
+      80%      { transform: translateX(4px); }
+    }
+
+    @keyframes slideInUp {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes sinkPulse {
+      0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 20px rgba(0, 255, 200, 0.4);
+      }
+      50% {
+        transform: scale(1.08);
+        box-shadow: 0 0 40px rgba(0, 255, 200, 0.7);
+      }
+    }
+  `;
+  document.head.appendChild(style);
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   NexusFlowApp — Main Orchestrator
+   ══════════════════════════════════════════════════════════════════ */
+
+/**
+ * Central application class.
+ * Owns all mutable state; delegates rendering to `NexusFlowUI`
+ * and visual effects to `CanvasEngine`.
+ */
+class NexusFlowApp {
+  constructor() {
+    /** Deep-clone the initial state so each instance is independent */
+    this.state = JSON.parse(JSON.stringify(initialState));
+
+    /**
+     * Shared event bus for bidirectional communication between
+     * the app orchestrator and the UI layer.
+     * @type {EventTarget}
+     */
+    this.eventBus = new EventTarget();
+
+    /** @type {CanvasEngine|null} */
+    this.canvas = null;
+
+    /** @type {NexusFlowUI|null} */
+    this.ui = null;
+
+    /**
+     * Cached DOM element references.
+     * Populated by {@link cacheElements}.
+     * @type {Record<string, HTMLElement|null>}
+     */
+    this.elements = {};
+  }
+
+  /* ────────────────────────────────────────────────────────────────
+     Lifecycle
+     ──────────────────────────────────────────────────────────────── */
+
+  /**
+   * Boot the entire application.
+   * Must be called after DOMContentLoaded.
+   */
+  init() {
+    injectRuntimeStyles();
+    this.cacheElements();
+    this.initCanvas();
+    this.initUI();
+    this.setupDragDrop();
+    this.setupEventListeners();
+    this.setupKeyboard();
+    this.renderEmptyState();
+    this.playBootAnimation();
+  }
+
+  /**
+   * Cache frequently-accessed DOM nodes to avoid repeated lookups.
+   */
+  cacheElements() {
+    this.elements = {
+      pcbCanvas: document.getElementById('pcb-canvas'),
+      effectsCanvas: document.getElementById('effects-canvas'),
+      topBar: document.getElementById('top-bar'),
+      formTitle: document.getElementById('form-title'),
+      fabricatorPanel: document.getElementById('fabricator-panel'),
+      hydrationCanvas: document.getElementById('hydration-canvas'),
+      logicPanel: document.getElementById('logic-panel'),
+      progressTubeContainer: document.getElementById('progress-tube-container'),
+      dataSinkContainer: document.getElementById('data-sink-container'),
+      respondentOverlay: document.getElementById('respondent-overlay'),
+      previewBtn: document.getElementById('preview-btn'),
+      publishBtn: document.getElementById('publish-btn'),
+      questionsContainer: document.getElementById('questions-container'),
+    };
+  }
+
+  /* ────────────────────────────────────────────────────────────────
+     Sub-system Initialisation
+     ──────────────────────────────────────────────────────────────── */
+
+  /**
+   * Spin up the WebGL / Canvas2D visual-effects engine.
+   */
+  initCanvas() {
+    this.canvas = new CanvasEngine(
+      this.elements.pcbCanvas,
+      this.elements.effectsCanvas,
+    );
+    this.canvas.init();
+  }
+
+  /**
+   * Spin up the UI layer and render initial panels.
+   */
+  initUI() {
+    this.ui = new NexusFlowUI(this.eventBus);
+    this.ui.renderFabricator(this.elements.fabricatorPanel);
+    this.ui.renderLogicPanel(
+      this.elements.logicPanel,
+      this.state.questions,
+      this.state.logic,
+    );
+    this.renderProgressTube();
+  }
+
+  /* ════════════════════════════════════════════════════════════════
+     DRAG  &  DROP  SYSTEM
+     ════════════════════════════════════════════════════════════════ */
+
+  /**
+   * Wire up drag-over / drop handlers on the hydration canvas and
+   * the questions container so users can add new question modules
+   * by dragging from the fabricator panel.
+   */
+  setupDragDrop() {
+    const canvas = this.elements.hydrationCanvas;
+    const questionsContainer = this.elements.questionsContainer;
+
+    if (!canvas && !questionsContainer) return;
+
+    /**
+     * Helper: attach standard drag-over / drag-leave / drop
+     * to a given target element.
+     * @param {HTMLElement} target
+     */
+    const attachDropZone = (target) => {
+      if (!target) return;
+
+      target.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'copy';
+        target.classList.add('drag-over');
+      });
+
+      target.addEventListener('dragleave', (e) => {
+        // Only remove class when actually leaving the element
+        // (not when entering a child).
+        if (!target.contains(/** @type {Node} */ (e.relatedTarget))) {
+          target.classList.remove('drag-over');
+        }
+      });
+
+      target.addEventListener('drop', (e) => {
+        e.preventDefault();
+        target.classList.remove('drag-over');
+
+        const type = e.dataTransfer.getData('application/nexusflow-type');
+        if (!type) return;
+
+        this.addQuestion(type, e.clientX, e.clientY);
+      });
+    };
+
+    // Both the hydration canvas wrapper AND the questions list are
+    // valid drop targets so the user can drop anywhere in the centre.
+    attachDropZone(canvas);
+    attachDropZone(questionsContainer);
+  }
+
+  /* ────────────────────────────────────────────────────────────────
+     Question CRUD
+     ──────────────────────────────────────────────────────────────── */
+
+  /** Choice-based question types that need default options. */
+  static CHOICE_TYPES = ['multiple-choice', 'checkbox', 'dropdown'];
+
+  /**
+   * Create a new question and append it to the canvas.
+   *
+   * @param {string} type   - The question type key (e.g. 'short-answer').
+   * @param {number} dropX  - clientX of the drop event (for shockwave FX).
+   * @param {number} dropY  - clientY of the drop event (for shockwave FX).
+   */
+  addQuestion(type, dropX, dropY) {
+    /** @type {QuestionObject} */
+    const question = {
+      id: crypto.randomUUID(),
+      type,
+      title: 'Untitled Question',
+      description: '',
+      required: false,
+      options: NexusFlowApp.CHOICE_TYPES.includes(type)
+        ? ['Option 1', 'Option 2']
+        : [],
+      order: this.state.questions.length,
+    };
+
+    this.state.questions.push(question);
+
+    // Render the question block DOM via the UI layer
+    const block = this.ui.createQuestionBlock(question);
+    if (this.elements.questionsContainer) {
+      this.elements.questionsContainer.appendChild(block);
+    }
+
+    // Remove the "empty canvas" placeholder
+    this.removeEmptyState();
+
+    // Visual FX: shockwave at drop point
+    if (this.canvas) {
+      this.canvas.triggerShockwave(dropX, dropY);
+    }
+
+    // Audio FX
+    this.ui.playSound('drop');
+
+    // Refresh progress indicator
+    this.updateProgress();
+
+    // Refresh logic panel with new question list
+    this.ui.renderLogicPanel(
+      this.elements.logicPanel,
+      this.state.questions,
+      this.state.logic,
+    );
+
+    // Smoothly scroll the new block into view
+    block.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    // Toast notification
+    const typeMeta = QUESTION_TYPES.find((t) => t.type === type);
+    this.ui.showToast(
+      `${typeMeta?.label || type} added`,
+      'success',
+    );
+  }
+
+  /**
+   * Remove a question by its ID.
+   * @param {string} questionId
+   */
+  removeQuestion(questionId) {
+    this.state.questions = this.state.questions.filter(
+      (q) => q.id !== questionId,
+    );
+
+    // Re-index orders
+    this.state.questions.forEach((q, i) => {
+      q.order = i;
+    });
+
+    this.ui.removeQuestionBlock(questionId);
+    this.updateProgress();
+    this.ui.renderLogicPanel(
+      this.elements.logicPanel,
+      this.state.questions,
+      this.state.logic,
+    );
+    this.ui.playSound('click');
+
+    if (this.state.questions.length === 0) {
+      this.renderEmptyState();
+    }
+
+    // Clear active selection if the removed question was active
+    if (this.state.activeQuestionId === questionId) {
+      this.state.activeQuestionId = null;
+    }
+  }
+
+  /**
+   * Duplicate an existing question.
+   * @param {QuestionObject} question - The source question to clone.
+   */
+  duplicateQuestion(question) {
+    /** @type {QuestionObject} */
+    const newQuestion = {
+      ...question,
+      id: crypto.randomUUID(),
+      title: `${question.title} (Copy)`,
+      options: [...question.options],
+      order: this.state.questions.length,
+    };
+
+    this.state.questions.push(newQuestion);
+
+    const block = this.ui.createQuestionBlock(newQuestion);
+    if (this.elements.questionsContainer) {
+      this.elements.questionsContainer.appendChild(block);
+    }
+
+    this.updateProgress();
+    this.ui.renderLogicPanel(
+      this.elements.logicPanel,
+      this.state.questions,
+      this.state.logic,
+    );
+    this.ui.playSound('drop');
+
+    block.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    this.ui.showToast('Question duplicated', 'success');
+  }
+
+  /**
+   * Update a single field on a question.
+   * @param {string} questionId
+   * @param {string} field
+   * @param {*}      value
+   */
+  updateQuestionField(questionId, field, value) {
+    const question = this.state.questions.find((q) => q.id === questionId);
+    if (question) {
+      question[field] = value;
+    }
+  }
+
+  /**
+   * Set the currently-selected (active) question.
+   * @param {string|null} questionId
+   */
+  setActiveQuestion(questionId) {
+    this.state.activeQuestionId = questionId;
+
+    // Visual: remove 'active' from all blocks, add to the selected one
+    document.querySelectorAll('.question-block').forEach((b) => {
+      b.classList.remove('active');
+    });
+
+    if (questionId) {
+      const block = document.querySelector(
+        `[data-question-id="${questionId}"]`,
+      );
+      if (block) block.classList.add('active');
+    }
+  }
+
+  /* ════════════════════════════════════════════════════════════════
+     EVENT  LISTENERS
+     ════════════════════════════════════════════════════════════════ */
+
+  /**
+   * Wire up all event listeners:
+   *   • Form title editing
+   *   • EventBus events dispatched by the UI layer
+   *   • Preview / Publish buttons
+   *   • Window resize
+   */
+  setupEventListeners() {
+    // ── Form title ────────────────────────────────────────────────
+    if (this.elements.formTitle) {
+      this.elements.formTitle.addEventListener('input', (e) => {
+        this.state.settings.title =
+          /** @type {HTMLInputElement} */ (e.target).value || 'Untitled Form';
+      });
+    }
+
+    // ── Question field updated ────────────────────────────────────
+    this.eventBus.addEventListener('question:updated', (/** @type {CustomEvent} */ e) => {
+      const { questionId, field, value } = e.detail;
+      this.updateQuestionField(questionId, field, value);
+    });
+
+    // ── Question removed ──────────────────────────────────────────
+    this.eventBus.addEventListener('question:removed', (/** @type {CustomEvent} */ e) => {
+      const { questionId } = e.detail;
+      this.removeQuestion(questionId);
+    });
+
+    // ── Question duplicated ───────────────────────────────────────
+    this.eventBus.addEventListener('question:duplicated', (/** @type {CustomEvent} */ e) => {
+      const { question } = e.detail;
+      this.duplicateQuestion(question);
+    });
+
+    // ── Question selected / focused ───────────────────────────────
+    this.eventBus.addEventListener('question:selected', (/** @type {CustomEvent} */ e) => {
+      const { questionId } = e.detail;
+      this.setActiveQuestion(questionId);
+    });
+
+    // ── Logic branch added ────────────────────────────────────────
+    this.eventBus.addEventListener('logic:added', (/** @type {CustomEvent} */ e) => {
+      const { branch } = e.detail;
+      if (branch) {
+        this.state.logic.push(branch);
+        this.ui.renderLogicPanel(
+          this.elements.logicPanel,
+          this.state.questions,
+          this.state.logic,
+        );
+      }
+    });
+
+    // ── Logic branch removed ──────────────────────────────────────
+    this.eventBus.addEventListener('logic:removed', (/** @type {CustomEvent} */ e) => {
+      const { branchId } = e.detail;
+      this.state.logic = this.state.logic.filter((l) => l.id !== branchId);
+      this.ui.renderLogicPanel(
+        this.elements.logicPanel,
+        this.state.questions,
+        this.state.logic,
+      );
+    });
+
+    // ── Preview / Respondent mode ─────────────────────────────────
+    if (this.elements.previewBtn) {
+      this.elements.previewBtn.addEventListener('click', () => {
+        this.enterRespondentMode();
+      });
+    }
+
+    // ── Publish ───────────────────────────────────────────────────
+    if (this.elements.publishBtn) {
+      this.elements.publishBtn.addEventListener('click', () => {
+        this.publishForm();
+      });
+    }
+
+    // ── Exit respondent mode via eventBus ─────────────────────────
+    this.eventBus.addEventListener('respondent:exit', () => {
+      this.exitRespondentMode();
+    });
+
+    // ── Window resize → canvas resize ─────────────────────────────
+    window.addEventListener('resize', () => {
+      if (this.canvas) {
+        this.canvas.resize();
+      }
+    });
+  }
+
+  /* ════════════════════════════════════════════════════════════════
+     KEYBOARD  SHORTCUTS
+     ════════════════════════════════════════════════════════════════ */
+
+  /**
+   * Global keyboard shortcuts:
+   *   Escape  — exit respondent mode *or* deselect active question
+   *   Delete  — remove the active question (when no input is focused)
+   *   Ctrl+P  — toggle preview (respondent) mode
+   */
+  setupKeyboard() {
+    document.addEventListener('keydown', (e) => {
+      // ── Escape ──────────────────────────────────────────────────
+      if (e.key === 'Escape') {
+        if (this.state.mode === 'respondent') {
+          this.exitRespondentMode();
+        } else {
+          this.setActiveQuestion(null);
+        }
+        return;
+      }
+
+      // ── Delete active question ──────────────────────────────────
+      if (
+        e.key === 'Delete' &&
+        this.state.activeQuestionId &&
+        !['INPUT', 'TEXTAREA', 'SELECT'].includes(
+          document.activeElement?.tagName ?? '',
+        )
+      ) {
+        this.eventBus.dispatchEvent(
+          new CustomEvent('question:removed', {
+            detail: { questionId: this.state.activeQuestionId },
+          }),
+        );
+        return;
+      }
+
+      // ── Ctrl + P → preview toggle ──────────────────────────────
+      if (e.key === 'p' && (e.ctrlKey || e.metaKey)) {
+        e.preventDefault();
+        if (this.state.mode === 'respondent') {
+          this.exitRespondentMode();
+        } else {
+          this.enterRespondentMode();
+        }
+      }
+    });
+  }
+
+  /* ════════════════════════════════════════════════════════════════
+     PROGRESS  SYSTEM
+     ════════════════════════════════════════════════════════════════ */
+
+  /**
+   * Render the initial progress tube UI into the container.
+   */
+  renderProgressTube() {
+    const container = this.elements.progressTubeContainer;
+    if (!container) return;
+
+    container.innerHTML = `
+      <div class="progress-tube">
+        <div class="progress-tube__fill" id="progress-fill"></div>
+        <div class="progress-tube__glow"></div>
+      </div>
+      <span class="progress-tube__count" id="progress-count">0 modules</span>
+    `;
+  }
+
+  /**
+   * Recalculate and render progress based on current question count.
+   */
+  updateProgress() {
+    const count = this.state.questions.length;
+    /** Visual cap — the bar fills completely at this many questions. */
+    const maxDisplay = 20;
+    const percent = Math.min(count / maxDisplay, 1) * 100;
+
+    const fill = document.getElementById('progress-fill');
+    const countEl = document.getElementById('progress-count');
+
+    if (fill) {
+      fill.style.width = `${percent}%`;
+    }
+    if (countEl) {
+      countEl.textContent = `${count} module${count !== 1 ? 's' : ''}`;
+    }
+
+    // Notify the canvas engine so it can adjust background energy FX
+    if (this.canvas) {
+      this.canvas.updateProgress(percent / 100);
+    }
+  }
+
+  /* ════════════════════════════════════════════════════════════════
+     EMPTY  STATE
+     ════════════════════════════════════════════════════════════════ */
+
+  /**
+   * Show the "no questions yet" placeholder inside the hydration canvas.
+   */
+  renderEmptyState() {
+    const container = this.elements.questionsContainer;
+    if (!container) return;
+
+    // Guard: don't render twice
+    if (document.getElementById('empty-state')) return;
+
+    const emptyEl = document.createElement('div');
+    emptyEl.className = 'empty-canvas';
+    emptyEl.id = 'empty-state';
+    emptyEl.innerHTML = `
+      <div class="empty-canvas__icon">⎔</div>
+      <div class="empty-canvas__title">HYDRATION CANVAS</div>
+      <div class="empty-canvas__subtitle">
+        Drag components from the fabricator to begin building your data-inflow engine
+      </div>
+      <div class="empty-canvas__hint">
+        <span class="empty-canvas__arrow">←</span>
+        Drag modules from the left panel
+      </div>
+    `;
+    container.appendChild(emptyEl);
+  }
+
+  /**
+   * Animate out and remove the empty-state placeholder.
+   */
+  removeEmptyState() {
+    const empty = document.getElementById('empty-state');
+    if (!empty) return;
+
+    empty.style.animation = 'fadeOut 0.3s ease forwards';
+    setTimeout(() => {
+      empty.remove();
+    }, 300);
+  }
+
+  /* ════════════════════════════════════════════════════════════════
+     RESPONDENT  MODE  (Preview)
+     ════════════════════════════════════════════════════════════════ */
+
+  /**
+   * Switch the application into respondent (preview) mode.
+   * Shows the form as an end-user would see it.
+   */
+  enterRespondentMode() {
+    if (this.state.questions.length === 0) {
+      this.ui.showToast('Add at least one question to preview', 'error');
+      return;
+    }
+
+    this.state.mode = 'respondent';
+    this.ui.showRespondentMode(
+      this.elements.respondentOverlay,
+      this.state.questions,
+      this.state.settings,
+    );
+    this.ui.playSound('success');
+
+    // Update top-bar visual indicator
+    if (this.elements.previewBtn) {
+      this.elements.previewBtn.textContent = 'EXIT PREVIEW';
+      this.elements.previewBtn.classList.add('active');
+    }
+  }
+
+  /**
+   * Return to builder mode from respondent preview.
+   */
+  exitRespondentMode() {
+    this.state.mode = 'builder';
+    this.ui.hideRespondentMode(this.elements.respondentOverlay);
+
+    // Restore top-bar button
+    if (this.elements.previewBtn) {
+      this.elements.previewBtn.textContent = 'PREVIEW';
+      this.elements.previewBtn.classList.remove('active');
+    }
+  }
+
+  /* ════════════════════════════════════════════════════════════════
+     PUBLISH  /  SUBMIT  FLOW
+     ════════════════════════════════════════════════════════════════ */
+
+  /**
+   * Validate, animate, and "publish" the form.
+   * In a real app this would POST to a backend — here we
+   * show a success modal with a fake shareable link.
+   */
+  async publishForm() {
+    // ── Guard: no questions ───────────────────────────────────────
+    if (this.state.questions.length === 0) {
+      this.ui.showToast('Add at least one question to publish', 'error');
+      return;
+    }
+
+    // ── Validate: all questions must be titled ────────────────────
+    const untitled = this.state.questions.filter(
+      (q) => q.title === 'Untitled Question',
+    );
+
+    if (untitled.length > 0) {
+      this.highlightErrorQuestions(untitled);
+      this.ui.playSound('error');
+      this.ui.showToast(
+        'Please title all questions before publishing',
+        'error',
+      );
+
+      // Auto-clear error highlights after 2 s
+      setTimeout(() => {
+        document
+          .querySelectorAll('.question-block.error')
+          .forEach((b) => b.classList.remove('error'));
+      }, 2000);
+      return;
+    }
+
+    // ── Trigger submission animation ──────────────────────────────
+    this.ui.playSound('success');
+
+    // Collect rects of all question blocks for the converge animation
+    /** @type {{ x: number, y: number, width: number, height: number }[]} */
+    const sourceRects = [];
+    document.querySelectorAll('.question-block').forEach((block) => {
+      const rect = block.getBoundingClientRect();
+      sourceRects.push({
+        x: rect.x,
+        y: rect.y,
+        width: rect.width,
+        height: rect.height,
+      });
+    });
+
+    /** Target "data sink" position */
+    const sinkRect = {
+      x: window.innerWidth / 2 - 50,
+      y: window.innerHeight - 80,
+      width: 100,
+      height: 60,
+    };
+
+    // Show the data-sink visual element
+    if (this.elements.dataSinkContainer) {
+      this.elements.dataSinkContainer.classList.remove('hidden');
+      this.elements.dataSinkContainer.innerHTML = `
+        <div class="data-sink">
+          <div class="data-sink__core"></div>
+          <div class="data-sink__ring"></div>
+          <div class="data-sink__label">DATA SINK</div>
+        </div>
+      `;
+    }
+
+    // Tell the canvas engine to play the converge-to-sink animation
+    if (this.canvas) {
+      this.canvas.triggerSubmission(sourceRects, sinkRect);
+    }
+
+    // After the animation completes, show the success modal
+    await this.delay(2500);
+    this.showPublishSuccess();
+  }
+
+  /**
+   * Flash error state on question blocks that failed validation.
+   * @param {QuestionObject[]} questions
+   */
+  highlightErrorQuestions(questions) {
+    questions.forEach((q) => {
+      const block = document.querySelector(
+        `[data-question-id="${q.id}"]`,
+      );
+      if (block) {
+        block.classList.add('error');
+        block.style.animation = 'shakeError 0.5s ease';
+        block.addEventListener(
+          'animationend',
+          () => {
+            block.style.animation = '';
+          },
+          { once: true },
+        );
+
+        // Optional: trigger a localized error flash on the canvas
+        if (this.canvas) {
+          const rect = block.getBoundingClientRect();
+          this.canvas.triggerErrorFlash(
+            rect.left + rect.width / 2,
+            rect.top + rect.height / 2,
+          );
+        }
+      }
+    });
+  }
+
+  /**
+   * Display the "Form Published" success modal with a shareable link.
+   */
+  showPublishSuccess() {
+    const formSlug =
+      this.state.questions[0]?.id?.slice(0, 8) ?? 'nexus';
+    const shareUrl = `https://nexusflow.io/form/${formSlug}`;
+
+    const modal = document.createElement('div');
+    modal.className = 'nexus-modal-overlay';
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.innerHTML = `
+      <div class="nexus-modal">
+        <div class="nexus-modal__icon">⚡</div>
+        <h2 class="nexus-modal__title">FORM PUBLISHED</h2>
+        <p class="nexus-modal__subtitle">
+          Your data-inflow engine is now active
+        </p>
+        <div class="nexus-modal__link">
+          <input
+            type="text"
+            value="${shareUrl}"
+            readonly
+            class="laser-input"
+            aria-label="Shareable form link"
+          />
+          <button
+            class="cyber-btn cyber-btn--primary"
+            id="copy-link-btn"
+          >COPY LINK</button>
+        </div>
+        <button class="cyber-btn nexus-modal__close" id="close-modal-btn">
+          CLOSE
+        </button>
+      </div>
+    `;
+    document.body.appendChild(modal);
+
+    // ── Copy link handler ─────────────────────────────────────────
+    const copyBtn = modal.querySelector('#copy-link-btn');
+    const input = modal.querySelector('.laser-input');
+    if (copyBtn && input) {
+      copyBtn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(
+            /** @type {HTMLInputElement} */ (input).value,
+          );
+          copyBtn.textContent = 'COPIED ✓';
+          setTimeout(() => {
+            copyBtn.textContent = 'COPY LINK';
+          }, 2000);
+        } catch {
+          // Fallback: select the input text
+          /** @type {HTMLInputElement} */ (input).select();
+        }
+      });
+    }
+
+    // ── Close handler ─────────────────────────────────────────────
+    const closeBtn = modal.querySelector('#close-modal-btn');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => {
+        this.dismissPublishModal(modal);
+      });
+    }
+
+    // Also close on overlay click
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        this.dismissPublishModal(modal);
+      }
+    });
+
+    // Also close on Escape
+    const escHandler = (/** @type {KeyboardEvent} */ e) => {
+      if (e.key === 'Escape') {
+        document.removeEventListener('keydown', escHandler);
+        this.dismissPublishModal(modal);
+      }
+    };
+    document.addEventListener('keydown', escHandler);
+  }
+
+  /**
+   * Animate-out and remove the publish success modal.
+   * @param {HTMLElement} modal
+   */
+  dismissPublishModal(modal) {
+    modal.style.animation = 'fadeOut 0.3s ease forwards';
+    setTimeout(() => {
+      modal.remove();
+    }, 300);
+
+    if (this.elements.dataSinkContainer) {
+      this.elements.dataSinkContainer.classList.add('hidden');
+    }
+  }
+
+  /* ════════════════════════════════════════════════════════════════
+     BOOT  ANIMATION
+     ════════════════════════════════════════════════════════════════ */
+
+  /**
+   * Play a staggered entrance animation for the three main panels.
+   */
+  playBootAnimation() {
+    const panels = [
+      this.elements.fabricatorPanel,
+      this.elements.hydrationCanvas,
+      this.elements.logicPanel,
+    ];
+
+    panels.forEach((panel, i) => {
+      if (!panel) return;
+
+      // Set initial hidden state
+      panel.style.opacity = '0';
+      panel.style.transform = 'translateY(20px)';
+
+      // Stagger reveal
+      setTimeout(() => {
+        panel.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+        panel.style.opacity = '1';
+        panel.style.transform = 'translateY(0)';
+      }, 200 + i * 150);
+    });
+
+    // Optionally fire a brief welcome toast after panels settle
+    setTimeout(() => {
+      this.ui?.showToast('NexusFlow initialised', 'success');
+    }, 1000);
+  }
+
+  /* ════════════════════════════════════════════════════════════════
+     UTILITIES
+     ════════════════════════════════════════════════════════════════ */
+
+  /**
+   * Promise-based delay helper.
+   * @param {number} ms
+   * @returns {Promise<void>}
+   */
+  delay(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  /**
+   * Serialise the current form state to a plain JSON object.
+   * Useful for persistence / export.
+   * @returns {{ settings: object, questions: QuestionObject[], logic: LogicBranch[] }}
+   */
+  toJSON() {
+    return {
+      settings: { ...this.state.settings },
+      questions: this.state.questions.map((q) => ({ ...q, options: [...q.options] })),
+      logic: this.state.logic.map((l) => ({ ...l })),
+    };
+  }
+
+  /**
+   * Restore state from a previously exported JSON blob.
+   * @param {{ settings?: object, questions?: QuestionObject[], logic?: LogicBranch[] }} data
+   */
+  fromJSON(data) {
+    if (data.settings) {
+      this.state.settings = { ...this.state.settings, ...data.settings };
+      if (this.elements.formTitle) {
+        /** @type {HTMLInputElement} */ (this.elements.formTitle).value =
+          this.state.settings.title;
+      }
+    }
+
+    if (Array.isArray(data.questions)) {
+      // Clear existing
+      this.state.questions = [];
+      const container = this.elements.questionsContainer;
+      if (container) {
+        container.querySelectorAll('.question-block').forEach((b) => b.remove());
+      }
+      this.removeEmptyState();
+
+      // Re-add each question
+      data.questions.forEach((q) => {
+        const question = {
+          id: q.id || crypto.randomUUID(),
+          type: q.type || 'short-answer',
+          title: q.title || 'Untitled Question',
+          description: q.description || '',
+          required: Boolean(q.required),
+          options: Array.isArray(q.options) ? [...q.options] : [],
+          order: this.state.questions.length,
+        };
+        this.state.questions.push(question);
+
+        const block = this.ui.createQuestionBlock(question);
+        if (container) container.appendChild(block);
+      });
+
+      this.updateProgress();
+
+      if (this.state.questions.length === 0) {
+        this.renderEmptyState();
+      }
+    }
+
+    if (Array.isArray(data.logic)) {
+      this.state.logic = data.logic.map((l) => ({ ...l }));
+    }
+
+    this.ui.renderLogicPanel(
+      this.elements.logicPanel,
+      this.state.questions,
+      this.state.logic,
+    );
+  }
+
+  /**
+   * Get a question by ID.
+   * @param {string} id
+   * @returns {QuestionObject|undefined}
+   */
+  getQuestion(id) {
+    return this.state.questions.find((q) => q.id === id);
+  }
+
+  /**
+   * Get the total number of questions.
+   * @returns {number}
+   */
+  get questionCount() {
+    return this.state.questions.length;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   Bootstrap
+   ══════════════════════════════════════════════════════════════════ */
+
+document.addEventListener('DOMContentLoaded', () => {
+  const app = new NexusFlowApp();
+  app.init();
+
+  // Expose globally for debugging / console access
+  window.nexusApp = app;
+});
+
+/* ──────────────────────────────────────────────────────────────────
+   Module Export
+   ────────────────────────────────────────────────────────────────── */
+
+
+
+</script>
+
+</body>
+</html>

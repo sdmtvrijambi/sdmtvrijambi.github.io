@@ -351,19 +351,9 @@
     }
 
     // ============================================
-    // ANIMATION LOOP (with visibility optimization)
+    // ANIMATION LOOP
     // ============================================
-    let isRunning = true;
-
     function animate() {
-        if (!isRunning) return;
-
-        // Skip heavy rendering when tab is hidden (save CPU/battery)
-        if (document.hidden) {
-            requestAnimationFrame(animate);
-            return;
-        }
-
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         // Update and draw circles
@@ -381,13 +371,6 @@
 
         requestAnimationFrame(animate);
     }
-
-    // Pause/resume on visibility change
-    document.addEventListener('visibilitychange', () => {
-        if (!document.hidden && isRunning) {
-            requestAnimationFrame(animate);
-        }
-    });
 
     animate();
 })();

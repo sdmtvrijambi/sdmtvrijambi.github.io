@@ -320,7 +320,7 @@
 
     <!-- INTERACTIVE SCRIPT -->
     <script>
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwvoo0YlOHwoMF1OLfNM8AOfOiWmDY9T9jYW5ckYngujuVAUga9gNmcspU3R6l3nlfkQw/exec';
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwcaN0wMEfpugFXFxXX6T3iFD-5X4jdMTLtQdu6rpfgpPsuzD9kHsRafR74cceSt4slWg/exec';
 
         // 1. KONTROL INTERAKSI ROBOT
         const robotBubble = document.getElementById('robot-bubble');
@@ -653,7 +653,7 @@
                 robotBubble.innerText = "❌ Warning! Terjadi kegagalan uplink transmisi.";
                 alert("Gagal Mengirim Data.");
             } finally {
-                btnSubmit.innerHTML = `<span class="relative z-10 flex items-center justify-center space-x-2"><span>EXECUTE TRANSMISSION</span><span class="text-lg">⚡</span></span>`;
+                btnSubmit.innerHTML = `<span class="relative z-10 flex items-center justify-center space-x-2"><span>SUBMIT GAS</span><span class="text-lg">⚡</span></span>`;
                 btnSubmit.disabled = false;
             }
         });

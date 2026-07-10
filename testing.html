@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pendataan Nobar Malam</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Share+Tech+Mono&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --base-canvas: #F4F7FA;
+            --surface-glass: rgba(255, 255, 255, 0.55);
+            --surface-glass-elevated: rgba(255, 255, 255, 0.85);
+            --border-glass: rgba(14, 165, 233, 0.15);
+            --border-glass-active: rgba(14, 165, 233, 0.4);
+            --glass-blur: blur(14px) saturate(150%);
+            --cyan-glow: #0ea5e9;
+        }
+
+        * { font-family: 'Inter', sans-serif; margin: 0; padding: 0; box-sizing: border-box; }
+        .font-orbitron { font-family: 'Orbitron', sans-serif; }
+        .font-mono-tech { font-family: 'Share Tech Mono', monospace; }
+
+        body {
+            background: var(--base-canvas);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ===== SOCCER BALL ANIMATIONS ===== */
+        @keyframes ballBounce {
+            0%   { transform: translateY(0) rotate(0deg); }
+            15%  { transform: translateY(-18px) rotate(25deg); }
+            30%  { transform: translateY(0) rotate(50deg); }
+            45%  { transform: translateY(-10px) rotate(80deg); }
+            60%  { transform: translateY(0) rotate(110deg); }
+            75%  { transform: translateY(-5px) rotate(140deg); }
+            100% { transform: translateY(0) rotate(180deg); }
+        }
+
+        @keyframes ballSpin {
+            0%   { transform: rotateY(0deg) rotateX(5deg); }
+            100% { transform: rotateY(360deg) rotateX(5deg); }
+        }
+
+        @keyframes ballFloat {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-14px) scale(1.03); }
+        }
+
+        @keyframes kickPulse {
+            0% { box-shadow: 0 8px 30px rgba(14,165,233,0.15); }
+            50% { box-shadow: 0 15px 50px rgba(14,165,233,0.35), 0 0 60px rgba(99,102,241,0.15); }
+            100% { box-shadow: 0 8px 30px rgba(14,165,233,0.15); }
+        }
+
+        @keyframes trailFade {
+            0%   { opacity: 0.6; transform: scale(1) translateX(0); }
+            100% { opacity: 0; transform: scale(0.3) translateX(-40px); }
+        }
+
+        @keyframes grassSway {
+            0%, 100% { transform: rotate(-2deg); }
+            50% { transform: rotate(2deg); }
+        }
+
+        @keyframes netWave {
+            0%, 100% { transform: skewX(0deg); }
+            25% { transform: skewX(2deg); }
+            75% { transform: skewX(-2deg); }
+        }
+
+        @keyframes stadiumLights {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        @keyframes borderFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes scanline {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(1500%); }
+        }
+
+        @keyframes miniKick {
+            0%   { transform: translateX(0) translateY(0) rotate(0deg) scale(1); opacity: 0.7; }
+            30%  { transform: translateX(60px) translateY(-40px) rotate(180deg) scale(0.8); opacity: 0.5; }
+            60%  { transform: translateX(120px) translateY(-10px) rotate(360deg) scale(0.6); opacity: 0.3; }
+            100% { transform: translateX(180px) translateY(20px) rotate(540deg) scale(0.2); opacity: 0; }
+        }
+
+        /* Main Ball Logo */
+        .ball-hero {
+            animation: ballFloat 3s ease-in-out infinite;
+            perspective: 800px;
+        }
+
+        .ball-hero img {
+            animation: kickPulse 3s ease-in-out infinite;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+
+        .ball-hero:hover img {
+            animation: ballSpin 1.2s linear infinite;
+            box-shadow: 0 20px 60px rgba(14,165,233,0.4), 0 0 80px rgba(99,102,241,0.2);
+        }
+
+        /* Ball Trail Ghosts */
+        .ball-trail {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .ball-trail-1 {
+            animation: trailFade 2s ease-out infinite;
+            animation-delay: 0.1s;
+        }
+        .ball-trail-2 {
+            animation: trailFade 2s ease-out infinite;
+            animation-delay: 0.4s;
+        }
+
+        /* Cyber Panel */
+        .cyber-panel {
+            background: var(--surface-glass);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--border-glass-active);
+            box-shadow: 0 10px 40px rgba(14, 165, 233, 0.08), inset 0 1px 0 rgba(255,255,255,0.6);
+            position: relative;
+        }
+
+        .cyber-panel::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 1.1rem;
+            padding: 2px;
+            background: linear-gradient(135deg, #0ea5e9, #8b5cf6, #10b981, #0ea5e9);
+            background-size: 400% 400%;
+            animation: borderFlow 8s ease infinite;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            opacity: 0.35;
+        }
+
+        .neon-input {
+            background: rgba(255, 255, 255, 0.75);
+            border: 1.5px solid rgba(14, 165, 233, 0.2);
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            color: #1e293b;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.03);
+        }
+
+        .neon-input:focus {
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.12), 0 4px 20px rgba(14, 165, 233, 0.1);
+            border-color: #0ea5e9;
+            background: #ffffff;
+            outline: none;
+        }
+
+        .neon-input::placeholder { color: #94a3b8; }
+
+        .scanline-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 12px;
+            background: linear-gradient(to bottom, transparent, rgba(14, 165, 233, 0.08), transparent);
+            animation: scanline 10s linear infinite;
+            pointer-events: none;
+        }
+
+        #soccer-canvas {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0; pointer-events: none;
+        }
+
+        .hud-corner {
+            position: absolute; width: 14px; height: 14px;
+            border-color: rgba(14, 165, 233, 0.5); pointer-events: none;
+        }
+        .hud-top-left { top: 10px; left: 10px; border-top: 2px solid; border-left: 2px solid; }
+        .hud-top-right { top: 10px; right: 10px; border-top: 2px solid; border-right: 2px solid; }
+        .hud-bottom-left { bottom: 10px; left: 10px; border-bottom: 2px solid; border-left: 2px solid; }
+        .hud-bottom-right { bottom: 10px; right: 10px; border-bottom: 2px solid; border-right: 2px solid; }
+
+        /* Mini animated kicked balls in background */
+        .kicked-ball {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0;
+        }
+
+        /* Stadium field line accents on form */
+        .field-line {
+            position: absolute;
+            background: rgba(16, 185, 129, 0.08);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hidden { display: none; }
+
+        /* Premium browse button */
+        .browse-btn {
+            background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%);
+            color: white;
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+        .browse-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: linear-gradient(transparent, rgba(255,255,255,0.2), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s;
+            opacity: 0;
+        }
+        .browse-btn:hover::after { opacity: 1; left: 100%; }
+        .browse-btn:hover { box-shadow: 0 8px 25px rgba(14,165,233,0.35); }
+    </style>
+</head>
+<body>
+
+    <!-- Soccer Field Canvas Background -->
+    <canvas id="soccer-canvas"></canvas>
+
+    <div class="max-w-2xl mx-auto w-full my-6 p-4 flex-grow flex flex-col justify-center relative z-10 min-h-screen">
+        
+        <!-- HEADER SECTION -->
+        <div class="flex flex-col items-center mb-8 relative">
+            
+            <!-- Speech Bubble -->
+            <div class="bg-white/80 backdrop-blur-lg border border-sky-200/80 text-sky-800 px-6 py-3 rounded-2xl text-xs font-mono-tech mb-5 shadow-[0_4px_20px_rgba(14,165,233,0.1)] max-w-sm text-center relative">
+                <div class="flex items-center justify-center space-x-2 mb-1.5">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+                    <span class="text-[10px] text-sky-600 font-orbitron tracking-[0.2em] uppercase font-bold">⚽ FIFA World Cup 2026</span>
+                </div>
+                <p id="robot-bubble" class="transition-all duration-300 text-slate-700 text-sm font-semibold">Isi data absen Nobar mu di sini!</p>
+                <div class="absolute bottom-[-7px] left-1/2 transform -translate-x-1/2 w-3.5 h-3.5 bg-white/80 border-r border-b border-sky-200 rotate-45"></div>
+            </div>
+
+            <!-- World Cup Ball Logo with Overflow Mask to Remove White Border -->
+            <div class="ball-hero relative cursor-pointer" id="ball-container">
+                <!-- Trail Ghosts -->
+                <div class="ball-trail ball-trail-1 w-24 h-24 bg-sky-200/30 -left-8 top-2"></div>
+                <div class="ball-trail ball-trail-2 w-20 h-20 bg-indigo-200/20 -left-14 top-4"></div>
+                
+                <div class="w-28 h-28 rounded-full overflow-hidden flex items-center justify-center border-2 border-sky-300/60 shadow-[0_10px_25px_rgba(14,165,233,0.25)] bg-transparent">
+                    <img src="worldcup2026.jpg" alt="World Cup 2026 Ball" id="ball-logo"
+                         class="w-40 h-40 max-w-none object-cover" 
+                         style="filter: contrast(1.05) saturate(1.1);">
+                </div>
+            </div>
+        </div>
+
+        <!-- FORM CONTAINER -->
+        <div class="cyber-panel p-6 sm:p-8 rounded-2xl relative overflow-hidden">
+            <div class="scanline-overlay"></div>
+
+            <!-- Field line accent -->
+            <div class="field-line w-40 h-40 border-2 border-emerald-300/10 top-[-20px] right-[-20px]" style="position:absolute;"></div>
+            <div class="field-line w-24 h-24 border-2 border-sky-300/10 bottom-[-12px] left-[-12px]" style="position:absolute;"></div>
+            
+            <div class="hud-corner hud-top-left"></div>
+            <div class="hud-corner hud-top-right"></div>
+            <div class="hud-corner hud-bottom-left"></div>
+            <div class="hud-corner hud-bottom-right"></div>
+
+            <form id="cyber-form" class="space-y-6 relative z-10">
+                <!-- Header Title -->
+                <div class="text-center border-b border-sky-200/60 pb-4">
+                    <h2 class="text-2xl font-orbitron font-extrabold tracking-wider bg-gradient-to-r from-sky-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent">FORMULIR ABSENSI</h2>
+                    <p class="text-xs text-slate-500 font-mono-tech mt-1.5 tracking-[0.15em] uppercase">Pendataan Nobar Piala Dunia 2026</p>
+                </div>
+
+                <!-- Input: Nama -->
+                <div>
+                    <label class="block text-xs font-mono-tech tracking-widest text-sky-700 mb-1.5 flex items-center space-x-1.5 font-bold">
+                        <span class="text-emerald-500">⚽</span>
+                        <span>NAMA LENGKAP</span>
+                    </label>
+                    <input type="text" name="Nama_Lengkap" id="input-nama" required 
+                           onfocus="updateBubble('nama')" 
+                           placeholder="Masukkan nama lengkap..."
+                           class="neon-input w-full rounded-xl p-3.5 text-sm font-mono-tech">
+                </div>
+
+                <!-- Input: Unit Kerja -->
+                <div>
+                    <label class="block text-xs font-mono-tech tracking-widest text-sky-700 mb-1.5 flex items-center space-x-1.5 font-bold">
+                        <span class="text-emerald-500">⚽</span>
+                        <span>UNIT KERJA</span>
+                    </label>
+                    <input type="text" name="Unit_Kerja" id="input-unit" required 
+                           onfocus="updateBubble('unit')" 
+                           placeholder="Contoh: IT, Marketing, dll"
+                           class="neon-input w-full rounded-xl p-3.5 text-sm font-mono-tech">
+                </div>
+
+                <!-- Upload Foto Geotag Datang -->
+                <div>
+                    <label class="block text-xs font-mono-tech tracking-widest text-sky-700 mb-1.5 flex items-center space-x-1.5 font-bold">
+                        <span class="text-emerald-500">⚽</span>
+                        <span>UPLOAD FOTO GEOTAG DATANG</span>
+                    </label>
+                    <div class="relative w-full bg-white/60 border border-slate-200 rounded-xl p-3 text-sm font-mono-tech focus-within:ring-2 focus-within:ring-sky-300/50 focus-within:border-sky-400 transition-all flex items-center backdrop-blur-sm">
+                        <input type="file" id="input-file-datang" accept="image/*" required
+                               onchange="handleFileChange('datang')" 
+                               onfocus="updateBubble('file-datang')" class="hidden">
+                        <label for="input-file-datang" class="browse-btn cursor-pointer px-4 py-2 rounded-lg text-xs font-orbitron font-bold mr-3 tracking-wider transition-all shadow-md">
+                            📁 BROWSE
+                        </label>
+                        <span id="file-name-datang" class="text-xs text-slate-400 truncate max-w-[220px]">Belum ada file dipilih...</span>
+                    </div>
+                </div>
+
+                <!-- Upload Foto Geotag Pulang -->
+                <div>
+                    <label class="block text-xs font-mono-tech tracking-widest text-sky-700 mb-1.5 flex items-center space-x-1.5 font-bold">
+                        <span class="text-emerald-500">⚽</span>
+                        <span>UPLOAD FOTO GEOTAG PULANG</span>
+                    </label>
+                    <div class="relative w-full bg-white/60 border border-slate-200 rounded-xl p-3 text-sm font-mono-tech focus-within:ring-2 focus-within:ring-sky-300/50 focus-within:border-sky-400 transition-all flex items-center backdrop-blur-sm">
+                        <input type="file" id="input-file-pulang" accept="image/*" 
+                               onchange="handleFileChange('pulang')" 
+                               onfocus="updateBubble('file-pulang')" class="hidden">
+                        <label for="input-file-pulang" class="browse-btn cursor-pointer px-4 py-2 rounded-lg text-xs font-orbitron font-bold mr-3 tracking-wider transition-all shadow-md">
+                            📁 BROWSE
+                        </label>
+                        <span id="file-name-pulang" class="text-xs text-slate-400 truncate max-w-[220px]">(Opsional jika belum pulang)</span>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="pt-4">
+                    <button type="submit" id="btn-submit" 
+                            class="w-full relative group overflow-hidden bg-gradient-to-r from-emerald-500 via-sky-500 to-indigo-500 hover:from-emerald-400 hover:via-sky-400 hover:to-indigo-400 text-white font-orbitron font-black tracking-widest py-4 px-6 rounded-xl shadow-[0_10px_30px_rgba(14,165,233,0.25)] hover:shadow-[0_15px_40px_rgba(14,165,233,0.35)] transition-all duration-300 transform active:scale-[0.97]">
+                        <span class="relative z-10 flex items-center justify-center space-x-2 text-sm">
+                            <span>⚽</span>
+                            <span>SUBMIT DATA</span>
+                            <span>⚡</span>
+                        </span>
+                        <div class="absolute inset-0 bg-white/15 translate-y-full group-hover:translate-y-0 transition-transform duration-400"></div>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center py-5 text-[11px] font-mono-tech tracking-widest text-slate-400 relative z-10 flex items-center justify-center space-x-3 pb-8">
+        <span>SISTEM ABSENSI &copy; 2026</span>
+        <span class="text-sky-400">⚽</span>
+        <span class="text-emerald-500 font-bold">FIFA WORLD CUP 2026</span>
+    </footer>
+
+    <script>
+        // Uncaught error diagnostics helper
+        window.onerror = function(message, source, lineno, colno, error) {
+            const errorDiv = document.createElement('div');
+            errorDiv.style.cssText = 'position:fixed;top:0;left:0;width:100%;background:red;color:white;z-index:99999;padding:15px;font-family:monospace;font-size:12px;white-space:pre-wrap;';
+            errorDiv.innerText = `[JS Error] ${message}\nSource: ${source}\nLine: ${lineno}:${colno}\nStack: ${error ? error.stack : 'N/A'}`;
+            document.body.appendChild(errorDiv);
+            return false;
+        };
+
+        // ==========================================
+        // GOOGLE APPS SCRIPT WEB APP URL
+        // ==========================================
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwO6TRPFiJS_1Qzczw_hsGeFVe-LBUdVP33nwiLgdK7yoeKHzx6n9auCqWa_GYBmfetqQ/exec';
+
+        // ==========================================
+        // 1. SPEECH BUBBLE CONTROL
+        // ==========================================
+        const robotBubble = document.getElementById('robot-bubble');
+
+        function updateBubble(field) {
+            const messages = {
+                'nama': "⚽ Siapa nama lengkapmu? Ketik dengan benar ya!",
+                'unit': "🏟️ Dari unit kerja mana kamu berasal?",
+                'file-datang': "📸 Upload bukti foto geotag saat datang.",
+                'file-pulang': "📸 Jangan lupa foto geotag pulangnya juga."
+            };
+            robotBubble.innerText = messages[field] || "Isi data absen Nobar mu di sini!";
+            triggerBallKick();
+        }
+
+        // ==========================================
+        // 2. BALL KICK MICRO-INTERACTION
+        // ==========================================
+        function triggerBallKick() {
+            const ball = document.getElementById('ball-logo');
+            ball.style.transition = 'transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1)';
+            ball.style.transform = 'scale(1.15) rotate(15deg)';
+            setTimeout(() => {
+                ball.style.transform = 'scale(1) rotate(0deg)';
+            }, 200);
+            spawnMiniKickedBall();
+        }
+
+        // Spawn mini kicked balls that fly across screen
+        let miniKickCount = 0;
+        function spawnMiniKickedBall() {
+            if (miniKickCount > 3) return;
+            miniKickCount++;
+            const mini = document.createElement('div');
+            mini.style.cssText = `
+                position: fixed;
+                width: 20px; height: 20px;
+                border-radius: 50%;
+                background: radial-gradient(circle at 35% 35%, #e2e8f0, #94a3b8);
+                border: 1px solid rgba(14,165,233,0.3);
+                z-index: 50;
+                pointer-events: none;
+                top: ${Math.random() * 60 + 20}%;
+                left: ${Math.random() * 30}%;
+            `;
+            mini.style.animation = 'miniKick 1.2s ease-out forwards';
+            document.body.appendChild(mini);
+            setTimeout(() => { mini.remove(); miniKickCount--; }, 1300);
+        }
+
+        // ==========================================
+        // 3. FILE UPLOAD HANDLING
+        // ==========================================
+        let fileDataDatang = { base64: '', name: '', type: '' };
+        let fileDataPulang = { base64: '', name: '', type: '' };
+
+        function handleFileChange(type) {
+            const fileInput = document.getElementById(`input-file-${type}`);
+            const fileNameSpan = document.getElementById(`file-name-${type}`);
+            const fileData = type === 'datang' ? fileDataDatang : fileDataPulang;
+            
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                fileNameSpan.innerText = file.name;
+                fileNameSpan.className = "text-xs text-sky-700 font-bold font-mono-tech truncate max-w-[220px]";
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    fileData.base64 = e.target.result.split(',')[1];
+                    fileData.name = file.name;
+                    fileData.type = file.type;
+                    robotBubble.innerText = `⚽ Foto ${type} siap dikirim! GOOOL!`;
+                    triggerBallKick();
+                };
+                reader.readAsDataURL(file);
+            } else {
+                fileNameSpan.innerText = "Belum ada file dipilih...";
+                fileNameSpan.className = "text-xs text-slate-400 truncate max-w-[220px]";
+                fileData.base64 = ''; fileData.name = ''; fileData.type = '';
+            }
+        }
+
+        // ==========================================
+        // 4. ULTRA PREMIUM SOCCER CANVAS BACKGROUND
+        // ==========================================
+        // ---- GLOBAL CANVAS STATE (Declared early to prevent TDZ ReferenceErrors) ----
+        let fieldNodes = [];
+        function initFieldMarkings() {
+            fieldNodes = [];
+            for (let i = 0; i < 12; i++) {
+                fieldNodes.push({
+                    x: Math.random() * (window.innerWidth || 1000),
+                    y: Math.random() * (window.innerHeight || 800),
+                    pulse: Math.random() * Math.PI * 2
+                });
+            }
+        }
+
+        const canvas = document.getElementById('soccer-canvas');
+        const ctx = canvas.getContext('2d');
+        let mousePos = { x: null, y: null, prevX: null, prevY: null, speed: 0 };
+
+        window.addEventListener('mousemove', (e) => {
+            mousePos.prevX = mousePos.x;
+            mousePos.prevY = mousePos.y;
+            mousePos.x = e.clientX;
+            mousePos.y = e.clientY;
+            if (mousePos.prevX !== null) {
+                mousePos.speed = Math.hypot(e.clientX - mousePos.prevX, e.clientY - mousePos.prevY);
+            }
+        });
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initFieldMarkings();
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // ---- FLOATING SOCCER BALLS (More & Faster) ----
+        class SoccerBall {
+            constructor() { this.reset(true); }
+            reset(initial) {
+                this.x = initial ? Math.random() * canvas.width : (Math.random() < 0.5 ? -30 : canvas.width + 30);
+                this.y = initial ? Math.random() * canvas.height : Math.random() * canvas.height;
+                this.size = Math.random() * 16 + 6;
+                this.vx = (Math.random() - 0.5) * 2;
+                this.vy = (Math.random() - 0.5) * 2;
+                this.rotation = Math.random() * Math.PI * 2;
+                this.rotSpeed = (Math.random() - 0.5) * 0.06;
+                this.alpha = Math.random() * 0.2 + 0.06;
+                this.baseAlpha = this.alpha;
+                this.pulsePhase = Math.random() * Math.PI * 2;
+                // Trail history
+                this.trail = [];
+            }
+            update(time) {
+                // Gentle sine wave movement
+                this.vx += Math.sin(time * 0.001 + this.pulsePhase) * 0.01;
+                this.vy += Math.cos(time * 0.0008 + this.pulsePhase) * 0.01;
+                // Dampen
+                this.vx *= 0.998;
+                this.vy *= 0.998;
+
+                this.x += this.vx;
+                this.y += this.vy;
+                this.rotation += this.rotSpeed;
+                this.alpha = this.baseAlpha + Math.sin(time * 0.002 + this.pulsePhase) * 0.04;
+
+                // Store trail positions
+                this.trail.push({ x: this.x, y: this.y, a: this.alpha });
+                if (this.trail.length > 8) this.trail.shift();
+
+                // Mouse interaction — kick away!
+                if (mousePos.x !== null) {
+                    const dx = mousePos.x - this.x, dy = mousePos.y - this.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 150) {
+                        const force = (150 - dist) / 150;
+                        const kickPower = 1 + mousePos.speed * 0.05;
+                        this.vx -= (dx / dist) * force * 3 * kickPower;
+                        this.vy -= (dy / dist) * force * 3 * kickPower;
+                        this.rotSpeed += force * 0.04;
+                        this.alpha = Math.min(0.5, this.alpha + force * 0.15);
+                    }
+                }
+
+                // Wrap around with margin
+                const m = 40;
+                if (this.x < -m) this.x = canvas.width + m;
+                if (this.x > canvas.width + m) this.x = -m;
+                if (this.y < -m) this.y = canvas.height + m;
+                if (this.y > canvas.height + m) this.y = -m;
+            }
+            draw() {
+                // Draw comet trail
+                for (let i = 0; i < this.trail.length - 1; i++) {
+                    const t = this.trail[i];
+                    const progress = i / this.trail.length;
+                    ctx.save();
+                    ctx.globalAlpha = t.a * progress * 0.3;
+                    ctx.beginPath();
+                    ctx.arc(t.x, t.y, this.size * progress * 0.6, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(14,165,233,0.4)';
+                    ctx.fill();
+                    ctx.restore();
+                }
+
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.rotation);
+
+                const s = this.size;
+
+                // Ball body with gradient
+                const ballGrad = ctx.createRadialGradient(-s * 0.3, -s * 0.3, s * 0.1, 0, 0, s);
+                ballGrad.addColorStop(0, '#ffffff');
+                ballGrad.addColorStop(0.4, '#f1f5f9');
+                ballGrad.addColorStop(1, '#cbd5e1');
+                ctx.beginPath();
+                ctx.arc(0, 0, s, 0, Math.PI * 2);
+                ctx.fillStyle = ballGrad;
+                ctx.fill();
+
+                // Pentagon patches (dark)
+                for (let i = 0; i < 5; i++) {
+                    const angle = (i * Math.PI * 2) / 5 - Math.PI / 2;
+                    const px = Math.cos(angle) * s * 0.52;
+                    const py = Math.sin(angle) * s * 0.52;
+                    ctx.beginPath();
+                    const patchSize = s * 0.3;
+                    for (let j = 0; j < 5; j++) {
+                        const pa = (j * Math.PI * 2) / 5 - Math.PI / 2;
+                        const ppx = px + Math.cos(pa) * patchSize;
+                        const ppy = py + Math.sin(pa) * patchSize;
+                        j === 0 ? ctx.moveTo(ppx, ppy) : ctx.lineTo(ppx, ppy);
+                    }
+                    ctx.closePath();
+                    ctx.fillStyle = 'rgba(30, 41, 59, 0.25)';
+                    ctx.fill();
+                }
+
+                // Outline
+                ctx.beginPath();
+                ctx.arc(0, 0, s, 0, Math.PI * 2);
+                ctx.strokeStyle = 'rgba(14,165,233,0.25)';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+
+                // Shine highlight
+                ctx.beginPath();
+                ctx.arc(-s * 0.3, -s * 0.3, s * 0.25, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255,255,255,0.5)';
+                ctx.fill();
+
+                ctx.restore();
+            }
+        }
+
+        // ---- KICKED BALL ARCS (Parabolic trajectories) ----
+        class KickedBallArc {
+            constructor() { this.reset(); }
+            reset() {
+                this.active = false;
+                this.timer = Math.random() * 400 + 200;
+            }
+            launch() {
+                this.active = true;
+                this.startX = Math.random() * canvas.width * 0.3;
+                this.startY = canvas.height * 0.8 + Math.random() * 50;
+                this.endX = canvas.width * 0.5 + Math.random() * canvas.width * 0.5;
+                this.endY = canvas.height * 0.7 + Math.random() * 100;
+                this.peakY = Math.random() * canvas.height * 0.3;
+                this.progress = 0;
+                this.speed = 0.005 + Math.random() * 0.008;
+                this.size = 8 + Math.random() * 6;
+                this.rotation = 0;
+                this.trail = [];
+            }
+            update() {
+                if (!this.active) {
+                    this.timer--;
+                    if (this.timer <= 0) this.launch();
+                    return;
+                }
+                this.progress += this.speed;
+                this.rotation += 0.15;
+                if (this.progress >= 1) {
+                    this.reset();
+                    return;
+                }
+                const t = this.progress;
+                this.x = this.startX + (this.endX - this.startX) * t;
+                this.y = this.startY + (this.endY - this.startY) * t - Math.sin(t * Math.PI) * (this.startY - this.peakY);
+                this.trail.push({ x: this.x, y: this.y, r: this.rotation });
+                if (this.trail.length > 15) this.trail.shift();
+            }
+            draw() {
+                if (!this.active) return;
+                // Glowing arc trail
+                for (let i = 0; i < this.trail.length; i++) {
+                    const p = this.trail[i];
+                    const frac = i / this.trail.length;
+                    ctx.save();
+                    ctx.globalAlpha = frac * 0.15;
+                    ctx.translate(p.x, p.y);
+                    ctx.rotate(p.r);
+                    ctx.beginPath();
+                    ctx.arc(0, 0, this.size * frac, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(16, 185, 129, 0.6)`;
+                    ctx.fill();
+                    ctx.restore();
+                }
+                // The ball itself
+                ctx.save();
+                ctx.globalAlpha = 0.35;
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.rotation);
+                const arcGrad = ctx.createRadialGradient(-2, -2, 1, 0, 0, this.size);
+                arcGrad.addColorStop(0, '#fff');
+                arcGrad.addColorStop(0.5, '#e2e8f0');
+                arcGrad.addColorStop(1, '#94a3b8');
+                ctx.beginPath();
+                ctx.arc(0, 0, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = arcGrad;
+                ctx.fill();
+                ctx.strokeStyle = 'rgba(14,165,233,0.4)';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+                // Cross pattern
+                ctx.beginPath();
+                ctx.moveTo(-this.size, 0); ctx.lineTo(this.size, 0);
+                ctx.moveTo(0, -this.size); ctx.lineTo(0, this.size);
+                ctx.strokeStyle = 'rgba(30,41,59,0.15)';
+                ctx.lineWidth = 0.5;
+                ctx.stroke();
+                ctx.restore();
+            }
+        }
+
+        // ---- ENERGY SPARKS (Fast tiny particles) ----
+        class EnergySpark {
+            constructor() { this.reset(); }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height + 10;
+                this.vx = (Math.random() - 0.5) * 3;
+                this.vy = -(Math.random() * 4 + 2);
+                this.size = Math.random() * 2.5 + 0.5;
+                this.alpha = Math.random() * 0.5 + 0.2;
+                this.life = 1;
+                this.decay = 0.005 + Math.random() * 0.008;
+                const hues = ['14,165,233', '16,185,129', '99,102,241', '251,191,36'];
+                this.color = hues[Math.floor(Math.random() * hues.length)];
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.vy += 0.02; // slight gravity
+                this.life -= this.decay;
+                if (this.life <= 0) this.reset();
+            }
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.alpha * this.life;
+                ctx.shadowBlur = 8;
+                ctx.shadowColor = `rgba(${this.color},0.6)`;
+                ctx.fillStyle = `rgba(${this.color},${this.life})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        // ---- STADIUM GLOW ORBS (Big soft ambient lights) ----
+        class StadiumGlow {
+            constructor() { this.reset(); }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height + Math.random() * 80;
+                this.vy = -(Math.random() * 1.8 + 0.4);
+                this.size = Math.random() * 70 + 30;
+                this.baseSize = this.size;
+                this.alpha = Math.random() * 0.1 + 0.02;
+                this.phase = Math.random() * Math.PI * 2;
+                const palettes = [
+                    {r:14,g:165,b:233}, {r:16,g:185,b:129},
+                    {r:99,g:102,b:241}, {r:59,g:130,b:246},
+                    {r:245,g:158,b:11}, {r:168,g:85,b:247}
+                ];
+                this.color = palettes[Math.floor(Math.random() * palettes.length)];
+            }
+            update(time) {
+                this.y += this.vy;
+                this.x += Math.sin(time * 0.001 + this.phase) * 0.8;
+                this.size = this.baseSize + Math.sin(time * 0.002 + this.phase) * 10;
+                if (this.y < -this.size * 2) this.reset();
+            }
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                const {r,g:gr,b} = this.color;
+                const glowGrad = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size);
+                glowGrad.addColorStop(0, `rgba(${r},${gr},${b},0.8)`);
+                glowGrad.addColorStop(0.3, `rgba(${r},${gr},${b},0.3)`);
+                glowGrad.addColorStop(0.7, `rgba(${r},${gr},${b},0.05)`);
+                glowGrad.addColorStop(1, `rgba(${r},${gr},${b},0)`);
+                ctx.fillStyle = glowGrad;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        // ---- STADIUM SPOTLIGHT SWEEPS ----
+        let spotAngle = 0;
+        function drawSpotlights(time) {
+            spotAngle = time * 0.0003;
+            const spotCount = 5;
+            for (let i = 0; i < spotCount; i++) {
+                const baseX = (canvas.width / (spotCount + 1)) * (i + 1);
+                const sweepX = baseX + Math.sin(spotAngle + i * 1.2) * 80;
+                const alpha = 0.025 + Math.sin(time * 0.001 + i * 0.8) * 0.015;
+                
+                const g = ctx.createLinearGradient(sweepX, 0, sweepX, canvas.height * 0.7);
+                g.addColorStop(0, `rgba(14, 165, 233, ${alpha * 3})`);
+                g.addColorStop(0.5, `rgba(99, 102, 241, ${alpha})`);
+                g.addColorStop(1, 'rgba(14, 165, 233, 0)');
+                ctx.fillStyle = g;
+                ctx.beginPath();
+                const spread = 40 + Math.sin(time * 0.002 + i) * 15;
+                ctx.moveTo(sweepX - spread, 0);
+                ctx.lineTo(sweepX + spread, 0);
+                ctx.lineTo(sweepX + spread * 3, canvas.height * 0.7);
+                ctx.lineTo(sweepX - spread * 3, canvas.height * 0.7);
+                ctx.fill();
+            }
+        }
+
+        // ---- FIELD MARKINGS (Rich details) ----
+
+        function drawFieldMarkings(time) {
+            // Center circle
+            ctx.strokeStyle = 'rgba(16, 185, 129, 0.06)';
+            ctx.lineWidth = 2;
+            ctx.setLineDash([8, 12]);
+            ctx.beginPath();
+            ctx.arc(canvas.width / 2, canvas.height / 2, 140, 0, Math.PI * 2);
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // Center line
+            ctx.beginPath();
+            ctx.moveTo(0, canvas.height / 2);
+            ctx.lineTo(canvas.width, canvas.height / 2);
+            ctx.strokeStyle = 'rgba(16, 185, 129, 0.04)';
+            ctx.stroke();
+
+            // Penalty boxes
+            const boxW = 180, boxH = 100;
+            ctx.strokeStyle = 'rgba(16, 185, 129, 0.04)';
+            ctx.strokeRect(0, canvas.height / 2 - boxH / 2, boxW, boxH);
+            ctx.strokeRect(canvas.width - boxW, canvas.height / 2 - boxH / 2, boxW, boxH);
+
+            // Animated center dot
+            const dotPulse = 4 + Math.sin(time * 0.003) * 2;
+            ctx.fillStyle = `rgba(16, 185, 129, ${0.08 + Math.sin(time * 0.003) * 0.04})`;
+            ctx.beginPath();
+            ctx.arc(canvas.width / 2, canvas.height / 2, dotPulse, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Animated radar sweep at center
+            const sweepAngle = time * 0.002;
+            ctx.save();
+            ctx.translate(canvas.width / 2, canvas.height / 2);
+            ctx.rotate(sweepAngle);
+            const sweepGrad = ctx.createLinearGradient(0, 0, 140, 0);
+            sweepGrad.addColorStop(0, 'rgba(14, 165, 233, 0.08)');
+            sweepGrad.addColorStop(1, 'rgba(14, 165, 233, 0)');
+            ctx.fillStyle = sweepGrad;
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.arc(0, 0, 140, -0.15, 0.15);
+            ctx.fill();
+            ctx.restore();
+
+            // Node connections (circuit-like)
+            for (let i = 0; i < fieldNodes.length; i++) {
+                const node = fieldNodes[i];
+                const pulse = Math.sin(time * 0.002 + node.pulse) * 0.5 + 0.5;
+                // Draw node dot
+                ctx.fillStyle = `rgba(14, 165, 233, ${0.04 + pulse * 0.06})`;
+                ctx.beginPath();
+                ctx.arc(node.x, node.y, 3 + pulse * 2, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Connect to nearest 2 nodes with 90-degree lines
+                for (let j = i + 1; j < fieldNodes.length && j < i + 3; j++) {
+                    const other = fieldNodes[j];
+                    ctx.strokeStyle = `rgba(14, 165, 233, ${0.03 + pulse * 0.02})`;
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.moveTo(node.x, node.y);
+                    // 90-degree routing
+                    ctx.lineTo(other.x, node.y);
+                    ctx.lineTo(other.x, other.y);
+                    ctx.stroke();
+                }
+            }
+        }
+
+        // ---- GRID ----
+        function drawGrid() {
+            ctx.strokeStyle = 'rgba(14, 165, 233, 0.025)';
+            ctx.lineWidth = 1;
+            const gridSize = 50;
+            for (let x = 0; x < canvas.width; x += gridSize) {
+                ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
+            }
+            for (let y = 0; y < canvas.height; y += gridSize) {
+                ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
+            }
+        }
+
+        // ---- CONNECTIONS ----
+        function drawConnections(balls) {
+            for (let i = 0; i < balls.length; i++) {
+                for (let j = i + 1; j < balls.length; j++) {
+                    const dx = balls[i].x - balls[j].x;
+                    const dy = balls[i].y - balls[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 200) {
+                        const alpha = (1 - dist / 200) * 0.08;
+                        ctx.strokeStyle = `rgba(14, 165, 233, ${alpha})`;
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(balls[i].x, balls[i].y);
+                        ctx.lineTo(balls[j].x, balls[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        // ---- FLOATING HEX LABELS ----
+        const hexLabels = ['GOAL!', '⚽', 'VAR', 'FIFA', '2026', 'KICK', 'NET', '🏆'];
+        class FloatingLabel {
+            constructor() { this.reset(); }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.text = hexLabels[Math.floor(Math.random() * hexLabels.length)];
+                this.alpha = 0;
+                this.maxAlpha = Math.random() * 0.06 + 0.02;
+                this.fadeIn = true;
+                this.life = Math.random() * 300 + 150;
+            }
+            update() {
+                if (this.fadeIn) {
+                    this.alpha += 0.001;
+                    if (this.alpha >= this.maxAlpha) this.fadeIn = false;
+                } else {
+                    this.life--;
+                    if (this.life <= 0) {
+                        this.alpha -= 0.001;
+                        if (this.alpha <= 0) this.reset();
+                    }
+                }
+            }
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.font = '10px "Share Tech Mono", monospace';
+                ctx.fillStyle = 'rgba(14, 165, 233, 0.8)';
+                ctx.fillText(this.text, this.x, this.y);
+                ctx.restore();
+            }
+        }
+
+        // ---- INITIALIZE ALL PARTICLES ----
+        const soccerBalls = Array.from({ length: 35 }, () => new SoccerBall());
+        const kickedArcs = Array.from({ length: 4 }, () => new KickedBallArc());
+        const sparks = Array.from({ length: 50 }, () => new EnergySpark());
+        const glows = Array.from({ length: 30 }, () => new StadiumGlow());
+        const labels = Array.from({ length: 10 }, () => new FloatingLabel());
+
+        // ---- MAIN RENDER LOOP ----
+        function renderScene(time) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Layers (back to front)
+            drawGrid();
+            drawSpotlights(time);
+            drawFieldMarkings(time);
+
+            glows.forEach(g => { g.update(time); g.draw(); });
+            sparks.forEach(s => { s.update(); s.draw(); });
+            soccerBalls.forEach(b => { b.update(time); b.draw(); });
+            drawConnections(soccerBalls);
+            kickedArcs.forEach(k => { k.update(); k.draw(); });
+            labels.forEach(l => { l.update(); l.draw(); });
+
+            requestAnimationFrame(renderScene);
+        }
+        renderScene(0);
+
+        // ==========================================
+        // 5. FORM SUBMISSION
+        // ==========================================
+        const form = document.getElementById('cyber-form');
+        const btnSubmit = document.getElementById('btn-submit');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            if (GOOGLE_SCRIPT_URL === 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE') {
+                alert("Harap masukkan URL Google Apps Script Anda ke dalam variabel GOOGLE_SCRIPT_URL di dalam kode HTML.");
+                return;
+            }
+
+            robotBubble.innerText = "⚡ Mengirim data ke server... Mohon tunggu.";
+            btnSubmit.innerHTML = `<span class="relative z-10 flex items-center justify-center space-x-2"><span class="animate-spin text-lg">⚽</span><span>SENDING...</span></span>`;
+            btnSubmit.disabled = true;
+
+            const payload = {
+                "Nama_Lengkap": document.getElementById('input-nama').value,
+                "Unit_Kerja": document.getElementById('input-unit').value,
+                "File_Datang_Base64": fileDataDatang.base64,
+                "File_Datang_Name": fileDataDatang.name,
+                "File_Datang_Type": fileDataDatang.type,
+                "File_Pulang_Base64": fileDataPulang.base64,
+                "File_Pulang_Name": fileDataPulang.name,
+                "File_Pulang_Type": fileDataPulang.type
+            };
+
+            try {
+                await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST', mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                robotBubble.innerText = "🏆 GOOOL! Data & Foto berhasil disimpan!";
+                alert("Data & File Berhasil Terkirim!");
+                // Celebration: spawn multiple kicked balls
+                for (let i = 0; i < 5; i++) setTimeout(spawnMiniKickedBall, i * 200);
+                
+                form.reset();
+                document.getElementById('file-name-datang').innerText = "Belum ada file dipilih...";
+                document.getElementById('file-name-datang').className = "text-xs text-slate-400 truncate max-w-[220px]";
+                document.getElementById('file-name-pulang').innerText = "(Opsional jika belum pulang)";
+                document.getElementById('file-name-pulang').className = "text-xs text-slate-400 truncate max-w-[220px]";
+                fileDataDatang = { base64: '', name: '', type: '' };
+                fileDataPulang = { base64: '', name: '', type: '' };
+            } catch (error) {
+                console.error(error);
+                robotBubble.innerText = "❌ Gagal mengirim data. Periksa koneksi.";
+                alert("Gagal Mengirim Data.");
+            } finally {
+                btnSubmit.innerHTML = `<span class="relative z-10 flex items-center justify-center space-x-2 text-sm"><span>⚽</span><span>SUBMIT DATA</span><span>⚡</span></span>`;
+                btnSubmit.disabled = false;
+            }
+        });
+
+        // ==========================================
+        // 6. BALL CLICK KICK INTERACTION
+        // ==========================================
+        document.getElementById('ball-container').addEventListener('click', () => {
+            triggerBallKick();
+            robotBubble.innerText = "⚽ GOOOL! Tendangan maut!";
+            setTimeout(() => {
+                robotBubble.innerText = "Isi data absen Nobar mu di sini!";
+            }, 2000);
+        });
+    </script>
+</body>
+</html>

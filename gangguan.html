@@ -134,6 +134,115 @@
         .form-label {
             color: #d4af37;
         }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+
+        /* --- Very small phones (≤380px) --- */
+        @media (max-width: 380px) {
+            .medallion-hero .logo-wrapper {
+                width: 7rem !important;
+                height: 7rem !important;
+            }
+            .speech-bubble-wrap {
+                padding-left: 1rem !important;
+                padding-right: 1rem !important;
+                padding-top: 0.5rem !important;
+                padding-bottom: 0.5rem !important;
+            }
+            .speech-bubble-wrap p {
+                font-size: 0.75rem !important;
+            }
+            .form-title {
+                font-size: 1.25rem !important;
+            }
+            .form-subtitle {
+                font-size: 0.6rem !important;
+            }
+            .upload-row {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                gap: 0.5rem !important;
+            }
+            .upload-row .browse-btn {
+                margin-right: 0 !important;
+            }
+            .upload-filename {
+                max-width: 100% !important;
+            }
+            .cyber-panel {
+                padding: 1rem !important;
+            }
+            .submit-btn {
+                padding-top: 0.75rem !important;
+                padding-bottom: 0.75rem !important;
+                font-size: 0.75rem !important;
+            }
+        }
+
+        /* --- Standard mobile (381px - 639px) --- */
+        @media (min-width: 381px) and (max-width: 639px) {
+            .medallion-hero .logo-wrapper {
+                width: 9rem !important;
+                height: 9rem !important;
+            }
+            .form-title {
+                font-size: 1.5rem !important;
+            }
+            .upload-filename {
+                max-width: 55vw !important;
+            }
+        }
+
+        /* --- Tablet (640px - 767px) --- */
+        @media (min-width: 640px) and (max-width: 767px) {
+            .medallion-hero .logo-wrapper {
+                width: 10rem !important;
+                height: 10rem !important;
+            }
+            .upload-filename {
+                max-width: 300px !important;
+            }
+        }
+
+        /* --- Safe area for notched phones --- */
+        @supports (padding: env(safe-area-inset-bottom)) {
+            footer {
+                padding-bottom: calc(2rem + env(safe-area-inset-bottom)) !important;
+            }
+        }
+
+        /* --- Landscape phone --- */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .medallion-hero .logo-wrapper {
+                width: 6rem !important;
+                height: 6rem !important;
+            }
+            .header-section {
+                margin-bottom: 1rem !important;
+            }
+        }
+
+        /* --- Touch device improvements --- */
+        @media (hover: none) and (pointer: coarse) {
+            .neon-input {
+                font-size: 16px !important; /* Prevents iOS zoom on focus */
+                min-height: 48px;
+            }
+            .neon-input[type="text"],
+            select.neon-input {
+                font-size: 16px !important;
+            }
+            .browse-btn {
+                min-height: 44px;
+                min-width: 44px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .submit-btn {
+                min-height: 52px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -141,13 +250,13 @@
     <!-- Embers Background Canvas -->
     <canvas id="got-canvas"></canvas>
 
-    <div class="max-w-2xl mx-auto w-full my-6 p-4 flex-grow flex flex-col justify-center relative z-10 min-h-screen">
+    <div class="max-w-2xl mx-auto w-full my-4 sm:my-6 px-3 sm:px-4 md:px-6 flex-grow flex flex-col justify-center relative z-10 min-h-screen">
         
         <!-- HEADER SECTION -->
-        <div class="flex flex-col items-center mb-8 relative">
+        <div class="flex flex-col items-center mb-4 sm:mb-6 md:mb-8 relative header-section">
             
             <!-- Speech Bubble -->
-            <div class="bg-black/60 backdrop-blur-lg border border-red-900/80 text-amber-100 px-6 py-3 rounded-2xl text-xs font-cinzel mb-5 shadow-[0_4px_20px_rgba(226,88,34,0.3)] max-w-sm text-center relative">
+            <div class="speech-bubble-wrap bg-black/60 backdrop-blur-lg border border-red-900/80 text-amber-100 px-4 sm:px-6 py-2 sm:py-3 rounded-2xl text-xs font-cinzel mb-3 sm:mb-5 shadow-[0_4px_20px_rgba(226,88,34,0.3)] max-w-[90vw] sm:max-w-sm text-center relative">
                 <div class="flex items-center justify-center space-x-2 mb-1.5">
                     <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
                     <span class="text-[10px] text-amber-500 font-cinzel tracking-[0.2em] uppercase font-bold">Sebutkan
@@ -158,19 +267,19 @@
 
             <!-- 3D Dragon Logo Container -->
             <div class="medallion-hero relative cursor-pointer" id="ball-container">
-                <div class="logo-wrapper w-48 h-48 overflow-hidden flex items-center justify-center bg-transparent relative" style="border-radius: 50%; box-shadow: 0 0 30px rgba(226, 88, 34, 0.3);">
+                <div class="logo-wrapper w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 overflow-hidden flex items-center justify-center bg-transparent relative" style="border-radius: 50%; box-shadow: 0 0 30px rgba(226, 88, 34, 0.3);">
                     <div id="ball-logo" class="w-full h-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center"></div>
                 </div>
             </div>
         </div>
 
         <!-- FORM CONTAINER -->
-        <div class="cyber-panel p-6 sm:p-8 rounded-2xl relative overflow-hidden">
-            <form id="cyber-form" class="space-y-6 relative z-10">
+        <div class="cyber-panel p-4 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl relative overflow-hidden">
+            <form id="cyber-form" class="space-y-4 sm:space-y-6 relative z-10">
                 <!-- Header Title -->
                 <div class="text-center border-b border-red-900/60 pb-4">
-                    <h2 class="text-3xl font-cinzel font-extrabold tracking-wider bg-gradient-to-r from-red-600 via-orange-500 to-yellow-500 bg-clip-text text-transparent">FORMULIR ABSENSI</h2>
-                    <p class="text-xs text-amber-600/70 font-cinzel mt-1.5 tracking-[0.15em] uppercase">Khusus Gangguan Massal Simpeg</p>
+                    <h2 class="form-title text-xl sm:text-2xl md:text-3xl font-cinzel font-extrabold tracking-wider bg-gradient-to-r from-red-600 via-orange-500 to-yellow-500 bg-clip-text text-transparent">FORMULIR ABSENSI</h2>
+                    <p class="form-subtitle text-[10px] sm:text-xs text-amber-600/70 font-cinzel mt-1 sm:mt-1.5 tracking-[0.1em] sm:tracking-[0.15em] uppercase">Khusus Gangguan Massal Simpeg</p>
                 </div>
 
                 <!-- Input: Nama -->
@@ -217,14 +326,14 @@
                         <span class="text-red-500">🔥</span>
                         <span>UPLOAD FOTO GEOTAG DATANG</span>
                     </label>
-                    <div class="relative w-full bg-black/40 border border-red-900/50 rounded-xl p-3 text-sm font-cinzel focus-within:ring-2 focus-within:ring-red-500/50 focus-within:border-orange-400 transition-all flex items-center backdrop-blur-sm">
+                    <div class="upload-row relative w-full bg-black/40 border border-red-900/50 rounded-xl p-2.5 sm:p-3 text-sm font-cinzel focus-within:ring-2 focus-within:ring-red-500/50 focus-within:border-orange-400 transition-all flex flex-wrap items-center backdrop-blur-sm gap-1">
                         <input type="file" id="input-file-datang" accept="image/*" required
                                onchange="handleFileChange('datang')" 
                                onfocus="updateBubble('file-datang')" class="hidden">
-                        <label for="input-file-datang" class="browse-btn cursor-pointer px-4 py-2 rounded-lg text-xs font-cinzel font-bold mr-3 tracking-wider transition-all shadow-md">
+                        <label for="input-file-datang" class="browse-btn cursor-pointer px-3 sm:px-4 py-2 rounded-lg text-xs font-cinzel font-bold mr-2 sm:mr-3 tracking-wider transition-all shadow-md flex-shrink-0">
                             📁 BROWSE
                         </label>
-                        <span id="file-name-datang" class="text-xs text-zinc-400 truncate max-w-[220px]">Belum ada file dipilih...</span>
+                        <span id="file-name-datang" class="upload-filename text-xs text-zinc-400 truncate max-w-[50vw] sm:max-w-[220px] min-w-0">Belum ada file dipilih...</span>
                     </div>
                 </div>
 
@@ -234,21 +343,21 @@
                         <span class="text-red-500">🔥</span>
                         <span>UPLOAD FOTO GEOTAG PULANG</span>
                     </label>
-                    <div class="relative w-full bg-black/40 border border-red-900/50 rounded-xl p-3 text-sm font-cinzel focus-within:ring-2 focus-within:ring-red-500/50 focus-within:border-orange-400 transition-all flex items-center backdrop-blur-sm">
+                    <div class="upload-row relative w-full bg-black/40 border border-red-900/50 rounded-xl p-2.5 sm:p-3 text-sm font-cinzel focus-within:ring-2 focus-within:ring-red-500/50 focus-within:border-orange-400 transition-all flex flex-wrap items-center backdrop-blur-sm gap-1">
                         <input type="file" id="input-file-pulang" accept="image/*" 
                                onchange="handleFileChange('pulang')" 
                                onfocus="updateBubble('file-pulang')" class="hidden">
-                        <label for="input-file-pulang" class="browse-btn cursor-pointer px-4 py-2 rounded-lg text-xs font-cinzel font-bold mr-3 tracking-wider transition-all shadow-md">
+                        <label for="input-file-pulang" class="browse-btn cursor-pointer px-3 sm:px-4 py-2 rounded-lg text-xs font-cinzel font-bold mr-2 sm:mr-3 tracking-wider transition-all shadow-md flex-shrink-0">
                             📁 BROWSE
                         </label>
-                        <span id="file-name-pulang" class="text-xs text-zinc-400 truncate max-w-[220px]">Belum ada file dipilih...</span>
+                        <span id="file-name-pulang" class="upload-filename text-xs text-zinc-400 truncate max-w-[50vw] sm:max-w-[220px] min-w-0">Belum ada file dipilih...</span>
                     </div>
                 </div>
 
                 <!-- Submit Button -->
                 <div class="pt-4">
                     <button type="submit" id="btn-submit" 
-                            class="w-full relative group overflow-hidden bg-gradient-to-r from-red-800 via-red-600 to-orange-700 hover:from-red-600 hover:via-orange-500 hover:to-yellow-600 text-amber-100 font-cinzel font-black tracking-widest py-4 px-6 rounded-xl shadow-[0_10px_30px_rgba(226,88,34,0.3)] hover:shadow-[0_15px_40px_rgba(226,88,34,0.5)] transition-all duration-300 transform active:scale-[0.97]">
+                            class="submit-btn w-full relative group overflow-hidden bg-gradient-to-r from-red-800 via-red-600 to-orange-700 hover:from-red-600 hover:via-orange-500 hover:to-yellow-600 text-amber-100 font-cinzel font-black tracking-widest py-3 sm:py-4 px-4 sm:px-6 rounded-xl shadow-[0_10px_30px_rgba(226,88,34,0.3)] hover:shadow-[0_15px_40px_rgba(226,88,34,0.5)] transition-all duration-300 transform active:scale-[0.97]">
                         <span class="relative z-10 flex items-center justify-center space-x-2 text-sm">
                             <span>🐉</span>
                             <span>KIRIM DATA</span>
@@ -262,7 +371,7 @@
     </div>
 
     <!-- Footer -->
-    <footer class="text-center py-5 text-[11px] font-cinzel tracking-widest text-zinc-500 relative z-10 flex items-center justify-center space-x-3 pb-8">
+    <footer class="text-center py-4 sm:py-5 text-[10px] sm:text-[11px] font-cinzel tracking-widest text-zinc-500 relative z-10 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 pb-6 sm:pb-8 px-4">
         <span>Satria &copy; 2026</span>
         <span class="text-red-500">🐉</span>
         <span class="text-amber-600 font-bold">TVRI Stasiun Jambi</span>
@@ -302,15 +411,67 @@
             
             if (fileInput.files.length > 0) {
                 const file = fileInput.files[0];
+
+                // --- TAMBAHAN: Validasi Ukuran Maksimal 10MB ---
+                if (file.size > 10 * 1024 * 1024) {
+                    alert("Ukuran file " + file.name + " terlalu besar! Maksimal 10MB.");
+                    fileInput.value = ""; // Reset input
+                    fileNameSpan.innerText = "Belum ada file dipilih...";
+                    fileNameSpan.className = "text-xs text-zinc-400 truncate max-w-[220px]";
+                    fileData.base64 = ''; fileData.name = ''; fileData.type = '';
+                    return;
+                }
+                
+                // --- TAMBAHAN: Validasi Tipe File (Hanya Gambar) ---
+                if (!file.type.startsWith('image/')) {
+                    alert("File " + file.name + " bukan gambar! Harap upload file gambar.");
+                    fileInput.value = ""; // Reset input
+                    fileNameSpan.innerText = "Belum ada file dipilih...";
+                    fileNameSpan.className = "text-xs text-zinc-400 truncate max-w-[220px]";
+                    fileData.base64 = ''; fileData.name = ''; fileData.type = '';
+                    return;
+                }
+
                 fileNameSpan.innerText = file.name;
                 fileNameSpan.className = "text-xs text-amber-500 font-bold font-cinzel truncate max-w-[220px]";
                 
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    fileData.base64 = e.target.result.split(',')[1];
-                    fileData.name = file.name;
-                    fileData.type = file.type;
-                    robotBubble.innerText = `🔥 Bukti ${type} siap dibakar ke dalam catatan!`;
+                    // --- TAMBAHAN: Kompresi Gambar sebelum dikirim ---
+                    // Ini yang membuat proses pengiriman data menjadi jauh lebih cepat
+                    const img = new Image();
+                    img.onload = function() {
+                        const canvas = document.createElement('canvas');
+                        const MAX_WIDTH = 1200; // Resolusi maksimal
+                        const MAX_HEIGHT = 1200;
+                        let width = img.width;
+                        let height = img.height;
+
+                        if (width > height) {
+                            if (width > MAX_WIDTH) {
+                                height *= MAX_WIDTH / width;
+                                width = MAX_WIDTH;
+                            }
+                        } else {
+                            if (height > MAX_HEIGHT) {
+                                width *= MAX_HEIGHT / height;
+                                height = MAX_HEIGHT;
+                            }
+                        }
+
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
+
+                        // Kompres ke JPEG dengan kualitas 70%
+                        const dataUrl = canvas.toDataURL('image/jpeg', 0.7);
+                        fileData.base64 = dataUrl.split(',')[1];
+                        fileData.name = file.name;
+                        fileData.type = 'image/jpeg';
+                        robotBubble.innerText = `🔥 Bukti ${type} siap dibakar ke dalam catatan!`;
+                    };
+                    img.src = e.target.result;
                 };
                 reader.readAsDataURL(file);
             } else {
@@ -364,7 +525,9 @@
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
             embers = [];
-            for (let i = 0; i < 150; i++) {
+            // Kurangi partikel di mobile untuk performa lebih baik
+            const emberCount = window.innerWidth < 640 ? 60 : (window.innerWidth < 1024 ? 100 : 150);
+            for (let i = 0; i < emberCount; i++) {
                 embers.push(new Ember());
             }
         }

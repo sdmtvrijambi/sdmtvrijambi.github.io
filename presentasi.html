@@ -1225,12 +1225,36 @@
                 grid-template-columns: 1fr;
                 gap: 10px;
                 width: 100%;
+                min-width: 0;
+            }
+
+            .grid-2 > *,
+            .grid-3 > *,
+            .sim-container > *,
+            .sim-right-panel > * {
+                min-width: 0;
+                max-width: 100%;
             }
 
             .hud-card {
                 padding: 14px 12px;
                 width: 100%;
+                min-width: 0;
+                max-width: 100%;
                 box-sizing: border-box;
+                overflow: hidden;
+            }
+
+            .metric-title,
+            .metric-desc,
+            .res-narrative,
+            .crit-header,
+            .crit-desc,
+            .crit-score-item {
+                max-width: 100%;
+                white-space: normal !important;
+                overflow-wrap: anywhere;
+                word-break: normal;
             }
 
             /* Prevent horizontal text clipping on lists & items */
@@ -1243,23 +1267,40 @@
                 padding-left: 16px;
                 font-size: 0.8rem;
                 line-height: 1.4;
+                max-width: 100%;
                 white-space: normal !important;
-                word-break: break-word !important;
+                word-break: normal !important;
                 overflow-wrap: anywhere !important;
             }
 
             .card-badge {
                 white-space: normal !important;
-                word-break: break-word !important;
-                display: inline-wrap;
+                word-break: normal !important;
+                overflow-wrap: anywhere;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
                 max-width: 100%;
                 font-size: 0.72rem;
                 padding: 3px 8px;
+                line-height: 1.35;
+                text-align: center;
             }
 
             .chart-box {
                 min-height: 180px;
                 height: 200px !important;
+                min-width: 0;
+                max-width: 100%;
+                overflow: hidden;
+            }
+
+            .chart-box canvas {
+                display: block;
+                width: 100% !important;
+                max-width: 100% !important;
+                height: 100% !important;
+                max-height: 100% !important;
             }
 
             .sim-container {
@@ -1294,6 +1335,7 @@
             .sim-right-panel {
                 height: auto;
                 width: 100%;
+                min-width: 0;
             }
 
             .res-score-big {
@@ -1307,7 +1349,7 @@
 
             /* Responsive Table Container */
             .table-responsive-wrapper {
-                overflow-x: auto;
+                overflow-x: hidden;
                 -webkit-overflow-scrolling: touch;
                 width: 100%;
                 max-width: 100%;
@@ -1316,7 +1358,7 @@
                 background: rgba(255, 255, 255, 0.28);
                 scrollbar-width: thin;
                 scrollbar-color: var(--neon-cyan) transparent;
-                touch-action: pan-x pan-y;
+                touch-action: pan-y;
             }
 
             .table-responsive-wrapper:focus-visible {
@@ -1334,20 +1376,133 @@
             }
 
             .scifi-table {
-                min-width: 500px;
+                min-width: 0;
                 width: 100%;
                 font-size: 0.75rem;
+                table-layout: fixed;
             }
 
             .table-responsive-wrapper.is-wide .scifi-table {
-                min-width: 700px;
+                min-width: 0;
             }
 
             .scifi-table th, .scifi-table td {
                 padding: 8px 9px;
                 word-break: normal;
-                overflow-wrap: break-word;
+                overflow-wrap: anywhere;
                 line-height: 1.35;
+            }
+
+            .table-responsive-wrapper:not(.is-wide) .scifi-table th:first-child,
+            .table-responsive-wrapper:not(.is-wide) .scifi-table td:first-child {
+                width: 34%;
+            }
+
+            /* Wide desktop tables become readable record cards instead of being cut off. */
+            .table-responsive-wrapper.is-wide {
+                overflow: visible;
+                border: 0;
+                background: transparent;
+            }
+
+            .table-responsive-wrapper.is-wide .scifi-table,
+            .table-responsive-wrapper.is-wide .scifi-table tbody,
+            .table-responsive-wrapper.is-wide .scifi-table tr,
+            .table-responsive-wrapper.is-wide .scifi-table td {
+                display: block;
+                width: 100%;
+            }
+
+            .table-responsive-wrapper.is-wide .scifi-table thead {
+                position: absolute;
+                width: 1px;
+                height: 1px;
+                padding: 0;
+                margin: -1px;
+                overflow: hidden;
+                clip: rect(0, 0, 0, 0);
+                white-space: nowrap;
+                border: 0;
+            }
+
+            .table-responsive-wrapper.is-wide .scifi-table tbody {
+                display: grid;
+                gap: 10px;
+            }
+
+            .table-responsive-wrapper.is-wide .scifi-table tr {
+                overflow: hidden;
+                border: 1px solid rgba(14, 165, 233, 0.18);
+                border-radius: 12px;
+                background: rgba(255, 255, 255, 0.44);
+                box-shadow: 0 5px 14px rgba(15, 23, 42, 0.04);
+            }
+
+            [data-theme="dark"] .table-responsive-wrapper.is-wide .scifi-table tr {
+                background: rgba(15, 23, 42, 0.54);
+            }
+
+            .table-responsive-wrapper.is-wide .scifi-table td {
+                display: grid;
+                grid-template-columns: minmax(92px, 0.72fr) minmax(0, 1.28fr);
+                align-items: start;
+                gap: 10px;
+                padding: 8px 10px;
+                text-align: left !important;
+            }
+
+            .table-responsive-wrapper.is-wide .scifi-table td::before {
+                content: attr(data-label);
+                color: var(--neon-cyan);
+                font-family: var(--font-sub);
+                font-size: 0.68rem;
+                font-weight: 700;
+                letter-spacing: 0.35px;
+                text-transform: uppercase;
+            }
+
+            .table-responsive-wrapper.is-wide .scifi-table tr.matrix-active-row td {
+                border-top: 0;
+                border-bottom: 1px solid rgba(14, 165, 233, 0.2);
+            }
+
+            .table-responsive-wrapper.is-wide .scifi-table tr.matrix-active-row td:first-child {
+                border-left: 4px solid var(--neon-cyan);
+            }
+
+            #slide-7 .hud-list,
+            #slide-7 .hud-list li {
+                min-width: 0;
+                max-width: 100%;
+            }
+
+            #slide-10 .summary-row {
+                display: grid !important;
+                grid-template-columns: minmax(0, 1fr);
+                justify-items: start;
+                gap: 6px;
+            }
+
+            #slide-10 .sim-result-box,
+            #finalEmployeeNameBadge,
+            #finalPredikatTitle,
+            #finalPredikatNarrative {
+                min-width: 0;
+                max-width: 100%;
+                width: 100%;
+                overflow-wrap: anywhere;
+                white-space: normal !important;
+            }
+
+            #finalEmployeeNameBadge {
+                font-size: 0.7rem !important;
+                line-height: 1.5;
+                padding: 7px 9px !important;
+            }
+
+            #finalPredikatTitle {
+                font-size: 1rem !important;
+                padding: 6px 10px !important;
             }
 
             /* Mobile Footer Navigation */
@@ -1474,11 +1629,11 @@
             }
 
             .scifi-table {
-                min-width: 460px;
+                min-width: 0;
             }
 
             .table-responsive-wrapper.is-wide .scifi-table {
-                min-width: 640px;
+                min-width: 0;
             }
         }
 
@@ -2214,11 +2369,11 @@
                         <div class="hud-card" style="padding: 12px 16px; border-top: 3px solid var(--neon-cyan);">
                             <span class="card-badge badge-cyan">RINGKASAN EVALUASI SAAT INI</span>
                             <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 8px; font-size: 0.82rem;">
-                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div class="summary-row" style="display: flex; justify-content: space-between; align-items: center;">
                                     <span style="color: var(--text-dim);">1. Rating Hasil Kerja :</span>
                                     <span id="summaryHkBadge" class="card-badge badge-green">DI ATAS EKSPEKTASI</span>
                                 </div>
-                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div class="summary-row" style="display: flex; justify-content: space-between; align-items: center;">
                                     <span style="color: var(--text-dim);">2. Rating Perilaku BerAKHLAK:</span>
                                     <span id="summaryBerakhlakBadge" class="card-badge badge-green">DI ATAS EKSPEKTASI</span>
                                 </div>
@@ -3049,6 +3204,7 @@
             navTimeout = setTimeout(() => {
                 newSlide.classList.remove('slide-prev', 'slide-next');
                 newSlide.classList.add('active');
+                refreshVisibleCharts();
 
                 if (window.matchMedia('(max-width: 900px)').matches) {
                     const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
@@ -3152,10 +3308,18 @@
 
             const wrapper = document.createElement('div');
             const columnCount = table.rows[0]?.cells.length || 0;
+            const columnLabels = Array.from(table.querySelectorAll('thead th')).map(header => header.textContent.trim());
+
+            table.querySelectorAll('tbody tr').forEach(row => {
+                Array.from(row.cells).forEach((cell, cellIndex) => {
+                    cell.dataset.label = columnLabels[cellIndex] || `Kolom ${cellIndex + 1}`;
+                });
+            });
+
             wrapper.className = `table-responsive-wrapper${columnCount >= 4 ? ' is-wide' : ''}`;
             wrapper.tabIndex = 0;
             wrapper.setAttribute('role', 'region');
-            wrapper.setAttribute('aria-label', `Tabel ${index + 1}, dapat digeser secara horizontal`);
+            wrapper.setAttribute('aria-label', `Tabel responsif ${index + 1}`);
             table.parentNode.insertBefore(wrapper, table);
             wrapper.appendChild(table);
         });
@@ -3164,11 +3328,16 @@
         let chartUnsur, chartKategori, chartKategoriBerakhlak;
 
         function initCharts() {
+            const compactRadarLabels = window.matchMedia('(max-width: 900px)').matches;
             const ctxUnsur = document.getElementById('chartUnsur').getContext('2d');
             chartUnsur = new Chart(ctxUnsur, {
                 type: 'radar',
                 data: {
-                    labels: [
+                    labels: compactRadarLabels ? [
+                        ['Kesesuaian', '(Kritis)'], ['Kuantitas', '(Kritis)'], ['Kualitas', '(Kritis)'],
+                        ['Waktu', '(Kritis)'], 'Efektivitas', ['Akuntabilitas', '(Kritis)'],
+                        'Inovasi', ['Tugas', 'Tambahan']
+                    ] : [
                         'Kesesuaian (Kritis)', 'Kuantitas (Kritis)', 'Kualitas (Kritis)', 
                         'Ketepatan Waktu (Kritis)', 'Efektivitas', 'Akuntabilitas (Kritis)', 
                         'Inovasi', 'Penugasan Tambahan'
@@ -3187,13 +3356,14 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
+                    layout: { padding: compactRadarLabels ? 18 : 8 },
                     scales: {
                         r: {
                             angleLines: { color: 'rgba(148, 163, 184, 0.2)' },
                             grid: { color: 'rgba(2, 132, 199, 0.15)' },
                             pointLabels: {
                                 color: '#334155',
-                                font: { family: 'Rajdhani', size: 12, weight: '600' }
+                                font: { family: 'Rajdhani', size: compactRadarLabels ? 10 : 12, weight: '600' }
                             },
                             ticks: { backdropColor: 'transparent', color: '#0284c7', stepSize: 1 }
                         }
@@ -3285,6 +3455,15 @@
             });
         }
         initCharts();
+
+        function refreshVisibleCharts() {
+            [chartUnsur, chartKategori, chartKategoriBerakhlak].forEach(chart => {
+                if (chart?.canvas?.closest('.slide.active')) {
+                    chart.resize();
+                    chart.update('none');
+                }
+            });
+        }
 
         function updateChartColors(theme) {
             if (!chartUnsur || !chartKategori || !chartKategoriBerakhlak) return;

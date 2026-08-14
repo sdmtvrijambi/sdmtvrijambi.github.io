@@ -1,0 +1,2739 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Monitoring Status Gangguan Simpeg Pegawai</title>
+  <meta name="description" content="Dashboard Monitoring Status Gangguan Simpeg Pegawai dengan sinkronisasi real-time Server SDM.">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Outfit & Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Cat Favicon Icon -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap');
+
+    /* ── UI/UX Pro Max Design System Tokens ── */
+    :root {
+      /* Canvas & Surfaces (Light Theme Default) */
+      --canvas:              oklch(0.985 0.003 260);
+      --canvas-subtle:       oklch(0.965 0.004 260);
+      --surface-primary:     oklch(1.00 0 0);
+      --surface-secondary:   oklch(0.975 0.005 260);
+      --surface-overlay:     oklch(1.00 0 0 / 0.88);
+
+      /* Elevation Shadows */
+      --shadow-xs:   0 1px 2px oklch(0 0 0 / 0.04);
+      --shadow-sm:   0 2px 5px oklch(0 0 0 / 0.05), 0 1px 2px oklch(0 0 0 / 0.03);
+      --shadow-md:   0 6px 16px oklch(0 0 0 / 0.06), 0 2px 6px oklch(0 0 0 / 0.04);
+      --shadow-lg:   0 12px 32px oklch(0 0 0 / 0.08), 0 4px 12px oklch(0 0 0 / 0.04);
+      --shadow-xl:   0 20px 50px oklch(0 0 0 / 0.10), 0 8px 24px oklch(0 0 0 / 0.05);
+
+      /* Refined Accent */
+      --accent:              oklch(0.55 0.22 255);
+      --accent-hover:        oklch(0.60 0.24 255);
+      --accent-subtle:       oklch(0.55 0.22 255 / 0.08);
+      --accent-glow:         oklch(0.55 0.22 255 / 0.06);
+
+      /* Text & Typography */
+      --text-primary:        oklch(0.16 0.010 260);
+      --text-secondary:      oklch(0.42 0.010 260);
+      --text-tertiary:       oklch(0.58 0.010 260);
+
+      /* Semantic */
+      --success:             oklch(0.62 0.18 155);
+      --warning:             oklch(0.72 0.16 80);
+      --error:               oklch(0.60 0.22 25);
+
+      /* Borders */
+      --border-subtle:       oklch(0.15 0 0 / 0.06);
+      --border-default:      oklch(0.15 0 0 / 0.10);
+      --border-strong:       oklch(0.15 0 0 / 0.16);
+
+      /* Typography Families */
+      --font-display:        'Outfit', 'Inter', system-ui, sans-serif;
+      --font-body:           'Inter', system-ui, sans-serif;
+      --font-mono:           'JetBrains Mono', monospace;
+
+      /* 3D & Spatial Motion */
+      --perspective-page:    1400px;
+      --perspective-card:    900px;
+
+      /* Motion Timing */
+      --ease-out-expo:       cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-spring:         cubic-bezier(0.34, 1.56, 0.64, 1);
+      --ease-apple:          cubic-bezier(0.25, 1, 0.5, 1);
+      --duration-fast:       160ms;
+      --duration-normal:     280ms;
+      --duration-slow:       450ms;
+      --duration-dramatic:   650ms;
+    }
+
+    body {
+      background-color: var(--canvas);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      perspective: var(--perspective-page);
+    }
+
+    h1, h2, h3, h4, h5, h6, .font-display {
+      font-family: var(--font-display);
+      letter-spacing: -0.015em;
+    }
+
+    .font-mono-code {
+      font-family: var(--font-mono);
+    }
+
+    /* Atmospheric Ambient Gradient Mesh Background */
+    .ambient-bg {
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      background:
+        radial-gradient(ellipse 70% 50% at 20% 15%, oklch(0.60 0.18 250 / 0.12), transparent 70%),
+        radial-gradient(ellipse 60% 60% at 85% 85%, oklch(0.65 0.15 285 / 0.10), transparent 70%),
+        radial-gradient(ellipse 50% 50% at 50% 50%, oklch(0.70 0.14 200 / 0.07), transparent 60%),
+        radial-gradient(ellipse 40% 40% at 75% 20%, oklch(0.75 0.15 340 / 0.06), transparent 60%),
+        var(--canvas);
+      animation: meshDrift 24s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+
+    /* 60fps Fullscreen Ambient Cat Motion Canvas (Paws, Yarn, Silhouettes behind cards) */
+    #bg-cat-ambient-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -2;
+      pointer-events: none;
+    }
+
+    /* Dedicated 60fps Footer Cat Motion Canvas (Only at the very bottom of the page) */
+    #footer-cat-canvas {
+      width: 100%;
+      height: 85px;
+      display: block;
+    }
+
+    /* Horizontal scrollbar hide for mobile swipe */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    @keyframes meshDrift {
+      0%   { transform: scale(1) translate(0, 0); }
+      50%  { transform: scale(1.03) translate(-1%, 1.5%); }
+      100% { transform: scale(1) translate(1%, -1%); }
+    }
+
+    /* Tactile Grain Overlay */
+    .grain-overlay::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      pointer-events: none;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      mix-blend-mode: overlay;
+    }
+
+    /* ── Master 3D Spatial Cards ── */
+    .pro-card {
+      position: relative;
+      background: var(--surface-primary);
+      border: 1px solid var(--border-default);
+      border-radius: 1.25rem;
+      box-shadow: var(--shadow-md);
+      transform-style: preserve-3d;
+      transition:
+        box-shadow var(--duration-normal) var(--ease-out-expo),
+        border-color var(--duration-normal) var(--ease-out-expo);
+      will-change: transform, box-shadow;
+    }
+
+    .pro-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), oklch(0.55 0.22 255 / 0.05), transparent 60%);
+      opacity: 0;
+      transition: opacity var(--duration-normal) var(--ease-out-expo);
+      z-index: 1;
+    }
+
+    .pro-card:hover::before {
+      opacity: 1;
+    }
+
+    .pro-card:hover {
+      box-shadow: var(--shadow-xl);
+      border-color: var(--border-strong);
+    }
+
+    .emerge-depth {
+      animation: emergeFromDepth var(--duration-dramatic) var(--ease-out-expo) both;
+    }
+
+    @keyframes emergeFromDepth {
+      from {
+        opacity: 0;
+        transform: perspective(var(--perspective-page)) translateZ(-70px) translateY(24px) scale(0.96);
+        filter: blur(5px);
+      }
+      to {
+        opacity: 1;
+        transform: perspective(var(--perspective-page)) translateZ(0) translateY(0) scale(1);
+        filter: blur(0);
+      }
+    }
+
+    /* Floating Input Field */
+    .search-input-wrapper {
+      position: relative;
+      background: var(--surface-primary);
+      border: 1px solid var(--border-default);
+      border-radius: 0.875rem;
+      transition:
+        border-color var(--duration-normal) var(--ease-out-expo),
+        box-shadow var(--duration-normal) var(--ease-out-expo),
+        transform var(--duration-normal) var(--ease-spring);
+      box-shadow: var(--shadow-xs);
+    }
+
+    .search-input-wrapper:focus-within {
+      border-color: var(--accent);
+      box-shadow: var(--shadow-md), 0 0 0 3.5px var(--accent-subtle);
+      transform: translateY(-2px) scale(1.004);
+    }
+
+    .search-input-wrapper input {
+      width: 100%;
+      background: transparent;
+      color: var(--text-primary);
+      padding: 0.75rem 1rem 0.75rem 2.75rem;
+      outline: none;
+      border: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    /* Interactive Stats Pill Badges */
+    .stat-pill-badge {
+      transition:
+        transform var(--duration-normal) var(--ease-spring),
+        box-shadow var(--duration-normal) var(--ease-out-expo),
+        border-color var(--duration-normal) var(--ease-out-expo);
+    }
+
+    .stat-pill-badge:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* ── Status Operasional Badge ── */
+    .status-operasional-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      background: oklch(0.62 0.18 155 / 0.12);
+      border: 1px solid oklch(0.62 0.18 155 / 0.28);
+      color: oklch(0.50 0.20 155);
+      box-shadow: var(--shadow-xs);
+      transition: all var(--duration-normal) var(--ease-spring);
+    }
+
+    .status-operasional-pill:hover {
+      transform: translateY(-1.5px) scale(1.04);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .status-operasional-pill .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background-color: oklch(0.62 0.18 155);
+      box-shadow: 0 0 8px oklch(0.62 0.18 155 / 0.7);
+      animation: pulseDot 2s infinite ease-in-out;
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.85); }
+    }
+
+    /* ── Photo Presence Badge (Ceklis / Silang) ── */
+    .photo-status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.42rem 0.85rem;
+      border-radius: 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      transition: all var(--duration-normal) var(--ease-spring);
+      text-decoration: none;
+      box-shadow: var(--shadow-xs);
+    }
+
+    /* KONDISI 1: ADA FOTO (CEKLIS HIJAU) - STATUS BADGE NON-KLIK */
+    .photo-status-badge.has-photo {
+      background: oklch(0.96 0.03 155);
+      border: 1.2px solid oklch(0.62 0.18 155 / 0.4);
+      color: oklch(0.45 0.19 155);
+      cursor: default;
+      user-select: none;
+    }
+
+    .photo-status-badge.has-photo:hover {
+      background: oklch(0.95 0.04 155);
+    }
+
+    .photo-status-badge.has-photo .badge-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.35rem;
+      height: 1.35rem;
+      border-radius: 50%;
+      background: oklch(0.62 0.18 155);
+      color: #ffffff;
+      font-size: 0.65rem;
+      box-shadow: 0 2px 6px oklch(0.62 0.18 155 / 0.4);
+    }
+
+    /* KONDISI 2: TIDAK ADA FOTO (SILANG X MERAH) - STATUS BADGE NON-KLIK */
+    .photo-status-badge.no-photo {
+      background: oklch(0.97 0.02 25);
+      border: 1.2px solid oklch(0.60 0.22 25 / 0.25);
+      color: oklch(0.55 0.20 25);
+      cursor: default;
+      user-select: none;
+    }
+
+    .photo-status-badge.no-photo:hover {
+      background: oklch(0.95 0.03 25);
+    }
+
+    .photo-status-badge.no-photo .badge-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.35rem;
+      height: 1.35rem;
+      border-radius: 50%;
+      background: oklch(0.60 0.22 25 / 0.18);
+      color: oklch(0.60 0.22 25);
+      font-size: 0.65rem;
+    }
+
+    /* ── Refresh & Sync Interactive Button ── */
+    .btn-sync-refresh {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0.9rem;
+      border-radius: 0.75rem;
+      background: var(--surface-primary);
+      border: 1px solid var(--border-default);
+      color: var(--text-primary);
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: var(--shadow-xs);
+      transition: all var(--duration-fast) var(--ease-spring);
+    }
+
+    .btn-sync-refresh:hover {
+      background: var(--surface-secondary);
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-1.5px) scale(1.02);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-sync-refresh:active {
+      transform: scale(0.97);
+    }
+
+    .btn-sync-refresh.is-spinning i {
+      animation: spinSync 0.8s linear infinite;
+    }
+
+    @keyframes spinSync {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* ── Table Row 3D Motion System ── */
+    @keyframes rowEmerge {
+      from {
+        opacity: 0;
+        transform: perspective(var(--perspective-page)) translateZ(-50px) translateY(20px) scale(0.96);
+        filter: blur(4px);
+      }
+      to {
+        opacity: 1;
+        transform: perspective(var(--perspective-page)) translateZ(0) translateY(0) scale(1);
+        filter: blur(0);
+      }
+    }
+
+    .table-row-item {
+      position: relative;
+      animation: rowEmerge var(--duration-slow) var(--ease-out-expo) both;
+      transform-origin: center center;
+      transform-style: preserve-3d;
+      transition:
+        background-color var(--duration-normal) var(--ease-out-expo),
+        box-shadow var(--duration-normal) var(--ease-out-expo),
+        transform var(--duration-normal) var(--ease-apple);
+      will-change: transform, opacity, box-shadow;
+    }
+
+    .table-row-item:hover {
+      background-color: var(--surface-secondary) !important;
+      transform: perspective(var(--perspective-card)) translateY(-3px) translateZ(12px) scale(1.004);
+      box-shadow:
+        0 10px 25px oklch(0.55 0.22 255 / 0.08),
+        0 2px 8px oklch(0 0 0 / 0.04);
+      z-index: 10;
+    }
+
+    .table-row-item td:first-child {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .table-row-item td:first-child::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 12%;
+      bottom: 12%;
+      width: 4px;
+      border-radius: 0 4px 4px 0;
+      background: linear-gradient(180deg, oklch(0.55 0.22 255), oklch(0.65 0.20 280));
+      transform: scaleY(0);
+      transform-origin: center;
+      transition: transform var(--duration-normal) var(--ease-spring);
+    }
+
+    .table-row-item:hover td:first-child::before {
+      transform: scaleY(1);
+    }
+
+    .row-avatar-icon {
+      transform-style: preserve-3d;
+      transition:
+        transform var(--duration-normal) var(--ease-spring),
+        box-shadow var(--duration-normal) var(--ease-out-expo);
+    }
+
+    .table-row-item:hover .row-avatar-icon {
+      transform: translateY(-1px) translateZ(8px) scale(1.12) rotate(-4deg);
+      box-shadow: 0 6px 18px oklch(0.55 0.22 255 / 0.35);
+    }
+
+    /* ── Floating Mascot & Animations ── */
+    @keyframes floatYarn {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-4px) rotate(8deg); }
+    }
+
+    @keyframes floatMascot {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-3px) scale(1.02); }
+    }
+
+    @keyframes floatMouseToy {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-2.5px) rotate(-4deg); }
+    }
+
+    .floating-yarn {
+      animation: floatYarn 4s ease-in-out infinite;
+      display: inline-block;
+      transform-origin: center center;
+    }
+
+    .floating-mascot {
+      animation: floatMascot 3.5s ease-in-out infinite;
+      display: inline-block;
+      transform-origin: center bottom;
+    }
+
+    .floating-mouse {
+      animation: floatMouseToy 3.8s ease-in-out infinite;
+      display: inline-block;
+      transform-origin: center center;
+    }
+
+    .cat-container {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+      transition: transform var(--duration-normal) var(--ease-spring);
+    }
+
+    .cat-container:hover {
+      transform: scale(1.08) translateY(-2px);
+    }
+
+    .paw-print {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      font-size: 1.35rem;
+      color: #ec4899;
+      filter: drop-shadow(0 4px 10px rgba(236, 72, 153, 0.45));
+      animation: floatPaw 1.1s var(--ease-out-expo) forwards;
+    }
+
+    @keyframes floatPaw {
+      0% {
+        transform: translateY(0) scale(0.6) rotate(var(--paw-rot, 0deg));
+        opacity: 0.95;
+      }
+      50% { opacity: 0.85; }
+      100% {
+        transform: translateY(-50px) scale(1.25) rotate(calc(var(--paw-rot, 0deg) + 15deg));
+        opacity: 0;
+      }
+    }
+
+    .footer-card {
+      transform-style: preserve-3d;
+      transition:
+        transform var(--duration-normal) var(--ease-spring),
+        box-shadow var(--duration-normal) var(--ease-out-expo),
+        border-color var(--duration-normal) var(--ease-out-expo);
+    }
+
+    .footer-card:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: var(--shadow-md);
+      border-color: var(--accent);
+    }
+
+    ::-webkit-scrollbar {
+      width: 7px;
+      height: 7px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--canvas-subtle);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--border-strong);
+      border-radius: 9999px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body class="antialiased min-h-screen grain-overlay">
+
+  <!-- Atmospheric Ambient Gradient Mesh Background & 60fps Ambient Cat Motion Canvas -->
+  <div class="ambient-bg"></div>
+  <canvas id="bg-cat-ambient-canvas"></canvas>
+
+  <!-- Header Section Double-Bordered Floating Card -->
+  <header class="sticky top-0 z-40 px-2.5 sm:px-6 lg:px-8 pt-2.5 sm:pt-4 pb-2">
+    <div class="max-w-[1700px] mx-auto">
+      
+      <!-- Outer Blue-Grey Frame Border -->
+      <div class="p-1 sm:p-1.5 rounded-2xl sm:rounded-3xl border border-blue-300/70 bg-blue-200/50 shadow-xl backdrop-blur-md transition-colors duration-300">
+        
+        <!-- Inner Header Card with Paw Background Pattern Overlay -->
+        <div class="relative overflow-hidden rounded-xl sm:rounded-2xl px-3 sm:px-6 py-2.5 sm:py-3.5 flex flex-col md:flex-row items-center justify-between gap-3 sm:gap-4 border border-slate-200/90" style="background: var(--surface-primary);">
+          
+          <!-- Background Floating Paw Prints Overlay -->
+          <div class="absolute inset-0 pointer-events-none overflow-hidden text-blue-400/15 flex justify-between items-center px-4 sm:px-8 text-lg sm:text-2xl">
+            <i class="fas fa-paw transform -rotate-12"></i>
+            <i class="fas fa-paw transform rotate-45 translate-y-3 hidden sm:block"></i>
+            <i class="fas fa-paw transform -rotate-45 -translate-y-2 hidden md:block"></i>
+            <i class="fas fa-paw transform rotate-12"></i>
+            <i class="fas fa-paw transform -rotate-12 translate-y-1"></i>
+          </div>
+
+          <!-- Left Spacer for Perfect Centering on Desktop -->
+          <div class="hidden lg:block w-48"></div>
+
+          <!-- Center Hero Group: Pink Yarn Ball + Cat Mascot + MONITORING DATA + Cyber Mouse -->
+          <div class="relative z-10 flex items-center justify-center gap-2 sm:gap-3.5 flex-wrap text-center">
+            
+            <!-- Pink Yarn Ball (Benang Rajut Pink) -->
+            <div class="floating-yarn shrink-0 transition-transform hover:scale-110" title="Bola Benang Rajut Pink">
+              <svg width="30" height="30" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" class="drop-shadow-sm sm:w-9 sm:h-9">
+                <circle cx="24" cy="24" r="18" fill="#f472b6"/>
+                <path d="M12 18C17 14 31 14 36 18" stroke="#fbcfe8" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M8 24C13 20 35 20 40 24" stroke="#f472b6" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M10 30C15 34 33 34 38 30" stroke="#fbcfe8" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M18 10C22 15 22 33 18 38" stroke="#e879f9" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M30 10C34 15 34 33 30 38" stroke="#fbcfe8" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M38 28C42 30 45 34 47 34" stroke="#ec4899" stroke-width="2.5" stroke-linecap="round"/>
+                <circle cx="24" cy="24" r="6" fill="#ffffff" opacity="0.95"/>
+                <polygon points="21,21 23,18 25,22" fill="#ec4899"/>
+                <polygon points="27,21 29,18 27,22" fill="#ec4899"/>
+                <circle cx="22.5" cy="23.5" r="1" fill="#831843"/>
+                <circle cx="25.5" cy="23.5" r="1" fill="#831843"/>
+              </svg>
+            </div>
+
+            <!-- Cute Animated SVG Cat Mascot -->
+            <div id="cat-mascot" class="cat-container floating-mascot group shrink-0" title="Klik kucing untuk meow & animasi jejak kaki!">
+              <svg width="38" height="38" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" class="drop-shadow-md transition-transform group-hover:scale-110 sm:w-11 sm:h-11">
+                <polygon points="16,18 22,4 30,20" fill="#3b82f6"/>
+                <polygon points="18,17 22,7 28,18" fill="#f472b6"/>
+                <polygon points="48,18 42,4 34,20" fill="#3b82f6"/>
+                <polygon points="46,17 42,7 36,18" fill="#f472b6"/>
+                <circle cx="32" cy="30" r="18" fill="#2563eb"/>
+                <ellipse cx="32" cy="34" rx="13" ry="10" fill="#ffffff"/>
+                <path d="M22 26C24 23 27 23 29 26" stroke="#1e3a8a" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+                <path d="M35 26C37 23 40 23 42 26" stroke="#1e3a8a" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+                <circle cx="20" cy="31" r="3" fill="#f472b6" opacity="0.7"/>
+                <circle cx="44" cy="31" r="3" fill="#f472b6" opacity="0.7"/>
+                <polygon points="32,32 30,30 34,30" fill="#ec4899"/>
+                <path d="M29 34C31 36 32 36 32 34C32 36 33 36 35 34" stroke="#2563eb" stroke-width="2" stroke-linecap="round" fill="none"/>
+                <path d="M18 42C24 46 40 46 46 42" stroke="#ef4444" stroke-width="4" stroke-linecap="round"/>
+                <circle cx="32" cy="46" r="4.5" fill="#fbbf24"/>
+                <circle cx="32" cy="46" r="1.5" fill="#78350f"/>
+              </svg>
+            </div>
+
+            <!-- Title with Cyber Toy Mouse -->
+            <div class="flex items-center gap-1.5 flex-wrap justify-center">
+              <h1 class="text-base sm:text-lg md:text-2xl font-black font-display tracking-tight leading-tight" style="color: var(--text-primary);">Monitoring Status Gangguan Simpeg Pegawai</h1>
+              
+              <!-- Cyber Tech Toy Mouse -->
+              <svg width="24" height="20" viewBox="0 0 36 30" fill="none" xmlns="http://www.w3.org/2000/svg" class="floating-mouse shrink-0 self-end sm:w-7 sm:h-6">
+                <ellipse cx="18" cy="18" rx="12" ry="8" fill="#94a3b8"/>
+                <ellipse cx="12" cy="18" rx="7" ry="7" fill="#cbd5e1"/>
+                <circle cx="22" cy="10" r="4" fill="#f472b6"/>
+                <circle cx="14" cy="10" r="4" fill="#f472b6"/>
+                <circle cx="10" cy="16" r="1.5" fill="#0f172a"/>
+                <circle cx="6" cy="18" r="1.5" fill="#ec4899"/>
+                <line x1="22" y1="10" x2="26" y2="4" stroke="#64748b" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M25 2C27 4 27 6 25 8" stroke="#3b82f6" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+                <path d="M28 20C32 22 34 18 36 22" stroke="#94a3b8" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+              </svg>
+            </div>
+
+          </div>
+
+          <!-- Right Control Badges -->
+          <div class="relative z-10 flex items-center justify-center w-full md:w-auto">
+            
+            <!-- Live Connected Status Badge -->
+            <span id="api-status-badge" class="stat-pill-badge bg-gradient-to-r from-emerald-500 to-teal-600 text-white px-3 sm:px-5 py-1.5 sm:py-2 rounded-full font-extrabold text-[10px] sm:text-xs tracking-wider flex items-center justify-center gap-2 sm:gap-2.5 shadow-md shadow-emerald-500/25 select-none uppercase whitespace-nowrap w-full md:w-auto">
+              <span class="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-white text-emerald-600 flex items-center justify-center text-[10px] sm:text-[11px] shadow-sm shrink-0">
+                <i class="fas fa-plug"></i>
+              </span>
+              <span>TERKONEKSI DARI SERVER SDM</span>
+            </span>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Main Content Container (Full Width & Responsive) -->
+  <main class="max-w-[1700px] mx-auto px-2.5 sm:px-6 lg:px-8 py-3.5 sm:py-6 space-y-3.5 sm:space-y-5">
+
+    <!-- Top Bar Summary & Search Controls -->
+    <div class="pro-card emerge-depth p-3.5 sm:p-5 flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3 sm:gap-4">
+      
+      <!-- Live Search Bar -->
+      <div class="search-input-wrapper flex-1 w-full">
+        <i class="fas fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-[var(--text-tertiary)] text-xs sm:text-sm"></i>
+        <input type="text" id="input-search" class="text-xs sm:text-sm py-2 sm:py-2.5 pl-9 sm:pl-10" placeholder="Cari berdasarkan Nama Lengkap, Status Operasional, atau Catatan...">
+      </div>
+
+      <!-- Control Right Stats & Indicators (Smooth Mobile Horizontal Scroll) -->
+      <div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1 sm:py-0 w-full lg:w-auto flex-nowrap sm:flex-wrap">
+        
+        <!-- Total Data Counter Badge -->
+        <div class="stat-pill-badge shrink-0 flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-lg sm:rounded-xl font-semibold text-[10.5px] sm:text-xs border shadow-xs" style="background: var(--accent-subtle); border-color: var(--border-default); color: var(--accent);">
+          <i class="fas fa-users text-xs sm:text-sm"></i>
+          <span>Total: <strong id="stat-total-count" class="text-xs sm:text-sm font-bold font-display">0</strong></span>
+        </div>
+
+        <!-- Foto Datang Lengkap Counter -->
+        <div class="stat-pill-badge shrink-0 flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-lg sm:rounded-xl font-semibold text-[10.5px] sm:text-xs border shadow-xs" style="background: oklch(0.62 0.18 155 / 0.10); border-color: oklch(0.62 0.18 155 / 0.25); color: var(--success);" title="Jumlah Pegawai yang Memiliki Foto Datang">
+          <i class="fas fa-camera text-xs sm:text-sm"></i>
+          <span>Datang: <strong id="stat-datang-count" class="text-xs sm:text-sm font-bold font-display">0</strong></span>
+        </div>
+
+        <!-- Foto Pulang Lengkap Counter -->
+        <div class="stat-pill-badge shrink-0 flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-lg sm:rounded-xl font-semibold text-[10.5px] sm:text-xs border shadow-xs" style="background: oklch(0.55 0.22 255 / 0.08); border-color: oklch(0.55 0.22 255 / 0.20); color: var(--accent);" title="Jumlah Pegawai yang Memiliki Foto Pulang">
+          <i class="fas fa-camera-retro text-xs sm:text-sm"></i>
+          <span>Pulang: <strong id="stat-pulang-count" class="text-xs sm:text-sm font-bold font-display">0</strong></span>
+        </div>
+
+        <!-- Auto Sync Indicator -->
+        <div class="stat-pill-badge shrink-0 flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-lg sm:rounded-xl font-semibold text-[10px] sm:text-[11px] border shadow-xs" style="background: var(--surface-secondary); border-color: var(--border-subtle); color: var(--text-tertiary);" title="Sistem Otomatis Sinkronisasi dengan Google Sheets Setiap 3 Menit">
+          <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full animate-ping" style="background-color: var(--success);"></span>
+          <span>Sync: <strong class="font-bold text-emerald-600">3 Min</strong></span>
+        </div>
+
+        <!-- Refresh Button -->
+        <button id="btn-manual-refresh" class="btn-sync-refresh shrink-0 px-3 py-1.5 sm:px-4 sm:py-2 text-[10.5px] sm:text-xs" title="Klik untuk refresh / sinkronkan ulang data sekarang">
+          <i class="fas fa-arrows-rotate text-blue-500"></i>
+          <span>Refresh</span>
+        </button>
+
+        <!-- Last Sync Indicator -->
+        <div class="stat-pill-badge shrink-0 flex items-center gap-1.5 font-mono-code text-[10px] sm:text-[11px] px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-lg sm:rounded-xl border shadow-xs" style="background: var(--surface-secondary); border-color: var(--border-subtle); color: var(--text-tertiary);">
+          <i class="fas fa-clock text-blue-400"></i>
+          <span><span id="last-sync-time" class="font-semibold" style="color: var(--text-primary);">-</span></span>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Full-Width Data Table Display -->
+    <div class="pro-card emerge-depth overflow-hidden shadow-xl border border-[var(--border-default)]" style="background: var(--surface-primary);">
+      
+      <!-- Mobile Scroll Hint for touch devices -->
+      <div class="sm:hidden px-3.5 py-2 flex items-center justify-between text-[10.5px] font-medium border-b bg-blue-50/90 border-blue-200/80 text-blue-800">
+        <span class="flex items-center gap-1.5"><i class="fas fa-arrows-left-right text-blue-500"></i> Geser tabel ke samping untuk melihat semua kolom</span>
+        <span class="inline-flex items-center gap-1 text-[9.5px] font-bold bg-white px-2 py-0.5 rounded-full border border-blue-200 shadow-xs"><i class="fas fa-hand-pointer text-blue-600 animate-bounce"></i> Geser</span>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse text-xs table-fixed min-w-[760px]">
+          
+          <!-- Table Header (No, Nama Lengkap, Status Operasional, Foto Datang, Foto Pulang, Waktu & Keterangan) -->
+          <thead>
+            <tr class="font-display uppercase tracking-wider text-[11px] sm:text-xs border-b border-[var(--border-default)]" style="background: var(--surface-secondary); color: var(--text-primary);">
+              <th class="px-4 py-4 w-14 text-center">No</th>
+              <th class="px-6 py-4 w-1/3 min-w-[220px]">
+                <div class="flex items-center gap-2.5">
+                  <span class="inline-flex items-center justify-center w-6 h-6 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 text-white text-[10px] shadow-sm shadow-blue-500/30 shrink-0"><i class="fas fa-user"></i></span>
+                  <span>NAMA LENGKAP</span>
+                </div>
+              </th>
+              <th class="px-5 py-4 w-44 min-w-[170px]">
+                <div class="flex items-center gap-2.5">
+                  <span class="inline-flex items-center justify-center w-6 h-6 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-600 text-white text-[10px] shadow-sm shadow-emerald-500/30 shrink-0"><i class="fas fa-sliders"></i></span>
+                  <span>STATUS OPERASIONAL</span>
+                </div>
+              </th>
+              <th class="px-5 py-4 w-40 min-w-[150px] text-center">
+                <div class="flex items-center justify-center gap-2.5">
+                  <span class="inline-flex items-center justify-center w-6 h-6 rounded-lg bg-gradient-to-br from-teal-500 to-emerald-600 text-white text-[10px] shadow-sm shadow-teal-500/30 shrink-0"><i class="fas fa-camera"></i></span>
+                  <span>FOTO DATANG</span>
+                </div>
+              </th>
+              <th class="px-5 py-4 w-40 min-w-[150px] text-center">
+                <div class="flex items-center justify-center gap-2.5">
+                  <span class="inline-flex items-center justify-center w-6 h-6 rounded-lg bg-gradient-to-br from-violet-500 to-purple-600 text-white text-[10px] shadow-sm shadow-violet-500/30 shrink-0"><i class="fas fa-camera-retro"></i></span>
+                  <span>FOTO PULANG</span>
+                </div>
+              </th>
+              <th class="px-6 py-4 min-w-[200px]">
+                <div class="flex items-center gap-2.5">
+                  <span class="inline-flex items-center justify-center w-6 h-6 rounded-lg bg-gradient-to-br from-slate-600 to-slate-800 text-white text-[10px] shadow-sm shrink-0"><i class="fas fa-clock"></i></span>
+                  <span>WAKTU & CATATAN</span>
+                </div>
+              </th>
+            </tr>
+          </thead>
+
+          <!-- Table Body -->
+          <tbody id="table-records-body" class="divide-y divide-[var(--border-subtle)]">
+            <!-- Dynamic Data Rows rendered via JavaScript -->
+          </tbody>
+
+        </table>
+      </div>
+
+      <!-- Empty State -->
+      <div id="table-empty-state" class="hidden p-12 sm:p-20 text-center space-y-4" style="background: var(--surface-primary);">
+        <div class="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-full flex items-center justify-center shadow-md border" style="background: var(--surface-secondary); border-color: var(--border-default); color: var(--accent);">
+          <i class="fas fa-cat text-2xl sm:text-3xl"></i>
+        </div>
+        <p class="text-base sm:text-lg font-bold tracking-tight" style="color: var(--text-primary);">Tidak ada data yang cocok dengan pencarian Anda.</p>
+        <p class="text-xs sm:text-sm" style="color: var(--text-tertiary);">Coba ubah kata kunci pencarian Nama dll.</p>
+      </div>
+
+    </div>
+
+  </main>
+  <!-- Dedicated Footer with Walking Cats Stage (Hanya di Paling Bawah) -->
+  <footer class="mt-8 pb-8 w-full relative z-10 select-none overflow-hidden">
+    <!-- Dedicated 60fps Footer Cat Canvas (Height 85px) -->
+    <div class="relative w-full h-[85px] max-w-[1700px] mx-auto overflow-hidden">
+      <canvas id="footer-cat-canvas" class="w-full h-full block cursor-pointer"></canvas>
+    </div>
+
+    <!-- Footer Copyright Badge -->
+    <div class="pt-2 flex justify-center">
+      <div class="footer-card px-4 py-2 rounded-xl text-[11px] font-medium tracking-wide text-[var(--text-tertiary)] border border-[var(--border-subtle)] shadow-sm cursor-default select-none flex items-center gap-2" style="background: var(--surface-primary);">
+        <i class="fas fa-paw text-[10px] text-blue-500/70"></i>
+        <span>Satria P.A &copy; 2026</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="fixed bottom-4 right-4 left-4 sm:left-auto z-50 space-y-2 pointer-events-none"></div>
+
+  <!-- ALL JAVASCRIPT INLINED IN ONE FILE -->
+  <script>
+    /**
+     * ============================================================================
+     * 1. CAT MASCOT CONTROLLER & AUDIO SYNTH & 60FPS MOTION CANVAS
+     * ============================================================================
+     */
+    class CatMascot {
+      constructor() {
+        this.catElement = document.getElementById('cat-mascot');
+        this.audioCtx = null;
+        this.initAudio();
+        this.bindEvents();
+      }
+
+      initAudio() {
+        try {
+          const AudioCtxClass = window.AudioContext || window.webkitAudioContext;
+          if (AudioCtxClass) {
+            this.audioCtx = new AudioCtxClass();
+          }
+        } catch (e) {
+          console.warn('AudioContext not supported');
+        }
+      }
+
+      playMeowSound() {
+        if (!this.audioCtx) return;
+        try {
+          if (this.audioCtx.state === 'suspended') {
+            this.audioCtx.resume();
+          }
+
+          const osc = this.audioCtx.createOscillator();
+          const gain = this.audioCtx.createGain();
+
+          osc.connect(gain);
+          gain.connect(this.audioCtx.destination);
+
+          const now = this.audioCtx.currentTime;
+
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(580, now);
+          osc.frequency.linearRampToValueAtTime(880, now + 0.14);
+          osc.frequency.exponentialRampToValueAtTime(440, now + 0.38);
+
+          gain.gain.setValueAtTime(0.01, now);
+          gain.gain.linearRampToValueAtTime(0.22, now + 0.08);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.38);
+
+          osc.start(now);
+          osc.stop(now + 0.38);
+        } catch (e) {
+          console.warn('Meow audio error', e);
+        }
+      }
+
+      spawnPawPrint(x, y) {
+        const paw = document.createElement('div');
+        paw.className = 'paw-print';
+        const rot = (Math.random() - 0.5) * 45;
+        paw.style.setProperty('--paw-rot', `${rot}deg`);
+        paw.style.left = `${x - 14}px`;
+        paw.style.top = `${y - 14}px`;
+        paw.innerHTML = '<i class="fas fa-paw"></i>';
+        document.body.appendChild(paw);
+
+        setTimeout(() => paw.remove(), 1100);
+      }
+
+      bindEvents() {
+        if (this.catElement) {
+          this.catElement.addEventListener('click', (e) => {
+            this.playMeowSound();
+            const rect = this.catElement.getBoundingClientRect();
+            this.spawnPawPrint(rect.left + rect.width / 2, rect.top);
+
+            this.catElement.animate([
+              { transform: 'scale(1) rotate(0deg)' },
+              { transform: 'scale(1.2) rotate(-10deg)', offset: 0.25 },
+              { transform: 'scale(1.15) rotate(10deg)', offset: 0.5 },
+              { transform: 'scale(1.05) rotate(-4deg)', offset: 0.75 },
+              { transform: 'scale(1) rotate(0deg)' }
+            ], {
+              duration: 500,
+              easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)'
+            });
+          });
+        }
+
+        document.addEventListener('click', (e) => {
+          if (e.target.closest('input, button, a')) return;
+          if (Math.random() > 0.55) {
+            this.spawnPawPrint(e.clientX, e.clientY);
+          }
+        });
+      }
+    }
+
+    /**
+     * ============================================================================
+     * BEAUTIFUL PROCEDURAL WALKING CAT ANIMATION ENGINE (UI/UX PRO MAX)
+     * Features 4-legged articulated quadruped walk cycles, soft shadow,
+     * glowing ground pawprint footprints, wagging tail, blinking eyes,
+     * ear twitches, speech bubbles, mouse curiosity, and joyful interactive jumps.
+     * ============================================================================
+     */
+    class WalkingCat {
+      constructor(options = {}) {
+        this.name = options.name || 'Luna';
+        this.x = options.x || 100;
+        this.groundY = 0;
+        this.scale = options.scale || 1.5;
+        this.speed = options.speed || 1.2;
+        this.direction = options.direction || 1; // 1 = right, -1 = left
+        this.walkPhase = options.walkPhase || Math.random() * Math.PI * 2;
+        this.tailPhase = Math.random() * Math.PI * 2;
+        
+        // States: 'WALKING', 'PAUSED', 'HAPPY_JUMP'
+        this.state = 'WALKING';
+        this.pauseTimer = 0;
+        
+        // Blinking & Ear Twitch
+        this.blinkTimer = Math.random() * 180 + 100;
+        this.isBlinking = false;
+        this.earTwitchTimer = Math.random() * 240 + 120;
+        this.earTwitch = 0;
+        
+        // Jump Physics
+        this.jumpY = 0;
+        this.jumpVy = 0;
+        this.jumpRotation = 0;
+        
+        // Speech Bubble Emotes
+        this.emotes = options.emotes || ['Meow~ 🐾', 'Meow Meow ✨', 'Purr~ ❤️', 'Meow!', '🐾'];
+        this.currentEmote = null;
+        this.emoteAlpha = 0;
+        this.emoteTimer = Math.random() * 200 + 100;
+        
+        // Appearance & Styling
+        this.bodyColor = options.bodyColor || '#f97316';
+        this.shadeColor = options.shadeColor || '#ffedd5';
+        this.spotColor = options.spotColor || null;
+        this.hasStripes = options.hasStripes || false;
+        this.stripeColor = options.stripeColor || '#c2410c';
+        this.sockColor = options.sockColor || '#ffffff';
+        this.collarColor = options.collarColor || '#ef4444';
+        this.eyeColor = options.eyeColor || '#10b981';
+        this.pawColor = options.pawColor || 'rgba(239, 68, 68, 0.55)';
+        this.hasBell = options.hasBell !== false;
+        
+        this.headLookAngle = 0;
+        this.lastStepCycle = 0;
+      }
+      
+      update(width, height, mouseX, mouseY, pawPrints, particles) {
+        // Positioned along the bottom track of the footer canvas
+        this.groundY = height - 16;
+        
+        // Jump Physics
+        if (this.state === 'HAPPY_JUMP') {
+          this.jumpY += this.jumpVy;
+          this.jumpVy += 0.55;
+          this.jumpRotation = (this.jumpVy < 0 ? -0.2 : 0.15) * this.direction;
+          if (this.jumpY >= 0) {
+            this.jumpY = 0;
+            this.jumpVy = 0;
+            this.jumpRotation = 0;
+            this.state = 'WALKING';
+          }
+        }
+        
+        // Blinking cycle
+        this.blinkTimer--;
+        if (this.blinkTimer <= 0) {
+          this.isBlinking = true;
+          if (this.blinkTimer <= -14) {
+            this.isBlinking = false;
+            this.blinkTimer = Math.random() * 240 + 140;
+          }
+        }
+        
+        // Ear twitch cycle
+        this.earTwitchTimer--;
+        if (this.earTwitchTimer <= 0) {
+          this.earTwitch = Math.sin(this.earTwitchTimer * 0.6) * 4;
+          if (this.earTwitchTimer <= -22) {
+            this.earTwitch = 0;
+            this.earTwitchTimer = Math.random() * 320 + 180;
+          }
+        }
+
+        // Emote Speech Bubble cycle
+        this.emoteTimer--;
+        if (this.emoteTimer <= 0 && !this.currentEmote) {
+          this.currentEmote = this.emotes[Math.floor(Math.random() * this.emotes.length)];
+          this.emoteAlpha = 1;
+          this.emoteTimer = Math.random() * 400 + 350;
+        } else if (this.currentEmote) {
+          this.emoteAlpha -= 0.007;
+          if (this.emoteAlpha <= 0) {
+            this.currentEmote = null;
+          }
+        }
+        
+        // State actions
+        if (this.state === 'WALKING') {
+          this.x += this.speed * this.direction;
+          this.walkPhase += 0.082 * (this.speed / 1.2);
+          this.tailPhase += 0.058;
+          
+          // Spawn ambient soft sparkles & hearts
+          if (Math.random() < 0.04) {
+            particles.push({
+              x: this.x + (Math.random() - 0.5) * 30 * this.scale,
+              y: this.groundY - 14 * this.scale - Math.random() * 20,
+              vx: (Math.random() - 0.5) * 0.6,
+              vy: -0.4 - Math.random() * 0.5,
+              size: (2.2 + Math.random() * 2.5) * this.scale,
+              alpha: 0.9,
+              color: this.collarColor,
+              type: Math.random() > 0.5 ? 'heart' : 'sparkle',
+              life: 70
+            });
+          }
+          
+          // Spawn footprint pawprints on ground contacts
+          const stepCycle = Math.sin(this.walkPhase);
+          if (this.lastStepCycle < 0 && stepCycle >= 0) {
+            const pawX = this.x + (this.direction > 0 ? 14 : -14) * this.scale;
+            pawPrints.push({
+              x: pawX,
+              y: this.groundY + 4 * this.scale,
+              alpha: 0.65,
+              color: this.pawColor,
+              scale: this.scale,
+              life: 280
+            });
+          } else if (this.lastStepCycle > 0 && stepCycle <= 0) {
+            const pawX = this.x - (this.direction > 0 ? 14 : -14) * this.scale;
+            pawPrints.push({
+              x: pawX,
+              y: this.groundY + 4 * this.scale,
+              alpha: 0.65,
+              color: this.pawColor,
+              scale: this.scale,
+              life: 280
+            });
+          }
+          this.lastStepCycle = stepCycle;
+          
+          // Edge boundary turnaround
+          const margin = 70 * this.scale;
+          if (this.direction > 0 && this.x > width + margin) {
+            this.direction = -1;
+            this.state = 'PAUSED';
+            this.pauseTimer = 60 + Math.random() * 40;
+          } else if (this.direction < 0 && this.x < -margin) {
+            this.direction = 1;
+            this.state = 'PAUSED';
+            this.pauseTimer = 60 + Math.random() * 40;
+          } else if (Math.random() < 0.001) {
+            this.state = 'PAUSED';
+            this.pauseTimer = 80 + Math.random() * 60;
+          }
+        } else if (this.state === 'PAUSED') {
+          this.pauseTimer--;
+          this.tailPhase += 0.048;
+          if (this.pauseTimer <= 0) {
+            this.state = 'WALKING';
+          }
+        }
+        
+        // Smooth head look tracking towards mouse
+        const dx = mouseX - this.x;
+        const dy = mouseY - (this.groundY - 20 * this.scale);
+        const dist = Math.hypot(dx, dy);
+        if (dist < 320 && dist > 15) {
+          const targetAngle = Math.atan2(dy, dx * this.direction);
+          const clamped = Math.max(-0.4, Math.min(0.4, targetAngle));
+          this.headLookAngle += (clamped - this.headLookAngle) * 0.12;
+        } else {
+          this.headLookAngle += (0 - this.headLookAngle) * 0.08;
+        }
+      }
+      
+      triggerJump(particles) {
+        this.state = 'HAPPY_JUMP';
+        this.jumpVy = -7.8;
+        this.currentEmote = '❤️ Meow Meow! ✨';
+        this.emoteAlpha = 1.0;
+        if (particles) {
+          for (let i = 0; i < 9; i++) {
+            particles.push({
+              x: this.x + (Math.random() - 0.5) * 35 * this.scale,
+              y: this.groundY - 25 * this.scale,
+              vx: (Math.random() - 0.5) * 2.8,
+              vy: -1.8 - Math.random() * 3.0,
+              size: 3.0 + Math.random() * 3.0,
+              alpha: 1.0,
+              color: i % 2 === 0 ? '#ec4899' : (i % 3 === 0 ? '#f59e0b' : '#38bdf8'),
+              type: i % 2 === 0 ? 'heart' : 'sparkle',
+              life: 85
+            });
+          }
+        }
+      }
+      
+      draw(ctx) {
+        ctx.save();
+        const currentY = this.groundY + this.jumpY;
+        ctx.translate(this.x, currentY);
+        ctx.rotate(this.jumpRotation);
+        ctx.scale(this.direction * this.scale, this.scale);
+        
+        const isWalking = this.state === 'WALKING';
+        const wp = this.walkPhase;
+        const tp = this.tailPhase;
+        const bobY = isWalking ? Math.sin(wp * 2) * 1.8 : 0;
+        
+        // 1. Soft Dynamic Ground Shadow
+        ctx.save();
+        ctx.fillStyle = 'rgba(15, 23, 42, 0.18)';
+        ctx.beginPath();
+        const shadowScale = 1 - Math.min(0.65, Math.abs(this.jumpY) / 70);
+        ctx.ellipse(0, 4.0, 26 * shadowScale, 5.5 * shadowScale, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+        
+        // 2. Far Legs (Back-Right & Front-Right) - Shaded depth
+        this.drawLeg(ctx, 12, 0, wp + Math.PI, true);
+        this.drawLeg(ctx, -14, 0, wp + Math.PI * 1.75, true);
+        
+        // 3. Graceful Animated Tail
+        ctx.save();
+        ctx.strokeStyle = 'rgba(15, 23, 42, 0.35)';
+        ctx.lineWidth = 5.2;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.beginPath();
+        const tailBaseX = -18;
+        const tailBaseY = -12 + bobY;
+        ctx.moveTo(tailBaseX, tailBaseY);
+        const tCtrl1X = tailBaseX - 10;
+        const tCtrl1Y = tailBaseY - 10 + Math.sin(tp) * 4.0;
+        const tCtrl2X = tailBaseX - 17;
+        const tCtrl2Y = tailBaseY - 25 + Math.sin(tp + 1.1) * 6.5;
+        const tEndX = tailBaseX - 12 + Math.cos(tp * 1.4) * 3.5;
+        const tEndY = tailBaseY - 34 + Math.sin(tp + 2.1) * 7.5;
+        ctx.bezierCurveTo(tCtrl1X, tCtrl1Y, tCtrl2X, tCtrl2Y, tEndX, tEndY);
+        ctx.stroke();
+
+        ctx.strokeStyle = this.bodyColor;
+        ctx.lineWidth = 4.4;
+        ctx.stroke();
+        
+        // Tail Tip Accent / Socks
+        if (this.sockColor) {
+          ctx.fillStyle = this.sockColor;
+          ctx.beginPath();
+          ctx.arc(tEndX, tEndY, 2.8, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.restore();
+        
+        // 4. Cat Main Torso with Soft Belly Shading & Stripes
+        ctx.save();
+        ctx.translate(0, bobY);
+        
+        // Body Base Outline
+        ctx.strokeStyle = 'rgba(15, 23, 42, 0.35)';
+        ctx.lineWidth = 1.6;
+        ctx.fillStyle = this.bodyColor;
+        ctx.beginPath();
+        ctx.ellipse(0, -11.5, 21, 11.5, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+        
+        // Soft Belly Fur
+        ctx.fillStyle = this.shadeColor;
+        ctx.beginPath();
+        ctx.ellipse(0, -7.0, 18, 5.5, 0, 0, Math.PI);
+        ctx.fill();
+
+        // Tiger Stripes (if ginger tabby)
+        if (this.hasStripes) {
+          ctx.strokeStyle = this.stripeColor;
+          ctx.lineWidth = 1.6;
+          ctx.lineCap = 'round';
+          ctx.beginPath();
+          ctx.moveTo(-6, -18); ctx.lineTo(-4, -10);
+          ctx.moveTo(1, -19);  ctx.lineTo(2, -11);
+          ctx.moveTo(8, -17);  ctx.lineTo(7, -10);
+          ctx.stroke();
+        }
+        
+        // Calico Spot
+        if (this.spotColor) {
+          ctx.fillStyle = this.spotColor;
+          ctx.beginPath();
+          ctx.ellipse(-4.0, -15.5, 8.5, 5.0, -0.2, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        
+        // 5. Near Legs (Back-Left & Front-Left)
+        this.drawLeg(ctx, 12, 0, wp, false);
+        this.drawLeg(ctx, -14, 0, wp + Math.PI * 0.75, false);
+        
+        // 6. Cat Head, Expressive Face, Whiskers & Shiny Collar
+        const headX = 18;
+        const headY = -18 + bobY * 0.6;
+        ctx.save();
+        ctx.translate(headX, headY);
+        ctx.rotate(this.headLookAngle);
+        
+        // Ears
+        // Left Ear (Far)
+        ctx.fillStyle = this.bodyColor;
+        ctx.strokeStyle = 'rgba(15, 23, 42, 0.35)';
+        ctx.lineWidth = 1.4;
+        ctx.beginPath();
+        ctx.moveTo(-4, -7);
+        ctx.lineTo(-8, -21 + this.earTwitch);
+        ctx.lineTo(2, -10);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+        // Left Ear Pink Interior
+        ctx.fillStyle = '#f472b6';
+        ctx.beginPath();
+        ctx.moveTo(-3, -8);
+        ctx.lineTo(-7, -18 + this.earTwitch);
+        ctx.lineTo(0, -10);
+        ctx.closePath();
+        ctx.fill();
+        
+        // Right Ear (Near)
+        ctx.fillStyle = this.bodyColor;
+        ctx.beginPath();
+        ctx.moveTo(3, -7);
+        ctx.lineTo(9, -22);
+        ctx.lineTo(11, -8);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+        // Right Ear Pink Interior
+        ctx.fillStyle = '#f472b6';
+        ctx.beginPath();
+        ctx.moveTo(4, -8);
+        ctx.lineTo(8, -19);
+        ctx.lineTo(10, -8);
+        ctx.closePath();
+        ctx.fill();
+        
+        // Head Sphere
+        ctx.fillStyle = this.bodyColor;
+        ctx.beginPath();
+        ctx.arc(2.5, -4.0, 12, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+        
+        // Head Marking / Spot
+        if (this.spotColor) {
+          ctx.fillStyle = this.spotColor;
+          ctx.beginPath();
+          ctx.arc(7.0, -10.5, 4.8, 0, Math.PI * 2);
+          ctx.fill();
+        } else if (this.hasStripes) {
+          ctx.strokeStyle = this.stripeColor;
+          ctx.lineWidth = 1.4;
+          ctx.beginPath();
+          ctx.moveTo(2.5, -14); ctx.lineTo(2.5, -9);
+          ctx.moveTo(6.5, -13); ctx.lineTo(5.5, -8.5);
+          ctx.stroke();
+        }
+        
+        // Rosy Cheeks Blush
+        ctx.fillStyle = 'rgba(244, 114, 182, 0.55)';
+        ctx.beginPath();
+        ctx.arc(-2.0, -1.0, 3.6, 0, Math.PI * 2);
+        ctx.arc(8.5, -1.0, 3.6, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Eyes
+        if (this.isBlinking) {
+          // Cute Smiling Eyes `^ ^`
+          ctx.strokeStyle = '#0f172a';
+          ctx.lineWidth = 1.8;
+          ctx.lineCap = 'round';
+          ctx.beginPath();
+          ctx.arc(1.5, -4.0, 2.8, Math.PI * 0.8, Math.PI * 1.8);
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.arc(8.0, -4.0, 2.8, Math.PI * 0.8, Math.PI * 1.8);
+          ctx.stroke();
+        } else {
+          // Big Glossy Anime Eyes
+          ctx.fillStyle = this.eyeColor;
+          ctx.beginPath();
+          ctx.ellipse(2.5, -4.0, 3.0, 4.0, 0, 0, Math.PI * 2);
+          ctx.ellipse(8.5, -4.0, 3.0, 4.0, 0, 0, Math.PI * 2);
+          ctx.fill();
+          // Pupils
+          ctx.fillStyle = '#0f172a';
+          ctx.beginPath();
+          ctx.arc(2.5, -4.0, 2.0, 0, Math.PI * 2);
+          ctx.arc(8.5, -4.0, 2.0, 0, Math.PI * 2);
+          ctx.fill();
+          // Dual Sparkle Highlights
+          ctx.fillStyle = '#ffffff';
+          ctx.beginPath();
+          ctx.arc(1.6, -5.3, 1.2, 0, Math.PI * 2);
+          ctx.arc(7.6, -5.3, 1.2, 0, Math.PI * 2);
+          ctx.arc(3.4, -3.0, 0.65, 0, Math.PI * 2);
+          ctx.arc(9.4, -3.0, 0.65, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        
+        // Cute Pink Nose
+        ctx.fillStyle = '#f43f5e';
+        ctx.beginPath();
+        ctx.moveTo(5.8, -0.4);
+        ctx.lineTo(4.4, -2.0);
+        ctx.lineTo(7.2, -2.0);
+        ctx.closePath();
+        ctx.fill();
+        
+        // Smile Mouth `w`
+        ctx.strokeStyle = '#334155';
+        ctx.lineWidth = 1.3;
+        ctx.lineCap = 'round';
+        ctx.beginPath();
+        ctx.arc(4.4, 0.6, 1.7, 0, Math.PI);
+        ctx.arc(7.2, 0.6, 1.7, 0, Math.PI);
+        ctx.stroke();
+        
+        // Bouncing Whiskers
+        ctx.strokeStyle = 'rgba(51, 65, 85, 0.7)';
+        ctx.lineWidth = 1.0;
+        ctx.beginPath();
+        ctx.moveTo(0, -1.0);  ctx.lineTo(-8.0, -2.6);
+        ctx.moveTo(0, 1.2);   ctx.lineTo(-8.0, 2.8);
+        ctx.moveTo(11, -1.0); ctx.lineTo(19, -2.6);
+        ctx.moveTo(11, 1.2);  ctx.lineTo(19, 2.8);
+        ctx.stroke();
+        
+        // Collar & Shiny Gold Jingle Bell
+        ctx.strokeStyle = this.collarColor;
+        ctx.lineWidth = 2.6;
+        ctx.beginPath();
+        ctx.arc(0, 3.8, 7.5, Math.PI * 0.15, Math.PI * 0.85);
+        ctx.stroke();
+        
+        if (this.hasBell) {
+          const bellWiggle = Math.sin(wp * 2) * 0.4;
+          ctx.save();
+          ctx.translate(0, 9.5);
+          ctx.rotate(bellWiggle);
+          ctx.fillStyle = '#fbbf24';
+          ctx.strokeStyle = '#b45309';
+          ctx.lineWidth = 0.8;
+          ctx.beginPath();
+          ctx.arc(0, 0, 2.8, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.stroke();
+          ctx.fillStyle = '#78350f';
+          ctx.beginPath();
+          ctx.arc(0, 0.9, 0.8, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.restore();
+        }
+        
+        ctx.restore(); // end head
+        ctx.restore(); // end body
+
+        // 7. Floating Speech Bubble (if active)
+        if (this.currentEmote && this.emoteAlpha > 0.02) {
+          ctx.save();
+          ctx.scale(this.direction, 1); // unflip text direction
+          ctx.translate(headX + 5, headY - 32 + bobY);
+          ctx.globalAlpha = Math.min(1, this.emoteAlpha * 1.2);
+          
+          ctx.font = 'bold 11px Inter, sans-serif';
+          const textWidth = ctx.measureText(this.currentEmote).width;
+          const bubbleW = textWidth + 14;
+          const bubbleH = 20;
+
+          // Bubble background
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+          ctx.strokeStyle = 'rgba(236, 72, 153, 0.4)';
+          ctx.lineWidth = 1.2;
+          ctx.shadowColor = 'rgba(0, 0, 0, 0.1)';
+          ctx.shadowBlur = 6;
+          
+          ctx.beginPath();
+          ctx.roundRect(-bubbleW / 2, -bubbleH / 2, bubbleW, bubbleH, 8);
+          ctx.fill();
+          ctx.stroke();
+
+          // Little Pointer Triangle
+          ctx.beginPath();
+          ctx.moveTo(-3, bubbleH / 2);
+          ctx.lineTo(0, bubbleH / 2 + 4);
+          ctx.lineTo(3, bubbleH / 2);
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+          ctx.fill();
+          ctx.stroke();
+
+          // Bubble Text
+          ctx.shadowColor = 'transparent';
+          ctx.fillStyle = '#1e293b';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText(this.currentEmote, 0, 0);
+
+          ctx.restore();
+        }
+
+        ctx.restore(); // end cat
+      }
+      
+      drawLeg(ctx, hipX, hipY, phase, isFar) {
+        ctx.save();
+        const isWalking = this.state === 'WALKING';
+        const swing = isWalking ? Math.sin(phase) : 0;
+        const lift = isWalking ? Math.max(0, -Math.cos(phase)) : 0;
+        
+        const hipOffsetY = -7.0;
+        const upperLen = 7.5;
+        const lowerLen = 7.5;
+        
+        const upperAngle = swing * 0.45 + (isFar ? 0.06 : 0);
+        const kneeX = hipX + Math.sin(upperAngle) * upperLen;
+        const kneeY = hipOffsetY + Math.cos(upperAngle) * upperLen;
+        
+        const lowerAngle = upperAngle - lift * 0.7;
+        const pawX = kneeX + Math.sin(lowerAngle) * lowerLen;
+        const pawY = kneeY + Math.cos(lowerAngle) * lowerLen - lift * 3.6;
+        
+        // Leg Stroke Outline
+        ctx.strokeStyle = 'rgba(15, 23, 42, 0.35)';
+        ctx.lineWidth = isFar ? 4.2 : 4.8;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.beginPath();
+        ctx.moveTo(hipX, hipOffsetY);
+        ctx.lineTo(kneeX, kneeY);
+        ctx.lineTo(pawX, pawY);
+        ctx.stroke();
+
+        // Leg Fill
+        ctx.strokeStyle = isFar ? (this.shadeColor || this.bodyColor) : this.bodyColor;
+        ctx.lineWidth = isFar ? 3.4 : 4.0;
+        ctx.stroke();
+        
+        // Little Round White Sock / Paw
+        ctx.fillStyle = this.sockColor || (isFar ? this.shadeColor : this.bodyColor);
+        ctx.beginPath();
+        ctx.ellipse(pawX + (this.direction > 0 ? 0.8 : -0.8), pawY, 2.4, 1.8, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        ctx.restore();
+      }
+    }
+
+    /**
+     * Fluttering Magical Butterfly
+     */
+    class MagicalButterfly {
+      constructor(width, height) {
+        this.reset(width, height);
+      }
+      reset(width, height) {
+        this.x = Math.random() * (width || 800);
+        this.y = (height || 85) - 35 - Math.random() * 25;
+        this.vx = (Math.random() - 0.5) * 0.8;
+        this.vy = (Math.random() - 0.5) * 0.35;
+        this.wingAngle = 0;
+        this.color = Math.random() > 0.5 ? '#f472b6' : '#38bdf8';
+        this.size = 5.0 + Math.random() * 2.0;
+      }
+      update(width, height) {
+        this.wingAngle += 0.28;
+        this.x += this.vx + Math.sin(this.wingAngle * 0.5) * 0.5;
+        this.y += this.vy + Math.cos(this.wingAngle * 0.4) * 0.35;
+        
+        const minY = 10;
+        const maxY = (height || 85) - 15;
+        if (this.y < minY || this.y > maxY) this.vy *= -1;
+        if (this.x < -30) this.x = width + 30;
+        if (this.x > width + 30) this.x = -30;
+      }
+      draw(ctx) {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        const flap = Math.abs(Math.sin(this.wingAngle));
+        
+        ctx.fillStyle = this.color;
+        ctx.globalAlpha = 0.85;
+        // Left Wings
+        ctx.beginPath();
+        ctx.ellipse(-this.size * flap * 0.6, -this.size * 0.4, this.size * flap, this.size * 0.8, -0.3, 0, Math.PI * 2);
+        ctx.fill();
+        // Right Wings
+        ctx.beginPath();
+        ctx.ellipse(this.size * flap * 0.6, -this.size * 0.4, this.size * flap, this.size * 0.8, 0.3, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Butterfly Body
+        ctx.fillStyle = '#0f172a';
+        ctx.globalAlpha = 0.95;
+        ctx.beginPath();
+        ctx.ellipse(0, 0, 1.4, 4.0, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    function initCatBackgroundMotion() {
+      const canvas = document.getElementById('footer-cat-canvas') || document.getElementById('bg-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+
+      let width = 800, height = 85;
+      let groundPawPrints = [];
+      let magicParticles = [];
+      let butterfly = null;
+      let walkingCats = [];
+      let mouseX = -1000, mouseY = -1000;
+      let targetMouseX = -1000, targetMouseY = -1000;
+
+      function resize() {
+        const parent = canvas.parentElement;
+        width = canvas.width = parent ? parent.clientWidth : window.innerWidth;
+        height = canvas.height = 85;
+        initWalkingCats();
+        if (!butterfly) butterfly = new MagicalButterfly(width, height);
+      }
+
+      function initWalkingCats() {
+        walkingCats = [
+          // Cat 1: Milo (The Vibrant Orange Ginger Tabby / Oyen)
+          new WalkingCat({
+            name: 'Milo',
+            x: width * 0.15,
+            scale: 1.18,
+            speed: 1.15,
+            direction: 1,
+            bodyColor: '#f97316',
+            shadeColor: '#ffedd5',
+            hasStripes: true,
+            stripeColor: '#c2410c',
+            sockColor: '#ffffff',
+            collarColor: '#ef4444',
+            eyeColor: '#10b981',
+            pawColor: 'rgba(249, 115, 22, 0.6)',
+            emotes: ['🐾 Meow~', 'Meow Meow ✨', '(=^･ω･^=)', 'Purr~ ❤️', 'Meow! 🐾'],
+            walkPhase: 0
+          }),
+          // Cat 2: Princess Luna (Snow White Anggora with Sapphire Eyes)
+          new WalkingCat({
+            name: 'Luna',
+            x: width * 0.8,
+            scale: 1.12,
+            speed: 0.95,
+            direction: -1,
+            bodyColor: '#ffffff',
+            shadeColor: '#e0e7ff',
+            sockColor: '#ffffff',
+            collarColor: '#ec4899',
+            eyeColor: '#0284c7',
+            pawColor: 'rgba(236, 72, 153, 0.6)',
+            emotes: ['✨ Meow~', 'Meow Meow 🌸', 'Purr~ ❤️', '🐾', 'Meow! ✨'],
+            walkPhase: Math.PI * 0.6
+          }),
+          // Cat 3: Oreo (Playful Calico/Tuxedo)
+          new WalkingCat({
+            name: 'Oreo',
+            x: width * 0.45,
+            scale: 1.05,
+            speed: 1.35,
+            direction: 1,
+            bodyColor: '#1e293b',
+            shadeColor: '#f8fafc',
+            spotColor: '#f97316',
+            sockColor: '#ffffff',
+            collarColor: '#06b6d4',
+            eyeColor: '#f59e0b',
+            pawColor: 'rgba(6, 182, 212, 0.6)',
+            emotes: ['Meow! 🐾', 'Meow Meow ✨', 'Purr~ ❤️', 'Nyaa! 🐾'],
+            walkPhase: Math.PI * 1.2
+          })
+        ];
+      }
+
+      function drawGroundPawPrint(p) {
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.scale(p.scale * 0.85, p.scale * 0.85);
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = p.alpha;
+        
+        ctx.beginPath();
+        ctx.ellipse(0, 0, 4.8, 3.6, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        const toes = [
+          { dx: -4.2, dy: -3.6, r: 1.6 },
+          { dx: -1.6, dy: -5.2, r: 1.8 },
+          { dx: 1.6, dy: -5.2, r: 1.8 },
+          { dx: 4.2, dy: -3.6, r: 1.6 }
+        ];
+        toes.forEach(t => {
+          ctx.beginPath();
+          ctx.arc(t.dx, t.dy, t.r, 0, Math.PI * 2);
+          ctx.fill();
+        });
+        ctx.restore();
+      }
+
+      function drawMagicParticle(pt) {
+        ctx.save();
+        ctx.globalAlpha = Math.max(0, pt.alpha);
+        ctx.fillStyle = pt.color;
+        ctx.translate(pt.x, pt.y);
+
+        if (pt.type === 'heart') {
+          ctx.scale(pt.size * 0.25, pt.size * 0.25);
+          ctx.beginPath();
+          ctx.moveTo(0, 0);
+          ctx.bezierCurveTo(-5, -5, -9, 1, 0, 8);
+          ctx.bezierCurveTo(9, 1, 5, -5, 0, 0);
+          ctx.fill();
+        } else {
+          ctx.beginPath();
+          for (let i = 0; i < 4; i++) {
+            ctx.lineTo(Math.cos(i * Math.PI / 2) * pt.size, Math.sin(i * Math.PI / 2) * pt.size);
+            ctx.lineTo(Math.cos(i * Math.PI / 2 + Math.PI / 4) * (pt.size * 0.35), Math.sin(i * Math.PI / 2 + Math.PI / 4) * (pt.size * 0.35));
+          }
+          ctx.closePath();
+          ctx.fill();
+        }
+        ctx.restore();
+      }
+
+      canvas.addEventListener('mousemove', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        targetMouseX = e.clientX - rect.left;
+        targetMouseY = e.clientY - rect.top;
+      });
+
+      // Global function to trigger cats jumping
+      window.triggerCatJump = function() {
+        walkingCats.forEach(cat => cat.triggerJump(magicParticles));
+        if (window.catMascot && window.catMascot.playMeowSound) {
+          window.catMascot.playMeowSound();
+        }
+      };
+
+      // Interactive Click on footer canvas to make nearest walking cat jump happily
+      canvas.addEventListener('click', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        const clickX = e.clientX - rect.left;
+        const clickY = e.clientY - rect.top;
+        
+        let nearestCat = null;
+        let minDist = 9999;
+        walkingCats.forEach(cat => {
+          const d = Math.hypot(clickX - cat.x, clickY - (cat.groundY - 15));
+          if (d < minDist) {
+            minDist = d;
+            nearestCat = cat;
+          }
+        });
+
+        if (nearestCat) {
+          nearestCat.triggerJump(magicParticles);
+          if (window.catMascot && window.catMascot.playMeowSound) {
+            window.catMascot.playMeowSound();
+          }
+        }
+      });
+
+      function animate() {
+        ctx.clearRect(0, 0, width, height);
+
+        mouseX += (targetMouseX - mouseX) * 0.08;
+        mouseY += (targetMouseY - mouseY) * 0.08;
+
+        // 1. Draw Ground Paw Prints (fading out smoothly)
+        for (let i = groundPawPrints.length - 1; i >= 0; i--) {
+          const paw = groundPawPrints[i];
+          paw.life--;
+          paw.alpha *= 0.992;
+          drawGroundPawPrint(paw);
+          if (paw.life <= 0 || paw.alpha <= 0.01) {
+            groundPawPrints.splice(i, 1);
+          }
+        }
+
+        // 2. Draw Fluttering Butterfly
+        if (butterfly) {
+          butterfly.update(width, height);
+          butterfly.draw(ctx);
+        }
+
+        // 3. Update & Draw Walking Cats (Footer only)
+        walkingCats.forEach(cat => {
+          cat.update(width, height, mouseX, mouseY, groundPawPrints, magicParticles);
+          cat.draw(ctx);
+        });
+
+        // 4. Draw Sparkles & Heart Particles
+        for (let i = magicParticles.length - 1; i >= 0; i--) {
+          const pt = magicParticles[i];
+          pt.x += pt.vx;
+          pt.y += pt.vy;
+          pt.alpha -= 0.014;
+          pt.size *= 0.985;
+          drawMagicParticle(pt);
+          if (pt.alpha <= 0 || pt.size <= 0.5) {
+            magicParticles.splice(i, 1);
+          }
+        }
+
+        requestAnimationFrame(animate);
+      }
+
+      window.addEventListener('resize', resize);
+      resize();
+      animate();
+    }
+
+    /**
+     * ============================================================================
+     * SMOOTH FULLSCREEN CAT-THEMED AMBIENT BACKGROUND MOTION (BEHIND CARDS)
+     * Features soft floating cat paws, kitten heads, yarn balls, swimming fishes,
+     * glowing sparkles, and responsive interactive mouse repulsion breezes.
+     * ============================================================================
+     */
+    function initAmbientCatBackgroundMotion() {
+      const canvas = document.getElementById('bg-cat-ambient-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+
+      let width = window.innerWidth;
+      let height = window.innerHeight;
+      let particles = [];
+      let mouseX = -1000, mouseY = -1000;
+      let targetMouseX = -1000, targetMouseY = -1000;
+
+      const types = ['paw', 'paw', 'cat_head', 'yarn', 'fish', 'sparkle'];
+      const colorPalettes = [
+        'rgba(59, 130, 246, ',   // Sky Blue
+        'rgba(99, 102, 241, ',   // Indigo
+        'rgba(244, 114, 182, ',  // Pastel Pink
+        'rgba(168, 85, 247, ',   // Soft Lavender
+        'rgba(20, 184, 166, ',   // Soft Teal
+        'rgba(245, 158, 11, '    // Warm Gold
+      ];
+
+      function resize() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+        initParticles();
+      }
+
+      function initParticles() {
+        particles = [];
+        const count = Math.min(Math.floor((width * height) / 32000), 36);
+
+        for (let i = 0; i < count; i++) {
+          const depth = Math.random();
+          const type = types[Math.floor(Math.random() * types.length)];
+          const colorPrefix = colorPalettes[Math.floor(Math.random() * colorPalettes.length)];
+
+          particles.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            type: type,
+            depth: depth,
+            size: (16 + depth * 28),
+            speedY: 0.22 + depth * 0.42,
+            speedX: (Math.random() - 0.5) * (0.2 + depth * 0.2),
+            swayFreq: 0.003 + Math.random() * 0.003,
+            swayAmp: 0.4 + depth * 0.5,
+            phase: Math.random() * Math.PI * 2,
+            angle: (Math.random() - 0.5) * 0.8,
+            angleSpeed: (Math.random() - 0.5) * 0.006,
+            wagPhase: Math.random() * Math.PI * 2,
+            alpha: 0.04 + depth * 0.065,
+            maxAlpha: 0.07 + depth * 0.08,
+            pulseSpeed: 0.01 + Math.random() * 0.015,
+            pulsePhase: Math.random() * Math.PI * 2,
+            colorPrefix: colorPrefix,
+            vx: 0,
+            vy: 0
+          });
+        }
+      }
+
+      function drawPaw(p, alpha) {
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.angle);
+        ctx.fillStyle = p.colorPrefix + alpha + ')';
+
+        // Palm
+        const r = p.size * 0.5;
+        ctx.beginPath();
+        ctx.ellipse(0, r * 0.2, r * 0.9, r * 0.72, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // 4 Toe Beans
+        const toes = [
+          { dx: -r * 0.65, dy: -r * 0.5, rad: r * 0.32 },
+          { dx: -r * 0.22, dy: -r * 0.82, rad: r * 0.35 },
+          { dx: r * 0.22, dy: -r * 0.82, rad: r * 0.35 },
+          { dx: r * 0.65, dy: -r * 0.5, rad: r * 0.32 }
+        ];
+        toes.forEach(t => {
+          ctx.beginPath();
+          ctx.arc(t.dx, t.dy, t.rad, 0, Math.PI * 2);
+          ctx.fill();
+        });
+
+        ctx.restore();
+      }
+
+      function drawCatHead(p, alpha) {
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.angle);
+        ctx.fillStyle = p.colorPrefix + alpha + ')';
+
+        const r = p.size * 0.55;
+        // Head
+        ctx.beginPath();
+        ctx.arc(0, 0, r, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Ears
+        ctx.beginPath();
+        ctx.moveTo(-r * 0.7, -r * 0.45);
+        ctx.lineTo(-r * 0.95, -r * 1.35);
+        ctx.lineTo(-r * 0.15, -r * 0.85);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.moveTo(r * 0.7, -r * 0.45);
+        ctx.lineTo(r * 0.95, -r * 1.35);
+        ctx.lineTo(r * 0.15, -r * 0.85);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.restore();
+      }
+
+      function drawYarn(p, alpha) {
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.angle);
+        
+        const r = p.size * 0.45;
+        ctx.fillStyle = p.colorPrefix + alpha + ')';
+        ctx.beginPath();
+        ctx.arc(0, 0, r, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.strokeStyle = p.colorPrefix + (alpha * 1.6) + ')';
+        ctx.lineWidth = 1.2;
+        ctx.beginPath();
+        ctx.arc(0, 0, r * 0.7, 0, Math.PI);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(0, 0, r * 0.45, Math.PI * 0.5, Math.PI * 1.5);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(r * 0.8, r * 0.5);
+        const wave = Math.sin(p.wagPhase) * 6;
+        ctx.bezierCurveTo(r + 8, r + 6 + wave, r + 14, r + 16, r + 22, r + 24 + wave);
+        ctx.stroke();
+
+        ctx.restore();
+      }
+
+      function drawFish(p, alpha) {
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.angle * 0.4);
+        ctx.fillStyle = p.colorPrefix + alpha + ')';
+
+        const r = p.size * 0.5;
+        // Body
+        ctx.beginPath();
+        ctx.ellipse(0, 0, r * 1.15, r * 0.6, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Tail Fin
+        const wag = Math.sin(p.wagPhase) * 3;
+        ctx.beginPath();
+        ctx.moveTo(-r * 1.0, 0);
+        ctx.lineTo(-r * 1.7, -r * 0.65 + wag);
+        ctx.lineTo(-r * 1.7, r * 0.65 + wag);
+        ctx.closePath();
+        ctx.fill();
+
+        // Little Eye
+        ctx.fillStyle = 'rgba(255, 255, 255, ' + (alpha * 1.5) + ')';
+        ctx.beginPath();
+        ctx.arc(r * 0.6, -r * 0.15, 1.6, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.restore();
+      }
+
+      function drawSparkle(p, alpha) {
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.angle * 1.5);
+        ctx.fillStyle = p.colorPrefix + (alpha * 1.3) + ')';
+
+        const s = p.size * 0.35;
+        ctx.beginPath();
+        for (let i = 0; i < 4; i++) {
+          ctx.lineTo(Math.cos(i * Math.PI / 2) * s, Math.sin(i * Math.PI / 2) * s);
+          ctx.lineTo(Math.cos(i * Math.PI / 2 + Math.PI / 4) * (s * 0.35), Math.sin(i * Math.PI / 2 + Math.PI / 4) * (s * 0.35));
+        }
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+      }
+
+      window.addEventListener('mousemove', (e) => {
+        targetMouseX = e.clientX;
+        targetMouseY = e.clientY;
+      });
+
+      function animate() {
+        ctx.clearRect(0, 0, width, height);
+
+        mouseX += (targetMouseX - mouseX) * 0.08;
+        mouseY += (targetMouseY - mouseY) * 0.08;
+
+        particles.forEach(p => {
+          // Interactive Gentle Mouse Breeze Repulsion
+          const dx = p.x - mouseX;
+          const dy = p.y - mouseY;
+          const dist = Math.hypot(dx, dy);
+          const repulseDist = 140 * (0.6 + p.depth * 0.4);
+
+          if (dist < repulseDist && dist > 0) {
+            const force = (1 - dist / repulseDist) * 0.5 * (0.5 + p.depth * 0.5);
+            p.vx += (dx / dist) * force;
+            p.vy += (dy / dist) * force;
+          }
+
+          p.vx *= 0.94;
+          p.vy *= 0.94;
+
+          p.y -= (p.speedY + p.vy);
+          p.x += Math.sin(p.y * p.swayFreq + p.phase) * p.swayAmp + p.speedX + p.vx;
+          p.angle += p.angleSpeed;
+          p.wagPhase += 0.045;
+          p.pulsePhase += p.pulseSpeed;
+
+          const currentAlpha = Math.max(0.02, p.alpha + Math.sin(p.pulsePhase) * (p.maxAlpha * 0.35));
+
+          if (p.type === 'paw') {
+            drawPaw(p, currentAlpha);
+          } else if (p.type === 'cat_head') {
+            drawCatHead(p, currentAlpha);
+          } else if (p.type === 'yarn') {
+            drawYarn(p, currentAlpha);
+          } else if (p.type === 'fish') {
+            drawFish(p, currentAlpha);
+          } else {
+            drawSparkle(p, currentAlpha);
+          }
+
+          // Boundary Screen Wrap
+          if (p.y < -p.size * 2) {
+            p.y = height + p.size * 2;
+            p.x = Math.random() * width;
+            p.vx = 0;
+            p.vy = 0;
+          }
+          if (p.x < -p.size * 2) p.x = width + p.size * 2;
+          if (p.x > width + p.size * 2) p.x = -p.size * 2;
+        });
+
+        requestAnimationFrame(animate);
+      }
+
+      window.addEventListener('resize', resize);
+      resize();
+      animate();
+    }
+
+    function initPerspectiveTilt(el, { maxTilt = 4.5, scale = 1.008 } = {}) {
+      if (!el) return;
+
+      let bounds = el.getBoundingClientRect();
+      let mouseX = 0, mouseY = 0;
+      let currTiltX = 0, currTiltY = 0;
+      let isHovered = false;
+      let rafId = null;
+
+      function updateBounds() {
+        bounds = el.getBoundingClientRect();
+      }
+
+      function loop() {
+        if (!isHovered) {
+          currTiltX += (0 - currTiltX) * 0.1;
+          currTiltY += (0 - currTiltY) * 0.1;
+          if (Math.abs(currTiltX) < 0.01 && Math.abs(currTiltY) < 0.01) {
+            el.style.transform = '';
+            rafId = null;
+            return;
+          }
+        } else {
+          const targetTiltY = (mouseX / bounds.width - 0.5) * maxTilt * 2;
+          const targetTiltX = -(mouseY / bounds.height - 0.5) * maxTilt * 2;
+
+          currTiltX += (targetTiltX - currTiltX) * 0.12;
+          currTiltY += (targetTiltY - currTiltY) * 0.12;
+        }
+
+        const currentScale = isHovered ? scale : 1;
+        el.style.transform = `perspective(var(--perspective-card)) rotateX(${currTiltX.toFixed(2)}deg) rotateY(${currTiltY.toFixed(2)}deg) scale3d(${currentScale}, ${currentScale}, 1)`;
+
+        if (isHovered) {
+          const pctX = ((mouseX / bounds.width) * 100).toFixed(1);
+          const pctY = ((mouseY / bounds.height) * 100).toFixed(1);
+          el.style.setProperty('--mouse-x', `${pctX}%`);
+          el.style.setProperty('--mouse-y', `${pctY}%`);
+        }
+
+        rafId = requestAnimationFrame(loop);
+      }
+
+      el.addEventListener('mouseenter', (e) => {
+        updateBounds();
+        isHovered = true;
+        mouseX = e.clientX - bounds.left;
+        mouseY = e.clientY - bounds.top;
+        if (!rafId) rafId = requestAnimationFrame(loop);
+      });
+
+      el.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX - bounds.left;
+        mouseY = e.clientY - bounds.top;
+      });
+
+      el.addEventListener('mouseleave', () => {
+        isHovered = false;
+      });
+
+      window.addEventListener('resize', updateBounds);
+    }
+
+    /**
+     * ============================================================================
+     * 2. MAIN DATA MONITORING APP WITH LIVE GOOGLE SHEETS SYNC
+     * ============================================================================
+     */
+    const SPREADSHEET_ID = '1jskUmNR3FIrNY2q116v1ndSqWN2a88T1u9F74fgrPS4';
+    const GVIZ_URL = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&gid=0`;
+    const CSV_URL = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/export?format=csv&gid=0`;
+
+    const INITIAL_FALLBACK_DATA = [
+      {
+        timestamp: '14/08/2026 08:08:00',
+        nama: 'M Fachrezy',
+        nip: '199507212025041002',
+        statusOperasional: 'Operasional',
+        fotoDatang: 'Ada Foto',
+        fotoPulang: 'Tidak ada',
+        keterangan: ''
+      },
+      {
+        timestamp: '14/08/2026 08:10:31',
+        nama: 'Nabilah Putri',
+        nip: '200606202025042001',
+        statusOperasional: 'Operasional',
+        fotoDatang: 'Ada Foto',
+        fotoPulang: 'Ada Foto',
+        keterangan: ''
+      },
+      {
+        timestamp: '14/08/2026 08:10:43',
+        nama: 'Nadiatul Husna',
+        nip: '200406202025042001',
+        statusOperasional: 'Operasional',
+        fotoDatang: 'Ada Foto',
+        fotoPulang: 'Ada Foto',
+        keterangan: ''
+      },
+      {
+        timestamp: '14/08/2026 08:11:03',
+        nama: 'Sherina Nofitri',
+        nip: '200110162025042002',
+        statusOperasional: 'Operasional',
+        fotoDatang: 'Ada Foto',
+        fotoPulang: 'Ada Foto',
+        keterangan: ''
+      },
+      {
+        timestamp: '14/08/2026 08:33:02',
+        nama: 'Mohammad dani putra',
+        nip: '199607052025211040',
+        statusOperasional: 'Operasional',
+        fotoDatang: 'Ada Foto',
+        fotoPulang: 'Ada Foto',
+        keterangan: ''
+      },
+      {
+        timestamp: '14/08/2026 08:33:05',
+        nama: 'Aisyiah Anggraini',
+        nip: '200109062025042002',
+        statusOperasional: 'Operasional',
+        fotoDatang: 'Ada Foto',
+        fotoPulang: 'Ada Foto',
+        keterangan: ''
+      },
+      {
+        timestamp: '14/08/2026 08:38:44',
+        nama: 'Seira Seila',
+        nip: '200408252025042001',
+        statusOperasional: 'Operasional',
+        fotoDatang: 'Ada Foto',
+        fotoPulang: 'Ada Foto',
+        keterangan: ''
+      },
+      {
+        timestamp: '14/08/2026 08:47:58',
+        nama: 'Aktavia Putri Irena',
+        nip: '200505122025042001',
+        statusOperasional: 'Operasional',
+        fotoDatang: 'Ada Foto',
+        fotoPulang: 'Ada Foto',
+        keterangan: ''
+      }
+    ];
+
+    class DataReaderApp {
+      constructor() {
+        const cachedData = localStorage.getItem('presensi_monitoring_data');
+        let initialRecords = INITIAL_FALLBACK_DATA;
+        if (cachedData) {
+          try {
+            const parsed = JSON.parse(cachedData);
+            if (Array.isArray(parsed)) {
+              initialRecords = parsed.map(r => ({
+                ...r,
+                fotoDatang: this.hasPhoto(r.fotoDatang) ? 'Ada Foto' : 'Tidak ada',
+                fotoPulang: this.hasPhoto(r.fotoPulang) ? 'Ada Foto' : 'Tidak ada'
+              }));
+            }
+          } catch (e) {
+            initialRecords = INITIAL_FALLBACK_DATA;
+          }
+        }
+        this.records = initialRecords;
+        this.searchQuery = '';
+        this.autoRefreshInterval = null;
+        this.isFetching = false;
+
+        this.initElements();
+        this.bindEvents();
+        this.renderDashboard();
+        this.loadData();
+        this.startAutoSync3Min();
+      }
+
+      initElements() {
+        this.tableBody = document.getElementById('table-records-body');
+        this.emptyState = document.getElementById('table-empty-state');
+        this.inputSearch = document.getElementById('input-search');
+        this.statTotalCount = document.getElementById('stat-total-count');
+        this.statDatangCount = document.getElementById('stat-datang-count');
+        this.statPulangCount = document.getElementById('stat-pulang-count');
+        this.lastSyncTime = document.getElementById('last-sync-time');
+        this.apiStatusBadge = document.getElementById('api-status-badge');
+        this.btnRefresh = document.getElementById('btn-manual-refresh');
+      }
+
+      bindEvents() {
+        if (this.inputSearch) {
+          this.inputSearch.addEventListener('input', (e) => {
+            this.searchQuery = e.target.value.toLowerCase().trim();
+            this.renderTable();
+          });
+        }
+
+        if (this.btnRefresh) {
+          this.btnRefresh.addEventListener('click', () => {
+            this.loadData(true);
+          });
+        }
+      }
+
+      startAutoSync3Min() {
+        if (this.autoRefreshInterval) clearInterval(this.autoRefreshInterval);
+        this.autoRefreshInterval = setInterval(() => {
+          this.loadData(false);
+        }, 3 * 60 * 1000);
+      }
+
+      hasPhoto(linkStr) {
+        if (!linkStr) return false;
+        if (typeof linkStr === 'boolean') return linkStr;
+        const str = String(linkStr).trim();
+        if (str === '' || str === '-' || str.toLowerCase() === 'tidak ada' || str.toLowerCase() === 'null' || str.toLowerCase() === 'undefined' || str.toLowerCase() === 'x' || str.toLowerCase() === 'false') {
+          return false;
+        }
+        if (str.toLowerCase() === 'ada' || str.toLowerCase() === 'ada foto' || str.toLowerCase() === 'true' || str.startsWith('http://') || str.startsWith('https://') || str.length > 3) {
+          return true;
+        }
+        return false;
+      }
+
+      async loadData(isUserAction = false) {
+        if (this.isFetching) return;
+        this.isFetching = true;
+
+        if (this.btnRefresh) {
+          this.btnRefresh.classList.add('is-spinning');
+        }
+
+        if (isUserAction) {
+          this.showToast('Menyinkronkan data langsung dari SERVER SDM...', 'info');
+        }
+
+        let fetchedRecords = null;
+
+        // 1. Coba lewat JSONP (100% Berhasil di file:/// lokal & web hosting tanpa CORS error)
+        try {
+          fetchedRecords = await this.fetchViaJSONP();
+        } catch (errJSONP) {
+          console.warn('JSONP fetch gagal, mencoba via fetch API...', errJSONP);
+          // 2. Coba lewat GViz JSON API biasa
+          try {
+            fetchedRecords = await this.fetchViaGViz();
+          } catch (errGViz) {
+            console.warn('GViz fetch failed, mencoba via CSV Export...', errGViz);
+            // 3. Fallback ke CSV Export
+            try {
+              fetchedRecords = await this.fetchViaCSV();
+            } catch (errCSV) {
+              console.warn('CSV export fetch juga gagal:', errCSV);
+            }
+          }
+        }
+
+        if (fetchedRecords && fetchedRecords.length > 0) {
+          this.records = fetchedRecords;
+          localStorage.setItem('presensi_monitoring_data', JSON.stringify(this.records));
+          this.updateApiStatusUI(true);
+          this.renderDashboard();
+          this.updateSyncTime();
+          if (isUserAction) {
+            this.showToast(`Berhasil menyinkronkan ${this.records.length} data pegawai!`, 'success');
+          }
+        } else {
+          this.renderDashboard();
+          this.updateSyncTime();
+          if (isUserAction) {
+            this.showToast('Gagal terhubung ke SERVER SDM, menggunakan data tersimpan.', 'warning');
+          }
+        }
+
+        this.isFetching = false;
+        if (this.btnRefresh) {
+          setTimeout(() => {
+            this.btnRefresh.classList.remove('is-spinning');
+          }, 500);
+        }
+      }
+
+      fetchViaJSONP() {
+        return new Promise((resolve, reject) => {
+          const callbackName = 'gvizCallback_' + Math.floor(Math.random() * 1000000);
+          const script = document.createElement('script');
+          const timer = setTimeout(() => {
+            cleanup();
+            reject(new Error('JSONP timeout'));
+          }, 10000);
+
+          function cleanup() {
+            clearTimeout(timer);
+            if (script.parentNode) script.parentNode.removeChild(script);
+            delete window[callbackName];
+          }
+
+          window[callbackName] = (json) => {
+            cleanup();
+            if (!json || !json.table || !json.table.rows) {
+              reject(new Error('Format GViz JSONP tidak valid'));
+              return;
+            }
+            try {
+              const rows = json.table.rows;
+              const records = [];
+              rows.forEach(r => {
+                const cells = r.c || [];
+                const getVal = (idx) => {
+                  if (!cells[idx]) return '';
+                  if (cells[idx].f !== undefined && cells[idx].f !== null) return String(cells[idx].f).trim();
+                  if (cells[idx].v !== undefined && cells[idx].v !== null) return String(cells[idx].v).trim();
+                  return '';
+                };
+
+                const timestamp = getVal(0);
+                const nama = getVal(1);
+                const nip = getVal(2);
+                const statusOperasional = getVal(3) || 'Operasional';
+                const rawFotoDatang = getVal(4);
+                const rawFotoPulang = getVal(5);
+                const fotoDatang = this.hasPhoto(rawFotoDatang) ? 'Ada Foto' : 'Tidak ada';
+                const fotoPulang = this.hasPhoto(rawFotoPulang) ? 'Ada Foto' : 'Tidak ada';
+                const keterangan = getVal(6);
+
+                if (nama) {
+                  records.push({
+                    timestamp,
+                    nama,
+                    nip,
+                    statusOperasional,
+                    fotoDatang,
+                    fotoPulang,
+                    keterangan
+                  });
+                }
+              });
+              resolve(records);
+            } catch (err) {
+              reject(err);
+            }
+          };
+
+          script.src = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=responseHandler:${callbackName}&gid=0&_t=${Date.now()}`;
+          script.onerror = (err) => {
+            cleanup();
+            reject(err);
+          };
+          document.body.appendChild(script);
+        });
+      }
+
+      async fetchViaGViz() {
+        const timestampQuery = new Date().getTime();
+        const url = `${GVIZ_URL}&_t=${timestampQuery}`;
+        const response = await fetch(url);
+        const text = await response.text();
+
+        const match = text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\);/);
+        if (!match || !match[1]) {
+          throw new Error('Format GViz tidak valid');
+        }
+
+        const json = JSON.parse(match[1]);
+        if (!json.table || !json.table.rows) {
+          throw new Error('Struktur tabel GViz kosong');
+        }
+
+        const rows = json.table.rows;
+        const records = [];
+
+        rows.forEach(r => {
+          const cells = r.c || [];
+          const getVal = (idx) => {
+            if (!cells[idx]) return '';
+            if (cells[idx].f !== undefined && cells[idx].f !== null) return String(cells[idx].f).trim();
+            if (cells[idx].v !== undefined && cells[idx].v !== null) return String(cells[idx].v).trim();
+            return '';
+          };
+
+          const timestamp = getVal(0);
+          const nama = getVal(1);
+          const nip = getVal(2);
+          const statusOperasional = getVal(3) || 'Operasional';
+          const rawFotoDatang = getVal(4);
+          const rawFotoPulang = getVal(5);
+          const fotoDatang = this.hasPhoto(rawFotoDatang) ? 'Ada Foto' : 'Tidak ada';
+          const fotoPulang = this.hasPhoto(rawFotoPulang) ? 'Ada Foto' : 'Tidak ada';
+          const keterangan = getVal(6);
+
+          if (nama) {
+            records.push({
+              timestamp,
+              nama,
+              nip,
+              statusOperasional,
+              fotoDatang,
+              fotoPulang,
+              keterangan
+            });
+          }
+        });
+
+        return records;
+      }
+
+      async fetchViaCSV() {
+        const timestampQuery = new Date().getTime();
+        const url = `${CSV_URL}&_t=${timestampQuery}`;
+        const response = await fetch(url);
+        const text = await response.text();
+
+        const lines = this.parseCSV(text);
+        if (lines.length < 2) return [];
+
+        const records = [];
+        for (let i = 1; i < lines.length; i++) {
+          const row = lines[i];
+          if (!row || row.length === 0 || !row[1]) continue;
+
+          records.push({
+            timestamp: row[0] || '',
+            nama: row[1] || '',
+            nip: row[2] || '',
+            statusOperasional: row[3] || 'Operasional',
+            fotoDatang: this.hasPhoto(row[4]) ? 'Ada Foto' : 'Tidak ada',
+            fotoPulang: this.hasPhoto(row[5]) ? 'Ada Foto' : 'Tidak ada',
+            keterangan: row[6] || ''
+          });
+        }
+
+        return records;
+      }
+
+      parseCSV(text) {
+        const lines = [];
+        let row = [];
+        let insideQuotes = false;
+        let entry = '';
+
+        for (let i = 0; i < text.length; i++) {
+          const char = text[i];
+          const nextChar = text[i + 1];
+
+          if (char === '"') {
+            if (insideQuotes && nextChar === '"') {
+              entry += '"';
+              i++;
+            } else {
+              insideQuotes = !insideQuotes;
+            }
+          } else if (char === ',' && !insideQuotes) {
+            row.push(entry.trim());
+            entry = '';
+          } else if ((char === '\r' || char === '\n') && !insideQuotes) {
+            if (char === '\r' && nextChar === '\n') i++;
+            row.push(entry.trim());
+            if (row.some(field => field.length > 0)) {
+              lines.push(row);
+            }
+            row = [];
+            entry = '';
+          } else {
+            entry += char;
+          }
+        }
+
+        if (entry || row.length > 0) {
+          row.push(entry.trim());
+          if (row.some(field => field.length > 0)) {
+            lines.push(row);
+          }
+        }
+
+        return lines;
+      }
+
+      updateApiStatusUI(isConnected = true) {
+        if (!this.apiStatusBadge) return;
+        if (isConnected) {
+          this.apiStatusBadge.className = 'stat-pill-badge bg-gradient-to-r from-emerald-500 to-teal-600 text-white px-4 sm:px-5 py-2 rounded-full font-extrabold text-xs tracking-wider flex items-center gap-2.5 shadow-md shadow-emerald-500/25 select-none uppercase whitespace-nowrap';
+          this.apiStatusBadge.innerHTML = `
+            <span class="w-6 h-6 rounded-full bg-white text-emerald-600 flex items-center justify-center text-[11px] shadow-sm shrink-0">
+              <i class="fas fa-plug"></i>
+            </span>
+            <span>TERKONEKSI DARI SERVER SDM</span>
+          `;
+        }
+      }
+
+      updateSyncTime() {
+        if (!this.lastSyncTime) return;
+        const now = new Date();
+        const timeStr = String(now.getHours()).padStart(2, '0') + ':' + 
+          String(now.getMinutes()).padStart(2, '0') + ':' + 
+          String(now.getSeconds()).padStart(2, '0');
+        this.lastSyncTime.textContent = timeStr;
+      }
+
+      animateValue(element, start, end, duration = 400) {
+        if (!element) return;
+        if (start === end) {
+          element.textContent = end;
+          return;
+        }
+        const startTime = performance.now();
+        const step = (currentTime) => {
+          const progress = Math.min((currentTime - startTime) / duration, 1);
+          const ease = 1 - Math.pow(1 - progress, 3);
+          const current = Math.round(start + (end - start) * ease);
+          element.textContent = current;
+          if (progress < 1) {
+            requestAnimationFrame(step);
+          } else {
+            element.textContent = end;
+          }
+        };
+        requestAnimationFrame(step);
+      }
+
+      renderDashboard() {
+        this.renderTable();
+        
+        const totalCount = this.records.length;
+        const datangCount = this.records.filter(r => this.hasPhoto(r.fotoDatang)).length;
+        const pulangCount = this.records.filter(r => this.hasPhoto(r.fotoPulang)).length;
+
+        if (this.statTotalCount) {
+          const cur = parseInt(this.statTotalCount.textContent, 10) || 0;
+          this.animateValue(this.statTotalCount, cur, totalCount, 450);
+        }
+        if (this.statDatangCount) {
+          const cur = parseInt(this.statDatangCount.textContent, 10) || 0;
+          this.animateValue(this.statDatangCount, cur, datangCount, 450);
+        }
+        if (this.statPulangCount) {
+          const cur = parseInt(this.statPulangCount.textContent, 10) || 0;
+          this.animateValue(this.statPulangCount, cur, pulangCount, 450);
+        }
+      }
+
+      getFilteredRecords() {
+        return this.records.filter(r => {
+          if (!this.searchQuery) return true;
+          const nama = (r.nama || '').toLowerCase();
+          const status = (r.statusOperasional || '').toLowerCase();
+          const ket = (r.keterangan || '').toLowerCase();
+          const time = (r.timestamp || '').toLowerCase();
+          return nama.includes(this.searchQuery) || status.includes(this.searchQuery) || ket.includes(this.searchQuery) || time.includes(this.searchQuery);
+        });
+      }
+
+      renderTable() {
+        if (!this.tableBody) return;
+
+        const filtered = this.getFilteredRecords();
+
+        if (filtered.length === 0) {
+          this.tableBody.innerHTML = '';
+          if (this.emptyState) this.emptyState.classList.remove('hidden');
+          return;
+        }
+
+        if (this.emptyState) this.emptyState.classList.add('hidden');
+        let html = '';
+
+        filtered.forEach((r, idx) => {
+          const delayMs = Math.min(idx * 40, 400);
+
+          // Foto Datang Indicator (Ada Foto / x) - Confidential / Non-clickable
+          const isDatangAda = this.hasPhoto(r.fotoDatang);
+          const fotoDatangHtml = isDatangAda
+            ? `<span class="photo-status-badge has-photo" title="Ada Foto">
+                 <span class="badge-icon"><i class="fas fa-check"></i></span>
+                 <span>Ada Foto</span>
+               </span>`
+            : `<span class="photo-status-badge no-photo" title="Tidak Ada Foto">
+                 <span class="badge-icon"><i class="fas fa-xmark"></i></span>
+                 <span>x</span>
+               </span>`;
+
+          // Foto Pulang Indicator (Ada Foto / x) - Confidential / Non-clickable
+          const isPulangAda = this.hasPhoto(r.fotoPulang);
+          const fotoPulangHtml = isPulangAda
+            ? `<span class="photo-status-badge has-photo" title="Ada Foto">
+                 <span class="badge-icon"><i class="fas fa-check"></i></span>
+                 <span>Ada Foto</span>
+               </span>`
+            : `<span class="photo-status-badge no-photo" title="Tidak Ada Foto">
+                 <span class="badge-icon"><i class="fas fa-xmark"></i></span>
+                 <span>x</span>
+               </span>`;
+
+          const statusText = r.statusOperasional || 'Operasional';
+          const statusHtml = `
+            <span class="status-operasional-pill">
+              <span class="status-dot"></span>
+              <span>${this.escapeHtml(statusText)}</span>
+            </span>
+          `;
+
+          const timeStr = r.timestamp ? `<span class="font-mono-code text-[11px] font-semibold text-slate-500 block">${this.escapeHtml(r.timestamp)}</span>` : '';
+          const ketStr = r.keterangan ? `<span class="text-xs text-slate-700 font-medium block mt-0.5">${this.escapeHtml(r.keterangan)}</span>` : '<span class="text-xs text-slate-400 italic">-</span>';
+
+          html += `
+            <tr class="table-row-item border-b border-[var(--border-subtle)]" style="animation-delay: ${delayMs}ms;">
+              
+              <!-- Nomor Urut -->
+              <td class="w-12 px-2 sm:px-4 py-3 sm:py-4 text-center">
+                <span class="inline-flex items-center justify-center w-6 h-6 sm:w-7 sm:h-7 rounded-lg font-mono-code text-[11px] sm:text-xs font-bold border" style="background: var(--surface-secondary); color: var(--text-tertiary); border-color: var(--border-subtle);">${idx + 1}</span>
+              </td>
+
+              <!-- KOLOM 1: NAMA LENGKAP -->
+              <td class="w-1/3 min-w-[180px] sm:min-w-[220px] px-3 sm:px-6 py-3 sm:py-4">
+                <div class="flex items-center gap-2.5 sm:gap-3">
+                  <span class="row-avatar-icon inline-flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 text-white text-[11px] sm:text-xs font-bold shadow-md shadow-blue-500/25 shrink-0 transition-all duration-300">
+                    <i class="fas fa-user"></i>
+                  </span>
+                  <div>
+                    <span class="font-bold text-xs sm:text-sm tracking-tight block" style="color: var(--text-primary);">${this.escapeHtml(r.nama || '-')}</span>
+                  </div>
+                </div>
+              </td>
+
+              <!-- KOLOM 2: STATUS OPERASIONAL -->
+              <td class="w-36 sm:w-44 min-w-[140px] sm:min-w-[170px] px-3 sm:px-5 py-3 sm:py-4">
+                ${statusHtml}
+              </td>
+
+              <!-- KOLOM 3: FOTO DATANG (CEKLIS / X) -->
+              <td class="w-32 sm:w-40 min-w-[120px] sm:min-w-[150px] px-2 sm:px-5 py-3 sm:py-4 text-center">
+                ${fotoDatangHtml}
+              </td>
+
+              <!-- KOLOM 4: FOTO PULANG (CEKLIS / X) -->
+              <td class="w-32 sm:w-40 min-w-[120px] sm:min-w-[150px] px-2 sm:px-5 py-3 sm:py-4 text-center">
+                ${fotoPulangHtml}
+              </td>
+
+              <!-- KOLOM 5: WAKTU & CATATAN -->
+              <td class="min-w-[160px] sm:min-w-[200px] px-3 sm:px-6 py-3 sm:py-4">
+                <div class="space-y-0.5">
+                  ${timeStr}
+                  ${ketStr}
+                </div>
+              </td>
+
+            </tr>
+          `;
+        });
+
+        this.tableBody.innerHTML = html;
+      }
+
+      showToast(message, type = 'info') {
+        const toastContainer = document.getElementById('toast-container');
+        if (!toastContainer) return;
+
+        const toast = document.createElement('div');
+        let bgColors = 'bg-white border-blue-200 text-slate-800';
+        let icon = '<i class="fas fa-info-circle text-blue-500"></i>';
+
+        if (type === 'success') {
+          bgColors = 'bg-emerald-50 border-emerald-200 text-emerald-900';
+          icon = '<i class="fas fa-check-circle text-emerald-600"></i>';
+        } else if (type === 'error') {
+          bgColors = 'bg-rose-50 border-rose-200 text-rose-900';
+          icon = '<i class="fas fa-exclamation-triangle text-rose-600"></i>';
+        } else if (type === 'warning') {
+          bgColors = 'bg-amber-50 border-amber-200 text-amber-900';
+          icon = '<i class="fas fa-exclamation-circle text-amber-600"></i>';
+        }
+
+        toast.className = `p-3.5 rounded-xl shadow-xl flex items-center gap-3 border ${bgColors} transition-all duration-300 transform translate-y-2 opacity-0 max-w-md pointer-events-auto`;
+        toast.innerHTML = `
+          ${icon}
+          <span class="text-xs font-medium">${this.escapeHtml(message)}</span>
+        `;
+
+        toastContainer.appendChild(toast);
+
+        setTimeout(() => toast.classList.remove('translate-y-2', 'opacity-0'), 10);
+        setTimeout(() => {
+          toast.classList.add('opacity-0', 'translate-y-2');
+          setTimeout(() => toast.remove(), 300);
+        }, 4000);
+      }
+
+      escapeHtml(str) {
+        return String(str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#039;');
+      }
+    }
+
+    // Initialize on DOM Ready
+    document.addEventListener('DOMContentLoaded', () => {
+      window.catMascot = new CatMascot();
+      initCatBackgroundMotion();
+      initAmbientCatBackgroundMotion();
+
+      const cards = document.querySelectorAll('.pro-card, .footer-card');
+      cards.forEach(card => initPerspectiveTilt(card));
+
+      window.app = new DataReaderApp();
+    });
+  </script>
+
+</body>
+</html>

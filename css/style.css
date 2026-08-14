@@ -1,0 +1,692 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap');
+
+/* ── UI/UX Pro Max Design System Tokens ── */
+:root {
+  /* Canvas & Surfaces (Light Theme Default) */
+  --canvas:              oklch(0.985 0.003 260);
+  --canvas-subtle:       oklch(0.965 0.004 260);
+  --surface-primary:     oklch(1.00 0 0);
+  --surface-secondary:   oklch(0.975 0.005 260);
+  --surface-overlay:     oklch(1.00 0 0 / 0.88);
+
+  /* Elevation Shadows (Layered Realism) */
+  --shadow-xs:   0 1px 2px oklch(0 0 0 / 0.04);
+  --shadow-sm:   0 2px 5px oklch(0 0 0 / 0.05), 0 1px 2px oklch(0 0 0 / 0.03);
+  --shadow-md:   0 6px 16px oklch(0 0 0 / 0.06), 0 2px 6px oklch(0 0 0 / 0.04);
+  --shadow-lg:   0 12px 32px oklch(0 0 0 / 0.08), 0 4px 12px oklch(0 0 0 / 0.04);
+  --shadow-xl:   0 20px 50px oklch(0 0 0 / 0.10), 0 8px 24px oklch(0 0 0 / 0.05);
+  --shadow-float: 0 28px 70px oklch(0.55 0.22 255 / 0.12), 0 12px 28px oklch(0 0 0 / 0.06);
+
+  /* Refined Accent */
+  --accent:              oklch(0.55 0.22 255);    /* Refined Deep Royal Blue */
+  --accent-hover:        oklch(0.60 0.24 255);
+  --accent-subtle:       oklch(0.55 0.22 255 / 0.08);
+  --accent-glow:         oklch(0.55 0.22 255 / 0.06);
+
+  /* Text & Typography */
+  --text-primary:        oklch(0.16 0.010 260);
+  --text-secondary:      oklch(0.42 0.010 260);
+  --text-tertiary:       oklch(0.58 0.010 260);
+
+  /* Semantic */
+  --success:             oklch(0.62 0.18 155);
+  --warning:             oklch(0.72 0.16 80);
+  --error:               oklch(0.60 0.22 25);
+
+  /* Borders */
+  --border-subtle:       oklch(0.15 0 0 / 0.06);
+  --border-default:      oklch(0.15 0 0 / 0.10);
+  --border-strong:       oklch(0.15 0 0 / 0.16);
+
+  /* Typography Families */
+  --font-display:        'Outfit', 'Inter', system-ui, sans-serif;
+  --font-body:           'Inter', system-ui, sans-serif;
+  --font-mono:           'JetBrains Mono', monospace;
+
+  /* 3D & Spatial Motion */
+  --perspective-page:    1400px;
+  --perspective-card:    900px;
+
+  /* Motion Timing & Physics */
+  --ease-out-expo:       cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring:         cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-spring-smooth:  cubic-bezier(0.175, 0.885, 0.32, 1.2);
+  --ease-apple:          cubic-bezier(0.25, 1, 0.5, 1);
+  --duration-fast:       160ms;
+  --duration-normal:     280ms;
+  --duration-slow:       450ms;
+  --duration-dramatic:   650ms;
+}
+
+body {
+  background-color: var(--canvas);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  perspective: var(--perspective-page);
+  transition: background-color var(--duration-slow) var(--ease-out-expo), color var(--duration-slow) var(--ease-out-expo);
+}
+
+h1, h2, h3, h4, h5, h6, .font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.015em;
+}
+
+.font-mono-code {
+  font-family: var(--font-mono);
+}
+
+/* Atmospheric Ambient Gradient Mesh Background */
+.ambient-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  background:
+    radial-gradient(ellipse 70% 50% at 20% 15%, oklch(0.60 0.18 250 / 0.12), transparent 70%),
+    radial-gradient(ellipse 60% 60% at 85% 85%, oklch(0.65 0.15 285 / 0.10), transparent 70%),
+    radial-gradient(ellipse 50% 50% at 50% 50%, oklch(0.70 0.14 200 / 0.07), transparent 60%),
+    radial-gradient(ellipse 40% 40% at 75% 20%, oklch(0.75 0.15 340 / 0.06), transparent 60%),
+    var(--canvas);
+  animation: meshDrift 24s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+/* 60fps Fullscreen Ambient Cat Motion Canvas (Paws, Yarn, Silhouettes behind cards) */
+#bg-cat-ambient-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -2;
+  pointer-events: none;
+}
+
+/* Dedicated 60fps Footer Cat Motion Canvas (Only at the very bottom of the page) */
+#footer-cat-canvas {
+  width: 100%;
+  height: 85px;
+  display: block;
+}
+
+/* Horizontal scrollbar hide for mobile swipe */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@keyframes meshDrift {
+  0%   { transform: scale(1) translate(0, 0); }
+  50%  { transform: scale(1.03) translate(-1%, 1.5%); }
+  100% { transform: scale(1) translate(1%, -1%); }
+}
+
+/* Tactile Grain Overlay */
+.grain-overlay::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  mix-blend-mode: overlay;
+}
+
+/* ── Master 3D Spatial Cards ── */
+.pro-card {
+  position: relative;
+  background: var(--surface-primary);
+  border: 1px solid var(--border-default);
+  border-radius: 1.25rem;
+  box-shadow: var(--shadow-md);
+  transform-style: preserve-3d;
+  transition:
+    box-shadow var(--duration-normal) var(--ease-out-expo),
+    border-color var(--duration-normal) var(--ease-out-expo);
+  will-change: transform, box-shadow;
+}
+
+.pro-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), oklch(0.55 0.22 255 / 0.05), transparent 60%);
+  opacity: 0;
+  transition: opacity var(--duration-normal) var(--ease-out-expo);
+  z-index: 1;
+}
+
+.pro-card:hover::before {
+  opacity: 1;
+}
+
+.pro-card:hover {
+  box-shadow: var(--shadow-xl);
+  border-color: var(--border-strong);
+}
+
+/* Emerge from depth animation */
+.emerge-depth {
+  animation: emergeFromDepth var(--duration-dramatic) var(--ease-out-expo) both;
+}
+
+@keyframes emergeFromDepth {
+  from {
+    opacity: 0;
+    transform: perspective(var(--perspective-page)) translateZ(-70px) translateY(24px) scale(0.96);
+    filter: blur(5px);
+  }
+  to {
+    opacity: 1;
+    transform: perspective(var(--perspective-page)) translateZ(0) translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+/* Floating Input Field with 3D Focus Depth */
+.search-input-wrapper {
+  position: relative;
+  background: var(--surface-primary);
+  border: 1px solid var(--border-default);
+  border-radius: 0.875rem;
+  transition:
+    border-color var(--duration-normal) var(--ease-out-expo),
+    box-shadow var(--duration-normal) var(--ease-out-expo),
+    transform var(--duration-normal) var(--ease-spring);
+  box-shadow: var(--shadow-xs);
+}
+
+.search-input-wrapper:focus-within {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-md), 0 0 0 3.5px var(--accent-subtle);
+  transform: translateY(-2px) scale(1.004);
+}
+
+.search-input-wrapper input {
+  width: 100%;
+  background: transparent;
+  color: var(--text-primary);
+  padding: 0.75rem 1rem 0.75rem 2.75rem;
+  outline: none;
+  border: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* ── Interactive Stats Pill Badges with Spring Motion ── */
+.stat-pill-badge {
+  transition:
+    transform var(--duration-normal) var(--ease-spring),
+    box-shadow var(--duration-normal) var(--ease-out-expo),
+    border-color var(--duration-normal) var(--ease-out-expo);
+}
+
+.stat-pill-badge:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: var(--shadow-md);
+}
+
+/* NIP Badge Tag — 3D Lift on Hover */
+.nip-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: 0.625rem;
+  background: var(--surface-secondary);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  box-shadow: var(--shadow-xs);
+  transform-style: preserve-3d;
+  transition:
+    all var(--duration-normal) var(--ease-out-expo),
+    transform var(--duration-normal) var(--ease-spring);
+}
+
+.nip-badge:hover {
+  background: var(--surface-primary);
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-2.5px) translateZ(6px) scale(1.03);
+  box-shadow: var(--shadow-md), 0 0 0 3px var(--accent-subtle);
+}
+
+/* ── Status Operasional Badge ── */
+.status-operasional-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.85rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  background: oklch(0.62 0.18 155 / 0.12);
+  border: 1px solid oklch(0.62 0.18 155 / 0.28);
+  color: oklch(0.50 0.20 155);
+  box-shadow: var(--shadow-xs);
+  transition: all var(--duration-normal) var(--ease-spring);
+}
+
+.status-operasional-pill:hover {
+  transform: translateY(-1.5px) scale(1.04);
+  box-shadow: var(--shadow-sm);
+}
+
+.status-operasional-pill .status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: oklch(0.62 0.18 155);
+  box-shadow: 0 0 8px oklch(0.62 0.18 155 / 0.7);
+  animation: pulseDot 2s infinite ease-in-out;
+}
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.85); }
+}
+
+/* ── Photo Presence Badge (Ceklis / Silang) ── */
+.photo-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.42rem 0.85rem;
+  border-radius: 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  transition: all var(--duration-normal) var(--ease-spring);
+  text-decoration: none;
+  box-shadow: var(--shadow-xs);
+}
+
+/* KONDISI 1: ADA FOTO (CEKLIS HIJAU) - STATUS BADGE NON-KLIK */
+.photo-status-badge.has-photo {
+  background: oklch(0.96 0.03 155);
+  border: 1.2px solid oklch(0.62 0.18 155 / 0.4);
+  color: oklch(0.45 0.19 155);
+  cursor: default;
+  user-select: none;
+}
+
+.photo-status-badge.has-photo:hover {
+  background: oklch(0.95 0.04 155);
+}
+
+.photo-status-badge.has-photo .badge-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.35rem;
+  height: 1.35rem;
+  border-radius: 50%;
+  background: oklch(0.62 0.18 155);
+  color: #ffffff;
+  font-size: 0.65rem;
+  box-shadow: 0 2px 6px oklch(0.62 0.18 155 / 0.4);
+}
+
+/* KONDISI 2: TIDAK ADA FOTO (SILANG X MERAH) - STATUS BADGE NON-KLIK */
+.photo-status-badge.no-photo {
+  background: oklch(0.97 0.02 25);
+  border: 1.2px solid oklch(0.60 0.22 25 / 0.25);
+  color: oklch(0.55 0.20 25);
+  cursor: default;
+  user-select: none;
+}
+
+.photo-status-badge.no-photo:hover {
+  background: oklch(0.95 0.03 25);
+}
+
+.photo-status-badge.no-photo .badge-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.35rem;
+  height: 1.35rem;
+  border-radius: 50%;
+  background: oklch(0.60 0.22 25 / 0.18);
+  color: oklch(0.60 0.22 25);
+  font-size: 0.65rem;
+}
+
+/* ── Refresh & Sync Interactive Button ── */
+.btn-sync-refresh {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.9rem;
+  border-radius: 0.75rem;
+  background: var(--surface-primary);
+  border: 1px solid var(--border-default);
+  color: var(--text-primary);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: var(--shadow-xs);
+  transition: all var(--duration-fast) var(--ease-spring);
+}
+
+.btn-sync-refresh:hover {
+  background: var(--surface-secondary);
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-1.5px) scale(1.02);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-sync-refresh:active {
+  transform: scale(0.97);
+}
+
+.btn-sync-refresh.is-spinning i {
+  animation: spinSync 0.8s linear infinite;
+}
+
+@keyframes spinSync {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ── Table Row 3D Motion System ── */
+
+/* Staggered Entrance: rows emerge from depth with progressive blur */
+@keyframes rowEmerge {
+  from {
+    opacity: 0;
+    transform: perspective(var(--perspective-page)) translateZ(-50px) translateY(20px) scale(0.96);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: perspective(var(--perspective-page)) translateZ(0) translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+.table-row-item {
+  position: relative;
+  animation: rowEmerge var(--duration-slow) var(--ease-out-expo) both;
+  transform-origin: center center;
+  transform-style: preserve-3d;
+  transition:
+    background-color var(--duration-normal) var(--ease-out-expo),
+    box-shadow var(--duration-normal) var(--ease-out-expo),
+    transform var(--duration-normal) var(--ease-apple);
+  will-change: transform, opacity, box-shadow;
+}
+
+/* Stagger delays handled dynamically or via nth-child */
+.table-row-item:nth-child(1)  { animation-delay: 60ms; }
+.table-row-item:nth-child(2)  { animation-delay: 110ms; }
+.table-row-item:nth-child(3)  { animation-delay: 160ms; }
+.table-row-item:nth-child(4)  { animation-delay: 210ms; }
+.table-row-item:nth-child(5)  { animation-delay: 260ms; }
+.table-row-item:nth-child(6)  { animation-delay: 310ms; }
+.table-row-item:nth-child(7)  { animation-delay: 360ms; }
+.table-row-item:nth-child(8)  { animation-delay: 410ms; }
+.table-row-item:nth-child(9)  { animation-delay: 460ms; }
+.table-row-item:nth-child(10) { animation-delay: 510ms; }
+
+/* 3D Elevation on Row Hover with Depth Separation */
+.table-row-item:hover {
+  background-color: var(--surface-secondary) !important;
+  transform: perspective(var(--perspective-card)) translateY(-3px) translateZ(12px) scale(1.004);
+  box-shadow:
+    0 10px 25px oklch(0.55 0.22 255 / 0.08),
+    0 2px 8px oklch(0 0 0 / 0.04);
+  z-index: 10;
+}
+
+/* Accent stripe on first cell — slides in from left with spring */
+.table-row-item td:first-child {
+  position: relative;
+  overflow: hidden;
+}
+
+.table-row-item td:first-child::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 12%;
+  bottom: 12%;
+  width: 4px;
+  border-radius: 0 4px 4px 0;
+  background: linear-gradient(180deg, oklch(0.55 0.22 255), oklch(0.65 0.20 280));
+  transform: scaleY(0);
+  transform-origin: center;
+  transition: transform var(--duration-normal) var(--ease-spring);
+}
+
+.table-row-item:hover td:first-child::before {
+  transform: scaleY(1);
+}
+
+/* Active/pressed state — physical push into surface */
+.table-row-item:active {
+  transform: perspective(var(--perspective-card)) translateY(0px) translateZ(-3px) scale(0.997);
+  transition-duration: var(--duration-fast);
+}
+
+/* Row avatar icon — 3D pop & spring rotate on parent hover */
+.row-avatar-icon {
+  transform-style: preserve-3d;
+  transition:
+    transform var(--duration-normal) var(--ease-spring),
+    box-shadow var(--duration-normal) var(--ease-out-expo);
+}
+
+.table-row-item:hover .row-avatar-icon {
+  transform: translateY(-1px) translateZ(8px) scale(1.12) rotate(-4deg);
+  box-shadow: 0 6px 18px oklch(0.55 0.22 255 / 0.35);
+}
+
+/* Keterangan card — 3D lift on hover */
+.ket-card {
+  transform-style: preserve-3d;
+  transition:
+    transform var(--duration-normal) var(--ease-out-expo),
+    box-shadow var(--duration-normal) var(--ease-out-expo),
+    border-color var(--duration-normal) var(--ease-out-expo);
+}
+
+.table-row-item:hover .ket-card {
+  transform: translateY(-1px) translateZ(4px);
+  box-shadow: var(--shadow-sm);
+  border-color: var(--border-strong);
+}
+
+/* Table header — smooth subtle entrance */
+@keyframes headerSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+thead tr {
+  animation: headerSlide var(--duration-slow) var(--ease-out-expo) both;
+}
+
+/* ── Floating Ornaments 3D Ambient Sways ── */
+@keyframes floatYarn {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-4px) rotate(8deg);
+  }
+}
+
+@keyframes floatMascot {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-3px) scale(1.02);
+  }
+}
+
+@keyframes floatMouseToy {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-2.5px) rotate(-4deg);
+  }
+}
+
+.floating-yarn {
+  animation: floatYarn 4s ease-in-out infinite;
+  display: inline-block;
+  transform-origin: center center;
+}
+
+.floating-mascot {
+  animation: floatMascot 3.5s ease-in-out infinite;
+  display: inline-block;
+  transform-origin: center bottom;
+}
+
+.floating-mouse {
+  animation: floatMouseToy 3.8s ease-in-out infinite;
+  display: inline-block;
+  transform-origin: center center;
+}
+
+/* Cat Mascot Keyframe Animations */
+.cat-container {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  transition: transform var(--duration-normal) var(--ease-spring);
+}
+
+.cat-container:hover {
+  transform: scale(1.08) translateY(-2px);
+}
+
+.cat-container:active {
+  transform: scale(0.95) translateY(1px);
+}
+
+@keyframes tailWag {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(18deg); }
+}
+
+@keyframes earTwitch {
+  0%, 90%, 100% { transform: rotate(0deg); }
+  92% { transform: rotate(-8deg); }
+  96% { transform: rotate(8deg); }
+}
+
+@keyframes catBlink {
+  0%, 94%, 98%, 100% { transform: scaleY(1); }
+  96% { transform: scaleY(0.1); }
+}
+
+@keyframes floatPaw {
+  0% {
+    transform: translateY(0) scale(0.6) rotate(var(--paw-rot, 0deg));
+    opacity: 0.95;
+  }
+  50% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateY(-50px) scale(1.25) rotate(calc(var(--paw-rot, 0deg) + 15deg));
+    opacity: 0;
+  }
+}
+
+.cat-tail {
+  transform-origin: bottom center;
+  animation: tailWag 2.5s infinite ease-in-out;
+}
+
+.cat-ear {
+  transform-origin: bottom center;
+  animation: earTwitch 4s infinite ease-in-out;
+}
+
+.cat-eye {
+  animation: catBlink 3.8s infinite ease-in-out;
+}
+
+.paw-print {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  font-size: 1.35rem;
+  color: #ec4899;
+  filter: drop-shadow(0 4px 10px rgba(236, 72, 153, 0.45));
+  animation: floatPaw 1.1s var(--ease-out-expo) forwards;
+}
+
+/* ── Interactive Footer Card ── */
+.footer-card {
+  transform-style: preserve-3d;
+  transition:
+    transform var(--duration-normal) var(--ease-spring),
+    box-shadow var(--duration-normal) var(--ease-out-expo),
+    border-color var(--duration-normal) var(--ease-out-expo);
+}
+
+.footer-card:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: var(--shadow-md);
+  border-color: var(--accent);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--canvas-subtle);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-tertiary);
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+

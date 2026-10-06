@@ -31,6 +31,7 @@
 button{user-select:none}
 html{scroll-behavior:smooth}
 body{
+  zoom:80%;
   background-color:#fdfefe;
   background-image:radial-gradient(at 50% 0%,#ffffff 0%,#edf3fb 100%);
   color:var(--text-main);
@@ -394,7 +395,7 @@ footer b{color:var(--neon-cyan)}
 }
 @media print{
   #smoke-canvas,.nebula-field,.grid-overlay,#glint,#progress-rail,.hud-controls,.reset-link{display:none !important}
-  body{background:#fff !important;color:#0f172a}
+  body{background:#fff !important;color:#0f172a;zoom:1 !important}
   .glass-panel{box-shadow:none;break-inside:avoid}
   header.hud-header{position:static}
   .side-panel{position:static}

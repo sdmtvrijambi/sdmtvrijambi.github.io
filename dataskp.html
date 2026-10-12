@@ -26,7 +26,10 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: auto;
+  -webkit-text-size-adjust: 100%;
+}
 
 body {
   margin: 0;
@@ -38,17 +41,27 @@ body {
   background:
     radial-gradient(1200px 750px at 50% 5%, rgba(68, 30, 20, 0.45) 0%, rgba(13, 7, 10, 0.95) 75%),
     repeating-linear-gradient(180deg, #1f110c 0px, #190d09 60px, #110705 62px);
-  background-attachment: fixed;
+  background-attachment: scroll;
   position: relative;
   overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
 }
 
-/* Floating Stardust, Constellations & Bokeh */
+@media (min-width: 1024px) {
+  body {
+    background-attachment: fixed;
+  }
+}
+
+/* Floating Stardust, Constellations & Bokeh - Hardware accelerated and non-blocking */
 .stars-overlay {
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 0;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  contain: strict;
   background-image:
     radial-gradient(3px 3px at 80px 110px, rgba(254, 240, 138, 1), transparent),
     radial-gradient(1.5px 1.5px at 280px 70px, rgba(255, 255, 255, 0.9), transparent),
@@ -74,12 +87,33 @@ body {
   inset: 0;
   pointer-events: none;
   z-index: 0;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  contain: strict;
   opacity: 0.28;
+}
+
+/* Main Content Wrapper - Promoted Layer with strict mobile width constraint */
+.hp-main-wrapper {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 1360px;
+  margin-left: auto;
+  margin-right: auto;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 }
 
 /* ==================== PARCHMENT PANELS ==================== */
 .hp-parchment-panel {
   position: relative;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
   background:
     radial-gradient(ellipse at 50% 25%, #fdf5e2 0%, #f4dfb2 45%, #dcb371 100%);
   border: 1.8px solid #b88a38;
@@ -296,6 +330,19 @@ body {
   transform: translateY(1px);
 }
 
+@media (max-width: 640px) {
+  .btn-hp-pengisian,
+  .btn-hp-pengumpulan {
+    font-size: 11px !important;
+    letter-spacing: 0.1em !important;
+    padding: 8px 16px !important;
+    gap: 8px !important;
+    justify-content: center !important;
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+}
+
 /* Filter Tabs */
 .hp-tab-btn {
   font-family: 'Cinzel', serif;
@@ -420,10 +467,26 @@ body {
 }
 
 /* ==================== DATA TABLE ==================== */
+.hp-table-container {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x pan-y;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
 .hp-table-grid {
   width: 100%;
   border-collapse: separate;
   border-spacing: 5px 4px;
+}
+
+.hp-table-grid tr {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 45px;
 }
 
 /* Individual Mahogany Column Plaques */
@@ -594,10 +657,10 @@ body {
 </svg>
 
 <!-- ==================== MAIN CONTENT WRAPPER ==================== -->
-<div class="relative z-10 max-w-[1360px] mx-auto px-2.5 sm:px-5 py-4 sm:py-6">
+<div class="hp-main-wrapper relative z-10 max-w-[1360px] mx-auto px-2 sm:px-5 py-3 sm:py-6">
 
   <!-- ==================== 1. TOP HEADER PARCHMENT BANNER ==================== -->
-  <header class="hp-parchment-panel p-4 sm:p-6 mb-4 overflow-hidden">
+  <header class="hp-parchment-panel p-3 sm:p-6 mb-4 overflow-hidden">
     
     <!-- Victorian Gold Filigree Corner Brackets -->
     <svg class="corner-bracket corner-bracket-tl" viewBox="0 0 32 32">
@@ -632,13 +695,13 @@ body {
     </div>
 
     <!-- Header Content Row -->
-    <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-4 mt-2 mb-2">
+    <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-3 md:gap-4 mt-1 mb-2">
       
       <!-- Left: Hogwarts Crest & Title -->
-      <div class="flex items-center gap-4 text-center md:text-left">
+      <div class="flex items-center gap-3 sm:gap-4 w-full md:w-auto">
         
         <!-- Ornate Hogwarts Crest Shield (Full Heraldic Flourish with Mantling) -->
-        <div class="w-14 h-14 sm:w-16 sm:h-16 flex-none relative drop-shadow-[0_3px_8px_rgba(0,0,0,0.5)]">
+        <div class="w-12 h-12 sm:w-16 sm:h-16 flex-none relative drop-shadow-[0_3px_8px_rgba(0,0,0,0.5)]">
           <svg viewBox="0 0 130 130" class="w-full h-full">
             <!-- Golden Baroque Mantling Flourishes and Leaves -->
             <path d="M65 2 C50 2 34 9 26 20 C16 33 14 46 12 62 C10 82 22 102 65 124 C108 102 120 82 118 62 C116 46 114 33 104 20 C96 9 80 2 65 2 Z" fill="#241316" stroke="#d4af37" stroke-width="2.5"/>
@@ -685,116 +748,121 @@ body {
 
         <!-- Titles -->
         <div>
-          <span class="text-[11px] sm:text-[12px] font-bold tracking-[0.28em] text-[#634316] block uppercase" style="font-family: 'Cinzel', serif;">
+          <span class="text-[10px] sm:text-[12px] font-bold tracking-[0.2em] sm:tracking-[0.28em] text-[#634316] block uppercase" style="font-family: 'Cinzel', serif;">
             SKP TRIWULAN III
           </span>
-          <h1 class="text-2xl sm:text-3xl font-black text-[#1a0f04] tracking-tight leading-snug drop-shadow-sm" style="font-family: 'Cinzel', serif;">
+          <h1 class="text-xl sm:text-2xl md:text-3xl font-black text-[#1a0f04] tracking-tight leading-snug drop-shadow-sm" style="font-family: 'Cinzel', serif;">
             MONITORING SKP
           </h1>
         </div>
       </div>
 
-      <!-- Right Action Cluster: Nav Buttons, Time-Turner Watch & Refresh Button -->
-      <div class="flex items-center gap-2.5 sm:gap-3 flex-wrap justify-end">
+      <!-- Actions & Controls Cluster: Responsive grid on mobile, inline on desktop -->
+      <div class="flex flex-col sm:flex-row md:flex-row items-center gap-2.5 sm:gap-3 w-full md:w-auto">
+        
+        <!-- Two Action Buttons (1-col on mobile, 2-col on tablet, inline on desktop) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:flex items-center gap-2 sm:gap-2.5 w-full md:w-auto">
+          <!-- 1. PENGISIAN SKP (Enchanted Quill & Golden Parchment Plaque) -->
+          <a href="https://sdmtvrijambi.github.io/monitorskp" target="_blank" rel="noopener" id="btnPengisian" class="btn-hp-pengisian justify-center text-center w-full md:w-auto" title="Buka Portal Pengisian SKP">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" class="flex-none drop-shadow-[0_1px_2px_rgba(0,0,0,0.35)]">
+              <path d="M20.5 3.5 C16 4 10 7.5 7.5 12 C6.2 14.3 6 17 6.5 19.5 L4 21.5 L6.5 21 L8.5 18 C11.5 18.5 14.5 18 17 16.5 C21.5 14 24 8 20.5 3.5 Z" fill="url(#quillGradHeader)" stroke="#8c631e" stroke-width="1"/>
+              <path d="M19 5 C15 9 10 14 5.5 21" stroke="#fef08a" stroke-width="1.2" stroke-linecap="round"/>
+              <polygon points="4,21.5 2.5,23.5 5.5,22.5" fill="#2b140d"/>
+              <circle cx="20.5" cy="4" r="1.5" fill="#ffffff" filter="drop-shadow(0 0 2px #fef08a)"/>
+              <defs>
+                <linearGradient id="quillGradHeader" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#fffbeb"/>
+                  <stop offset="50%" stop-color="#fde047"/>
+                  <stop offset="100%" stop-color="#b45309"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <span>PENGISIAN SKP</span>
+          </a>
 
-        <!-- 1. PENGISIAN SKP (Enchanted Quill & Golden Parchment Plaque) -->
-        <a href="https://sdmtvrijambi.github.io/monitorskp" target="_blank" rel="noopener" id="btnPengisian" class="btn-hp-pengisian" title="Buka Portal Pengisian SKP">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" class="flex-none drop-shadow-[0_1px_2px_rgba(0,0,0,0.35)]">
-            <path d="M20.5 3.5 C16 4 10 7.5 7.5 12 C6.2 14.3 6 17 6.5 19.5 L4 21.5 L6.5 21 L8.5 18 C11.5 18.5 14.5 18 17 16.5 C21.5 14 24 8 20.5 3.5 Z" fill="url(#quillGradHeader)" stroke="#8c631e" stroke-width="1"/>
-            <path d="M19 5 C15 9 10 14 5.5 21" stroke="#fef08a" stroke-width="1.2" stroke-linecap="round"/>
-            <polygon points="4,21.5 2.5,23.5 5.5,22.5" fill="#2b140d"/>
-            <circle cx="20.5" cy="4" r="1.5" fill="#ffffff" filter="drop-shadow(0 0 2px #fef08a)"/>
-            <defs>
-              <linearGradient id="quillGradHeader" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#fffbeb"/>
-                <stop offset="50%" stop-color="#fde047"/>
-                <stop offset="100%" stop-color="#b45309"/>
-              </linearGradient>
-            </defs>
-          </svg>
-          <span>PENGISIAN SKP</span>
-        </a>
-
-        <!-- 2. PENGUMPULAN SKP (Hogwarts Crimson Wax Seal Plaque) -->
-        <a href="https://sdmtvrijambi.github.io/kumpulskp" target="_blank" rel="noopener" id="btnPengumpulan" class="btn-hp-pengumpulan" title="Buka Portal Pengumpulan SKP">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" class="flex-none drop-shadow-[0_1px_3px_rgba(0,0,0,0.5)]">
-            <rect x="2.5" y="4.5" width="19" height="14" rx="2" fill="url(#letterParchGradHeader)" stroke="#d4af37" stroke-width="1.1"/>
-            <path d="M3 5 L12 12 L21 5" stroke="#92400e" stroke-width="1.1" stroke-linejoin="round"/>
-            <circle cx="12" cy="12" r="4.2" fill="url(#redWaxGradHeader)" stroke="#fef08a" stroke-width="0.9"/>
-            <circle cx="12" cy="12" r="2.8" fill="#7f1d1d"/>
-            <text x="12" y="13.7" font-family="'Cinzel', serif" font-size="3.2" font-weight="900" fill="#fef08a" text-anchor="middle">H</text>
-            <defs>
-              <linearGradient id="letterParchGradHeader" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#fff8e7"/>
-                <stop offset="100%" stop-color="#e2c185"/>
-              </linearGradient>
-              <radialGradient id="redWaxGradHeader" cx="35%" cy="35%" r="65%">
-                <stop offset="0%" stop-color="#ef4444"/>
-                <stop offset="60%" stop-color="#b91c1c"/>
-                <stop offset="100%" stop-color="#450a0a"/>
-              </radialGradient>
-            </defs>
-          </svg>
-          <span>PENGUMPULAN SKP</span>
-        </a>
-
-        <!-- Golden Time-Turner Watch Graphic with Intersecting Swirling Rings -->
-        <div class="relative w-20 h-16 flex items-center justify-center flex-none">
-          <!-- Swirling Golden Orbital Wire Rings extending toward the button -->
-          <svg class="absolute inset-0 w-full h-full pointer-events-none overflow-visible" viewBox="0 0 120 80">
-            <ellipse cx="45" cy="40" rx="44" ry="16" stroke="#d4af37" stroke-width="2" fill="none" transform="rotate(-28 45 40)" opacity="0.9"/>
-            <ellipse cx="45" cy="40" rx="42" ry="15" stroke="#fce184" stroke-width="1.6" fill="none" transform="rotate(32 45 40)" opacity="0.8"/>
-            <ellipse cx="45" cy="40" rx="40" ry="14" stroke="#eab308" stroke-width="1.4" fill="none" transform="rotate(82 45 40)" opacity="0.7"/>
-            <!-- Wave arc connecting toward refresh button -->
-            <path d="M70 30 Q95 20 120 40" stroke="#d4af37" stroke-width="1.5" fill="none" opacity="0.75"/>
-            <path d="M70 50 Q95 60 120 40" stroke="#fce184" stroke-width="1.2" fill="none" opacity="0.7"/>
-            <circle cx="14" cy="24" r="2.5" fill="#fef08a"/>
-            <circle cx="76" cy="56" r="2.5" fill="#fef08a"/>
-          </svg>
-
-          <!-- Watch Body -->
-          <svg width="44" height="44" viewBox="0 0 60 60" class="relative z-10 drop-shadow-[0_4px_10px_rgba(0,0,0,0.55)]">
-            <circle cx="30" cy="6" r="4.5" fill="none" stroke="#d4af37" stroke-width="2.2"/>
-            <rect x="28" y="9" width="4" height="3" fill="#d4af37"/>
-            <circle cx="30" cy="34" r="24" fill="url(#watchCaseGrad)" stroke="#b88a38" stroke-width="2.2"/>
-            <circle cx="30" cy="34" r="21" fill="none" stroke="#fef08a" stroke-width="1.2" stroke-dasharray="2.5 2"/>
-            <circle cx="30" cy="34" r="19" fill="#fdf6e2" stroke="#8c631e" stroke-width="1"/>
-            <text x="30" y="21" font-family="'Cinzel', serif" font-size="5.2" font-weight="900" fill="#3b2608" text-anchor="middle">XII</text>
-            <text x="44" y="36" font-family="'Cinzel', serif" font-size="5.2" font-weight="900" fill="#3b2608" text-anchor="middle">III</text>
-            <text x="30" y="49" font-family="'Cinzel', serif" font-size="5.2" font-weight="900" fill="#3b2608" text-anchor="middle">VI</text>
-            <text x="16" y="36" font-family="'Cinzel', serif" font-size="5.2" font-weight="900" fill="#3b2608" text-anchor="middle">IX</text>
-            <line x1="30" y1="34" x2="22" y2="25" stroke="#2b140d" stroke-width="2" stroke-linecap="round"/>
-            <line x1="30" y1="34" x2="33" y2="19" stroke="#2b140d" stroke-width="1.4" stroke-linecap="round"/>
-            <circle cx="30" cy="34" r="2.2" fill="#d4af37"/>
-            <defs>
-              <radialGradient id="watchCaseGrad" cx="40%" cy="30%" r="70%">
-                <stop offset="0%" stop-color="#fffbeb"/>
-                <stop offset="40%" stop-color="#f59e0b"/>
-                <stop offset="100%" stop-color="#78350f"/>
-              </radialGradient>
-            </defs>
-          </svg>
+          <!-- 2. PENGUMPULAN SKP (Hogwarts Crimson Wax Seal Plaque) -->
+          <a href="https://sdmtvrijambi.github.io/kumpulskp" target="_blank" rel="noopener" id="btnPengumpulan" class="btn-hp-pengumpulan justify-center text-center w-full md:w-auto" title="Buka Portal Pengumpulan SKP">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" class="flex-none drop-shadow-[0_1px_3px_rgba(0,0,0,0.5)]">
+              <rect x="2.5" y="4.5" width="19" height="14" rx="2" fill="url(#letterParchGradHeader)" stroke="#d4af37" stroke-width="1.1"/>
+              <path d="M3 5 L12 12 L21 5" stroke="#92400e" stroke-width="1.1" stroke-linejoin="round"/>
+              <circle cx="12" cy="12" r="4.2" fill="url(#redWaxGradHeader)" stroke="#fef08a" stroke-width="0.9"/>
+              <circle cx="12" cy="12" r="2.8" fill="#7f1d1d"/>
+              <text x="12" y="13.7" font-family="'Cinzel', serif" font-size="3.2" font-weight="900" fill="#fef08a" text-anchor="middle">H</text>
+              <defs>
+                <linearGradient id="letterParchGradHeader" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#fff8e7"/>
+                  <stop offset="100%" stop-color="#e2c185"/>
+                </linearGradient>
+                <radialGradient id="redWaxGradHeader" cx="35%" cy="35%" r="65%">
+                  <stop offset="0%" stop-color="#ef4444"/>
+                  <stop offset="60%" stop-color="#b91c1c"/>
+                  <stop offset="100%" stop-color="#450a0a"/>
+                </radialGradient>
+              </defs>
+            </svg>
+            <span>PENGUMPULAN SKP</span>
+          </a>
         </div>
 
-        <!-- REFRESH Button -->
-        <button id="btnRefresh" class="btn-refresh-plaque" title="Muat ulang data dari cloud server SDM">
-          <svg id="iconRefresh" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
-          </svg>
-          <span>REFRESH</span>
-        </button>
+        <!-- Time-Turner Watch & REFRESH Button -->
+        <div class="flex items-center justify-center gap-2 sm:gap-3 w-full sm:w-auto md:w-auto mt-1 sm:mt-0">
+          
+          <!-- Golden Time-Turner Watch Graphic with Intersecting Swirling Rings -->
+          <div class="relative w-16 sm:w-20 h-14 sm:h-16 flex items-center justify-center flex-none">
+            <!-- Swirling Golden Orbital Wire Rings extending toward the button -->
+            <svg class="absolute inset-0 w-full h-full pointer-events-none overflow-visible" viewBox="0 0 120 80">
+              <ellipse cx="45" cy="40" rx="44" ry="16" stroke="#d4af37" stroke-width="2" fill="none" transform="rotate(-28 45 40)" opacity="0.9"/>
+              <ellipse cx="45" cy="40" rx="42" ry="15" stroke="#fce184" stroke-width="1.6" fill="none" transform="rotate(32 45 40)" opacity="0.8"/>
+              <ellipse cx="45" cy="40" rx="40" ry="14" stroke="#eab308" stroke-width="1.4" fill="none" transform="rotate(82 45 40)" opacity="0.7"/>
+              <circle cx="14" cy="24" r="2.5" fill="#fef08a"/>
+              <circle cx="76" cy="56" r="2.5" fill="#fef08a"/>
+            </svg>
+
+            <!-- Watch Body -->
+            <svg width="40" height="40" viewBox="0 0 60 60" class="relative z-10 drop-shadow-[0_4px_10px_rgba(0,0,0,0.55)]">
+              <circle cx="30" cy="6" r="4.5" fill="none" stroke="#d4af37" stroke-width="2.2"/>
+              <rect x="28" y="9" width="4" height="3" fill="#d4af37"/>
+              <circle cx="30" cy="34" r="24" fill="url(#watchCaseGrad)" stroke="#b88a38" stroke-width="2.2"/>
+              <circle cx="30" cy="34" r="21" fill="none" stroke="#fef08a" stroke-width="1.2" stroke-dasharray="2.5 2"/>
+              <circle cx="30" cy="34" r="19" fill="#fdf6e2" stroke="#8c631e" stroke-width="1"/>
+              <text x="30" y="21" font-family="'Cinzel', serif" font-size="5.2" font-weight="900" fill="#3b2608" text-anchor="middle">XII</text>
+              <text x="44" y="36" font-family="'Cinzel', serif" font-size="5.2" font-weight="900" fill="#3b2608" text-anchor="middle">III</text>
+              <text x="30" y="49" font-family="'Cinzel', serif" font-size="5.2" font-weight="900" fill="#3b2608" text-anchor="middle">VI</text>
+              <text x="16" y="36" font-family="'Cinzel', serif" font-size="5.2" font-weight="900" fill="#3b2608" text-anchor="middle">IX</text>
+              <line x1="30" y1="34" x2="22" y2="25" stroke="#2b140d" stroke-width="2" stroke-linecap="round"/>
+              <line x1="30" y1="34" x2="33" y2="19" stroke="#2b140d" stroke-width="1.4" stroke-linecap="round"/>
+              <circle cx="30" cy="34" r="2.2" fill="#d4af37"/>
+              <defs>
+                <radialGradient id="watchCaseGrad" cx="40%" cy="30%" r="70%">
+                  <stop offset="0%" stop-color="#fffbeb"/>
+                  <stop offset="40%" stop-color="#f59e0b"/>
+                  <stop offset="100%" stop-color="#78350f"/>
+                </radialGradient>
+              </defs>
+            </svg>
+          </div>
+
+          <!-- REFRESH Button -->
+          <button id="btnRefresh" class="btn-refresh-plaque flex-none" title="Muat ulang data dari cloud server SDM">
+            <svg id="iconRefresh" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+            </svg>
+            <span>REFRESH</span>
+          </button>
+
+        </div>
 
       </div>
 
     </div>
 
     <!-- Bottom Status Row -->
-    <div class="relative z-10 flex flex-wrap items-center justify-between text-xs text-[#523510] pt-2.5 mt-2 border-t border-[#d8be85] gap-2">
+    <div class="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between text-[11px] sm:text-xs text-[#523510] pt-2.5 mt-2 border-t border-[#d8be85] gap-1 sm:gap-2">
       <div id="syncStatusLine" class="flex items-center gap-2">
         <span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_10px_#10b981] animate-pulse"></span>
         <span><b>Status:</b> <span class="text-emerald-700 font-bold">Up</span> | Terkoneksi ke Server SDM (<span id="statusTotalPegawai">150</span> Pegawai)</span>
       </div>
-      <div id="lastUpdated" class="text-right font-medium italic">Data Current: 22:03 WIB</div>
+      <div id="lastUpdated" class="text-left sm:text-right font-medium italic">Data Current: 22:03 WIB</div>
     </div>
 
   </header>
@@ -1141,7 +1209,7 @@ body {
     </div>
 
     <!-- Data Table Grid (Framed with Mahogany Plaques) -->
-    <div class="overflow-x-auto rounded-lg">
+    <div class="hp-table-container rounded-lg">
       <table class="hp-table-grid" id="tableRekap">
         <thead>
           <tr>
@@ -1183,8 +1251,8 @@ body {
     <div class="mt-4 pt-3 border-t border-[#d8be85] flex flex-col sm:flex-row items-center justify-between text-xs text-[#634316] gap-2 font-mono">
       <div id="showingLabel">Menampilkan 1 dari 150 pegawai</div>
       <div class="flex items-center gap-4">
-        <span>SKP Triwulan III •</span>
-        <span>SDM TVRI JAMBI Cloud System</span>
+        <span>SATRIA P.A •</span>
+        <span>ASDMA 2026</span>
       </div>
     </div>
 

@@ -1,0 +1,3 @@
+# Anti-crawling configuration
+User-agent: *
+Disallow: /

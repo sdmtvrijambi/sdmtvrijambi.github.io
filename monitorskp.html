@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Dashboard Monitoring Pengisian Hasil Kerja SKP TVRI Stasiun Jambi - Real-time tracking eviden kinerja pegawai ASN Triwulan III Tahun 2026.">
+    <meta name="theme-color" content="#0066ff">
+    <meta name="author" content="Satria - TVRI Stasiun Jambi">
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+    <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, max-snippet:0">
+
+    <meta property="og:title" content="Monitoring SKP TVRI Stasiun Jambi">
+    <meta property="og:description" content="Dashboard real-time monitoring pengisian SKP pegawai ASN TVRI Stasiun Jambi.">
+    <meta property="og:type" content="website">
+
+    <title>Monitoring SKP TVRI Jambi</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%230066ff'/%3E%3Cstop offset='100%25' stop-color='%2300d4ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect rx='18' width='100' height='100' fill='url(%23g)'/%3E%3Ctext x='50' y='66' text-anchor='middle' font-size='42' font-weight='bold' fill='white' font-family='system-ui,sans-serif'%3ESKP%3C/text%3E%3C/svg%3E">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800&family=Cinzel:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- DataTables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- ══════════ SCROLL PROGRESS BAR ══════════ -->
+    <div class="scroll-progress" aria-hidden="true">
+        <div class="scroll-progress-fill" id="scroll-progress-fill"></div>
+    </div>
+
+    <!-- ══════════ LOADING SCREEN (HARRY POTTER VS VOLDEMORT SPELL CLASH) ══════════ -->
+    <div id="loading-screen" class="loading-screen loading-duel" role="status" aria-label="Memuat dashboard">
+        <!-- Visual Duel Scene & Dynamic VFX Canvas -->
+        <div class="duel-scene-wrap" id="duel-scene-wrap">
+            <img src="assets-skp-tw3/duel_loading.jpg" alt="Harry Potter vs Lord Voldemort Spell Clash" class="duel-bg-img" id="duel-bg-img" />
+            
+            <!-- Canvas Adu Mantra Bergerak (Real-time Lightning, Sparks, Clash Glow, Flying Embers) -->
+            <canvas id="duel-canvas" class="duel-canvas"></canvas>
+
+            <!-- Dynamic Atmospheric Flash & Vignette Overlays -->
+            <div class="duel-vignette" aria-hidden="true"></div>
+            <div class="duel-flash" id="duel-flash" aria-hidden="true"></div>
+            <div class="duel-finish-burst" id="duel-finish-burst" aria-hidden="true"></div>
+        </div>
+
+        <!-- Ornate Harry Potter UI Frame (Matching Image 2) -->
+        <div class="duel-ui-panel">
+            <div class="duel-ui-content">
+                <!-- Title: LOADING... in Golden Harry Potter Serif -->
+                <h2 class="duel-title">LOADING<span class="duel-dots">...</span></h2>
+
+                <!-- Ornate Filigree Metal Progress Bar Frame -->
+                <div class="duel-bar-wrap" aria-hidden="true">
+                    <!-- Left Gothic Filigree Wing -->
+                    <div class="duel-wing duel-wing-left">
+                        <svg viewBox="0 0 38 24" class="duel-wing-svg" fill="none">
+                            <path d="M38,12 L24,3 Q14,-2 3,3 Q0,6 2,12 Q0,18 3,21 Q14,26 24,21 Z" fill="#2d1b0d" stroke="#f59e0b" stroke-width="1.2"/>
+                            <path d="M38,12 L22,6 Q12,2 6,9 Q12,16 22,18 Z" fill="none" stroke="#ffd700" stroke-width="0.8"/>
+                        </svg>
+                    </div>
+
+                    <!-- Metal Ornate Channel with Glowing Flames -->
+                    <div class="duel-bar-body">
+                        <!-- Upper/Lower Filigree Borders -->
+                        <div class="duel-bar-rim-top"></div>
+                        <div class="duel-bar-track">
+                            <!-- Crackling Electric Plasma Fill Stream -->
+                            <div class="duel-bar-fill" id="loader-bar-fill">
+                                <div class="duel-bar-plasma"></div>
+                                <div class="duel-bar-core"></div>
+                                <div class="duel-bar-lightning"></div>
+                                <div class="duel-bar-glow-head"></div>
+                            </div>
+                        </div>
+                        <div class="duel-bar-rim-bottom"></div>
+                    </div>
+
+                    <!-- Right Metal Wing & Percentage Counter + Swirling Runic Talisman -->
+                    <div class="duel-bar-side">
+                        <span class="duel-pct-text"><span id="loader-pct">0</span>%</span>
+                        <!-- Rotating Mystical Runic Talisman Gem (as in Image 2) -->
+                        <div class="duel-talisman" title="Mana Stream">
+                            <svg viewBox="0 0 32 32" class="duel-talisman-svg">
+                                <circle cx="16" cy="16" r="13" fill="#140c06" stroke="#b45309" stroke-width="2"/>
+                                <circle cx="16" cy="16" r="11" fill="none" stroke="#f59e0b" stroke-width="1.2" stroke-dasharray="8 4" class="talisman-gear"/>
+                                <path d="M16,6 C21,8 24,13 22,18 C20,23 15,25 10,23 C7,21 6,16 9,12 C12,9 15,10 16,13 C17,16 15,18 13,18" fill="none" stroke="#34d399" stroke-width="2" stroke-linecap="round" class="talisman-swirl"/>
+                                <circle cx="16" cy="16" r="3" fill="#6ee7b7" class="talisman-gem"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Subtitle: CONNECTING TO DATA SOURCE... -->
+                <p class="duel-subtitle" id="duel-status-text">CONNECTING TO DATA SOURCE...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══════════ BACKGROUND SCENE ══════════ -->
+    <div class="bg-scene" aria-hidden="true">
+        <div class="aurora aurora-1"></div>
+        <div class="aurora aurora-2"></div>
+        <div class="aurora aurora-3"></div>
+        <div class="aurora aurora-4"></div>
+        <div class="bg-grid-mask"><div class="bg-grid"></div></div>
+        <div class="bg-noise"></div>
+        <div class="scan-line"></div>
+        <canvas id="fx-canvas" class="fx-canvas"></canvas>
+    </div>
+
+    <div class="app-container">
+        <main class="main-content">
+
+            <!-- ══════════ HEADER ══════════ -->
+            <header class="top-header">
+                <div class="header-left">
+                    <div class="header-badge">
+                        <span class="live-dot"></span> LIVE MONITORING
+                    </div>
+                    <h1 class="page-title" id="page-title" data-text="MONITORING PENGISIAN HASIL KERJA SKP TAHUN 2026 (TRIWULAN III)">MONITORING PENGISIAN HASIL KERJA SKP TAHUN 2026 (TRIWULAN III)</h1>
+                    <p class="page-subtitle">TVRI STASIUN JAMBI</p>
+                </div>
+
+                <div class="header-right">
+                    <a href="https://sdmtvrijambi.github.io/kumpulskp" target="_blank" rel="noopener noreferrer" class="glass-btn btn-action btn-magnetic btn-vines" id="btn-kumpul-skp" title="Buka Form Pengumpulan SKP (SDM TVRI Jambi)">
+                        <!-- Sistem Akar Melilit Tombol -->
+                        <span class="vines-system" aria-hidden="true">
+                            <!-- Akar Melilit Kiri -->
+                            <svg class="vine-svg root-left" viewBox="0 0 68 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path class="root-bark root-bark-main" d="M4,48 C2,38 8,30 11,22 C13,15 16,9 26,7 C36,5 48,5 58,7" stroke="#2e7d32" stroke-width="3.6" stroke-linecap="round"/>
+                                <path class="root-bark root-bark-sub" d="M10,4 C5,14 4,26 8,36 C12,44 24,47 44,48 C50,48.5 56,48 60,47" stroke="#14532d" stroke-width="2.6" stroke-linecap="round"/>
+                                <path class="root-sap" d="M4,48 C2,38 8,30 11,22 C13,15 16,9 26,7 C36,5 48,5 58,7" stroke="#86efac" stroke-width="1.1" stroke-linecap="round"/>
+                                <path class="root-tendril" d="M58,7 C62,8 65,11 62,14 C60,16 57,14 58,12" stroke="#4ade80" stroke-width="1.8" stroke-linecap="round"/>
+                                <path class="vine-leaf" d="M25,7 C22,1 28,-3 33,2 C35,7 29,9 25,7 Z" fill="#22c55e"/>
+                                <path class="vine-leaf" d="M8,24 C2,22 0,16 5,16 C10,19 10,23 8,24 Z" fill="#4ade80"/>
+                                <path class="vine-leaf" d="M34,48 C36,54 42,56 44,51 C41,48 37,47 34,48 Z" fill="#16a34a"/>
+                                <circle cx="25" cy="7" r="1.5" fill="#bbf7d0" class="root-spore"/>
+                                <circle cx="8" cy="24" r="1.3" fill="#bbf7d0" class="root-spore"/>
+                                <circle cx="34" cy="48" r="1.4" fill="#bbf7d0" class="root-spore"/>
+                            </svg>
+
+                            <!-- Akar Melilit Kanan -->
+                            <svg class="vine-svg root-right" viewBox="0 0 68 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path class="root-bark root-bark-main" d="M64,48 C66,38 60,30 57,22 C55,15 52,9 42,7 C32,5 20,5 10,7" stroke="#2e7d32" stroke-width="3.6" stroke-linecap="round"/>
+                                <path class="root-bark root-bark-sub" d="M58,4 C63,14 64,26 60,36 C56,44 44,47 24,48 C18,48.5 12,48 8,47" stroke="#14532d" stroke-width="2.6" stroke-linecap="round"/>
+                                <path class="root-sap" d="M64,48 C66,38 60,30 57,22 C55,15 52,9 42,7 C32,5 20,5 10,7" stroke="#86efac" stroke-width="1.1" stroke-linecap="round"/>
+                                <path class="root-tendril" d="M10,7 C6,8 3,11 6,14 C8,16 11,14 10,12" stroke="#4ade80" stroke-width="1.8" stroke-linecap="round"/>
+                                <path class="vine-leaf" d="M43,7 C46,1 40,-3 35,2 C33,7 39,9 43,7 Z" fill="#22c55e"/>
+                                <path class="vine-leaf" d="M60,24 C66,22 68,16 63,16 C58,19 58,23 60,24 Z" fill="#4ade80"/>
+                                <path class="vine-leaf" d="M34,48 C32,54 26,56 24,51 C27,48 31,47 34,48 Z" fill="#16a34a"/>
+                                <circle cx="43" cy="7" r="1.5" fill="#bbf7d0" class="root-spore"/>
+                                <circle cx="60" cy="24" r="1.3" fill="#bbf7d0" class="root-spore"/>
+                                <circle cx="34" cy="48" r="1.4" fill="#bbf7d0" class="root-spore"/>
+                            </svg>
+
+                            <!-- Sulur Melilit Atas -->
+                            <svg class="vine-svg vine-runner-top" viewBox="0 0 120 10" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path class="root-bark-runner" d="M0,5 Q30,1 60,6 T120,4" stroke="#2e7d32" stroke-width="2.4" stroke-linecap="round"/>
+                                <path class="root-sap-runner" d="M0,5 Q30,1 60,6 T120,4" stroke="#86efac" stroke-width="0.9" stroke-linecap="round"/>
+                                <path class="vine-leaf" d="M42,4 C44,0 49,1 48,5 C45,6 43,5 42,4 Z" fill="#4ade80"/>
+                                <path class="vine-leaf" d="M82,5 C84,1 89,2 88,6 C85,7 83,6 82,5 Z" fill="#22c55e"/>
+                            </svg>
+
+                            <!-- Sulur Melilit Bawah -->
+                            <svg class="vine-svg vine-runner-bottom" viewBox="0 0 120 10" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path class="root-bark-runner" d="M0,5 Q30,8 60,3 T120,6" stroke="#14532d" stroke-width="2.2" stroke-linecap="round"/>
+                                <path class="root-sap-runner" d="M0,5 Q30,8 60,3 T120,6" stroke="#86efac" stroke-width="0.9" stroke-linecap="round"/>
+                                <path class="vine-leaf" d="M38,6 C40,10 45,9 44,5 C41,4 39,5 38,6 Z" fill="#16a34a"/>
+                                <path class="vine-leaf" d="M78,5 C80,9 85,8 84,4 C81,3 79,4 78,5 Z" fill="#4ade80"/>
+                            </svg>
+                        </span>
+                        <i class="fa-solid fa-seedling vine-sprout-icon" aria-hidden="true"></i>
+                        <span class="btn-text">Pengumpulan SKP</span>
+                    </a>
+                    <a href="https://sdmtvrijambi.github.io/dataskp" target="_blank" rel="noopener noreferrer" class="glass-btn btn-action btn-magnetic btn-spell" id="btn-data-skp" title="Buka Data SKP TW3 (SDM TVRI Jambi)">
+                        <i class="fa-solid fa-wand-magic-sparkles spell-wand-icon" aria-hidden="true"></i>
+                        <span>Data SKP TW3</span>
+                    </a>
+                    <button class="glass-btn btn-action btn-magnetic" id="btn-visual-status">
+                        <i class="fa-solid fa-chart-pie"></i><span>Visualisasi Status</span>
+                    </button>
+                    <button class="glass-btn btn-action btn-magnetic" id="btn-export-excel">
+                        <i class="fa-solid fa-file-excel"></i><span>Export Excel</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- ══════════ DASHBOARD CONTENT ══════════ -->
+            <div class="content-wrapper">
+
+                <!-- Stat Cards -->
+                <section class="stats-grid">
+
+                    <article class="stat-card glass-card tilt-card" data-accent="primary" style="--card-i:0">
+                        <div class="card-spotlight"></div>
+                        <div class="stat-visual">
+                            <svg class="ring-svg ring-idle" viewBox="0 0 64 64">
+                                <circle class="ring-track" cx="32" cy="32" r="28"/>
+                                <circle class="ring-fill" cx="32" cy="32" r="28"/>
+                            </svg>
+                            <div class="stat-icon bg-primary-transparent">
+                                <i class="fa-solid fa-user-group"></i>
+                            </div>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Total Pegawai ASN</h3>
+                            <div class="stat-value">
+                                <h2 id="stat-total-pegawai" class="animated-number">0</h2>
+                                <span>Orang</span>
+                            </div>
+                            <p class="stat-subtext">Seluruh Pegawai</p>
+                        </div>
+                    </article>
+
+                    <article class="stat-card glass-card tilt-card" data-accent="primary" style="--card-i:1">
+                        <div class="card-spotlight"></div>
+                        <div class="stat-visual">
+                            <svg class="ring-svg ring-idle" viewBox="0 0 64 64">
+                                <circle class="ring-track" cx="32" cy="32" r="28"/>
+                                <circle class="ring-fill" cx="32" cy="32" r="28"/>
+                            </svg>
+                            <div class="stat-icon bg-primary-transparent">
+                                <i class="fa-solid fa-briefcase"></i>
+                            </div>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Tim Kerja</h3>
+                            <div class="stat-value">
+                                <h2 id="stat-tm-kerja" class="animated-number">0</h2>
+                                <span>Unit Kerja</span>
+                            </div>
+                            <p class="stat-subtext">Unit Aktif</p>
+                        </div>
+                    </article>
+
+                    <article class="stat-card glass-card tilt-card" data-accent="success" style="--card-i:2">
+                        <div class="card-spotlight"></div>
+                        <div class="stat-visual" data-ring="selesai">
+                            <svg class="ring-svg" viewBox="0 0 64 64">
+                                <circle class="ring-track" cx="32" cy="32" r="28"/>
+                                <circle class="ring-fill" cx="32" cy="32" r="28"/>
+                            </svg>
+                            <div class="stat-icon bg-success-transparent">
+                                <i class="fa-regular fa-circle-check"></i>
+                            </div>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Eviden Selesai</h3>
+                            <div class="stat-value">
+                                <h2 id="stat-eviden-selesai" class="animated-number">0</h2>
+                                <span id="stat-eviden-selesai-pct" class="text-success pct-text">(0%)</span>
+                            </div>
+                            <p class="stat-subtext">Pegawai</p>
+                        </div>
+                    </article>
+
+                    <article class="stat-card glass-card tilt-card" data-accent="warning" style="--card-i:3">
+                        <div class="card-spotlight"></div>
+                        <div class="stat-visual" data-ring="proses">
+                            <svg class="ring-svg" viewBox="0 0 64 64">
+                                <circle class="ring-track" cx="32" cy="32" r="28"/>
+                                <circle class="ring-fill" cx="32" cy="32" r="28"/>
+                            </svg>
+                            <div class="stat-icon bg-warning-transparent">
+                                <i class="fa-regular fa-clock"></i>
+                            </div>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Eviden On Proses</h3>
+                            <div class="stat-value">
+                                <h2 id="stat-eviden-proses" class="animated-number">0</h2>
+                                <span id="stat-eviden-proses-pct" class="text-warning pct-text">(0%)</span>
+                            </div>
+                            <p class="stat-subtext">Pegawai</p>
+                        </div>
+                    </article>
+
+                    <article class="stat-card glass-card tilt-card" data-accent="danger" style="--card-i:4">
+                        <div class="card-spotlight"></div>
+                        <div class="stat-visual" data-ring="belum">
+                            <svg class="ring-svg" viewBox="0 0 64 64">
+                                <circle class="ring-track" cx="32" cy="32" r="28"/>
+                                <circle class="ring-fill" cx="32" cy="32" r="28"/>
+                            </svg>
+                            <div class="stat-icon bg-danger-transparent">
+                                <i class="fa-regular fa-circle-xmark"></i>
+                            </div>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Belum Selesai</h3>
+                            <div class="stat-value">
+                                <h2 id="stat-belum-selesai" class="animated-number">0</h2>
+                                <span id="stat-belum-selesai-pct" class="text-danger pct-text">(0%)</span>
+                            </div>
+                            <p class="stat-subtext">Pegawai</p>
+                        </div>
+                    </article>
+                </section>
+
+                <!-- Table Section -->
+                <section class="table-section">
+                    <div class="glass-card table-container">
+                        <div class="table-top-header">
+                            <div class="table-title">
+                                <h3><span class="title-chip"><i class="fa-solid fa-table-list"></i></span>DATA MONITORING PENGISIAN SKP</h3>
+                                <p id="current-time-display">Data diperbarui: --</p>
+                            </div>
+                            <div class="table-actions">
+                                <div class="search-box">
+                                    <i class="fa-solid fa-search"></i>
+                                    <input type="text" id="custom-search" placeholder="Cari pegawai / unit kerja..." autocomplete="off">
+                                </div>
+                                <button class="glass-btn btn-action btn-magnetic" id="btn-columns">
+                                    <i class="fa-solid fa-sliders"></i><span>Columns</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <!-- Skeleton shimmer (visible until first data arrives) -->
+                            <div id="table-skeleton" class="table-skeleton" aria-hidden="true">
+                                <div class="sk-row sk-head">
+                                    <span class="sk-cell w-no"></span><span class="sk-cell w-lg"></span><span class="sk-cell w-md"></span><span class="sk-cell w-md"></span><span class="sk-cell w-badge"></span><span class="sk-cell w-sm"></span>
+                                </div>
+                                <div class="sk-row"><span class="sk-cell w-no"></span><span class="sk-cell w-lg"></span><span class="sk-cell w-md"></span><span class="sk-cell w-md"></span><span class="sk-cell w-badge"></span><span class="sk-cell w-sm"></span></div>
+                                <div class="sk-row"><span class="sk-cell w-no"></span><span class="sk-cell w-lg"></span><span class="sk-cell w-md"></span><span class="sk-cell w-md"></span><span class="sk-cell w-badge"></span><span class="sk-cell w-sm"></span></div>
+                                <div class="sk-row"><span class="sk-cell w-no"></span><span class="sk-cell w-lg"></span><span class="sk-cell w-md"></span><span class="sk-cell w-md"></span><span class="sk-cell w-badge"></span><span class="sk-cell w-sm"></span></div>
+                                <div class="sk-row"><span class="sk-cell w-no"></span><span class="sk-cell w-lg"></span><span class="sk-cell w-md"></span><span class="sk-cell w-md"></span><span class="sk-cell w-badge"></span><span class="sk-cell w-sm"></span></div>
+                                <div class="sk-row"><span class="sk-cell w-no"></span><span class="sk-cell w-lg"></span><span class="sk-cell w-md"></span><span class="sk-cell w-md"></span><span class="sk-cell w-badge"></span><span class="sk-cell w-sm"></span></div>
+                                <div class="sk-row"><span class="sk-cell w-no"></span><span class="sk-cell w-lg"></span><span class="sk-cell w-md"></span><span class="sk-cell w-md"></span><span class="sk-cell w-badge"></span><span class="sk-cell w-sm"></span></div>
+                            </div>
+
+                            <div class="table-responsive">
+                                <table id="skpTable" class="display" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Nama Pegawai</th>
+                                            <th>TIM KERJA</th>
+                                            <th>Jabatan</th>
+                                            <th>Status Pengerjaan Eviden SKP</th>
+                                            <th>Keterangan</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Data will be populated by JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- ══════════ FOOTER ══════════ -->
+            <footer class="app-footer">
+                <div class="footer-pill">
+                    <span class="footer-copy">Satria P.A &copy; ASDMA 2026</span>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <!-- ══════════ MODAL VISUALISASI STATUS (grafik 3D) ══════════ -->
+    <div id="chart-modal" class="chart-modal" role="dialog" aria-modal="true" aria-label="Visualisasi Status Eviden">
+        <div class="chart-modal-backdrop" id="chart-backdrop"></div>
+        <div class="chart-modal-panel">
+            <div class="chart-modal-head">
+                <div class="chart-modal-title">
+                    <h3><span class="title-chip"><i class="fa-solid fa-chart-pie"></i></span>VISUALISASI STATUS EVIDEN</h3>
+                    <p id="chart3d-subtitle">Total 0 Pegawai</p>
+                </div>
+                <button class="glass-btn chart-close" id="chart-close" aria-label="Tutup">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="chart-modal-body">
+                <div class="chart3d-stage">
+                    <canvas id="chart3d-canvas"></canvas>
+                    <div id="chart3d-tooltip" class="chart3d-tooltip" hidden></div>
+                    <p class="chart3d-hint"><i class="fa-solid fa-hand-pointer"></i> Geser untuk memutar &middot; arahkan ke irisan untuk detail</p>
+                </div>
+
+                <div class="chart3d-legend">
+                    <button class="leg-item" data-idx="0" type="button">
+                        <span class="leg-chip leg-success"></span>
+                        <span class="leg-text"><strong>Eviden Selesai</strong><em id="leg-count-0">0 pegawai</em></span>
+                        <span class="leg-pct pct-success" id="leg-pct-0">0%</span>
+                    </button>
+                    <button class="leg-item" data-idx="1" type="button">
+                        <span class="leg-chip leg-warning"></span>
+                        <span class="leg-text"><strong>Eviden On Proses</strong><em id="leg-count-1">0 pegawai</em></span>
+                        <span class="leg-pct pct-warning" id="leg-pct-1">0%</span>
+                    </button>
+                    <button class="leg-item" data-idx="2" type="button">
+                        <span class="leg-chip leg-danger"></span>
+                        <span class="leg-text"><strong>Belum Selesai</strong><em id="leg-count-2">0 pegawai</em></span>
+                        <span class="leg-pct pct-danger" id="leg-pct-2">0%</span>
+                    </button>
+                    <div class="leg-total">
+                        <span>Total Pegawai ASN</span>
+                        <strong id="leg-total">0</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Back to top button with scroll ring -->
+    <button id="back-to-top" class="back-to-top" aria-label="Kembali ke atas">
+        <svg class="btt-ring" viewBox="0 0 48 48" aria-hidden="true">
+            <circle class="btt-track" cx="24" cy="24" r="20"/>
+            <circle class="btt-fill" id="btt-progress" cx="24" cy="24" r="20"/>
+        </svg>
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <!-- jQuery (required for DataTables) -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+
+    <!-- DataTables & Plugins -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.colVis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+
+    <!-- Custom Scripts -->
+    <script src="js/loading-snake.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/sheet.js"></script>
+    <script src="js/table.js"></script>
+    <script src="js/effects.js"></script>
+    <script src="js/chart3d.js"></script>
+    <script src="js/snake.js"></script>
+</body>
+</html>

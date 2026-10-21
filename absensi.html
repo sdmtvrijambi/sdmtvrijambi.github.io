@@ -1,0 +1,3474 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
+<title>Absensi Geotag | Cyber Atlantis TVRI</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+<link rel="alternate icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3CradialGradient id='q' cx='35%25' cy='32%25' r='65%25'%3E%3Cstop offset='0%25' stop-color='%23ffffff'/%3E%3Cstop offset='25%25' stop-color='%2346f0ff'/%3E%3Cstop offset='65%25' stop-color='%230088cc'/%3E%3Cstop offset='100%25' stop-color='%23022b47'/%3E%3C/radialGradient%3E%3CradialGradient id='w' cx='35%25' cy='32%25' r='65%25'%3E%3Cstop offset='0%25' stop-color='%23ffffff'/%3E%3Cstop offset='25%25' stop-color='%23df80ff'/%3E%3Cstop offset='65%25' stop-color='%238822cc'/%3E%3Cstop offset='100%25' stop-color='%23290849'/%3E%3C/radialGradient%3E%3CradialGradient id='e' cx='35%25' cy='32%25' r='65%25'%3E%3Cstop offset='0%25' stop-color='%23ffffff'/%3E%3Cstop offset='25%25' stop-color='%23ffcf40'/%3E%3Cstop offset='65%25' stop-color='%23ff5500'/%3E%3Cstop offset='100%25' stop-color='%23591100'/%3E%3C/radialGradient%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2367f9ff'/%3E%3Cstop offset='50%25' stop-color='%23d4af37'/%3E%3Cstop offset='100%25' stop-color='%230891b2'/%3E%3C/linearGradient%3E%3CradialGradient id='b' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%23073452'/%3E%3Cstop offset='75%25' stop-color='%23041b2d'/%3E%3Cstop offset='100%25' stop-color='%23020d18'/%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle cx='32' cy='32' r='30' fill='url(%23b)' stroke='url(%23g)' stroke-width='2.5'/%3E%3Ccircle cx='32' cy='32' r='26' fill='none' stroke='%2300f2fe' stroke-width='0.9' stroke-dasharray='3 2.5' opacity='0.8'/%3E%3Cpolygon points='32,15 47,44 17,44' fill='none' stroke='%2300f2fe' stroke-width='1.1' opacity='0.55'/%3E%3Cpolygon points='32,49 17,20 47,20' fill='none' stroke='%23d4af37' stroke-width='1.1' opacity='0.55'/%3E%3Ccircle cx='32' cy='14' r='8' fill='url(%23q)' stroke='%2380f5ff' stroke-width='1.2'/%3E%3Ccircle cx='47' cy='42' r='8' fill='url(%23w)' stroke='%23e699ff' stroke-width='1.2'/%3E%3Ccircle cx='17' cy='42' r='8' fill='url(%23e)' stroke='%23ffbb66' stroke-width='1.2'/%3E%3C/svg%3E"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+<style>
+/* Base & Reset */
+*,::before,::after{box-sizing:border-box;border-width:0;border-style:solid;border-color:#0e4866}
+html{line-height:1.5;-webkit-text-size-adjust:100%;tab-size:4;font-family:'Rajdhani',ui-sans-serif,system-ui,sans-serif;-webkit-tap-highlight-color:transparent;scroll-behavior:smooth}
+body{margin:0;line-height:inherit}
+h1,h2,h3,h4,h5,h6,p,blockquote,figure,pre{margin:0}
+ol,ul,menu{list-style:none;margin:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;line-height:inherit;color:inherit;margin:0;padding:0;background:transparent}
+button,[role=button]{cursor:pointer}
+:disabled{cursor:default}
+img,svg,video,canvas{display:block;vertical-align:middle;max-width:100%;height:auto}
+
+/* Layout Utilities */
+.absolute{position:absolute}.relative{position:relative}.inset-0{inset:0}
+.z-0{z-index:0}.z-10{z-index:10}.z-20{z-index:20}
+.mx-auto{margin-left:auto;margin-right:auto}
+.-mt-6{margin-top:-1.25rem}.mb-2{margin-bottom:.5rem}.mt-2{margin-top:.5rem}
+.flex{display:flex}.inline-flex{display:inline-flex}
+.min-w-0{min-width:0}.max-w-2xl{max-width:44rem}.max-w-4xl{max-width:60rem}
+.flex-1{flex:1 1 0%}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}
+.gap-1\.5{gap:.375rem}.gap-2{gap:.5rem}.gap-2\.5{gap:.625rem}
+.space-y-3\.5>:not([hidden])~:not([hidden]){margin-top:.875rem}
+.px-3{padding-left:.75rem;padding-right:.75rem}.pt-5{padding-top:1.25rem}
+@media(min-width:640px){
+  .sm\:-mt-10{margin-top:-2.5rem}
+  .sm\:px-0{padding-left:0;padding-right:0}
+  .sm\:px-6{padding-left:1.5rem;padding-right:1.5rem}
+}
+
+:root{
+  --abyss-deep:#020d18;
+  --abyss-mid:#051e34;
+  --ocean-teal:#083b5c;
+  --ocean-surface:#0f5e85;
+  --cyber-cyan:#00f2fe;
+  --cyber-aqua:#38ef7d;
+  --cyber-blue:#4facfe;
+  --cyber-glow:rgba(0,242,254,.55);
+  --bronze-light:#f5d98e;
+  --bronze-gold:#d4af37;
+  --bronze-mid:#a67c27;
+  --bronze-dark:#593e10;
+  --stone-teal:#1a4959;
+  --stone-light:#4e8291;
+  --kelp-green:#1f7a58;
+  --coral-pink:#e86f88;
+  --quas:#22d3ee;
+  --wex:#a855f7;
+  --exort:#f59e0b;
+  --text-bright:#e6faff;
+  --text-cyan:#8be9fd;
+  --text-gold:#f7dc8f;
+}
+
+body{
+  min-height:100vh;
+  overflow-x:hidden;
+  color:var(--text-bright);
+  background:
+    radial-gradient(950px 520px at 50% -5%, rgba(56,232,255,.35) 0%, rgba(14,116,144,.16) 45%, transparent 75%),
+    radial-gradient(750px 500px at 15% 25%, rgba(0,210,255,.15) 0%, transparent 65%),
+    radial-gradient(750px 500px at 85% 30%, rgba(147,51,234,.14) 0%, transparent 65%),
+    radial-gradient(900px 600px at 50% 100%, rgba(6,78,99,.45) 0%, transparent 70%),
+    linear-gradient(180deg, #0b4a6f 0%, #062b46 28%, #041b2e 65%, #020e1a 100%);
+  background-attachment:scroll;
+}
+@media(min-width:768px){body{background-attachment:fixed}}
+::selection{background:rgba(0,242,254,.3);color:#fff}
+.is-hidden{display:none!important}
+
+/* ===================================================
+   UNDERWATER ATLANTIS & CYBER HUD ENVIRONMENT
+=================================================== */
+.ocean-environment{
+  position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;
+  contain:strict;
+}
+.sun-rays{
+  position:absolute;top:-15%;left:50%;width:150vw;height:95vh;
+  transform:translateX(-50%);
+  background:
+    conic-gradient(from 152deg at 50% 0%,
+      transparent 0deg,
+      rgba(120,240,255,.14) 6deg,
+      transparent 13deg,
+      rgba(90,225,250,.10) 19deg,
+      transparent 24deg,
+      rgba(150,248,255,.18) 29deg,
+      transparent 35deg,
+      rgba(100,235,255,.12) 41deg,
+      transparent 48deg,
+      rgba(130,245,255,.15) 53deg,
+      transparent 60deg);
+  filter:blur(14px);
+  mix-blend-mode:screen;
+  animation:raySway 14s ease-in-out infinite alternate;
+}
+@keyframes raySway{
+  0%{transform:translateX(-51%) scaleX(1)}
+  100%{transform:translateX(-49%) scaleX(1.06)}
+}
+.caustics-overlay{
+  position:absolute;inset:0;opacity:.18;mix-blend-mode:screen;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(0,242,254,.25) 0%, transparent 25%),
+    radial-gradient(circle at 80% 25%, rgba(0,242,254,.2) 0%, transparent 28%),
+    radial-gradient(circle at 50% 60%, rgba(56,189,248,.18) 0%, transparent 35%);
+}
+.cyber-grid-bg{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(0,242,254,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,242,254,.035) 1px, transparent 1px);
+  background-size:44px 44px;
+  mask-image:radial-gradient(ellipse 80% 70% at 50% 42%, #000 20%, transparent 80%);
+  -webkit-mask-image:radial-gradient(ellipse 80% 70% at 50% 42%, #000 20%, transparent 80%);
+}
+.atlantis-silhouette{
+  position:absolute;bottom:0;left:0;right:0;height:420px;opacity:.26;
+  background:linear-gradient(180deg, transparent 0%, #020c16 95%);
+}
+.outer-temple-pillar{
+  position:fixed;top:0;bottom:0;width:74px;z-index:1;pointer-events:none;
+  background:
+    linear-gradient(90deg, #061b28 0%, #153c4d 28%, #21576b 50%, #0e2e3d 78%, #04121c 100%);
+  border-right:1.5px solid rgba(0,242,254,.22);
+  box-shadow:inset 0 0 28px rgba(0,0,0,.75), 0 0 25px rgba(0,15,28,.8);
+  display:none;
+}
+@media(min-width:1100px){.outer-temple-pillar{display:block}}
+.outer-temple-pillar.left{left:0}
+.outer-temple-pillar.right{right:0;border-right:none;border-left:1.5px solid rgba(0,242,254,.22)}
+.outer-temple-pillar::before{
+  content:"ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ ᚷ ᚹ ᚺ ᚾ ᛁ ᛃ ᛇ ᛈ ᛉ ᛊ ᛏ ᛒ ᛖ ᛗ ᛚ ᛜ ᛞ ᛟ";
+  position:absolute;top:12%;left:50%;transform:translateX(-50%);
+  writing-mode:vertical-rl;text-orientation:upright;
+  font-family:'Segoe UI Historic','Segoe UI Symbol',serif;
+  font-size:13px;letter-spacing:8px;color:rgba(0,242,254,.55);
+  text-shadow:0 0 10px rgba(0,242,254,.85);
+}
+.outer-temple-pillar::after{
+  content:"";position:absolute;inset:0;
+  background:repeating-linear-gradient(90deg, transparent 0 12px, rgba(0,0,0,.28) 12px 15px);
+}
+
+/* Rising Bubbles Animation */
+.bubbles-layer{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.bubble{
+  position:absolute;bottom:-30px;border-radius:50%;
+  background:radial-gradient(circle at 30% 30%, rgba(255,255,255,.85), rgba(0,242,254,.28) 60%, rgba(0,242,254,.05));
+  border:1px solid rgba(165,243,252,.45);
+  box-shadow:0 0 8px rgba(0,242,254,.35), inset 0 0 4px rgba(255,255,255,.6);
+  animation:riseBubble linear infinite;
+}
+@keyframes riseBubble{
+  0%{transform:translateY(0) translateX(0) scale(.85);opacity:0}
+  15%{opacity:.75}
+  50%{transform:translateY(-50vh) translateX(14px) scale(1)}
+  85%{opacity:.7}
+  100%{transform:translateY(-108vh) translateX(-10px) scale(1.12);opacity:0}
+}
+
+/* ===================================================
+   TVRI OFFICIAL EMBLEM BADGE
+=================================================== */
+.tvri-crest{
+  position:relative;display:inline-flex;align-items:center;justify-content:center;
+  gap:2px;padding:3px 13px 4px;border-radius:999px;
+  background:linear-gradient(180deg, #103252 0%, #07192d 100%);
+  border:1.8px solid var(--bronze-light);
+  box-shadow:0 0 14px rgba(0,242,254,.4), 0 3px 8px rgba(0,0,0,.65), inset 0 1px 0 rgba(255,255,255,.35);
+}
+.tvri-crest .tv-part{
+  font-family:'Rajdhani',sans-serif;font-weight:800;font-size:15px;letter-spacing:.04em;
+  color:#38bdf8;text-shadow:0 0 6px rgba(56,189,248,.6);
+}
+.tvri-crest .ri-circle{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:21px;height:21px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%, #ffffff, #dbeafe);
+  color:#0c2d57;font-family:'Rajdhani',sans-serif;font-weight:900;font-size:12px;
+  box-shadow:0 0 6px rgba(255,255,255,.6);margin-left:1px;
+}
+.tvri-crest .ri-wave{
+  width:10px;height:6px;margin-left:2px;border-radius:2px;
+  background:linear-gradient(90deg, #ef4444 0%, #22c55e 50%, #3b82f6 100%);
+}
+
+/* ===================================================
+   TOP INSTRUCTION BANNER
+=================================================== */
+.instruction-wrap{
+  position:relative;max-width:650px;margin:0 auto;padding-top:14px;
+}
+.instruction-crest-bar{
+  position:absolute;top:0;left:50%;transform:translateX(-50%);z-index:4;
+  display:flex;align-items:center;gap:6px;
+}
+.shell-scroll{
+  width:28px;height:20px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.6));
+}
+.instruction{
+  position:relative;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(0,242,254,.16), transparent 70%),
+    linear-gradient(180deg, rgba(8,47,73,.92) 0%, rgba(4,24,40,.95) 100%);
+  border:2px solid #5ea8b8;
+  border-radius:14px;
+  box-shadow:
+    0 0 0 3px rgba(212,175,55,.28),
+    0 0 28px rgba(0,242,254,.25),
+    0 12px 30px rgba(0,0,0,.65),
+    inset 0 0 22px rgba(0,242,254,.15);
+  padding:18px 20px 12px;
+  text-align:center;
+  backdrop-filter:blur(8px);
+}
+.instruction::before{
+  content:"ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ ᚷ ᚹ ᚺ ᚾ ᛁ ᛃ ᛇ ᛈ ᛉ ᛊ ᛏ ᛒ ᛖ ᛗ ᛚ ᛜ ᛞ ᛟ";
+  position:absolute;top:3px;left:18px;right:18px;
+  font-size:8px;letter-spacing:4px;color:rgba(139,233,253,.42);
+  overflow:hidden;white-space:nowrap;pointer-events:none;
+}
+.instruction::after{
+  content:"";position:absolute;inset:5px;
+  border:1px solid rgba(0,242,254,.35);border-radius:10px;pointer-events:none;
+}
+.pearl-accent{
+  position:absolute;bottom:-6px;left:18px;width:13px;height:13px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%, #fff, #cbd5e1 65%, #64748b);
+  box-shadow:0 0 10px rgba(255,255,255,.8);z-index:3;
+}
+.instruction .inst-tag{
+  font-family:'Cinzel',serif;font-size:10.5px;font-weight:700;letter-spacing:.28em;
+  color:var(--cyber-cyan);display:block;margin-bottom:3px;
+  text-shadow:0 0 10px rgba(0,242,254,.75);
+}
+.instruction .inst-text{
+  font-family:'Cinzel',serif;font-size:11.5px;font-weight:700;letter-spacing:.06em;
+  color:#e2f8ff;line-height:1.45;text-shadow:0 1px 3px rgba(0,0,0,.85);
+}
+
+/* ===================================================
+   HERO STAGE: CYBER HUD + SUNKEN PILLARS + 3 ORBS
+=================================================== */
+.hero-stage{position:relative;height:365px;isolation:isolate}
+@media(min-width:640px){.hero-stage{height:435px}}
+
+.hero-glow{
+  position:absolute;left:50%;top:50%;width:560px;height:560px;max-width:100vw;
+  transform:translate(-50%,-50%);pointer-events:none;
+  background:radial-gradient(circle, rgba(0,242,254,.26) 0%, rgba(14,165,233,.12) 42%, transparent 70%);
+  filter:blur(12px);
+}
+
+/* Futuristic Cyber HUD Telemetry Overlays (Desktop/Tablet) */
+.hud-telemetry-left,.hud-telemetry-right{
+  position:absolute;z-index:1;pointer-events:none;
+  font-family:'Share Tech Mono',monospace;color:rgba(0,242,254,.68);
+  font-size:9px;line-height:1.35;letter-spacing:.08em;
+  display:none;
+}
+@media(min-width:640px){
+  .hud-telemetry-left,.hud-telemetry-right{display:block}
+}
+.hud-telemetry-left{
+  left:17%;top:18%;width:135px;
+  border-left:2px solid rgba(0,242,254,.5);
+  padding-left:8px;
+}
+.hud-telemetry-right{
+  right:16%;top:14%;width:140px;text-align:right;
+}
+.hud-bar{
+  height:4px;background:rgba(0,242,254,.18);border:1px solid rgba(0,242,254,.4);
+  margin:3px 0 5px;overflow:hidden;position:relative;
+}
+.hud-bar > span{
+  display:block;height:100%;background:var(--cyber-cyan);
+  box-shadow:0 0 8px var(--cyber-cyan);
+  animation:hudPulseBar 3.2s ease-in-out infinite alternate;
+}
+@keyframes hudPulseBar{0%{width:42%}100%{width:92%}}
+
+.hud-radar-circle{
+  width:74px;height:74px;margin-left:auto;margin-bottom:8px;border-radius:50%;
+  border:1px solid rgba(0,242,254,.45);position:relative;
+  background:
+    radial-gradient(circle, rgba(0,242,254,.15) 0%, transparent 70%),
+    repeating-radial-gradient(circle, transparent 0 10px, rgba(0,242,254,.2) 10px 11px);
+  box-shadow:0 0 15px rgba(0,242,254,.2);
+}
+.hud-radar-circle::before,.hud-radar-circle::after{
+  content:"";position:absolute;background:rgba(0,242,254,.35);
+}
+.hud-radar-circle::before{top:50%;left:0;right:0;height:1px}
+.hud-radar-circle::after{left:50%;top:0;bottom:0;width:1px}
+.hud-radar-sweep{
+  position:absolute;inset:0;border-radius:50%;
+  background:conic-gradient(from 0deg, rgba(0,242,254,.45) 0deg, transparent 75deg);
+  animation:spin 4s linear infinite;
+}
+
+/* Sunken Atlantean Pillars for QUAS & WEX */
+.pillar-unit{position:absolute;bottom:0;display:flex;flex-direction:column;align-items:center;z-index:2}
+.pillar-unit.pu-left{left:2px}
+.pillar-unit.pu-right{right:2px}
+@media(min-width:640px){.pillar-unit.pu-left{left:30px}.pillar-unit.pu-right{right:30px}}
+
+.pillar{width:82px;filter:drop-shadow(0 16px 20px rgba(0,0,0,.75))}
+.p-cap{
+  position:relative;height:22px;border-radius:8px 8px 4px 4px;
+  background:linear-gradient(180deg, #3e7a8c 0%, #1f4e5f 55%, #12313d 100%);
+  border:1.5px solid #63a4b8;border-bottom-color:var(--bronze-gold);
+  box-shadow:inset 0 2px 4px rgba(165,243,252,.35), 0 0 12px rgba(0,242,254,.2);
+}
+.p-cap::after{
+  content:"🐚";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  font-size:11px;filter:hue-rotate(150deg) brightness(1.3);opacity:.85;
+}
+.p-neck{
+  width:60px;height:9px;margin:0 auto;
+  background:linear-gradient(180deg,#163d4b,#0e2933);
+  border:1px solid #498294;border-top:none;border-radius:0 0 4px 4px;
+}
+.p-shaft{
+  position:relative;width:58px;height:182px;margin:0 auto;overflow:hidden;
+  border-left:1.5px solid #4d8a9e;border-right:1.5px solid #235363;
+  background:
+    linear-gradient(90deg, rgba(4,20,30,.75) 0%, rgba(45,112,133,.35) 28%, rgba(103,186,209,.45) 48%, rgba(22,68,84,.5) 75%, rgba(4,18,28,.85) 100%),
+    linear-gradient(180deg, #1b4d5e 0%, #123847 50%, #09222c 100%);
+  box-shadow:inset 6px 0 14px rgba(0,0,0,.6), inset -6px 0 14px rgba(0,0,0,.65);
+}
+.p-shaft::before{
+  content:"";position:absolute;inset:0;
+  background:repeating-linear-gradient(90deg, transparent 0 8px, rgba(3,18,28,.45) 8px 11px);
+}
+.p-shaft::after{
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(circle at 25% 30%, rgba(45,212,191,.35) 0%, transparent 22%),
+    radial-gradient(circle at 75% 65%, rgba(244,114,182,.28) 0%, transparent 24%),
+    radial-gradient(circle at 35% 82%, rgba(56,189,248,.32) 0%, transparent 25%);
+}
+.p-base{
+  height:16px;border-radius:4px 4px 7px 7px;
+  background:linear-gradient(180deg,#255c6e,#10313d);
+  border:1.5px solid #5698ad;
+  box-shadow:inset 0 2px 5px rgba(165,243,252,.3), 0 4px 10px rgba(0,0,0,.6);
+}
+.p-plinth{
+  width:90px;height:11px;margin:0 auto;
+  background:linear-gradient(180deg,#1a4654,#0b222b);
+  border:1px solid #488294;border-radius:3px;
+}
+
+/* Elemental Orbs */
+.orb-wrap{position:relative;z-index:2;width:118px;height:118px;margin-bottom:16px;pointer-events:none}
+.orb{
+  position:absolute;inset:0;border-radius:50%;
+  background:radial-gradient(circle at 34% 28%,#efffff 0%,#38ef7d 12%,#00f2fe 35%,#0284c7 68%,#031d38 92%);
+  box-shadow:0 0 32px rgba(0,242,254,.7), inset -8px -10px 18px rgba(2,12,27,.8);
+}
+.orb-chaos{
+  background:radial-gradient(circle at 34% 28%,#fae8ff 0%,#c084fc 22%,#7e22ce 56%,#1e0538 88%);
+  box-shadow:0 0 32px rgba(168,85,247,.75), inset -8px -10px 18px rgba(18,3,36,.85);
+}
+.orb-exort{
+  background:radial-gradient(circle at 34% 28%,#fef9c3 0%,#fbbf24 24%,#ea580c 58%,#450a0a 90%);
+  box-shadow:0 0 32px rgba(245,158,11,.8), inset -8px -10px 18px rgba(69,10,10,.85);
+}
+.orb::after{
+  content:"";position:absolute;inset:-16%;border:1.5px solid currentColor;
+  border-radius:50%;transform:rotate(-24deg) scaleY(.38);opacity:.65;
+  box-shadow:0 0 12px currentColor;
+}
+.orb-quas{color:#00f2fe}.orb-chaos{color:#c084fc}.orb-exort{color:#fbbf24}
+
+.element-name{
+  position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%);
+  font:800 10px 'Cinzel',serif;letter-spacing:.28em;color:#a5f3fc;
+  white-space:nowrap;text-shadow:0 0 8px rgba(0,242,254,.85), 0 2px 4px #000;
+}
+.pillar-unit .element-name{top:calc(100% + 2px);font-size:9px}
+
+.exort-seat{
+  position:absolute;left:50%;bottom:58px;width:76px;height:76px;
+  transform:translateX(-50%);z-index:4;pointer-events:none;
+}
+.exort-seat .orb-wrap{width:100%;height:100%;margin:0}
+.exort-seat .element-name{top:calc(100% + 4px);font-size:9px;letter-spacing:.24em;color:#fde68a}
+.exort-chalice{
+  position:absolute;bottom:-12px;left:50%;transform:translateX(-50%);
+  width:96px;height:36px;pointer-events:none;z-index:5;
+  filter:drop-shadow(0 4px 8px rgba(0,0,0,.8));
+}
+
+.spell-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-events:none}
+.fx-ready .orb{opacity:0}
+
+/* Holographic Sonar Floor */
+.ritual-floor{
+  position:absolute;left:50%;bottom:34px;width:360px;height:68px;max-width:86%;
+  transform:translateX(-50%);
+  border:1.5px solid rgba(0,242,254,.55);border-radius:50%;pointer-events:none;
+  background:radial-gradient(ellipse, rgba(0,242,254,.24) 0%, rgba(14,165,233,.08) 55%, transparent 72%);
+  box-shadow:0 0 24px rgba(0,242,254,.35), inset 0 0 14px rgba(0,242,254,.25);
+}
+.ritual-floor::before{
+  content:"";position:absolute;inset:9px 26px;
+  border:1px dashed rgba(0,242,254,.7);border-radius:50%;
+}
+
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes spinRev{to{transform:rotate(-360deg)}}
+.hero-stage.fx-paused *{animation-play-state:paused!important}
+.fx-page-paused *,.fx-page-paused *::before,.fx-page-paused *::after{animation-play-state:paused!important}
+.fx-lite .magic-circle .spin-slower{animation:none;will-change:auto}
+.fx-lite .hero-glow{filter:none}
+.fx-lite .btn-kirim{animation:none}
+
+/* Central Cyber-Runic Emblem & Metallic Bronze-Cyan Shield */
+.emblem{
+  position:absolute;left:50%;top:4px;transform:translateX(-50%);
+  width:328px;height:328px;z-index:2;pointer-events:none;contain:layout paint;
+}
+@media(min-width:640px){.emblem{width:362px;height:362px}}
+.emblem-halo{
+  position:absolute;inset:-24px;border-radius:50%;
+  background:radial-gradient(circle, rgba(0,242,254,.38) 0%, rgba(56,189,248,.16) 42%, transparent 68%);
+  animation:haloPulse 4s ease-in-out infinite;
+}
+@keyframes haloPulse{0%,100%{opacity:.72;transform:scale(1)}50%{opacity:1;transform:scale(1.04)}}
+.magic-circle{
+  position:absolute;inset:0;width:100%;height:100%;opacity:.95;
+  filter:drop-shadow(0 0 8px rgba(0,242,254,.65));will-change:transform;
+}
+.spin-slow{animation:spin 68s linear infinite;transform-box:view-box;transform-origin:50% 50%;will-change:transform}
+.spin-rev{animation:spinRev 52s linear infinite;transform-box:view-box;transform-origin:50% 50%;will-change:transform}
+.spin-slower{animation:spin 110s linear infinite;transform-box:view-box;transform-origin:50% 50%;will-change:transform}
+.runes{font-family:'Segoe UI Historic','Segoe UI Symbol',serif;fill:url(#gCyanGlow)}
+.shield-wrap{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.shield-svg{
+  width:186px;
+  filter:drop-shadow(0 14px 22px rgba(0,0,0,.75)) drop-shadow(0 0 18px rgba(0,242,254,.38));
+  animation:shieldFloat 5s ease-in-out infinite;will-change:transform;transform:translateZ(0);
+}
+@media(min-width:640px){.shield-svg{width:204px}}
+@keyframes shieldFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.tw{
+  position:absolute;color:var(--cyber-cyan);font-size:13px;
+  text-shadow:0 0 10px var(--cyber-cyan), 0 0 18px #fff;
+  animation:twinkle 3.4s ease-in-out infinite;z-index:2;
+}
+@keyframes twinkle{0%,100%{opacity:.25;transform:scale(.8) rotate(0deg)}50%{opacity:1;transform:scale(1.15) rotate(18deg)}}
+
+/* ===================================================
+   MAIN FORM PANEL (ATLANTIS TEMPLE + CYBER HUD)
+=================================================== */
+.form-panel{
+  position:relative;
+  background:
+    radial-gradient(90% 50% at 50% 0%, rgba(0,242,254,.14) 0%, transparent 70%),
+    linear-gradient(180deg, rgba(7,37,58,.94) 0%, rgba(4,24,40,.96) 55%, rgba(3,16,28,.98) 100%);
+  border:2px solid #62a8b8;
+  border-radius:18px;
+  box-shadow:
+    0 0 0 3px rgba(212,175,55,.32),
+    0 24px 65px rgba(0,0,0,.85),
+    0 0 35px rgba(0,242,254,.22),
+    inset 0 0 30px rgba(0,242,254,.1);
+  padding:26px 20px 28px;
+  backdrop-filter:blur(12px);
+}
+.form-panel::before{
+  content:"";position:absolute;inset:6px;
+  border:1px solid rgba(0,242,254,.32);border-radius:13px;pointer-events:none;
+}
+
+/* Ornate Pediment Crown on Form Panel */
+.panel-crown{
+  position:relative;margin:-40px auto 12px;display:flex;align-items:center;justify-content:center;gap:8px;z-index:5;
+}
+.crown-wing{
+  width:68px;height:26px;filter:drop-shadow(0 4px 6px rgba(0,0,0,.7));
+}
+.crown-wing.right{transform:scaleX(-1)}
+
+/* Header Cyber Banner Inside Form Panel */
+.cyber-header-banner{
+  position:relative;overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(12,74,110,.65) 0%, rgba(4,26,43,.9) 100%);
+  border:1.5px solid rgba(0,242,254,.45);
+  border-radius:12px;
+  padding:15px 14px 13px;
+  margin-bottom:16px;
+  box-shadow:inset 0 0 24px rgba(0,242,254,.18), 0 4px 16px rgba(0,0,0,.5);
+}
+.cyber-header-banner::before{
+  content:"ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ ᚷ ᚹ ᚺ ᚾ ᛁ ᛃ ᛇ ᛈ ᛉ ᛊ ᛏ ᛒ ᛖ ᛗ ᛚ ᛜ ᛞ ᛟ";
+  position:absolute;top:3px;left:12px;right:12px;text-align:center;
+  font-size:8.5px;letter-spacing:5px;color:rgba(165,243,252,.38);
+  white-space:nowrap;overflow:hidden;pointer-events:none;
+}
+.header-hud-left{
+  position:absolute;left:10px;bottom:8px;width:48px;height:48px;opacity:.38;pointer-events:none;
+  border:1.5px solid var(--cyber-cyan);border-radius:50%;
+  background:repeating-radial-gradient(circle, transparent 0 6px, rgba(0,242,254,.22) 6px 7px);
+  box-shadow:0 0 12px rgba(0,242,254,.4);
+  display:none;
+}
+@media(min-width:480px){.header-hud-left{display:block}}
+.header-hud-right{
+  position:absolute;right:12px;top:50%;transform:translateY(-50%);opacity:.45;pointer-events:none;
+  font-family:'Share Tech Mono',monospace;font-size:8px;color:var(--cyber-cyan);text-align:right;
+  display:none;
+}
+@media(min-width:520px){.header-hud-right{display:block}}
+
+.form-title{
+  font-family:'Cinzel',serif;font-weight:900;font-size:24px;letter-spacing:.08em;text-align:center;line-height:1.15;
+  background:linear-gradient(180deg, #ffffff 0%, #a5f3fc 48%, #22d3ee 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 0 12px rgba(0,242,254,.55)) drop-shadow(0 2px 4px rgba(0,0,0,.9));
+  margin-top:4px;
+}
+@media(min-width:640px){.form-title{font-size:35px}}
+.title-divider{
+  text-align:center;color:var(--bronze-light);font-size:12px;letter-spacing:.45em;margin:3px 0;
+  text-shadow:0 0 10px rgba(0,242,254,.8);
+}
+.form-subtitle{
+  font-family:'Cinzel',serif;font-weight:700;font-size:11px;letter-spacing:.24em;text-align:center;
+  color:#bae6fd;margin:0;text-shadow:0 1px 3px rgba(0,0,0,.9);
+}
+@media(min-width:640px){.form-subtitle{font-size:13px}}
+
+.corner-star{
+  position:absolute;color:var(--cyber-cyan);font-size:11px;opacity:.85;
+  text-shadow:0 0 8px var(--cyber-cyan);z-index:3;pointer-events:none;
+}
+
+/* ===================================================
+   FIELD BOXES & INPUTS (RESPONSIVE MOBILE-FIRST)
+=================================================== */
+.field-box{
+  position:relative;
+  background:linear-gradient(180deg, rgba(9,45,68,.88) 0%, rgba(5,26,42,.92) 100%);
+  border:1.5px solid rgba(212,175,55,.65);
+  border-radius:12px;
+  box-shadow:
+    inset 0 1px 0 rgba(255,248,220,.25),
+    inset 0 0 18px rgba(0,242,254,.08),
+    0 6px 18px rgba(0,0,0,.45);
+  padding:12px 12px;
+  transition:box-shadow .28s, border-color .28s;
+}
+@media(min-width:640px){.field-box{padding:14px 15px}}
+.field-box:hover{
+  border-color:rgba(0,242,254,.7);
+  box-shadow:inset 0 0 20px rgba(0,242,254,.14), 0 6px 20px rgba(0,0,0,.55), 0 0 14px rgba(0,242,254,.2);
+}
+.field-header-row{
+  display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px;flex-wrap:nowrap;
+}
+.field-title-group{
+  display:flex;align-items:center;gap:8px;min-width:0;flex:1;
+}
+.field-label{
+  font-family:'Cinzel',serif;font-weight:700;letter-spacing:.08em;font-size:11.5px;
+  color:var(--text-gold);text-shadow:0 1px 2px rgba(0,0,0,.85);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+@media(min-width:640px){.field-label{font-size:13.5px;letter-spacing:.14em}}
+.numeral{
+  flex:none;width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;
+  border:1.5px solid var(--cyber-cyan);border-radius:50%;
+  font-family:'Cinzel',serif;font-size:10.5px;font-weight:800;color:var(--cyber-cyan);
+  background:radial-gradient(circle, rgba(14,116,144,.65), rgba(4,24,40,.95));
+  box-shadow:0 0 10px rgba(0,242,254,.4), inset 0 0 6px rgba(0,242,254,.35);
+}
+.badge-count{
+  flex:none;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:11px;letter-spacing:.04em;
+  color:#a5f3fc;border:1px solid rgba(0,242,254,.5);
+  background:linear-gradient(180deg, rgba(8,59,92,.9), rgba(4,29,48,.95));
+  border-radius:999px;padding:2.5px 10px;
+  box-shadow:0 0 10px rgba(0,242,254,.2);white-space:nowrap;
+}
+.badge-tag-status{
+  flex:none;white-space:nowrap;
+  font-family:'Share Tech Mono',monospace;font-size:10.5px;color:#cbd5e1;
+  background:rgba(2,14,26,.85);border:1px solid rgba(148,163,184,.4);border-radius:999px;padding:2.5px 10px;
+}
+.badge-tag-status.done{
+  color:#6ee7b7;background:rgba(6,78,59,.85);border-color:#10b981;
+  box-shadow:0 0 10px rgba(16,185,129,.35);
+}
+
+.input-quas,.input-wex{
+  width:100%;font-family:'Rajdhani',sans-serif;font-weight:600;font-size:16.5px;letter-spacing:.03em;
+  color:#f0fdfa;border-radius:10px;padding:11px 14px;outline:none;
+  transition:box-shadow .25s, border-color .25s;
+}
+.input-quas{
+  background:linear-gradient(180deg, rgba(4,24,40,.92) 0%, rgba(7,41,66,.92) 100%);
+  border:1.5px solid rgba(34,211,238,.55);
+  box-shadow:0 0 0 3px rgba(0,242,254,.08), inset 0 2px 8px rgba(0,0,0,.6);
+}
+.input-quas::placeholder{color:#6495ad;font-style:italic;font-weight:500}
+.input-quas:focus{
+  border-color:var(--cyber-cyan);
+  box-shadow:0 0 0 4px rgba(0,242,254,.22), 0 0 22px rgba(0,242,254,.45), inset 0 2px 8px rgba(0,0,0,.6);
+}
+.input-wex{
+  background:linear-gradient(180deg, rgba(20,10,38,.9) 0%, rgba(33,14,61,.9) 100%);
+  border:1.5px solid rgba(192,132,252,.55);color:#f3e8ff;
+  box-shadow:0 0 0 3px rgba(168,85,247,.1), inset 0 2px 8px rgba(0,0,0,.6);
+}
+.input-wex::placeholder{color:#8b6bae;font-style:italic;font-weight:500}
+.input-wex:focus{
+  border-color:#c084fc;
+  box-shadow:0 0 0 4px rgba(168,85,247,.25), 0 0 22px rgba(168,85,247,.5), inset 0 2px 8px rgba(0,0,0,.6);
+}
+.input-wex.filled{font-family:'Share Tech Mono',monospace;font-weight:700;letter-spacing:.08em;color:#e9d5ff}
+@keyframes nopegFlash{0%{box-shadow:0 0 0 6px rgba(0,242,254,.55), 0 0 36px rgba(0,242,254,.85)}100%{}}
+.input-wex.flash{animation:nopegFlash .95s ease-out}
+
+/* Autocomplete Dropdown */
+.ac-list{
+  position:absolute;top:calc(100% + 6px);left:0;right:0;z-index:45;
+  background:rgba(4,24,40,.98);border:1.5px solid var(--cyber-cyan);border-radius:10px;overflow:hidden;
+  box-shadow:0 16px 38px rgba(0,0,0,.85), 0 0 20px rgba(0,242,254,.3);
+  max-height:260px;overflow-y:auto;
+}
+.ac-item{
+  display:flex;justify-content:space-between;align-items:center;gap:10px;
+  padding:10px 14px;cursor:pointer;font-size:15px;font-weight:600;color:#e0f2fe;
+  border-bottom:1px solid rgba(0,242,254,.15);transition:background .15s;
+}
+.ac-item:last-child{border-bottom:none}
+.ac-item:hover{background:linear-gradient(90deg, rgba(0,242,254,.22), rgba(14,116,144,.35));color:#fff}
+.ac-nopeg{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--text-gold);letter-spacing:.04em;white-space:nowrap}
+.file-input-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;opacity:0}
+
+/* Mode Switcher Tabs (Single Line Guaranteed on Mobile) */
+.mode-switch-box{
+  background:linear-gradient(180deg, rgba(9,45,68,.9) 0%, rgba(4,24,40,.94) 100%);
+  border:1.5px solid rgba(0,242,254,.45);border-radius:12px;padding:11px 12px;
+  box-shadow:inset 0 0 18px rgba(0,242,254,.08), 0 4px 14px rgba(0,0,0,.45);
+}
+.mode-switch-label{
+  font-family:'Cinzel',serif;font-weight:700;font-size:10.5px;letter-spacing:.1em;color:var(--text-gold);
+  display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;gap:6px;
+}
+@media(min-width:640px){.mode-switch-label{font-size:11.5px;letter-spacing:.15em}}
+.mode-auto-tag{
+  font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--cyber-cyan);letter-spacing:.03em;white-space:nowrap;
+}
+.tab-group{
+  display:grid;grid-template-columns:1fr 1fr;gap:6px;background:rgba(2,12,24,.75);padding:4px;border-radius:10px;
+  border:1px solid rgba(0,242,254,.28);
+}
+.tab-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  font-family:'Cinzel',serif;font-weight:700;font-size:10.5px;letter-spacing:.05em;
+  padding:10px 6px;border-radius:8px;border:1px solid transparent;
+  color:#94a3b8;cursor:pointer;transition:all .22s ease;user-select:none;white-space:nowrap;
+}
+@media(min-width:640px){.tab-btn{font-size:12.5px;letter-spacing:.08em;padding:11px 12px}}
+.tab-btn svg{flex:none}
+.tab-btn:hover{background:rgba(0,242,254,.12);color:#e0f2fe}
+.tab-btn.active{
+  background:linear-gradient(180deg, #0ea5e9 0%, #0369a1 55%, #0c4a6e 100%);
+  color:#fff;border-color:var(--cyber-cyan);
+  box-shadow:0 0 16px rgba(0,242,254,.45), inset 0 1px 0 rgba(255,255,255,.4);
+  text-shadow:0 0 8px rgba(0,242,254,.8);
+}
+
+/* ===================================================
+   PRO GEOTAG TELEMETRY & ZERO-OVERLAP CAMERA VIEWFINDER
+=================================================== */
+.geotag-area{
+  position:relative;
+  background:linear-gradient(180deg, rgba(4,22,36,.95) 0%, rgba(2,13,24,.98) 100%);
+  border:1.5px solid rgba(0,242,254,.5);border-radius:11px;padding:10px;
+  box-shadow:inset 0 0 22px rgba(0,242,254,.12), 0 4px 14px rgba(0,0,0,.6);
+}
+@media(min-width:640px){.geotag-area{padding:12px}}
+
+/* Live GPS Telemetry Strip above Viewfinder */
+.telemetry-strip{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-bottom:9px;
+}
+@media(min-width:540px){.telemetry-strip{grid-template-columns:repeat(4,1fr)}}
+.tele-card{
+  background:rgba(6,34,54,.85);border:1px solid rgba(0,242,254,.3);border-radius:7px;
+  padding:5px 8px;display:flex;flex-direction:column;justify-content:center;min-width:0;
+}
+.tele-k{
+  font-family:'Share Tech Mono',monospace;font-size:8.5px;letter-spacing:.06em;color:#67e8f9;
+  text-transform:uppercase;display:flex;align-items:center;justify-content:space-between;gap:4px;
+}
+.tele-v{
+  font-family:'Share Tech Mono',monospace;font-size:11px;font-weight:700;color:#fff;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px;
+}
+.tele-v.good{color:#4ade80}
+.tele-v.warn{color:#facc15}
+.tele-v.bad{color:#fb7185}
+
+/* Portrait-friendly Viewfinder on Mobile so Face is Never Covered */
+.camera-viewfinder{
+  position:relative;width:100%;aspect-ratio:3/3.6;border-radius:9px;overflow:hidden;
+  background:#020911;border:1.5px solid rgba(0,242,254,.45);
+  box-shadow:0 0 20px rgba(0,0,0,.8);
+}
+@media(min-width:520px){
+  .camera-viewfinder{aspect-ratio:4/3}
+}
+.camera-viewfinder video,
+.camera-viewfinder canvas{
+  width:100%;height:100%;object-fit:cover;display:block;border-radius:8px;
+}
+.camera-viewfinder video.mirror{transform:scaleX(-1)}
+.camera-viewfinder canvas{display:none}
+
+/* Cyber HUD Reticle inside Viewfinder */
+.viewfinder-hud{
+  position:absolute;inset:0;pointer-events:none;z-index:6;
+  transition:opacity .25s;
+}
+.viewfinder-hud.hud-off{opacity:0}
+.vf-corner{
+  position:absolute;width:18px;height:18px;border-color:rgba(0,242,254,.65);
+}
+.vf-corner.tl{top:42px;left:10px;border-top-width:2px;border-left-width:2px}
+.vf-corner.tr{top:42px;right:10px;border-top-width:2px;border-right-width:2px}
+.vf-corner.bl{bottom:70px;left:10px;border-bottom-width:2px;border-left-width:2px}
+.vf-corner.br{bottom:70px;right:10px;border-bottom-width:2px;border-right-width:2px}
+.vf-crosshair{
+  position:absolute;top:44%;left:50%;width:44px;height:44px;
+  transform:translate(-50%,-50%);border:1px dashed rgba(0,242,254,.35);border-radius:50%;
+}
+.vf-crosshair::before,.vf-crosshair::after{
+  content:"";position:absolute;background:rgba(0,242,254,.35);
+}
+.vf-crosshair::before{top:50%;left:-5px;right:-5px;height:1px}
+.vf-crosshair::after{left:50%;top:-5px;bottom:-5px;width:1px}
+
+/* Single-Row Compact Top Bar inside Viewfinder (Never Wraps) */
+.camera-top-bar{
+  position:absolute;top:7px;left:7px;right:7px;
+  display:flex;align-items:center;justify-content:space-between;gap:4px;
+  z-index:10;pointer-events:none;flex-wrap:nowrap;
+}
+.camera-top-bar > *{pointer-events:auto}
+.top-ctrl-group{display:flex;align-items:center;gap:4px;flex:none}
+.btn-cam-ctrl{
+  display:inline-flex;align-items:center;justify-content:center;gap:4px;
+  font-family:'Rajdhani',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.04em;
+  color:#e0f2fe;background:rgba(3,18,32,.78);
+  border:1px solid rgba(0,242,254,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  padding:4px 7px;border-radius:6px;cursor:pointer;transition:all .2s ease;white-space:nowrap;
+}
+.btn-cam-ctrl:hover{background:rgba(8,59,92,.95);border-color:#fff;color:#fff;box-shadow:0 0 10px rgba(0,242,254,.4)}
+.gps-pill{
+  display:inline-flex;align-items:center;gap:4px;min-width:0;
+  font-family:'Share Tech Mono',monospace;font-size:10px;
+  padding:4px 8px;border-radius:6px;background:rgba(3,18,32,.8);
+  border:1px solid rgba(0,242,254,.5);color:#bae6fd;
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.gps-pill.accurate{color:#4ade80;border-color:rgba(74,222,128,.75);box-shadow:0 0 10px rgba(74,222,128,.25)}
+.gps-pill.moderate{color:#facc15;border-color:rgba(250,204,21,.75)}
+.gps-pill.searching{color:#fb7185;border-color:rgba(251,113,133,.75)}
+
+.shutter-flash{
+  position:absolute;inset:0;background:#e0f2fe;opacity:0;pointer-events:none;z-index:20;
+  transition:opacity .15s ease-out;
+}
+.shutter-flash.flash{opacity:.9}
+
+/* Sleek Compact Bottom Overlay inside Viewfinder */
+.geo-overlay{
+  position:absolute;bottom:0;left:0;right:0;z-index:8;
+  background:linear-gradient(transparent 0%, rgba(2,12,24,.82) 30%, rgba(2,10,20,.95) 100%);
+  padding:14px 9px 6px;
+  font-family:'Share Tech Mono',monospace;font-size:10px;color:#e0f2fe;
+  line-height:1.32;pointer-events:none;border-radius:0 0 8px 8px;
+}
+.geo-overlay .geo-coords{
+  font-weight:700;font-size:10.5px;color:var(--cyber-cyan);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.geo-overlay .geo-time{
+  font-size:10px;color:var(--text-gold);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.geo-overlay .geo-addr{
+  font-family:'Rajdhani',sans-serif;font-weight:600;font-size:10.5px;color:#e2e8f0;
+  margin-top:1px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+
+/* Fallback Panel */
+.camera-fallback-panel{
+  display:none;background:rgba(4,24,40,.95);border:1.5px dashed var(--cyber-cyan);border-radius:8px;
+  padding:12px 10px;text-align:center;color:#e0f2fe;margin-top:8px;
+}
+.camera-fallback-panel.active{display:block}
+.camera-fallback-title{font-family:'Cinzel',serif;font-weight:700;font-size:11px;color:var(--text-gold);margin-bottom:4px}
+.camera-fallback-desc{font-size:12px;color:#bae6fd;margin-bottom:9px}
+.btn-file-capture{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;
+  font-family:'Cinzel',serif;font-weight:700;font-size:10.5px;letter-spacing:.06em;
+  color:#02101d;background:linear-gradient(180deg, #67e8f9 0%, #06b6d4 100%);
+  border:1.5px solid #cffafe;border-radius:8px;padding:9px 14px;
+  box-shadow:0 0 14px rgba(0,242,254,.4);transition:all .2s;
+}
+.btn-file-capture:hover{filter:brightness(1.1);transform:translateY(-1px)}
+
+/* Camera Action Buttons (Side-by-Side Single Row on Mobile & Desktop) */
+.cam-action-row{
+  display:flex;align-items:stretch;gap:7px;margin-top:9px;flex-wrap:nowrap;
+}
+.btn-capture{
+  flex:1;min-width:0;display:flex;align-items:center;justify-content:center;gap:7px;cursor:pointer;
+  font-family:'Cinzel',serif;font-weight:700;font-size:11px;letter-spacing:.07em;color:#fff;
+  background:linear-gradient(180deg, #0284c7 0%, #0369a1 50%, #075985 100%);
+  border:1.5px solid var(--cyber-cyan);border-radius:8px;padding:12px 10px;
+  box-shadow:0 0 16px rgba(0,242,254,.3), inset 0 1px 0 rgba(255,255,255,.35);
+  transition:transform .15s, box-shadow .25s, filter .2s;white-space:nowrap;
+}
+@media(min-width:640px){.btn-capture{font-size:12px;letter-spacing:.11em;padding:12px 14px}}
+.btn-capture svg{flex:none}
+.btn-capture:hover{transform:translateY(-1px);box-shadow:0 0 22px rgba(0,242,254,.6);filter:brightness(1.1)}
+.btn-capture:active{transform:translateY(0) scale(.98)}
+.btn-capture:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+
+.btn-flip-sub{
+  flex:none;display:inline-flex;align-items:center;justify-content:center;gap:5px;cursor:pointer;
+  font-family:'Cinzel',serif;font-weight:700;font-size:10.5px;color:var(--text-gold);
+  background:rgba(4,24,40,.85);border:1.5px solid var(--bronze-gold);border-radius:8px;padding:10px 12px;
+  transition:all .2s;white-space:nowrap;
+}
+.btn-flip-sub:hover{background:rgba(212,175,55,.2);color:#fff;box-shadow:0 0 12px rgba(212,175,55,.35)}
+
+.post-capture-bar{
+  display:none;gap:7px;margin-top:8px;flex-wrap:nowrap;
+}
+.btn-retake,.btn-download-geo{
+  flex:1;min-width:0;display:inline-flex;align-items:center;justify-content:center;gap:6px;cursor:pointer;
+  font-family:'Cinzel',serif;font-weight:700;font-size:10px;letter-spacing:.06em;
+  border-radius:8px;padding:10px 8px;transition:all .2s;white-space:nowrap;
+}
+.btn-retake{
+  color:var(--text-gold);background:rgba(4,24,40,.8);border:1px solid var(--bronze-gold);
+}
+.btn-retake:hover{background:rgba(212,175,55,.2);color:#fff}
+.btn-download-geo{
+  color:#a5f3fc;background:rgba(6,59,92,.75);border:1px solid var(--cyber-cyan);
+}
+.btn-download-geo:hover{background:rgba(0,242,254,.2);color:#fff;box-shadow:0 0 12px rgba(0,242,254,.35)}
+
+.geo-status{
+  margin-top:8px;font-size:12px;color:#bae6fd;text-align:center;
+  font-family:'Rajdhani',sans-serif;font-weight:600;letter-spacing:.02em;line-height:1.35;
+}
+.geo-status.ok{color:#4ade80}
+.geo-status.err{color:#fb7185}
+
+.captured-info{
+  display:none;margin-top:10px;
+  background:rgba(4,26,43,.92);border:1px solid rgba(0,242,254,.4);border-radius:8px;padding:8px 10px;
+}
+.captured-info .ci-row{display:flex;justify-content:space-between;gap:8px;padding:3px 0;font-size:12px;border-bottom:1px dashed rgba(0,242,254,.14)}
+.captured-info .ci-row:last-child{border-bottom:none}
+.captured-info .ci-label{color:#67e8f9;font-weight:700;white-space:nowrap;font-family:'Share Tech Mono',monospace;font-size:10.5px}
+.captured-info .ci-value{color:#f0fdfa;font-weight:600;text-align:right;word-break:break-word}
+
+/* Submit Button */
+.btn-kirim{
+  position:relative;width:100%;overflow:hidden;cursor:pointer;
+  font-family:'Cinzel',serif;font-weight:800;letter-spacing:.14em;font-size:13.5px;color:#fff;
+  padding:15px 10px;border-radius:12px;border:2px solid var(--cyber-cyan);
+  background:linear-gradient(180deg, #06b6d4 0%, #0284c7 45%, #0f172a 100%);
+  box-shadow:
+    0 0 25px rgba(0,242,254,.45),
+    inset 0 2px 3px rgba(255,255,255,.45),
+    inset 0 -6px 14px rgba(2,12,27,.7),
+    0 8px 22px rgba(0,0,0,.65);
+  transition:transform .15s, filter .2s, box-shadow .2s;
+  text-shadow:0 0 10px rgba(0,242,254,.9);white-space:nowrap;
+}
+@media(min-width:640px){.btn-kirim{font-size:16px;letter-spacing:.22em;padding:16px 12px}}
+.btn-kirim:hover{transform:translateY(-2px);filter:brightness(1.1);box-shadow:0 0 34px rgba(0,242,254,.7), 0 10px 26px rgba(0,0,0,.75)}
+.btn-kirim:active{transform:translateY(0) scale(.985)}
+.btn-kirim:disabled{opacity:.65;cursor:wait;animation:none}
+.btn-kirim::after{
+  content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;
+  background:linear-gradient(100deg, transparent, rgba(255,255,255,.4), transparent);
+  transform:translateX(0) skewX(-18deg);animation:btnShine 3.4s ease-in-out infinite;
+}
+@keyframes btnShine{0%{transform:translateX(0) skewX(-18deg)}55%,100%{transform:translateX(480%) skewX(-18deg)}}
+
+.invalid-ring{border-color:#fb7185!important;box-shadow:0 0 0 3px rgba(244,63,94,.4)!important}
+@keyframes shake{
+  10%,90%{transform:translateX(-2px)}
+  20%,80%{transform:translateX(3px)}
+  30%,50%,70%{transform:translateX(-5px)}
+  40%,60%{transform:translateX(5px)}
+}
+.shake{animation:shake .55s}
+
+/* Footer & Config Trigger */
+.site-footer{
+  text-align:center;margin:24px 0 38px;
+  font-family:'Cinzel',serif;font-size:11px;letter-spacing:.24em;color:#67e8f9;
+  text-shadow:0 0 10px rgba(0,242,254,.4);
+}
+.site-footer .rule{display:inline-block;width:36px;height:1px;background:linear-gradient(90deg,transparent,var(--cyber-cyan));vertical-align:middle;margin:0 8px}
+.site-footer .rule.r{background:linear-gradient(90deg,var(--cyber-cyan),transparent)}
+
+.btn-config-trigger{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:'Cinzel',serif;font-size:10px;letter-spacing:.08em;color:var(--text-gold);
+  background:rgba(4,24,40,.75);border:1px dashed rgba(212,175,55,.65);padding:6px 12px;
+  border-radius:8px;cursor:pointer;margin-top:8px;transition:all .2s;
+}
+.btn-config-trigger:hover{background:rgba(0,242,254,.15);color:#fff;border-color:var(--cyber-cyan);border-style:solid}
+
+/* Modals & Toasts */
+.toast{
+  position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:80;
+  font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;letter-spacing:.02em;
+  padding:9px 18px;border-radius:10px;border:1.5px solid;
+  animation:toastIn .28s ease-out;box-shadow:0 12px 32px rgba(0,0,0,.75);
+  width:max-content;max-width:92vw;text-align:center;backdrop-filter:blur(10px);
+}
+.toast-error{background:rgba(69,10,10,.94);border-color:#fb7185;color:#fecdd3;box-shadow:0 0 20px rgba(244,63,94,.4)}
+.toast-ok{background:rgba(4,32,52,.94);border-color:var(--cyber-cyan);color:#e0f2fe;box-shadow:0 0 20px rgba(0,242,254,.4)}
+@keyframes toastIn{from{opacity:0;transform:translate(-50%,-12px)}to{opacity:1;transform:translate(-50%,0)}}
+
+.modal-wrap{position:fixed;inset:0;z-index:70;display:flex;align-items:center;justify-content:center;padding:14px}
+.modal-backdrop{position:absolute;inset:0;background:rgba(2,10,20,.82);backdrop-filter:blur(6px)}
+.modal-card{
+  position:relative;width:100%;max-width:430px;
+  background:linear-gradient(180deg, #072942 0%, #031525 100%);
+  border:2px solid var(--cyber-cyan);border-radius:16px;
+  box-shadow:0 0 35px rgba(0,242,254,.35), 0 20px 50px rgba(0,0,0,.85), inset 0 0 0 1px rgba(212,175,55,.4);
+  padding:22px 18px 20px;text-align:center;color:#e0f2fe;
+  animation:popIn .32s cubic-bezier(.2,1.4,.4,1);
+}
+@keyframes popIn{from{opacity:0;transform:scale(.88) translateY(14px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.mini-circle{position:absolute;border:2px dashed var(--cyber-cyan);border-radius:50%;animation:spin 14s linear infinite;box-shadow:0 0 12px rgba(0,242,254,.45)}
+.modal-title{font-family:'Cinzel',serif;font-weight:800;font-size:16px;letter-spacing:.12em;color:var(--cyber-cyan);margin:12px 0 4px;text-shadow:0 0 10px rgba(0,242,254,.6)}
+.modal-sub{font-size:13.5px;color:#bae6fd;margin:0 0 14px}
+.modal-summary{
+  background:rgba(2,14,26,.85);border:1px solid rgba(0,242,254,.35);border-radius:10px;
+  padding:10px 12px;margin:0 0 16px;text-align:left;
+}
+.modal-summary .row{display:flex;justify-content:space-between;gap:10px;padding:3.5px 0;font-size:13px;border-bottom:1px dashed rgba(0,242,254,.12)}
+.modal-summary .row:last-child{border-bottom:none}
+.modal-summary .k{color:#67e8f9;font-weight:700;white-space:nowrap}
+.modal-summary .v{color:#fff;font-weight:700;text-align:right;word-break:break-word}
+.config-input{
+  width:100%;font-family:'Share Tech Mono',monospace;font-size:12px;
+  padding:9px 11px;border:1.5px solid rgba(0,242,254,.5);border-radius:8px;
+  background:rgba(2,12,24,.9);color:#e0f2fe;margin:5px 0 9px;
+}
+.config-input:focus{outline:none;border-color:var(--cyber-cyan);box-shadow:0 0 12px rgba(0,242,254,.4)}
+.btn-modal{
+  font-family:'Cinzel',serif;font-weight:700;font-size:12px;letter-spacing:.14em;color:#fff;
+  background:linear-gradient(180deg,#0284c7,#0369a1);border:1.5px solid var(--cyber-cyan);
+  border-radius:9px;padding:10px 22px;cursor:pointer;transition:transform .15s, filter .2s;
+  box-shadow:0 0 16px rgba(0,242,254,.35);
+}
+.btn-modal:hover{transform:translateY(-1px);filter:brightness(1.12)}
+
+/* Mobile Specific Tuning */
+@media(max-width:640px){
+  .instruction{padding:16px 12px 10px}
+  .instruction .inst-tag{font-size:9.5px;letter-spacing:.2em}
+  .instruction .inst-text{font-size:10.5px;letter-spacing:.04em}
+  .hero-stage{height:310px;contain:layout paint}
+  .pillar-unit{transform:scale(.56);transform-origin:bottom center}
+  .emblem{width:226px;height:226px;top:6px}
+  .shield-svg{width:128px}
+  .pillar-unit .orb-wrap{width:92px;height:92px}
+  .exort-seat{width:50px;height:50px;bottom:42px}
+  .exort-chalice{width:76px;height:28px;bottom:-10px}
+  .ritual-floor{bottom:26px;width:230px;height:42px}
+  .hero-glow{filter:none;opacity:.55}
+  .form-panel{padding:20px 11px 18px;border-radius:15px}
+  .form-panel::before{inset:4px;border-radius:11px}
+  .corner-star{display:none}
+  .panel-crown{margin:-34px auto 10px}
+  .crown-wing{width:52px;height:21px}
+  .cyber-header-banner{padding:12px 10px 10px;margin-bottom:12px}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+</style>
+</head>
+<body spellcheck="false">
+
+<!-- UNDERWATER ATLANTIS & CYBER HUD ENVIRONMENT -->
+<div class="ocean-environment" aria-hidden="true">
+  <div class="sun-rays"></div>
+  <div class="caustics-overlay"></div>
+  <div class="cyber-grid-bg"></div>
+  <svg class="atlantis-silhouette" viewBox="0 0 1440 420" preserveAspectRatio="none">
+    <defs>
+      <linearGradient id="templeGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#0b3b59" stop-opacity="0.7"/>
+        <stop offset="100%" stop-color="#020c16" stop-opacity="0.98"/>
+      </linearGradient>
+    </defs>
+    <g fill="url(#templeGrad)">
+      <polygon points="180,170 310,115 440,170"/>
+      <rect x="195" y="170" width="230" height="14"/>
+      <rect x="210" y="184" width="16" height="110"/>
+      <rect x="250" y="184" width="16" height="110"/>
+      <rect x="290" y="184" width="16" height="110"/>
+      <rect x="330" y="184" width="16" height="110"/>
+      <rect x="370" y="184" width="16" height="110"/>
+      <rect x="400" y="184" width="14" height="110"/>
+      <rect x="185" y="294" width="250" height="22"/>
+      <rect x="980" y="165" width="320" height="14"/>
+      <rect x="1000" y="179" width="18" height="115"/>
+      <rect x="1055" y="179" width="18" height="115"/>
+      <rect x="1110" y="179" width="18" height="115"/>
+      <rect x="1165" y="179" width="18" height="115"/>
+      <rect x="1220" y="179" width="18" height="115"/>
+      <rect x="965" y="294" width="350" height="24"/>
+    </g>
+    <path d="M0,330 Q220,290 460,340 T960,325 T1440,335 L1440,420 L0,420 Z" fill="#031322"/>
+    <path d="M0,365 Q360,330 720,370 T1440,355 L1440,420 L0,420 Z" fill="#020b14"/>
+  </svg>
+</div>
+
+<div class="outer-temple-pillar left" aria-hidden="true"></div>
+<div class="outer-temple-pillar right" aria-hidden="true"></div>
+
+<!-- Rising Underwater Bubbles -->
+<div class="bubbles-layer" aria-hidden="true">
+  <span class="bubble" style="left:8%;width:10px;height:10px;animation-duration:11s;animation-delay:0s"></span>
+  <span class="bubble" style="left:16%;width:6px;height:6px;animation-duration:9s;animation-delay:2s"></span>
+  <span class="bubble" style="left:24%;width:14px;height:14px;animation-duration:14s;animation-delay:1s"></span>
+  <span class="bubble" style="left:76%;width:8px;height:8px;animation-duration:10s;animation-delay:3s"></span>
+  <span class="bubble" style="left:84%;width:12px;height:12px;animation-duration:13s;animation-delay:0.5s"></span>
+  <span class="bubble" style="left:92%;width:7px;height:7px;animation-duration:8.5s;animation-delay:4s"></span>
+</div>
+
+<!-- TOP INSTRUCTION BANNER -->
+<div class="relative z-10 max-w-4xl mx-auto px-3 sm:px-6 pt-5">
+  <div class="instruction-wrap">
+    <div class="instruction-crest-bar">
+      <svg class="shell-scroll" viewBox="0 0 40 28" aria-hidden="true">
+        <path d="M38,24 C22,26 8,18 6,6 C14,2 28,6 34,16 Z" fill="#d4af37" stroke="#f7dc8f" stroke-width="1.2"/>
+        <circle cx="32" cy="19" r="4" fill="#8a5f1a"/>
+      </svg>
+      <div class="tvri-crest" title="LPP TVRI">
+        <span class="tv-part">TV</span>
+        <span class="ri-circle">RI</span>
+        <span class="ri-wave"></span>
+      </div>
+      <svg class="shell-scroll" style="transform:scaleX(-1)" viewBox="0 0 40 28" aria-hidden="true">
+        <path d="M38,24 C22,26 8,18 6,6 C14,2 28,6 34,16 Z" fill="#d4af37" stroke="#f7dc8f" stroke-width="1.2"/>
+        <circle cx="32" cy="19" r="4" fill="#8a5f1a"/>
+      </svg>
+    </div>
+    <div class="instruction">
+      <span class="pearl-accent" aria-hidden="true"></span>
+      <span class="inst-tag">✦ PETUNJUK ABSENSI ✦</span>
+      <span class="inst-text">PILIH JENIS ABSENSI (DATANG / PULANG), PASTIKAN GPS AKTIF, AMBIL FOTO GEOTAG LANGSUNG, LALU KIRIMKAN DATA KEHADIRAN ANDA.</span>
+    </div>
+  </div>
+</div>
+
+<!-- HERO STAGE: ATLANTIS PILLARS + HOLOGRAPHIC CYBER SHIELD + 3 ELEMENTAL ORBS -->
+<header class="relative z-0 max-w-4xl mx-auto">
+  <div class="hero-stage fx-paused">
+    <canvas class="spell-canvas" aria-hidden="true"></canvas>
+    <div class="ritual-floor" aria-hidden="true"></div>
+    <div class="hero-glow"></div>
+
+    <!-- Left Cyber HUD Telemetry Overlay -->
+    <div class="hud-telemetry-left" aria-hidden="true">
+      <div>COORDINATES : <span id="hudLatLng">LOCKING...</span></div>
+      <div>SCANNING MODE : <span style="color:#4ade80">KALMAN-GPS</span></div>
+      <div class="hud-bar"><span style="width:78%"></span></div>
+      <div>GEOFENCE : <span id="hudGeofence">STANDBY</span></div>
+      <div>SIGNAL SYNC : WIB UTC+7</div>
+      <div class="hud-bar"><span style="width:64%;animation-delay:1.1s"></span></div>
+    </div>
+
+    <!-- Right Cyber HUD Radar & Telemetry Overlay -->
+    <div class="hud-telemetry-right" aria-hidden="true">
+      <div class="hud-radar-circle">
+        <div class="hud-radar-sweep"></div>
+      </div>
+      <div>TELEMETRY : <span id="hudAccText">INIT</span></div>
+      <div class="hud-bar"><span style="width:85%"></span></div>
+      <div>SAT-FIXSAMPLES : <span id="hudSampleCount">0</span></div>
+    </div>
+
+    <!-- Left Pillar: QUAS (Water Vortex) -->
+    <div class="pillar-unit pu-left">
+      <div class="orb-wrap" aria-hidden="true">
+        <div class="orb orb-quas" data-element="quas"></div>
+        <span class="element-name">QUAS</span>
+      </div>
+      <div class="pillar">
+        <div class="p-cap"></div>
+        <div class="p-neck"></div>
+        <div class="p-shaft"></div>
+        <div class="p-base"></div>
+        <div class="p-plinth"></div>
+      </div>
+    </div>
+
+    <!-- Right Pillar: WEX (Cosmic Vortex) -->
+    <div class="pillar-unit pu-right">
+      <div class="orb-wrap" aria-hidden="true">
+        <div class="orb orb-chaos" data-element="wex"></div>
+        <span class="element-name">WEX</span>
+      </div>
+      <div class="pillar">
+        <div class="p-cap"></div>
+        <div class="p-neck"></div>
+        <div class="p-shaft"></div>
+        <div class="p-base"></div>
+        <div class="p-plinth"></div>
+      </div>
+    </div>
+
+    <!-- Center Bottom Seat: EXORT -->
+    <div class="exort-seat" aria-hidden="true">
+      <div class="orb-wrap">
+        <div class="orb orb-exort" data-element="exort"></div>
+        <span class="element-name">EXORT</span>
+      </div>
+      <svg class="exort-chalice" viewBox="0 0 120 44">
+        <path d="M12,34 C28,42 92,42 108,34 C98,20 84,12 60,18 C36,12 22,20 12,34 Z" fill="#1e5e4a" stroke="#d4af37" stroke-width="1.5"/>
+        <path d="M26,36 C42,24 78,24 94,36" fill="none" stroke="#67e8f9" stroke-width="1.2" opacity=".7"/>
+      </svg>
+    </div>
+
+    <!-- Center Cyber-Runic Magic Circle & TVRI Geotag Shield -->
+    <div class="emblem">
+      <div class="emblem-halo"></div>
+      <svg class="magic-circle" viewBox="0 0 400 400" aria-hidden="true">
+        <defs>
+          <linearGradient id="gCyanGlow" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#a5f3fc"/>
+            <stop offset="50%" stop-color="#00f2fe"/>
+            <stop offset="100%" stop-color="#38bdf8"/>
+          </linearGradient>
+          <linearGradient id="gBronze" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#f7dc8f"/>
+            <stop offset="50%" stop-color="#d4af37"/>
+            <stop offset="100%" stop-color="#8a5f1a"/>
+          </linearGradient>
+          <path id="runeRing1" d="M200,200 m-172,0 a172,172 0 1,1 344,0 a172,172 0 1,1 -344,0"/>
+          <path id="runeRing2" d="M200,200 m-130,0 a130,130 0 1,1 260,0 a130,130 0 1,1 -260,0"/>
+        </defs>
+        <g>
+          <g class="spin-slow">
+            <circle cx="200" cy="200" r="190" fill="none" stroke="url(#gCyanGlow)" stroke-width="1.5" opacity=".75"/>
+            <circle cx="200" cy="200" r="181" fill="none" stroke="url(#gCyanGlow)" stroke-width="1.2" stroke-dasharray="3 6"/>
+            <text class="runes" font-size="14.5" letter-spacing="5.8"><textPath href="#runeRing1">ᚠᚢᚦᚨᚱᚲᚷᚹᚺᚾᛁᛃᛇᛈᛉᛊᛏᛒᛖᛗᛚᛜᛞᛟᚠᚢᚦᚨᚱᚲᚷᚹᚺᚾᛁᛃᛇᛈᛉᛊᛏᛒᛖᛗᛚᛜᛞᛟ</textPath></text>
+          </g>
+          <g class="spin-rev">
+            <circle cx="200" cy="200" r="154" fill="none" stroke="url(#gCyanGlow)" stroke-width="1.4"/>
+            <circle cx="200" cy="200" r="145" fill="none" stroke="url(#gBronze)" stroke-width="1.1" stroke-dasharray="12 6"/>
+            <path d="M200 60 L321 270 L79 270 Z" fill="none" stroke="url(#gCyanGlow)" stroke-width="1" opacity=".65"/>
+            <path d="M200 340 L79 130 L321 130 Z" fill="none" stroke="url(#gBronze)" stroke-width="1" opacity=".55"/>
+            <circle cx="200" cy="46" r="4" fill="#00f2fe"/>
+            <circle cx="200" cy="354" r="4" fill="#00f2fe"/>
+            <circle cx="46" cy="200" r="4" fill="#00f2fe"/>
+            <circle cx="354" cy="200" r="4" fill="#00f2fe"/>
+          </g>
+          <g class="spin-slower">
+            <circle cx="200" cy="200" r="116" fill="none" stroke="url(#gCyanGlow)" stroke-width="1" stroke-dasharray="4 4"/>
+            <text class="runes" font-size="11" letter-spacing="4"><textPath href="#runeRing2">ᛝᛞᛟᚠᚢᚦᚨᚱᚲᚷᚹᚺᚾᛁᛃᛝᛞᛟᚠᚢᚦᚨᚱᚲᚷᚹᚺᚾᛁᛃᛝᛞᛟᚠᚢᚦᚨᚱᚲᚷᚹᚺᚾᛁᛃᛝᛞᛟ</textPath></text>
+          </g>
+        </g>
+      </svg>
+
+      <!-- Central Bronze & Glowing Cyan Hologram Shield -->
+      <div class="shield-wrap">
+        <svg class="shield-svg" viewBox="0 0 220 260" aria-label="Logo Absensi Geotag TVRI">
+          <defs>
+            <linearGradient id="shieldBronze" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#fae19c"/>
+              <stop offset="35%" stop-color="#c99b38"/>
+              <stop offset="70%" stop-color="#8c6218"/>
+              <stop offset="100%" stop-color="#523507"/>
+            </linearGradient>
+            <radialGradient id="shieldCyanCore" cx="50%" cy="42%" r="60%">
+              <stop offset="0%" stop-color="#67f9ff"/>
+              <stop offset="45%" stop-color="#0891b2"/>
+              <stop offset="85%" stop-color="#083344"/>
+              <stop offset="100%" stop-color="#041824"/>
+            </radialGradient>
+            <linearGradient id="pinCyan" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#ffffff"/>
+              <stop offset="35%" stop-color="#67e8f9"/>
+              <stop offset="100%" stop-color="#0284c7"/>
+            </linearGradient>
+          </defs>
+          <path d="M110 8 L204 34 V124 C204 176 162 214 110 238 C58 214 16 176 16 124 V34 Z" fill="url(#shieldBronze)" stroke="#fde68a" stroke-width="2.5"/>
+          <path d="M110 20 L191 43 V122 C191 166 155 198 110 220 C65 198 29 166 29 122 V43 Z" fill="url(#shieldCyanCore)" stroke="#00f2fe" stroke-width="2.5"/>
+          <circle cx="110" cy="112" r="64" fill="none" stroke="#00f2fe" stroke-width="0.8" stroke-dasharray="3 4" opacity=".55"/>
+          <circle cx="44" cy="56" r="3" fill="#fde68a"/>
+          <circle cx="176" cy="56" r="3" fill="#fde68a"/>
+          <circle cx="38" cy="118" r="2.5" fill="#00f2fe"/>
+          <circle cx="182" cy="118" r="2.5" fill="#00f2fe"/>
+
+          <g transform="translate(110, 26)">
+            <rect x="-32" y="-11" width="64" height="22" rx="11" fill="#082038" stroke="#fde68a" stroke-width="1.6"/>
+            <text x="-8" y="5" text-anchor="middle" font-family="Rajdhani, sans-serif" font-weight="900" font-size="13" fill="#38bdf8">TV</text>
+            <circle cx="13" cy="0" r="8" fill="#ffffff"/>
+            <text x="13" y="4" text-anchor="middle" font-family="Rajdhani, sans-serif" font-weight="900" font-size="10" fill="#082038">RI</text>
+          </g>
+
+          <g transform="translate(110, 92)">
+            <path d="M0,-34 C-18,-34 -30,-20 -30,-3 C-30,16 0,38 0,38 C0,38 30,16 30,-3 C30,-20 18,-34 0,-34 Z" fill="url(#pinCyan)" stroke="#cffafe" stroke-width="1.8"/>
+            <circle cx="0" cy="-6" r="11" fill="#06283d" stroke="#67e8f9" stroke-width="1.8"/>
+            <circle cx="0" cy="-6" r="4.5" fill="#ffffff"/>
+          </g>
+
+          <text x="110" y="154" text-anchor="middle" font-family="Cinzel, serif" font-weight="900" font-size="18.5" letter-spacing="3.5" fill="#e0f2fe" stroke="#0369a1" stroke-width=".6">GEOTAG</text>
+
+          <g transform="translate(110, 177)">
+            <path d="M-30 -6 C-18 -13 -6 -11 0 -5 C6 -11 18 -13 30 -6 L30 9 C18 3 6 5 0 10 C-6 5 -18 3 -30 9 Z" fill="url(#pinCyan)" stroke="#042f49" stroke-width="1.3"/>
+            <path d="M0 -5 L0 10" stroke="#042f49" stroke-width="1.5"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <span class="tw" style="top:12%;left:30%">✦</span>
+    <span class="tw" style="top:7%;right:30%;animation-delay:1.1s">✦</span>
+    <span class="tw" style="top:40%;left:22%;animation-delay:2s;font-size:11px">✦</span>
+    <span class="tw" style="top:38%;right:22%;animation-delay:.6s;font-size:11px">✦</span>
+  </div>
+</header>
+
+<!-- MAIN FORM CONTAINER -->
+<main class="relative z-20 max-w-2xl mx-auto px-3 sm:px-0 -mt-6 sm:-mt-10">
+  <section class="form-panel">
+    <span class="corner-star" style="top:10px;left:14px">✦</span>
+    <span class="corner-star" style="top:10px;right:14px">✦</span>
+    <span class="corner-star" style="bottom:10px;left:14px">✦</span>
+    <span class="corner-star" style="bottom:10px;right:14px">✦</span>
+
+    <!-- Pediment Crown with Seashells & TVRI Badge -->
+    <div class="panel-crown">
+      <svg class="crown-wing" viewBox="0 0 90 36" aria-hidden="true">
+        <path d="M88,28 C60,32 28,24 8,8 C26,2 56,8 78,20 Z" fill="#c99b38" stroke="#fde68a" stroke-width="1.2"/>
+        <path d="M76,30 C52,30 28,22 16,14" fill="none" stroke="#00f2fe" stroke-width="1.2"/>
+      </svg>
+      <div class="tvri-crest">
+        <span class="tv-part">TV</span>
+        <span class="ri-circle">RI</span>
+        <span class="ri-wave"></span>
+      </div>
+      <svg class="crown-wing right" viewBox="0 0 90 36" aria-hidden="true">
+        <path d="M88,28 C60,32 28,24 8,8 C26,2 56,8 78,20 Z" fill="#c99b38" stroke="#fde68a" stroke-width="1.2"/>
+        <path d="M76,30 C52,30 28,22 16,14" fill="none" stroke="#00f2fe" stroke-width="1.2"/>
+      </svg>
+    </div>
+
+    <!-- Cyber Atlantis Title Header -->
+    <div class="cyber-header-banner">
+      <div class="header-hud-left"></div>
+      <div class="header-hud-right">
+        <div>SYS: GEOTAG-V4</div>
+        <div>ENC: SHA256-WM</div>
+        <div>LOC: TVRI-JMB</div>
+      </div>
+      <h1 class="form-title">ABSENSI GEOTAG</h1>
+      <div class="title-divider">— ✦ —</div>
+      <p class="form-subtitle">FOTO KEHADIRAN HARIAN</p>
+    </div>
+
+    <form id="formAbsensi" class="space-y-3.5" novalidate spellcheck="false">
+
+      <!-- I. NAMA LENGKAP -->
+      <div class="field-box" id="boxNama">
+        <div class="field-header-row">
+          <div class="field-title-group">
+            <span class="numeral">I</span>
+            <label for="inputNama" class="field-label">NAMA LENGKAP</label>
+          </div>
+          <span class="badge-count">Memuat pegawai...</span>
+        </div>
+        <div class="relative" id="acWrap">
+          <input type="text" id="inputNama" class="input-quas" placeholder="Ketik nama atau pilih pegawai..." autocomplete="off" spellcheck="false" autocorrect="off" autocapitalize="off"/>
+          <div id="acList" class="ac-list is-hidden"></div>
+        </div>
+      </div>
+
+      <!-- II. NOMOR PEGAWAI -->
+      <div class="field-box" id="boxNoPeg">
+        <div class="field-header-row">
+          <div class="field-title-group">
+            <span class="numeral">II</span>
+            <label for="inputNoPeg" class="field-label">NOMOR PEGAWAI / NIP</label>
+          </div>
+          <span class="badge-tag-status" id="badgeTimeSync" title="Sinkronisasi Jam Presisi WIB">WIB SYNC</span>
+        </div>
+        <input type="text" id="inputNoPeg" class="input-wex" placeholder="Terisi otomatis atau ketik Nomor Pegawai..." spellcheck="false" autocorrect="off" autocapitalize="off"/>
+      </div>
+
+      <!-- ATTENDANCE TYPE SELECTOR (TABS) -->
+      <div class="mode-switch-box" id="boxJenisAbsen">
+        <div class="mode-switch-label">
+          <span>✦ PILIH JENIS KEHADIRAN ✦</span>
+          <span class="mode-auto-tag" id="modeAutoTag">AUTO: SESI PAGI</span>
+        </div>
+        <div class="tab-group" role="tablist" aria-label="Jenis Absensi">
+          <button type="button" class="tab-btn active" id="tabDatang" role="tab" aria-selected="true" data-mode="Datang">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            <span>ABSEN DATANG</span>
+          </button>
+          <button type="button" class="tab-btn" id="tabPulang" role="tab" aria-selected="false" data-mode="Pulang">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <span>ABSEN PULANG</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- III. FOTO GEOTAG DATANG -->
+      <div class="field-box" id="boxDatang">
+        <div class="field-header-row">
+          <div class="field-title-group">
+            <span class="numeral">III</span>
+            <label class="field-label">FOTO GEOTAG DATANG</label>
+          </div>
+          <span class="badge-tag-status" id="badgeStatusDatang">Belum Ada Foto</span>
+        </div>
+        <div class="geotag-area" id="geoAreaDatang">
+          <!-- Live Telemetry Strip -->
+          <div class="telemetry-strip">
+            <div class="tele-card">
+              <div class="tele-k"><span>AKURASI GPS</span><span>SAT</span></div>
+              <div class="tele-v warn" id="teleAccDatang">Mencari...</div>
+            </div>
+            <div class="tele-card">
+              <div class="tele-k"><span>JARAK KANTOR</span><span>RAD</span></div>
+              <div class="tele-v" id="teleDistDatang">Menghitung...</div>
+            </div>
+            <div class="tele-card">
+              <div class="tele-k"><span>ELEVASI / ARAH</span><span>ALT</span></div>
+              <div class="tele-v" id="teleAltDatang">- m MDPL</div>
+            </div>
+            <div class="tele-card">
+              <div class="tele-k"><span>FILTER ENGINE</span><span>KLM</span></div>
+              <div class="tele-v good" id="teleModeDatang">Kalman Lock</div>
+            </div>
+          </div>
+
+          <div class="camera-viewfinder" id="viewfinderDatang">
+            <div class="viewfinder-hud" id="hudOverlayDatang">
+              <div class="vf-corner tl"></div>
+              <div class="vf-corner tr"></div>
+              <div class="vf-corner bl"></div>
+              <div class="vf-corner br"></div>
+              <div class="vf-crosshair"></div>
+            </div>
+            <!-- Single-Line Non-Overlapping Top Bar -->
+            <div class="camera-top-bar">
+              <div class="gps-pill searching" id="pillGpsDatang">
+                <span>📍 Menunggu GPS...</span>
+              </div>
+              <div class="top-ctrl-group">
+                <button type="button" class="btn-cam-ctrl" id="btnFlipDatang" title="Balik Kamera (Depan / Belakang)">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 16v-4a8 8 0 0 0-16 0v4"/><polyline points="8 12 4 16 0 12"/><polyline points="16 20 20 16 24 20"/></svg>
+                  <span id="labelCamDatang">Depan</span>
+                </button>
+                <button type="button" class="btn-cam-ctrl" id="btnHudDatang" title="Tampilkan/Sembunyikan Grid HUD">HUD</button>
+                <button type="button" class="btn-cam-ctrl" id="btnRefreshGpsDatang" title="Kunci Ulang Sinyal GPS Presisi">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                </button>
+              </div>
+            </div>
+            <div class="shutter-flash" id="flashDatang"></div>
+            <video id="videoDatang" autoplay playsinline muted></video>
+            <canvas id="canvasDatang"></canvas>
+            <div class="geo-overlay" id="overlayDatang">
+              <div class="geo-coords" id="coordsDatang">📍 Menunggu sinyal GPS presisi...</div>
+              <div class="geo-time" id="timeDatang"></div>
+              <div class="geo-addr" id="addrDatang"></div>
+            </div>
+          </div>
+
+          <!-- Fallback input if camera access fails -->
+          <div class="camera-fallback-panel" id="fallbackDatang">
+            <div class="camera-fallback-title">⚠️ Akses Kamera Langsung Tidak Tersedia</div>
+            <div class="camera-fallback-desc">Browser memblokir kamera langsung atau dibuka di dalam webview. Ambil foto menggunakan kamera perangkat:</div>
+            <label class="btn-file-capture">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+              <span>BUKA KAMERA / PILIH FOTO DATANG</span>
+              <input type="file" id="fileFallbackDatang" accept="image/*" capture="user" class="file-input-hidden" />
+            </label>
+          </div>
+
+          <div class="cam-action-row" id="actionRowDatang">
+            <button type="button" id="btnCaptureDatang" class="btn-capture" disabled>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+              <span id="labelCaptureDatang">AMBIL FOTO DATANG</span>
+            </button>
+            <button type="button" id="btnFlipSubDatang" class="btn-flip-sub" title="Balik Kamera Depan / Belakang">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 16v-4a8 8 0 0 0-16 0v4"/><polyline points="8 12 4 16 0 12"/><polyline points="16 20 20 16 24 20"/></svg>
+              <span>BALIK</span>
+            </button>
+          </div>
+
+          <div class="post-capture-bar" id="postBarDatang">
+            <button type="button" id="btnRetakeDatang" class="btn-retake">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+              <span>ULANGI FOTO</span>
+            </button>
+            <button type="button" id="btnDownloadDatang" class="btn-download-geo">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span>UNDUH BUKTI (.JPG)</span>
+            </button>
+          </div>
+
+          <div class="geo-status" id="geoStatusDatang">Menginisialisasi kamera & mengunci sinyal satelit GPS...</div>
+          <div class="captured-info" id="capturedInfoDatang">
+            <div class="ci-row"><span class="ci-label">KODE VERIFIKASI</span><span class="ci-value" id="ciHashDatang"></span></div>
+            <div class="ci-row"><span class="ci-label">WAKTU PRESISI</span><span class="ci-value" id="ciTimeDatang"></span></div>
+            <div class="ci-row"><span class="ci-label">KOORDINAT GPS</span><span class="ci-value" id="ciCoordsDatang"></span></div>
+            <div class="ci-row"><span class="ci-label">STATUS RADIUS</span><span class="ci-value" id="ciRadiusDatang"></span></div>
+            <div class="ci-row"><span class="ci-label">ALAMAT LOKASI</span><span class="ci-value" id="ciAddrDatang"></span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- III. FOTO GEOTAG PULANG -->
+      <div class="field-box" id="boxPulang">
+        <div class="field-header-row">
+          <div class="field-title-group">
+            <span class="numeral">III</span>
+            <label class="field-label">FOTO GEOTAG PULANG</label>
+          </div>
+          <span class="badge-tag-status" id="badgeStatusPulang">Belum Ada Foto</span>
+        </div>
+        <div class="geotag-area" id="geoAreaPulang">
+          <!-- Live Telemetry Strip -->
+          <div class="telemetry-strip">
+            <div class="tele-card">
+              <div class="tele-k"><span>AKURASI GPS</span><span>SAT</span></div>
+              <div class="tele-v warn" id="teleAccPulang">Mencari...</div>
+            </div>
+            <div class="tele-card">
+              <div class="tele-k"><span>JARAK KANTOR</span><span>RAD</span></div>
+              <div class="tele-v" id="teleDistPulang">Menghitung...</div>
+            </div>
+            <div class="tele-card">
+              <div class="tele-k"><span>ELEVASI / ARAH</span><span>ALT</span></div>
+              <div class="tele-v" id="teleAltPulang">- m MDPL</div>
+            </div>
+            <div class="tele-card">
+              <div class="tele-k"><span>FILTER ENGINE</span><span>KLM</span></div>
+              <div class="tele-v good" id="teleModePulang">Kalman Lock</div>
+            </div>
+          </div>
+
+          <div class="camera-viewfinder" id="viewfinderPulang">
+            <div class="viewfinder-hud" id="hudOverlayPulang">
+              <div class="vf-corner tl"></div>
+              <div class="vf-corner tr"></div>
+              <div class="vf-corner bl"></div>
+              <div class="vf-corner br"></div>
+              <div class="vf-crosshair"></div>
+            </div>
+            <!-- Single-Line Non-Overlapping Top Bar -->
+            <div class="camera-top-bar">
+              <div class="gps-pill searching" id="pillGpsPulang">
+                <span>📍 Menunggu GPS...</span>
+              </div>
+              <div class="top-ctrl-group">
+                <button type="button" class="btn-cam-ctrl" id="btnFlipPulang" title="Balik Kamera (Depan / Belakang)">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 16v-4a8 8 0 0 0-16 0v4"/><polyline points="8 12 4 16 0 12"/><polyline points="16 20 20 16 24 20"/></svg>
+                  <span id="labelCamPulang">Depan</span>
+                </button>
+                <button type="button" class="btn-cam-ctrl" id="btnHudPulang" title="Tampilkan/Sembunyikan Grid HUD">HUD</button>
+                <button type="button" class="btn-cam-ctrl" id="btnRefreshGpsPulang" title="Kunci Ulang Sinyal GPS Presisi">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                </button>
+              </div>
+            </div>
+            <div class="shutter-flash" id="flashPulang"></div>
+            <video id="videoPulang" autoplay playsinline muted></video>
+            <canvas id="canvasPulang"></canvas>
+            <div class="geo-overlay" id="overlayPulang">
+              <div class="geo-coords" id="coordsPulang">📍 Menunggu sinyal GPS presisi...</div>
+              <div class="geo-time" id="timePulang"></div>
+              <div class="geo-addr" id="addrPulang"></div>
+            </div>
+          </div>
+
+          <!-- Fallback input if camera access fails -->
+          <div class="camera-fallback-panel" id="fallbackPulang">
+            <div class="camera-fallback-title">⚠️ Akses Kamera Langsung Tidak Tersedia</div>
+            <div class="camera-fallback-desc">Browser memblokir kamera langsung atau dibuka di dalam webview. Ambil foto menggunakan kamera perangkat:</div>
+            <label class="btn-file-capture">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+              <span>BUKA KAMERA / PILIH FOTO PULANG</span>
+              <input type="file" id="fileFallbackPulang" accept="image/*" capture="user" class="file-input-hidden" />
+            </label>
+          </div>
+
+          <div class="cam-action-row" id="actionRowPulang">
+            <button type="button" id="btnCapturePulang" class="btn-capture" disabled>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+              <span id="labelCapturePulang">AMBIL FOTO PULANG</span>
+            </button>
+            <button type="button" id="btnFlipSubPulang" class="btn-flip-sub" title="Balik Kamera Depan / Belakang">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 16v-4a8 8 0 0 0-16 0v4"/><polyline points="8 12 4 16 0 12"/><polyline points="16 20 20 16 24 20"/></svg>
+              <span>BALIK</span>
+            </button>
+          </div>
+
+          <div class="post-capture-bar" id="postBarPulang">
+            <button type="button" id="btnRetakePulang" class="btn-retake">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+              <span>ULANGI FOTO</span>
+            </button>
+            <button type="button" id="btnDownloadPulang" class="btn-download-geo">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span>UNDUH BUKTI (.JPG)</span>
+            </button>
+          </div>
+
+          <div class="geo-status" id="geoStatusPulang">Menginisialisasi kamera & mengunci sinyal satelit GPS...</div>
+          <div class="captured-info" id="capturedInfoPulang">
+            <div class="ci-row"><span class="ci-label">KODE VERIFIKASI</span><span class="ci-value" id="ciHashPulang"></span></div>
+            <div class="ci-row"><span class="ci-label">WAKTU PRESISI</span><span class="ci-value" id="ciTimePulang"></span></div>
+            <div class="ci-row"><span class="ci-label">KOORDINAT GPS</span><span class="ci-value" id="ciCoordsPulang"></span></div>
+            <div class="ci-row"><span class="ci-label">STATUS RADIUS</span><span class="ci-value" id="ciRadiusPulang"></span></div>
+            <div class="ci-row"><span class="ci-label">ALAMAT LOKASI</span><span class="ci-value" id="ciAddrPulang"></span></div>
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" id="btnKirim" class="btn-kirim">✦ KIRIM DATA ABSENSI ✦</button>
+    </form>
+  </section>
+
+  <footer class="site-footer">
+    <span class="rule"></span>SATRIA © 2026 ✦ LPP TVRI<span class="rule r"></span>
+    <div style="margin-top: 10px;">
+      <button type="button" id="btnBukaConfig" class="btn-config-trigger">
+        ⚙️ Pengaturan Geofence Kantor
+      </button>
+    </div>
+  </footer>
+</main>
+
+<!-- Modal Sukses -->
+<div id="modalSukses" class="modal-wrap is-hidden">
+  <div class="modal-backdrop"></div>
+  <div class="modal-card">
+    <div class="relative mx-auto" style="width:84px;height:84px">
+      <div class="mini-circle" style="inset:0"></div>
+      <div class="mini-circle" style="inset:13px;animation-direction:reverse;animation-duration:9s"></div>
+      <div class="absolute inset-0 flex items-center justify-center" style="color:var(--cyber-cyan);font-size:28px;text-shadow:0 0 14px var(--cyber-cyan)">✦</div>
+    </div>
+    <h3 class="modal-title">✦ ABSENSI TERKIRIM ✦</h3>
+    <p class="modal-sub" id="modalSubMessage">Data kehadiran geotag Anda berhasil dicatat.</p>
+    <div class="modal-summary">
+      <div class="row"><span class="k">Nama</span><span class="v" id="sumNama"></span></div>
+      <div class="row"><span class="k">No. Pegawai</span><span class="v" id="sumNoPeg"></span></div>
+      <div class="row"><span class="k">Jenis Absen</span><span class="v" id="sumJenis"></span></div>
+      <div class="row"><span class="k">Kode Hash</span><span class="v" id="sumHash"></span></div>
+      <div class="row" id="rowSumDatang"><span class="k">Foto Datang</span><span class="v" id="sumDatang"></span></div>
+      <div class="row" id="rowSumPulang"><span class="k">Foto Pulang</span><span class="v" id="sumPulang"></span></div>
+    </div>
+    <button type="button" id="btnModalTutup" class="btn-modal">SELESAI</button>
+  </div>
+</div>
+
+<!-- Modal Konfigurasi Geofence -->
+<div id="modalConfig" class="modal-wrap is-hidden">
+  <div class="modal-backdrop"></div>
+  <div class="modal-card" style="max-width:460px;text-align:left">
+    <h3 class="modal-title" style="text-align:center">✦ PENGATURAN GEOFENCE KANTOR ✦</h3>
+    <p class="modal-sub" style="text-align:center">Titik Koordinat & Radius Kantor LPP TVRI Stasiun Jambi</p>
+
+    <!-- Status Backend Google Sheets Terkunci Permanen -->
+    <div style="background:rgba(15,118,110,0.18);border:1px solid rgba(20,184,166,0.35);border-radius:8px;padding:9px 12px;margin-bottom:12px;font-size:11.5px;color:#a7f3d0;display:flex;align-items:center;justify-content:space-between;gap:8px">
+      <span style="display:flex;align-items:center;gap:6px">
+        <span style="font-size:13px">🔒</span>
+        <span><strong>Backend Google Sheets:</strong> Terpasang Permanen</span>
+      </span>
+      <span style="font-size:10px;padding:2px 6px;background:rgba(52,211,153,0.18);border:1px solid #34d399;border-radius:4px;color:#6ee7b7;font-weight:700">LOCKED</span>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <div>
+        <label style="font-size:11.5px;font-weight:700;color:#67e8f9;display:block">1. Latitude Kantor:</label>
+        <input type="text" id="inputOfficeLat" class="config-input" placeholder="-1.615722" />
+      </div>
+      <div>
+        <label style="font-size:11.5px;font-weight:700;color:#67e8f9;display:block">2. Longitude Kantor:</label>
+        <input type="text" id="inputOfficeLng" class="config-input" placeholder="103.571370" />
+      </div>
+    </div>
+
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px">
+      <div style="flex:1">
+        <label style="font-size:11.5px;font-weight:700;color:#67e8f9;display:block">3. Radius Maksimal (Meter):</label>
+        <input type="number" id="inputOfficeRadius" class="config-input" placeholder="250" style="margin-bottom:0" />
+      </div>
+      <div style="padding-top:16px">
+        <button type="button" id="btnSetCurrentAsOffice" class="btn-cam-ctrl" style="padding:10px 12px">📍 Set Lokasi Saat Ini</button>
+      </div>
+    </div>
+
+    <div id="configStatus" style="font-size:12px;margin:8px 0 12px;color:#fde68a;min-height:18px;text-align:center"></div>
+    <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+      <button type="button" id="btnSimpanConfig" class="btn-modal" style="padding:9px 18px">SIMPAN</button>
+      <button type="button" id="btnTestConfig" class="btn-modal" style="background:linear-gradient(180deg,#0f766e,#115e59);padding:9px 18px">TES KONEKSI</button>
+      <button type="button" id="btnTutupConfig" class="btn-modal" style="background:#334155;border-color:#64748b;padding:9px 18px">TUTUP</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast is-hidden"></div>
+
+<!-- =========================================================
+     CORE APPLICATION & ADVANCED KALMAN GEOTAGGING ENGINE
+========================================================= -->
+<script>
+(function(){
+  "use strict";
+  var $ = function(s, el){ return (el || document).querySelector(s); };
+  var $$ = function(s, el){ return Array.prototype.slice.call((el || document).querySelectorAll(s)); };
+
+  // =============================================
+  // 1. KONFIGURASI BACKEND & GEOFENCE KANTOR TVRI STASIUN JAMBI
+  // =============================================
+  var DEFAULT_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzlT-YX_i9xiS9sTQy6eae0KtPSvTT8jSAKbcYDf4p5iaMe8pid03Pg8UH28qEGtR8x/exec";
+  var SCRIPT_URL = DEFAULT_SCRIPT_URL;
+
+  // Bersihkan cache URL lama agar backend Google Sheets baru aktif permanen
+  try {
+    localStorage.removeItem("tvri_script_url");
+  } catch(e){}
+
+  // Migrasi otomatis bila masih tersimpan titik default lama (-1.61158)
+  var savedLat = localStorage.getItem("tvri_office_lat");
+  var savedLng = localStorage.getItem("tvri_office_lng");
+  if(savedLat === "-1.61158" || savedLat === "-1.611580"){
+    savedLat = null;
+    savedLng = null;
+    try {
+      localStorage.removeItem("tvri_office_lat");
+      localStorage.removeItem("tvri_office_lng");
+    } catch(e){}
+  }
+
+  // Titik referensi presisi LPP TVRI Stasiun Jambi (Simpang IV Sipin, Kota Jambi)
+  var OFFICE_CONFIG = {
+    lat: parseFloat(savedLat) || -1.615722,
+    lng: parseFloat(savedLng) || 103.571370,
+    radius: parseInt(localStorage.getItem("tvri_office_radius"), 10) || 250,
+    name: "LPP TVRI Stasiun Jambi"
+  };
+
+  var DEFAULT_PEGAWAI = [
+    { nama: "Ahmad Fauzi", nopeg: "199203152022011001", jabatan: "Prambakti" },
+    { nama: "Bambang Sutrisno", nopeg: "198805202021021003", jabatan: "Prambakti" },
+    { nama: "Citra Dewi", nopeg: "199507112023032002", jabatan: "Prambakti" },
+    { nama: "Dedi Kurniawan", nopeg: "199011042020121004", jabatan: "Prambakti" },
+    { nama: "Eka Prasetya", nopeg: "199308192022011005", jabatan: "Prambakti" },
+    { nama: "Fajar Hidayat", nopeg: "199402282023011006", jabatan: "Prambakti" },
+    { nama: "Gita Permata", nopeg: "199604122023022001", jabatan: "Prambakti" },
+    { nama: "Hendra Wijaya", nopeg: "199109252021011007", jabatan: "Prambakti" },
+    { nama: "Indah Lestari", nopeg: "199701302023032003", jabatan: "Prambakti" },
+    { nama: "Joko Susilo", nopeg: "198906142020121008", jabatan: "Prambakti" }
+  ];
+
+  var PEGAWAI_DATABASE = [];
+  try {
+    var cached = localStorage.getItem("tvri_pegawai_cache");
+    if(cached){
+      var parsed = JSON.parse(cached);
+      if(Array.isArray(parsed) && parsed.length > 0) PEGAWAI_DATABASE = parsed;
+    }
+  } catch(e){}
+  if(!PEGAWAI_DATABASE.length) PEGAWAI_DATABASE = DEFAULT_PEGAWAI.slice();
+
+  var badgeEl = $(".badge-count");
+  var searchTimer = null;
+
+  function updateBadge(count){
+    if(badgeEl && count > 0){
+      badgeEl.textContent = count + " Pegawai Terdaftar";
+    }
+  }
+  updateBadge(PEGAWAI_DATABASE.length);
+
+  function setPegawaiList(list){
+    if(Array.isArray(list) && list.length > 0){
+      PEGAWAI_DATABASE = list;
+      updateBadge(list.length);
+      try { localStorage.setItem("tvri_pegawai_cache", JSON.stringify(list)); } catch(e){}
+    }
+  }
+
+  function initPegawaiLoader(){
+    if(!SCRIPT_URL) return;
+    fetch(SCRIPT_URL + (SCRIPT_URL.indexOf("?") === -1 ? "?" : "&") + "action=pegawai&t=" + Date.now(), { redirect: "follow" })
+      .then(function(res){ return res.json(); })
+      .then(function(data){
+        if(data && data.status === "success" && data.results && data.results.length > 0){
+          setPegawaiList(data.results);
+        }
+      })
+      .catch(function(){});
+  }
+  initPegawaiLoader();
+
+  // =============================================
+  // 2. NETWORK TIME SYNC ENGINE (ANTI-MANIPULASI JAM)
+  // =============================================
+  var timeOffsetMs = 0;
+
+  function syncNetworkTime(){
+    var start = Date.now();
+    fetch("https://worldtimeapi.org/api/timezone/Asia/Jakarta", { cache: "no-store" })
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        if(d && d.unixtime){
+          var rtt = (Date.now() - start) / 2;
+          var serverMs = (d.unixtime * 1000) + rtt;
+          timeOffsetMs = serverMs - Date.now();
+          var b = $("#badgeTimeSync");
+          if(b){
+            b.textContent = "✓ WIB ATOMIC";
+            b.className = "badge-tag-status done";
+          }
+        }
+      })
+      .catch(function(){
+        var b = $("#badgeTimeSync");
+        if(b) b.textContent = "WIB SYNC";
+      });
+  }
+  syncNetworkTime();
+
+  function getAccurateDate(){
+    return new Date(Date.now() + timeOffsetMs);
+  }
+
+  function formatDateTime(d){
+    var now = d || getAccurateDate();
+    var days = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
+    var months = ["Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agt","Sep","Okt","Nov","Des"];
+    var day = days[now.getDay()];
+    var dd = String(now.getDate()).padStart(2, "0");
+    var mm = months[now.getMonth()];
+    var yy = now.getFullYear();
+    var hh = String(now.getHours()).padStart(2, "0");
+    var mi = String(now.getMinutes()).padStart(2, "0");
+    var ss = String(now.getSeconds()).padStart(2, "0");
+    return day + ", " + dd + " " + mm + " " + yy + " " + hh + ":" + mi + ":" + ss + " WIB";
+  }
+
+  // =============================================
+  // 3. AUTOCOMPLETE NAMA & NOMOR PEGAWAI
+  // =============================================
+  var namaInput = $("#inputNama"), noPegInput = $("#inputNoPeg"), acWrap = $("#acWrap"), acList = $("#acList");
+
+  function hideAC(){ acList.classList.add("is-hidden"); }
+
+  function scoreMatch(item, query){
+    var n = item.nama.toLowerCase();
+    if(n === query) return 3;
+    if(n.indexOf(query) === 0) return 2;
+    return 1;
+  }
+
+  function renderAC(q){
+    var s = q.trim().toLowerCase();
+    if(!s){ hideAC(); return; }
+
+    if(PEGAWAI_DATABASE && PEGAWAI_DATABASE.length > 0){
+      var terms = s.split(/\s+/).filter(Boolean);
+      var matches = [];
+      for(var i=0; i<PEGAWAI_DATABASE.length; i++){
+        var item = PEGAWAI_DATABASE[i];
+        var hay = (item.nama + " " + (item.nopeg || "")).toLowerCase();
+        var ok = true;
+        for(var k=0; k<terms.length; k++){
+          if(hay.indexOf(terms[k]) === -1){ ok = false; break; }
+        }
+        if(ok) matches.push(item);
+      }
+      if(!matches.length){ hideAC(); return; }
+      matches.sort(function(a, b){ return scoreMatch(b, s) - scoreMatch(a, s); });
+      showACItems(matches.slice(0, 8));
+      return;
+    }
+
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(function(){
+      if(SCRIPT_URL){
+        fetch(SCRIPT_URL + (SCRIPT_URL.indexOf("?") === -1 ? "?" : "&") + "action=cari&q=" + encodeURIComponent(s), { redirect: "follow" })
+          .then(function(res){ return res.json(); })
+          .then(function(data){
+            if(data && data.status === "success" && data.results && namaInput.value.trim().toLowerCase() === s){
+              showACItems(data.results);
+            }
+          })
+          .catch(function(){});
+      }
+    }, 120);
+  }
+
+  function showACItems(items){
+    if(!items || !items.length){ hideAC(); return; }
+    acList.innerHTML = items.map(function(pg){
+      return '<div class="ac-item" data-nama="'+escapeHtml(pg.nama)+'" data-nopeg="'+escapeHtml(pg.nopeg||"")+'">'
+        + '<span>'+escapeHtml(pg.nama)+'</span>'
+        + (pg.nopeg ? '<span class="ac-nopeg">'+escapeHtml(pg.nopeg)+'</span>' : '')
+        + '</div>';
+    }).join("");
+    acList.classList.remove("is-hidden");
+  }
+
+  function escapeHtml(str){
+    return String(str || "").replace(/[&<>"']/g, function(m){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m];
+    });
+  }
+
+  var NOPEG_CACHE = {};
+  for(var p=0; p<PEGAWAI_DATABASE.length; p++){
+    if(PEGAWAI_DATABASE[p].nama && PEGAWAI_DATABASE[p].nopeg){
+      NOPEG_CACHE[PEGAWAI_DATABASE[p].nama.toLowerCase()] = PEGAWAI_DATABASE[p].nopeg;
+    }
+  }
+
+  function applyNoPeg(nopeg){
+    if(!nopeg) return;
+    noPegInput.value = nopeg;
+    noPegInput.classList.add("filled", "flash");
+    setTimeout(function(){ noPegInput.classList.remove("flash"); }, 950);
+  }
+
+  function fetchNoPeg(nama){
+    nama = (nama || "").trim();
+    if(!nama) return;
+    var lower = nama.toLowerCase();
+
+    if(NOPEG_CACHE[lower]){
+      applyNoPeg(NOPEG_CACHE[lower]);
+      cekKehadiranHariIni(nama, NOPEG_CACHE[lower]);
+      return;
+    }
+
+    if(!SCRIPT_URL) return;
+    noPegInput.placeholder = "Mengambil Nomor Pegawai...";
+
+    fetch(SCRIPT_URL + (SCRIPT_URL.indexOf("?") === -1 ? "?" : "&") + "action=nopeg&nama=" + encodeURIComponent(nama) + "&t=" + Date.now(), { redirect: "follow" })
+      .then(function(res){ return res.json(); })
+      .then(function(data){
+        if(data && data.status === "success" && data.nopeg){
+          NOPEG_CACHE[lower] = data.nopeg;
+          if(namaInput.value.trim().toLowerCase() === lower){
+            applyNoPeg(data.nopeg);
+            cekKehadiranHariIni(nama, data.nopeg);
+          }
+        } else {
+          noPegInput.placeholder = "Ketik Nomor Pegawai Anda...";
+        }
+      })
+      .catch(function(){
+        noPegInput.placeholder = "Ketik Nomor Pegawai Anda...";
+      });
+  }
+
+  function cekKehadiranHariIni(nama, nopeg){
+    if(!SCRIPT_URL) return;
+    fetch(SCRIPT_URL + (SCRIPT_URL.indexOf("?") === -1 ? "?" : "&") + "action=cek_hari_ini&nama=" + encodeURIComponent(nama) + "&nopeg=" + encodeURIComponent(nopeg) + "&t=" + Date.now(), { redirect: "follow" })
+      .then(function(res){ return res.json(); })
+      .then(function(data){
+        if(data && data.status === "success" && data.hasDatang){
+          if(!data.hasPulang && currentMode === "Datang"){
+            toast("ℹ️ " + nama + " sudah absen Datang (" + (data.waktuDatang || "hari ini") + "). Mengalihkan ke Absen Pulang...", "ok");
+            switchMode("Pulang");
+          }
+        }
+      })
+      .catch(function(){});
+  }
+
+  namaInput.addEventListener("input", function(){ renderAC(namaInput.value); });
+
+  function selectACItem(it){
+    if(!it) return;
+    var selectedNama = it.getAttribute("data-nama");
+    var selectedNoPeg = it.getAttribute("data-nopeg");
+    namaInput.value = selectedNama;
+    hideAC();
+    if(selectedNoPeg){
+      NOPEG_CACHE[selectedNama.toLowerCase()] = selectedNoPeg;
+      applyNoPeg(selectedNoPeg);
+      cekKehadiranHariIni(selectedNama, selectedNoPeg);
+    } else {
+      fetchNoPeg(selectedNama);
+    }
+  }
+
+  acList.addEventListener("pointerdown", function(e){
+    var it = e.target.closest(".ac-item");
+    if(it){ e.preventDefault(); selectACItem(it); }
+  });
+  acList.addEventListener("mousedown", function(e){
+    var it = e.target.closest(".ac-item");
+    if(it){ e.preventDefault(); selectACItem(it); }
+  });
+
+  namaInput.addEventListener("change", function(){
+    var val = namaInput.value.trim();
+    if(val && !noPegInput.value.trim()){ fetchNoPeg(val); }
+  });
+  namaInput.addEventListener("blur", function(){ setTimeout(hideAC, 250); });
+  document.addEventListener("click", function(e){ if(!acWrap.contains(e.target)) hideAC(); });
+
+  // =============================================
+  // 4. PERFECTED GEOTAGGING ENGINE (KALMAN FILTER + MULTI-GEOCODER + HAVERSINE)
+  // =============================================
+  var currentGeo = {
+    lat: null,
+    lng: null,
+    accuracy: null,
+    altitude: null,
+    altitudeAccuracy: null,
+    heading: null,
+    speed: null,
+    addr: "",
+    distanceMeters: null,
+    withinOffice: false,
+    samples: [],
+    lastBestTimestamp: 0,
+    isLocked: false
+  };
+  var geoWatchId = null;
+  var lastGeocodeKey = "";
+  var geocodeCache = {};
+  try {
+    var savedGeoCache = sessionStorage.getItem("tvri_geocode_cache");
+    if(savedGeoCache) geocodeCache = JSON.parse(savedGeoCache) || {};
+  } catch(e){}
+
+  function computeDistanceMeters(lat1, lon1, lat2, lon2){
+    var R = 6371000;
+    var toRad = Math.PI / 180;
+    var dLat = (lat2 - lat1) * toRad;
+    var dLon = (lon2 - lon1) * toRad;
+    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(lat1 * toRad) * Math.cos(lat2 * toRad) *
+            Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return Math.round(R * c);
+  }
+
+  function toDMS(deg, isLat){
+    var dir = deg < 0 ? (isLat ? "LS" : "BB") : (isLat ? "LU" : "BT");
+    var abs = Math.abs(deg);
+    var d = Math.floor(abs);
+    var minFloat = (abs - d) * 60;
+    var m = Math.floor(minFloat);
+    var s = ((minFloat - m) * 60).toFixed(1);
+    return d + "°" + m + "'" + s + '"' + dir;
+  }
+
+  function CompassDirection(heading){
+    if(heading === null || heading === undefined || isNaN(heading)) return "";
+    var dirs = ["U", "TL", "T", "TG", "S", "BD", "B", "BL"];
+    return dirs[Math.round(heading / 45) % 8] + " (" + Math.round(heading) + "°)";
+  }
+
+  function startGeolocation(){
+    if(!("geolocation" in navigator)){
+      updateAllGeoStatus("GPS tidak didukung pada peramban ini.", "err");
+      return;
+    }
+    updateAllGeoStatus("📍 Mengakuisisi sinyal satelit GPS presisi tinggi...", "");
+
+    navigator.geolocation.getCurrentPosition(
+      function(pos){
+        processIncomingPosition(pos);
+        listenGeoWatch();
+      },
+      function(err){
+        if(err.code === 3){
+          updateAllGeoStatus("Sinyal satelit dalam ruangan lambat, mengaktifkan hibrida Wi-Fi/Seluler...", "");
+          navigator.geolocation.getCurrentPosition(
+            function(pos2){
+              processIncomingPosition(pos2);
+              listenGeoWatch();
+            },
+            function(err2){
+              handleGeoError(err2);
+              listenGeoWatch();
+            },
+            { enableHighAccuracy: false, timeout: 8000, maximumAge: 20000 }
+          );
+        } else {
+          handleGeoError(err);
+          listenGeoWatch();
+        }
+      },
+      { enableHighAccuracy: true, timeout: 7500, maximumAge: 0 }
+    );
+  }
+
+  function listenGeoWatch(){
+    if(geoWatchId !== null) return;
+    try {
+      geoWatchId = navigator.geolocation.watchPosition(
+        function(pos){ processIncomingPosition(pos); },
+        function(){},
+        { enableHighAccuracy: true, timeout: 20000, maximumAge: 2000 }
+      );
+    } catch(e){}
+  }
+
+  function processIncomingPosition(pos){
+    if(!pos || !pos.coords) return;
+    var now = Date.now();
+    var c = pos.coords;
+    var acc = c.accuracy || 999;
+
+    currentGeo.samples = currentGeo.samples.filter(function(s){
+      return (now - s.ts) < 35000;
+    });
+
+    if(currentGeo.isLocked && currentGeo.accuracy !== null && currentGeo.accuracy <= 22 && acc > 90 && (now - currentGeo.lastBestTimestamp) < 25000){
+      return;
+    }
+
+    currentGeo.samples.push({
+      lat: c.latitude,
+      lng: c.longitude,
+      acc: Math.max(acc, 2),
+      alt: c.altitude,
+      altAcc: c.altitudeAccuracy,
+      heading: c.heading,
+      speed: c.speed,
+      ts: now
+    });
+    if(currentGeo.samples.length > 8) currentGeo.samples.shift();
+
+    var totalWeight = 0;
+    var wLat = 0;
+    var wLng = 0;
+    var bestAcc = acc;
+
+    for(var i = 0; i < currentGeo.samples.length; i++){
+      var smp = currentGeo.samples[i];
+      var ageFactor = Math.max(0.25, 1 - ((now - smp.ts) / 40000));
+      var w = (1 / (smp.acc * smp.acc)) * ageFactor;
+      wLat += smp.lat * w;
+      wLng += smp.lng * w;
+      totalWeight += w;
+      if(smp.acc < bestAcc) bestAcc = smp.acc;
+    }
+
+    currentGeo.lat = totalWeight > 0 ? (wLat / totalWeight) : c.latitude;
+    currentGeo.lng = totalWeight > 0 ? (wLng / totalWeight) : c.longitude;
+    currentGeo.accuracy = bestAcc;
+    if(c.altitude !== null && c.altitude !== undefined) currentGeo.altitude = c.altitude;
+    if(c.altitudeAccuracy !== null && c.altitudeAccuracy !== undefined) currentGeo.altitudeAccuracy = c.altitudeAccuracy;
+    if(c.heading !== null && c.heading !== undefined && !isNaN(c.heading)) currentGeo.heading = c.heading;
+    if(c.speed !== null && c.speed !== undefined && !isNaN(c.speed)) currentGeo.speed = c.speed;
+
+    if(acc <= 35) currentGeo.lastBestTimestamp = now;
+    currentGeo.isLocked = true;
+
+    currentGeo.distanceMeters = computeDistanceMeters(currentGeo.lat, currentGeo.lng, OFFICE_CONFIG.lat, OFFICE_CONFIG.lng);
+    currentGeo.withinOffice = currentGeo.distanceMeters <= OFFICE_CONFIG.radius;
+
+    updateGpsIndicators();
+
+    var geoKey = currentGeo.lat.toFixed(4) + "," + currentGeo.lng.toFixed(4);
+    if(geoKey !== lastGeocodeKey || !currentGeo.addr){
+      lastGeocodeKey = geoKey;
+      reverseGeocodeResilient(currentGeo.lat, currentGeo.lng, geoKey);
+    }
+  }
+
+  function handleGeoError(err){
+    var msg = "Gagal mengambil lokasi GPS.";
+    if(err.code === 1) msg = "Izin Lokasi GPS ditolak. Aktifkan izin lokasi di browser Anda.";
+    if(err.code === 2) msg = "Sinyal satelit GPS lemah atau tidak tersedia.";
+    if(err.code === 3) msg = "Waktu pencarian GPS habis. Pastikan GPS perangkat aktif.";
+    updateAllGeoStatus(msg, "err");
+  }
+
+  function forceRefreshGps(btn){
+    if(btn){
+      btn.style.transition = "transform .5s ease";
+      btn.style.transform = "rotate(360deg)";
+      setTimeout(function(){ btn.style.transform = "rotate(0deg)"; }, 520);
+    }
+    toast("⟳ Mengunci ulang satelit GPS presisi tinggi...", "ok");
+    currentGeo.samples = [];
+    lastGeocodeKey = "";
+    navigator.geolocation.getCurrentPosition(
+      function(pos){
+        processIncomingPosition(pos);
+        toast("✓ Sinyal GPS diperbarui (±" + Math.round(pos.coords.accuracy) + "m).", "ok");
+      },
+      function(){
+        navigator.geolocation.getCurrentPosition(
+          function(pos2){
+            processIncomingPosition(pos2);
+            toast("✓ Lokasi GPS diperbarui via jaringan (±" + Math.round(pos2.coords.accuracy) + "m).", "ok");
+          },
+          function(err2){
+            handleGeoError(err2);
+            toast("Gagal menyegarkan GPS: " + err2.message, "error");
+          },
+          { enableHighAccuracy: false, timeout: 8000, maximumAge: 0 }
+        );
+      },
+      { enableHighAccuracy: true, timeout: 8000, maximumAge: 0 }
+    );
+  }
+
+  function fetchWithTimeout(url, timeoutMs){
+    return new Promise(function(resolve, reject){
+      var ctrl = typeof AbortController !== "undefined" ? new AbortController() : null;
+      var timer = setTimeout(function(){
+        if(ctrl) ctrl.abort();
+        reject(new Error("Timeout"));
+      }, timeoutMs || 5000);
+
+      fetch(url, ctrl ? { signal: ctrl.signal } : {})
+        .then(function(r){
+          clearTimeout(timer);
+          if(!r.ok) throw new Error("HTTP " + r.status);
+          return r.json();
+        })
+        .then(resolve)
+        .catch(function(err){
+          clearTimeout(timer);
+          reject(err);
+        });
+    });
+  }
+
+  function saveGeocodeCache(key, val){
+    geocodeCache[key] = val;
+    try { sessionStorage.setItem("tvri_geocode_cache", JSON.stringify(geocodeCache)); } catch(e){}
+  }
+
+  function reverseGeocodeResilient(lat, lng, cacheKey){
+    if(geocodeCache[cacheKey]){
+      currentGeo.addr = geocodeCache[cacheKey];
+      return;
+    }
+
+    var nomUrl = "https://nominatim.openstreetmap.org/reverse?format=json&lat=" + lat + "&lon=" + lng + "&zoom=18&addressdetails=1&accept-language=id";
+    fetchWithTimeout(nomUrl, 4800)
+      .then(function(data){
+        if(data && data.display_name){
+          var cleanAddr = formatStructuredNominatim(data);
+          currentGeo.addr = cleanAddr;
+          saveGeocodeCache(cacheKey, cleanAddr);
+        } else {
+          throw new Error("Empty Nominatim");
+        }
+      })
+      .catch(function(){
+        var bdcUrl = "https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=" + lat + "&longitude=" + lng + "&localityLanguage=id";
+        fetchWithTimeout(bdcUrl, 4500)
+          .then(function(bdc){
+            if(bdc && (bdc.locality || bdc.city || bdc.principalSubdivision)){
+              var parts = [
+                bdc.locality,
+                bdc.city && bdc.city !== bdc.locality ? bdc.city : "",
+                bdc.principalSubdivision,
+                bdc.countryName
+              ].filter(Boolean);
+              var addrStr = parts.join(", ");
+              currentGeo.addr = addrStr;
+              saveGeocodeCache(cacheKey, addrStr);
+            } else {
+              currentGeo.addr = "Koordinat " + lat.toFixed(6) + ", " + lng.toFixed(6);
+            }
+          })
+          .catch(function(){
+            currentGeo.addr = "Koordinat " + lat.toFixed(6) + ", " + lng.toFixed(6);
+          });
+      });
+  }
+
+  function formatStructuredNominatim(data){
+    if(!data.address) return data.display_name;
+    var a = data.address;
+    var parts = [
+      a.building || a.office || a.amenity || "",
+      a.road || a.pedestrian || a.neighbourhood || "",
+      a.village || a.suburb || a.hamlet || "",
+      a.city_district || a.municipality || a.county || "",
+      a.city || a.town || a.state_district || "",
+      a.state || ""
+    ].filter(Boolean);
+    return parts.length >= 2 ? parts.join(", ") : data.display_name;
+  }
+
+  function updateGpsIndicators(){
+    var acc = currentGeo.accuracy;
+    var pillCls = "searching";
+    var pillText = "📍 GPS...";
+    var teleCls = "warn";
+
+    if(acc !== null){
+      var m = Math.round(acc);
+      if(m <= 18){
+        pillCls = "accurate";
+        pillText = "📍 ±" + m + "m • Presisi";
+        teleCls = "good";
+      } else if(m <= 55){
+        pillCls = "moderate";
+        pillText = "📍 ±" + m + "m • Cukup";
+        teleCls = "warn";
+      } else {
+        pillCls = "searching";
+        pillText = "📍 ±" + m + "m • Kalibrasi";
+        teleCls = "bad";
+      }
+    }
+
+    var hudLatLng = $("#hudLatLng");
+    var hudGeofence = $("#hudGeofence");
+    var hudAccText = $("#hudAccText");
+    var hudSampleCount = $("#hudSampleCount");
+
+    if(hudLatLng && currentGeo.isLocked){
+      hudLatLng.textContent = currentGeo.lat.toFixed(4) + ", " + currentGeo.lng.toFixed(4);
+    }
+    if(hudGeofence && currentGeo.distanceMeters !== null){
+      hudGeofence.textContent = currentGeo.withinOffice ? "IN-RADIUS" : (currentGeo.distanceMeters + "M");
+      hudGeofence.style.color = currentGeo.withinOffice ? "#4ade80" : "#facc15";
+    }
+    if(hudAccText && acc !== null){
+      hudAccText.textContent = "±" + Math.round(acc) + "M LOCK";
+    }
+    if(hudSampleCount){
+      hudSampleCount.textContent = currentGeo.samples.length + "/8";
+    }
+
+    ["Datang", "Pulang"].forEach(function(suf){
+      var p = document.getElementById("pillGps" + suf);
+      if(p){
+        p.className = "gps-pill " + pillCls;
+        p.innerHTML = "<span>" + pillText + "</span>";
+      }
+
+      var tAcc = document.getElementById("teleAcc" + suf);
+      var tDist = document.getElementById("teleDist" + suf);
+      var tAlt = document.getElementById("teleAlt" + suf);
+      var tMode = document.getElementById("teleMode" + suf);
+
+      if(tAcc && acc !== null){
+        tAcc.textContent = "±" + Math.round(acc) + " Meter";
+        tAcc.className = "tele-v " + teleCls;
+      }
+      if(tDist && currentGeo.distanceMeters !== null){
+        var d = currentGeo.distanceMeters;
+        var dStr = d >= 1000 ? (d / 1000).toFixed(2) + " km" : d + " m";
+        tDist.textContent = dStr + (currentGeo.withinOffice ? " (Kantor)" : " (Luar)");
+        tDist.className = "tele-v " + (currentGeo.withinOffice ? "good" : "warn");
+      }
+      if(tAlt){
+        var altPart = currentGeo.altitude !== null ? Math.round(currentGeo.altitude) + "m MDPL" : "38m MDPL";
+        var hdgPart = CompassDirection(currentGeo.heading);
+        tAlt.textContent = altPart + (hdgPart ? " • " + hdgPart : "");
+      }
+      if(tMode){
+        tMode.textContent = "Kalman (" + currentGeo.samples.length + " fix)";
+      }
+
+      var st = document.getElementById("geoStatus" + suf);
+      var state = suf === "Datang" ? stateDatang : statePulang;
+      if(st && !state.captured){
+        if(state.streamActive && currentGeo.isLocked){
+          st.textContent = "✓ Kamera & GPS Terkunci (±" + Math.round(acc) + "m). Siap ambil foto geotag.";
+          st.className = "geo-status ok";
+        }
+      }
+    });
+  }
+
+  function updateAllGeoStatus(msg, cls){
+    ["geoStatusDatang", "geoStatusPulang"].forEach(function(id){
+      var el = document.getElementById(id);
+      if(el){
+        el.textContent = msg;
+        el.className = "geo-status" + (cls ? " " + cls : "");
+      }
+    });
+  }
+
+  // Live Viewfinder Overlay Updater (1 Hz - Clean Single-Line Coords on Preview)
+  setInterval(function(){
+    var coordsText = currentGeo.isLocked
+      ? "📍 " + currentGeo.lat.toFixed(6) + ", " + currentGeo.lng.toFixed(6)
+        + (currentGeo.accuracy ? " (±" + Math.round(currentGeo.accuracy) + "m)" : "")
+      : "📍 Mengunci sinyal satelit GPS presisi...";
+    var timeText = "🕒 " + formatDateTime();
+    var addrText = currentGeo.addr || "";
+
+    ["Datang", "Pulang"].forEach(function(suffix){
+      var state = suffix === "Datang" ? stateDatang : statePulang;
+      if(state.captured) return;
+      var cEl = document.getElementById("coords" + suffix);
+      var tEl = document.getElementById("time" + suffix);
+      var aEl = document.getElementById("addr" + suffix);
+      if(cEl) cEl.textContent = coordsText;
+      if(tEl) tEl.textContent = timeText;
+      if(aEl) aEl.textContent = addrText;
+    });
+  }, 1000);
+
+  // =============================================
+  // 5. ATTENDANCE MODE SWITCHER (TABS)
+  // =============================================
+  var currentMode = "Datang";
+  var boxDatang = $("#boxDatang");
+  var boxPulang = $("#boxPulang");
+  var tabDatang = $("#tabDatang");
+  var tabPulang = $("#tabPulang");
+  var modeAutoTag = $("#modeAutoTag");
+  var btnKirim = $("#btnKirim");
+
+  function initModeByTime(){
+    var h = getAccurateDate().getHours();
+    if(h < 12){
+      currentMode = "Datang";
+      modeAutoTag.textContent = "AUTO: SESI PAGI";
+    } else {
+      currentMode = "Pulang";
+      modeAutoTag.textContent = "AUTO: SESI SORE";
+    }
+    applyModeUI(currentMode);
+  }
+
+  function switchMode(mode){
+    currentMode = mode;
+    modeAutoTag.textContent = "MODE: " + mode.toUpperCase();
+    applyModeUI(mode);
+  }
+
+  function applyModeUI(mode){
+    [tabDatang, tabPulang].forEach(function(t){
+      if(t){
+        t.classList.remove("active");
+        t.setAttribute("aria-selected", "false");
+      }
+    });
+
+    if(mode === "Datang"){
+      tabDatang.classList.add("active");
+      tabDatang.setAttribute("aria-selected", "true");
+      boxDatang.style.display = "block";
+      boxPulang.style.display = "none";
+      btnKirim.textContent = "✦ KIRIM ABSEN DATANG ✦";
+      activateCameraForBox("Datang");
+      deactivateCameraForBox("Pulang");
+    } else {
+      tabPulang.classList.add("active");
+      tabPulang.setAttribute("aria-selected", "true");
+      boxDatang.style.display = "none";
+      boxPulang.style.display = "block";
+      btnKirim.textContent = "✦ KIRIM ABSEN PULANG ✦";
+      activateCameraForBox("Pulang");
+      deactivateCameraForBox("Datang");
+    }
+  }
+
+  tabDatang.addEventListener("click", function(){ switchMode("Datang"); });
+  tabPulang.addEventListener("click", function(){ switchMode("Pulang"); });
+
+  // =============================================
+  // 6. CAMERA ENGINE & DIGITAL VERIFICATION HASH
+  // =============================================
+  var stateDatang = {
+    captured: false,
+    base64: "",
+    dataUrl: "",
+    lat: "",
+    lng: "",
+    accuracy: null,
+    distance: null,
+    withinOffice: false,
+    addr: "",
+    time: "",
+    hash: "",
+    stream: null,
+    streamActive: false,
+    facingMode: "user"
+  };
+
+  var statePulang = {
+    captured: false,
+    base64: "",
+    dataUrl: "",
+    lat: "",
+    lng: "",
+    accuracy: null,
+    distance: null,
+    withinOffice: false,
+    addr: "",
+    time: "",
+    hash: "",
+    stream: null,
+    streamActive: false,
+    facingMode: "user"
+  };
+
+  function generateVerificationHash(nama, nopeg, suffix, timeStr, coordsStr){
+    var raw = [nama || "TVRI", nopeg || "000", suffix, timeStr, coordsStr].join("|");
+    var h1 = 0x811c9dc5;
+    for(var i = 0; i < raw.length; i++){
+      h1 ^= raw.charCodeAt(i);
+      h1 = (h1 * 0x01000193) >>> 0;
+    }
+    var hex = h1.toString(16).toUpperCase().padStart(8, "0");
+    var d = getAccurateDate();
+    var ymd = String(d.getFullYear()) + String(d.getMonth()+1).padStart(2,"0") + String(d.getDate()).padStart(2,"0");
+    return "TVRI-" + ymd + "-" + hex;
+  }
+
+  function activateCameraForBox(suffix){
+    var otherSuffix = suffix === "Datang" ? "Pulang" : "Datang";
+    deactivateCameraForBox(otherSuffix);
+
+    var state = suffix === "Datang" ? stateDatang : statePulang;
+    if(state.captured) return;
+    startCamera(suffix, state);
+  }
+
+  function deactivateCameraForBox(suffix){
+    var state = suffix === "Datang" ? stateDatang : statePulang;
+    if(state.stream){
+      state.stream.getTracks().forEach(function(t){ t.stop(); });
+      state.stream = null;
+    }
+    state.streamActive = false;
+  }
+
+  function startCamera(suffix, state){
+    if(state.captured) return;
+    var otherSuffix = suffix === "Datang" ? "Pulang" : "Datang";
+    deactivateCameraForBox(otherSuffix);
+    deactivateCameraForBox(suffix);
+
+    var video = document.getElementById("video" + suffix);
+    var btnCapture = document.getElementById("btnCapture" + suffix);
+    var geoStatus = document.getElementById("geoStatus" + suffix);
+    var fallbackPanel = document.getElementById("fallback" + suffix);
+    var labelCam = document.getElementById("labelCam" + suffix);
+
+    if(labelCam){
+      labelCam.textContent = state.facingMode === "user" ? "Depan" : "Blkng";
+    }
+
+    if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
+      showFallbackCamera(suffix);
+      return;
+    }
+
+    geoStatus.textContent = "Mengaktifkan " + (state.facingMode === "user" ? "Kamera Depan" : "Kamera Belakang") + "...";
+    geoStatus.className = "geo-status";
+
+    var constraints = {
+      video: {
+        facingMode: { ideal: state.facingMode },
+        width: { ideal: 1280, min: 640 },
+        height: { ideal: 960, min: 480 }
+      },
+      audio: false
+    };
+
+    navigator.mediaDevices.getUserMedia(constraints)
+      .then(function(stream){
+        state.stream = stream;
+        state.streamActive = true;
+        video.srcObject = stream;
+        video.play().catch(function(){});
+
+        if(state.facingMode === "user"){
+          video.classList.add("mirror");
+        } else {
+          video.classList.remove("mirror");
+        }
+
+        btnCapture.disabled = true;
+        fallbackPanel.classList.remove("active");
+
+        var onReady = function(){
+          if(video.videoWidth > 0){
+            btnCapture.disabled = false;
+            if(currentGeo.isLocked){
+              geoStatus.textContent = "✓ Kamera & GPS Terkunci (±" + Math.round(currentGeo.accuracy || 10) + "m). Siap ambil foto geotag.";
+              geoStatus.className = "geo-status ok";
+            } else {
+              geoStatus.textContent = "Kamera aktif. Mengunci sinyal satelit GPS presisi...";
+              geoStatus.className = "geo-status";
+            }
+          } else {
+            setTimeout(onReady, 100);
+          }
+        };
+        video.onloadedmetadata = onReady;
+        setTimeout(onReady, 350);
+      })
+      .catch(function(err){
+        state.streamActive = false;
+        var msg = "Gagal mengakses kamera: " + (err.name === "NotAllowedError" ? "Izin kamera ditolak." : err.message);
+        geoStatus.textContent = msg;
+        geoStatus.className = "geo-status err";
+        showFallbackCamera(suffix);
+      });
+  }
+
+  function showFallbackCamera(suffix){
+    var fallbackPanel = document.getElementById("fallback" + suffix);
+    if(fallbackPanel) fallbackPanel.classList.add("active");
+  }
+
+  function flipCamera(suffix){
+    var state = suffix === "Datang" ? stateDatang : statePulang;
+    if(state.captured) return;
+    state.facingMode = state.facingMode === "user" ? "environment" : "user";
+    var fileInput = document.getElementById("fileFallback" + suffix);
+    if(fileInput) fileInput.setAttribute("capture", state.facingMode);
+    toast("Mengalihkan ke " + (state.facingMode === "user" ? "Kamera Depan (Selfie)" : "Kamera Belakang"), "ok");
+    startCamera(suffix, state);
+  }
+
+  function triggerShutter(suffix){
+    var flash = document.getElementById("flash" + suffix);
+    if(flash){
+      flash.classList.add("flash");
+      setTimeout(function(){ flash.classList.remove("flash"); }, 180);
+    }
+  }
+
+  function finalizeCaptureToState(suffix, state, canvas, video){
+    var actionRow = document.getElementById("actionRow" + suffix);
+    var postBar = document.getElementById("postBar" + suffix);
+    var geoStatus = document.getElementById("geoStatus" + suffix);
+    var capturedInfo = document.getElementById("capturedInfo" + suffix);
+    var badgeStatus = document.getElementById("badgeStatus" + suffix);
+    var hudOverlay = document.getElementById("hudOverlay" + suffix);
+    var liveOverlay = document.getElementById("overlay" + suffix);
+
+    var curNama = namaInput.value.trim();
+    var curNoPeg = noPegInput.value.trim();
+
+    var captureTime = formatDateTime();
+    var latVal = currentGeo.isLocked ? currentGeo.lat : null;
+    var lngVal = currentGeo.isLocked ? currentGeo.lng : null;
+    var accVal = currentGeo.isLocked ? currentGeo.accuracy : null;
+    var altVal = currentGeo.altitude;
+    var distVal = currentGeo.distanceMeters;
+    var withinVal = currentGeo.withinOffice;
+
+    var coordsStr = currentGeo.isLocked
+      ? (latVal.toFixed(6) + ", " + lngVal.toFixed(6))
+      : "GPS Belum Terkunci";
+    var dmsStr = currentGeo.isLocked
+      ? (toDMS(latVal, true) + " " + toDMS(lngVal, false))
+      : "";
+    var addrStr = currentGeo.isLocked
+      ? (currentGeo.addr || ("Koordinat: " + coordsStr))
+      : "Sinyal GPS belum stabil saat foto diambil";
+
+    var hashStr = generateVerificationHash(curNama, curNoPeg, suffix, captureTime, coordsStr);
+
+    var ctx = canvas.getContext("2d");
+    drawCyberWatermark(ctx, canvas.width, canvas.height, {
+      nama: curNama,
+      nopeg: curNoPeg,
+      suffix: suffix,
+      time: captureTime,
+      coords: coordsStr,
+      dms: dmsStr,
+      accuracy: accVal,
+      altitude: altVal,
+      distance: distVal,
+      withinOffice: withinVal,
+      addr: addrStr,
+      hash: hashStr
+    });
+
+    var dataUrl = canvas.toDataURL("image/jpeg", 0.88);
+    state.dataUrl = dataUrl;
+    state.base64 = dataUrl.split(",")[1];
+    state.lat = latVal !== null ? String(latVal) : "";
+    state.lng = lngVal !== null ? String(lngVal) : "";
+    state.accuracy = accVal;
+    state.distance = distVal;
+    state.withinOffice = withinVal;
+    state.addr = addrStr;
+    state.time = captureTime;
+    state.hash = hashStr;
+    state.captured = true;
+
+    video.style.display = "none";
+    canvas.style.display = "block";
+    if(hudOverlay) hudOverlay.style.display = "none";
+    if(liveOverlay) liveOverlay.style.display = "none";
+    if(actionRow) actionRow.style.display = "none";
+    if(postBar) postBar.style.display = "flex";
+
+    geoStatus.textContent = "✓ Foto Geotag " + suffix + " terkunci dengan cap verifikasi digital.";
+    geoStatus.className = "geo-status ok";
+    if(badgeStatus){
+      badgeStatus.textContent = "✓ TERSIMPAN";
+      badgeStatus.className = "badge-tag-status done";
+    }
+
+    capturedInfo.style.display = "block";
+    document.getElementById("ciHash" + suffix).textContent = hashStr;
+    document.getElementById("ciTime" + suffix).textContent = captureTime;
+    document.getElementById("ciCoords" + suffix).textContent = coordsStr + (dmsStr ? " (" + dmsStr + ")" : "") + (accVal ? " ±" + Math.round(accVal) + "m" : "");
+    var radText = distVal !== null
+      ? (distVal + "m dari Kantor • " + (withinVal ? "DALAM RADIUS" : "DINAS LUAR"))
+      : "Menunggu kalkulasi";
+    document.getElementById("ciRadius" + suffix).textContent = radText;
+    document.getElementById("ciAddr" + suffix).textContent = addrStr || "-";
+
+    deactivateCameraForBox(suffix);
+  }
+
+  function captureBoxPhoto(suffix, state){
+    var video = document.getElementById("video" + suffix);
+    var canvas = document.getElementById("canvas" + suffix);
+
+    if(video.videoWidth === 0 || video.readyState < 2){
+      toast("Kamera sedang memuat gambar, tunggu beberapa detik.", "error");
+      return;
+    }
+
+    triggerShutter(suffix);
+
+    var w = video.videoWidth || 1280;
+    var h = video.videoHeight || 960;
+    canvas.width = w;
+    canvas.height = h;
+
+    var ctx = canvas.getContext("2d");
+    if(state.facingMode === "user"){
+      ctx.save();
+      ctx.translate(w, 0);
+      ctx.scale(-1, 1);
+      ctx.drawImage(video, 0, 0, w, h);
+      ctx.restore();
+    } else {
+      ctx.drawImage(video, 0, 0, w, h);
+    }
+
+    finalizeCaptureToState(suffix, state, canvas, video);
+  }
+
+  function resetBoxPhoto(suffix, state){
+    var video = document.getElementById("video" + suffix);
+    var canvas = document.getElementById("canvas" + suffix);
+    var actionRow = document.getElementById("actionRow" + suffix);
+    var postBar = document.getElementById("postBar" + suffix);
+    var capturedInfo = document.getElementById("capturedInfo" + suffix);
+    var badgeStatus = document.getElementById("badgeStatus" + suffix);
+    var hudOverlay = document.getElementById("hudOverlay" + suffix);
+    var liveOverlay = document.getElementById("overlay" + suffix);
+
+    state.captured = false;
+    state.base64 = "";
+    state.dataUrl = "";
+    video.style.display = "block";
+    canvas.style.display = "none";
+    if(hudOverlay) hudOverlay.style.display = "block";
+    if(liveOverlay) liveOverlay.style.display = "block";
+    if(actionRow) actionRow.style.display = "flex";
+    if(postBar) postBar.style.display = "none";
+    capturedInfo.style.display = "none";
+
+    if(badgeStatus){
+      badgeStatus.textContent = "Belum Ada Foto";
+      badgeStatus.className = "badge-tag-status";
+    }
+
+    startCamera(suffix, state);
+  }
+
+  function downloadCapturedPhoto(suffix, state){
+    if(!state.captured || !state.dataUrl){
+      toast("Ambil foto terlebih dahulu sebelum mengunduh.", "error");
+      return;
+    }
+    var a = document.createElement("a");
+    var cleanNama = (namaInput.value.trim() || "Pegawai").replace(/[^a-zA-Z0-9_-]/g, "_");
+    a.href = state.dataUrl;
+    a.download = "Geotag_TVRI_" + suffix + "_" + cleanNama + "_" + Date.now() + ".jpg";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    toast("✓ Bukti Foto Geotag berhasil diunduh.", "ok");
+  }
+
+  function handleFallbackFile(suffix, state, file){
+    if(!file) return;
+    var reader = new FileReader();
+    reader.onload = function(e){
+      var img = new Image();
+      img.onload = function(){
+        var canvas = document.getElementById("canvas" + suffix);
+        var video = document.getElementById("video" + suffix);
+
+        var maxDim = 1280;
+        var w = img.width;
+        var h = img.height;
+        if(w > maxDim || h > maxDim){
+          if(w > h){
+            h = Math.round((h * maxDim) / w);
+            w = maxDim;
+          } else {
+            w = Math.round((w * maxDim) / h);
+            h = maxDim;
+          }
+        }
+
+        canvas.width = w;
+        canvas.height = h;
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, w, h);
+
+        finalizeCaptureToState(suffix, state, canvas, video);
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function bindBoxEvents(suffix, state){
+    var btnCapture = document.getElementById("btnCapture" + suffix);
+    var btnRetake = document.getElementById("btnRetake" + suffix);
+    var btnDownload = document.getElementById("btnDownload" + suffix);
+    var btnFlip = document.getElementById("btnFlip" + suffix);
+    var btnFlipSub = document.getElementById("btnFlipSub" + suffix);
+    var btnRefreshGps = document.getElementById("btnRefreshGps" + suffix);
+    var btnHud = document.getElementById("btnHud" + suffix);
+    var hudOverlay = document.getElementById("hudOverlay" + suffix);
+    var fileFallback = document.getElementById("fileFallback" + suffix);
+
+    if(btnCapture) btnCapture.addEventListener("click", function(){ captureBoxPhoto(suffix, state); });
+    if(btnRetake) btnRetake.addEventListener("click", function(){ resetBoxPhoto(suffix, state); });
+    if(btnDownload) btnDownload.addEventListener("click", function(){ downloadCapturedPhoto(suffix, state); });
+    if(btnFlip) btnFlip.addEventListener("click", function(){ flipCamera(suffix); });
+    if(btnFlipSub) btnFlipSub.addEventListener("click", function(){ flipCamera(suffix); });
+    if(btnRefreshGps) btnRefreshGps.addEventListener("click", function(){ forceRefreshGps(btnRefreshGps); });
+    if(btnHud && hudOverlay){
+      btnHud.addEventListener("click", function(){
+        hudOverlay.classList.toggle("hud-off");
+      });
+    }
+    if(fileFallback){
+      fileFallback.addEventListener("change", function(e){
+        if(e.target.files && e.target.files[0]){
+          handleFallbackFile(suffix, state, e.target.files[0]);
+        }
+      });
+    }
+  }
+
+  bindBoxEvents("Datang", stateDatang);
+  bindBoxEvents("Pulang", statePulang);
+
+  // =============================================
+  // 7. BROADCAST-GRADE CYBER HUD WATERMARK ENGINE
+  // =============================================
+  function drawCyberWatermark(ctx, w, h, info){
+    var minDim = Math.min(w, h);
+    var baseFontSize = Math.max(Math.round(minDim * 0.028), 12);
+    var headerFontSize = Math.max(Math.round(baseFontSize * 1.08), 13);
+    var addrFontSize = Math.max(baseFontSize - 2, 11);
+    var pad = Math.max(Math.round(minDim * 0.028), 12);
+    var emblemSpace = Math.round(minDim * 0.135);
+    var textLeft = pad + emblemSpace;
+    var maxW = w - textLeft - pad;
+
+    var addrLines = [];
+    if(info.addr){
+      ctx.font = "600 " + addrFontSize + "px 'Segoe UI', system-ui, sans-serif";
+      var words = ("ALAMAT: " + info.addr).split(" ");
+      var curLine = "";
+      for(var n = 0; n < words.length; n++){
+        var testLine = curLine ? curLine + " " + words[n] : words[n];
+        if(ctx.measureText(testLine).width > maxW && curLine){
+          addrLines.push(curLine);
+          curLine = words[n];
+          if(addrLines.length >= 2){
+            var rest = words.slice(n).join(" ");
+            while(ctx.measureText(rest + "...").width > maxW && rest.length > 5){
+              rest = rest.slice(0, -1);
+            }
+            addrLines.push(rest + "...");
+            curLine = "";
+            break;
+          }
+        } else {
+          curLine = testLine;
+        }
+      }
+      if(curLine && addrLines.length < 3) addrLines.push(curLine);
+    }
+
+    var lineH = Math.round(baseFontSize * 1.34);
+    var headerH = Math.round(headerFontSize * 1.42);
+    var addrLineH = Math.round(addrFontSize * 1.28);
+    var contentH = headerH + (lineH * 3) + (addrLines.length * addrLineH);
+    var barH = contentH + (pad * 2);
+    var barY = h - barH;
+
+    var grad = ctx.createLinearGradient(0, barY, 0, h);
+    grad.addColorStop(0, "rgba(3, 18, 32, 0.78)");
+    grad.addColorStop(0.2, "rgba(4, 24, 42, 0.92)");
+    grad.addColorStop(1, "rgba(2, 11, 22, 0.98)");
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, barY, w, barH);
+
+    ctx.strokeStyle = "#00f2fe";
+    ctx.lineWidth = Math.max(Math.round(w * 0.003), 2);
+    ctx.beginPath();
+    ctx.moveTo(0, barY);
+    ctx.lineTo(w, barY);
+    ctx.stroke();
+
+    ctx.strokeStyle = "#d4af37";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(pad, barY + 4);
+    ctx.lineTo(w - pad, barY + 4);
+    ctx.stroke();
+
+    var cx = pad + Math.round(emblemSpace * 0.44);
+    var cy = barY + Math.round(barH * 0.52);
+    var r = Math.round(emblemSpace * 0.38);
+
+    ctx.save();
+    ctx.strokeStyle = "#00f2fe";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.arc(cx, cy, r, 0, Math.PI * 2);
+    ctx.stroke();
+
+    ctx.strokeStyle = "#f7dc8f";
+    ctx.lineWidth = 1.2;
+    ctx.setLineDash([4, 3]);
+    ctx.beginPath();
+    ctx.arc(cx, cy, r * 0.76, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    ctx.strokeStyle = "rgba(0, 242, 254, 0.45)";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(cx - r, cy); ctx.lineTo(cx + r, cy);
+    ctx.moveTo(cx, cy - r); ctx.lineTo(cx, cy + r);
+    ctx.stroke();
+
+    ctx.fillStyle = "#00f2fe";
+    ctx.font = "900 " + Math.max(Math.round(r * 0.45), 11) + "px 'Cinzel', sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText("TVRI", cx, cy - 2);
+    ctx.fillStyle = "#fde68a";
+    ctx.font = "700 " + Math.max(Math.round(r * 0.26), 8) + "px monospace";
+    ctx.fillText("GEOTAG", cx, cy + Math.round(r * 0.36));
+    ctx.restore();
+
+    ctx.textAlign = "left";
+    ctx.shadowColor = "rgba(0,0,0,0.9)";
+    ctx.shadowBlur = 4;
+    ctx.shadowOffsetX = 1;
+    ctx.shadowOffsetY = 1;
+
+    var curY = barY + pad + headerFontSize;
+    ctx.font = "900 " + headerFontSize + "px 'Cinzel', serif, sans-serif";
+    ctx.fillStyle = "#00f2fe";
+    ctx.fillText("✦ LPP TVRI • GEOTAG " + info.suffix.toUpperCase() + "  [" + info.hash + "]", textLeft, curY);
+
+    curY += lineH;
+    ctx.font = "bold " + baseFontSize + "px 'Segoe UI', system-ui, sans-serif";
+    ctx.fillStyle = "#ffffff";
+    var userStr = "PEGAWAI : " + (info.nama || "Pegawai TVRI") + (info.nopeg ? "  |  NIP/NOPEG: " + info.nopeg : "");
+    ctx.fillText(userStr, textLeft, curY);
+
+    curY += lineH;
+    ctx.font = "600 " + baseFontSize + "px 'Segoe UI', system-ui, sans-serif";
+    ctx.fillStyle = "#fde68a";
+    var radBadge = info.distance !== null
+      ? ("  |  JARAK: " + info.distance + "m (" + (info.withinOffice ? "DALAM RADIUS" : "DINAS LUAR") + ")")
+      : "";
+    ctx.fillText("WAKTU   : " + info.time + radBadge, textLeft, curY);
+
+    curY += lineH;
+    ctx.font = "600 " + baseFontSize + "px monospace";
+    ctx.fillStyle = "#a5f3fc";
+    var accPart = info.accuracy ? " (±" + Math.round(info.accuracy) + "m)" : "";
+    var altPart = info.altitude !== null && info.altitude !== undefined ? " • ALT: " + Math.round(info.altitude) + "m" : "";
+    ctx.fillText("KOORD   : " + info.coords + (info.dms ? " [" + info.dms + "]" : "") + accPart + altPart, textLeft, curY);
+
+    if(addrLines.length > 0){
+      ctx.font = "italic " + addrFontSize + "px 'Segoe UI', system-ui, sans-serif";
+      ctx.fillStyle = "#e2e8f0";
+      for(var a = 0; a < addrLines.length; a++){
+        curY += addrLineH;
+        ctx.fillText(addrLines[a], textLeft, curY);
+      }
+    }
+
+    ctx.shadowBlur = 0;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 0;
+  }
+
+  // =============================================
+  // 8. TOAST & FORM SUBMISSION ENGINE
+  // =============================================
+  var toastEl = $("#toast"), toastTimer = null;
+  function toast(msg, type){
+    if(!toastEl) return;
+    toastEl.textContent = msg;
+    toastEl.classList.remove("is-hidden", "toast-error", "toast-ok");
+    toastEl.classList.add(type === "error" ? "toast-error" : "toast-ok");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ toastEl.classList.add("is-hidden"); }, 3800);
+  }
+
+  function mark(el){
+    el.classList.add("invalid-ring", "shake");
+    setTimeout(function(){ el.classList.remove("shake"); }, 620);
+  }
+
+  var form = $("#formAbsensi");
+  var modal = $("#modalSukses");
+
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    $$(".field-box").forEach(function(b){ b.classList.remove("invalid-ring"); });
+
+    var nama = namaInput.value.trim();
+    var noPeg = noPegInput.value.trim();
+    var firstBad = null;
+
+    if(!nama){ mark($("#boxNama")); firstBad = firstBad || $("#boxNama"); }
+    if(!noPeg){ mark($("#boxNoPeg")); firstBad = firstBad || $("#boxNoPeg"); }
+
+    if(currentMode === "Datang"){
+      if(!stateDatang.captured){ mark(boxDatang); firstBad = firstBad || boxDatang; }
+    } else if(currentMode === "Pulang"){
+      if(!statePulang.captured){ mark(boxPulang); firstBad = firstBad || boxPulang; }
+    }
+
+    if(firstBad){
+      toast("Lengkapi data dan ambil foto geotag yang diperlukan sebelum mengirim.", "error");
+      firstBad.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
+
+    if(!SCRIPT_URL){
+      toast("URL Apps Script belum dikonfigurasi. Silakan atur di menu Konfigurasi.", "error");
+      bukaConfigModal();
+      return;
+    }
+
+    btnKirim.disabled = true;
+    btnKirim.textContent = "⟳ MENGIRIM DATA GEOTAG...";
+
+    var activeState = currentMode === "Datang" ? stateDatang : statePulang;
+
+    var payload = {
+      Nama_Lengkap: nama,
+      Nomor_Pegawai: noPeg,
+      Jenis_Absen: currentMode,
+      Verification_Hash: activeState.hash || "",
+      Jarak_Kantor_Meter: activeState.distance !== null ? activeState.distance : "",
+      Status_Geofence: activeState.withinOffice ? "Dalam Radius Kantor" : "Dinas Luar / Lapangan",
+      Foto_Datang_Base64: stateDatang.captured ? stateDatang.base64 : "",
+      Foto_Datang_Type: "image/jpeg",
+      Lat_Datang: stateDatang.captured ? stateDatang.lat : "",
+      Lng_Datang: stateDatang.captured ? stateDatang.lng : "",
+      Akurasi_Datang: stateDatang.captured && stateDatang.accuracy ? Math.round(stateDatang.accuracy) : "",
+      Alamat_Datang: stateDatang.captured ? stateDatang.addr : "",
+      Waktu_Datang: stateDatang.captured ? stateDatang.time : "",
+      Foto_Pulang_Base64: statePulang.captured ? statePulang.base64 : "",
+      Foto_Pulang_Type: "image/jpeg",
+      Lat_Pulang: statePulang.captured ? statePulang.lat : "",
+      Lng_Pulang: statePulang.captured ? statePulang.lng : "",
+      Akurasi_Pulang: statePulang.captured && statePulang.accuracy ? Math.round(statePulang.accuracy) : "",
+      Alamat_Pulang: statePulang.captured ? statePulang.addr : "",
+      Waktu_Pulang: statePulang.captured ? statePulang.time : ""
+    };
+
+    fetch(SCRIPT_URL, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(payload),
+      redirect: "follow"
+    })
+    .then(function(res){ return res.json(); })
+    .then(function(data){
+      btnKirim.disabled = false;
+      applyModeUI(currentMode);
+
+      if(data && data.status === "success"){
+        $("#sumNama").textContent = nama;
+        $("#sumNoPeg").textContent = noPeg;
+        $("#sumJenis").textContent = currentMode;
+        $("#sumHash").textContent = activeState.hash || "-";
+
+        var rowSumDatang = $("#rowSumDatang");
+        var rowSumPulang = $("#rowSumPulang");
+        var modalSub = $("#modalSubMessage");
+
+        if(modalSub) modalSub.textContent = data.message || "Data kehadiran geotag berhasil dicatat.";
+
+        if(stateDatang.captured){
+          rowSumDatang.style.display = "flex";
+          $("#sumDatang").textContent = "✓ " + stateDatang.time;
+        } else {
+          rowSumDatang.style.display = "none";
+        }
+
+        if(statePulang.captured){
+          rowSumPulang.style.display = "flex";
+          $("#sumPulang").textContent = "✓ " + statePulang.time;
+        } else {
+          rowSumPulang.style.display = "none";
+        }
+
+        modal.classList.remove("is-hidden");
+      } else {
+        toast((data && data.message) || "Gagal menyimpan data ke server.", "error");
+      }
+    })
+    .catch(function(err){
+      btnKirim.disabled = false;
+      applyModeUI(currentMode);
+      toast("Gagal terhubung ke Apps Script: " + err.message, "error");
+    });
+  });
+
+  function tutupModal(){ modal.classList.add("is-hidden"); }
+  $("#btnModalTutup").addEventListener("click", tutupModal);
+  modal.addEventListener("click", function(e){ if(e.target === modal) tutupModal(); });
+
+  // =============================================
+  // 9. CONFIG & GEOFENCE MODAL
+  // =============================================
+  var modalConfig = $("#modalConfig");
+  var inputOfficeLat = $("#inputOfficeLat");
+  var inputOfficeLng = $("#inputOfficeLng");
+  var inputOfficeRadius = $("#inputOfficeRadius");
+  var btnSetCurrentAsOffice = $("#btnSetCurrentAsOffice");
+  var configStatus = $("#configStatus");
+  var btnBukaConfig = $("#btnBukaConfig");
+  var btnSimpanConfig = $("#btnSimpanConfig");
+  var btnTestConfig = $("#btnTestConfig");
+  var btnTutupConfig = $("#btnTutupConfig");
+
+  function bukaConfigModal(){
+    inputOfficeLat.value = OFFICE_CONFIG.lat;
+    inputOfficeLng.value = OFFICE_CONFIG.lng;
+    inputOfficeRadius.value = OFFICE_CONFIG.radius;
+    configStatus.textContent = "Backend Google Sheets aktif & terintegrasi.";
+    configStatus.style.color = "#a7f3d0";
+    modalConfig.classList.remove("is-hidden");
+  }
+
+  function tutupConfigModal(){
+    modalConfig.classList.add("is-hidden");
+  }
+
+  if(btnBukaConfig) btnBukaConfig.addEventListener("click", bukaConfigModal);
+  if(btnTutupConfig) btnTutupConfig.addEventListener("click", tutupConfigModal);
+  if(modalConfig) modalConfig.addEventListener("click", function(e){ if(e.target === modalConfig) tutupConfigModal(); });
+
+  if(btnSetCurrentAsOffice){
+    btnSetCurrentAsOffice.addEventListener("click", function(){
+      if(currentGeo.isLocked){
+        inputOfficeLat.value = currentGeo.lat.toFixed(6);
+        inputOfficeLng.value = currentGeo.lng.toFixed(6);
+        configStatus.textContent = "✓ Koordinat posisi saat ini dimasukkan sebagai titik kantor.";
+        configStatus.style.color = "#4ade80";
+      } else {
+        configStatus.textContent = "GPS belum terkunci. Tunggu beberapa detik.";
+        configStatus.style.color = "#fb7185";
+      }
+    });
+  }
+
+  if(btnSimpanConfig){
+    btnSimpanConfig.addEventListener("click", function(){
+      var latV = parseFloat(inputOfficeLat.value);
+      var lngV = parseFloat(inputOfficeLng.value);
+      var radV = parseInt(inputOfficeRadius.value, 10);
+
+      if(!isNaN(latV)) OFFICE_CONFIG.lat = latV;
+      if(!isNaN(lngV)) OFFICE_CONFIG.lng = lngV;
+      if(!isNaN(radV) && radV > 10) OFFICE_CONFIG.radius = radV;
+
+      try {
+        localStorage.removeItem("tvri_script_url");
+        localStorage.setItem("tvri_office_lat", String(OFFICE_CONFIG.lat));
+        localStorage.setItem("tvri_office_lng", String(OFFICE_CONFIG.lng));
+        localStorage.setItem("tvri_office_radius", String(OFFICE_CONFIG.radius));
+      } catch(e){}
+
+      if(currentGeo.isLocked){
+        currentGeo.distanceMeters = computeDistanceMeters(currentGeo.lat, currentGeo.lng, OFFICE_CONFIG.lat, OFFICE_CONFIG.lng);
+        currentGeo.withinOffice = currentGeo.distanceMeters <= OFFICE_CONFIG.radius;
+        updateGpsIndicators();
+      }
+
+      toast("✓ Konfigurasi Geofence berhasil disimpan.", "ok");
+      tutupConfigModal();
+    });
+  }
+
+  if(btnTestConfig){
+    btnTestConfig.addEventListener("click", function(){
+      configStatus.textContent = "Menguji koneksi ke Google Apps Script...";
+      configStatus.style.color = "#fde68a";
+      fetch(SCRIPT_URL + (SCRIPT_URL.indexOf("?") === -1 ? "?" : "&") + "action=status&t=" + Date.now(), { redirect: "follow" })
+        .then(function(r){ return r.json(); })
+        .then(function(res){
+          if(res && res.status === "success"){
+            configStatus.textContent = "✓ Terhubung! Spreadsheet: " + (res.spreadsheetName || "OK") + " (" + (res.sheetAbsensiRows || 0) + " baris)";
+            configStatus.style.color = "#4ade80";
+          } else {
+            configStatus.textContent = "Respon server: " + (res && res.message ? res.message : "Tidak dikenali");
+            configStatus.style.color = "#fb7185";
+          }
+        })
+        .catch(function(err){
+          configStatus.textContent = "Gagal terhubung: " + err.message + " (Periksa deployment Apps Script: Pastikan Who has access = Anyone)";
+          configStatus.style.color = "#fb7185";
+        });
+    });
+  }
+
+  document.addEventListener("keydown", function(e){
+    if(e.key === "Escape"){
+      tutupModal();
+      tutupConfigModal();
+    }
+  });
+
+  startGeolocation();
+  initModeByTime();
+
+})();
+</script>
+
+<!-- =========================================================
+     ELEMENTAL ORB VISUAL ENGINE (QUAS WATER, WEX VORTEX, EXORT SOLAR)
+========================================================= -->
+<script>
+(function(){
+function createInvokerRenderer(){
+  "use strict";
+  var TAU=Math.PI*2, count=64;
+  var themes={
+    quas:{rgb:"0,242,254",bright:"#e0ffff",mid:"#06b6d4",deep:"#083344",rim:"#67e8f9",pale:"#cffafe"},
+    wex:{rgb:"168,85,247",bright:"#f3e8ff",mid:"#9333ea",deep:"#2e1065",rim:"#d8b4fe",pale:"#fae8ff"},
+    exort:{rgb:"245,158,11",bright:"#fef9c3",mid:"#ea580c",deep:"#451a03",rim:"#fcd34d",pale:"#fef08a"}
+  };
+  var points=new Float32Array(count*3), ct=new Float32Array(count), st=new Float32Array(count);
+  var lightning=[[-.77,-.45,-.34,-.65,-.43,-.24,.04,-.39,-.12,.03,.3,-.14],
+    [.48,-.73,.27,-.32,.64,-.42,.36,-.01,.69,.1,.37,.46],
+    [-.66,.3,-.28,.12,-.4,.49,.05,.26,-.04,.65,.36,.41]];
+  for(var i=0;i<count;i++){ct[i]=Math.cos(i*TAU/count);st[i]=Math.sin(i*TAU/count);}
+  function canvas(size){var c=document.createElement("canvas");c.width=c.height=size;return c;}
+  function rgba(rgb,a){return "rgba("+rgb+","+a+")";}
+  Object.keys(themes).forEach(function(key){
+    var p=themes[key], c=canvas(192), g=c.getContext("2d");
+    g.translate(96,96);g.scale(87,87);
+    var fill=g.createRadialGradient(-.35,-.4,.04,-.08,-.08,1.16);
+    fill.addColorStop(0,p.bright);fill.addColorStop(.17,p.mid);
+    fill.addColorStop(.57,p.mid);fill.addColorStop(.86,p.deep);fill.addColorStop(1,"#040d1a");
+    g.fillStyle=fill;g.beginPath();g.arc(0,0,1,0,TAU);g.fill();
+    g.save();g.beginPath();g.arc(0,0,.98,0,TAU);g.clip();
+    var rim=g.createRadialGradient(-.12,-.16,.62,0,0,1);
+    rim.addColorStop(0,"rgba(0,0,0,0)");rim.addColorStop(.72,"rgba(0,0,0,0)");
+    rim.addColorStop(.92,rgba(p.rgb,.48));rim.addColorStop(1,p.rim);
+    g.fillStyle=rim;g.fillRect(-1,-1,2,2);
+    if(key==="quas"){
+      for(var j=0;j<9;j++){
+        var a=j*2.399, x=Math.cos(a)*(.18+j*.069), y=Math.sin(a)*(.18+j*.069);
+        g.fillStyle=j%2?"rgba(103,232,249,.24)":"rgba(8,51,68,.24)";
+        g.beginPath();g.moveTo(x,y-.31);g.lineTo(x+.18,y+.06);g.lineTo(x-.15,y+.16);g.closePath();g.fill();
+        g.strokeStyle="rgba(165,243,252,.28)";g.lineWidth=.009;g.stroke();
+      }
+    }else if(key==="wex"){
+      for(var j=0;j<6;j++){
+        g.strokeStyle=j%2?"rgba(233,213,255,.25)":"rgba(46,16,101,.38)";
+        g.lineWidth=.045+j*.008;g.beginPath();g.ellipse(.13,-.05,.28+j*.13,.1+j*.1,-.7,.2,4.9);g.stroke();
+      }
+    }else{
+      for(var j=0;j<7;j++){
+        g.strokeStyle=j%2?"rgba(253,224,71,.32)":"rgba(124,45,18,.34)";
+        g.lineWidth=.045;g.beginPath();g.ellipse(-.08,.1,.22+j*.12,.13+j*.11,.5,.15,4.6);g.stroke();
+      }
+    }
+    var light=g.createRadialGradient(-.38,-.43,0,-.38,-.43,.6);
+    light.addColorStop(0,"rgba(255,255,255,.9)");light.addColorStop(.14,"rgba(255,255,255,.42)");
+    light.addColorStop(.6,rgba(p.rgb,.1));light.addColorStop(1,"rgba(255,255,255,0)");
+    g.fillStyle=light;g.fillRect(-1,-1,2,2);g.restore();
+    g.strokeStyle=rgba(p.rgb,.75);g.lineWidth=.02;g.beginPath();g.arc(0,0,.992,0,TAU);g.stroke();
+    g.save();g.translate(-.32,-.53);g.rotate(-.55);g.fillStyle="rgba(248,253,255,.7)";
+    g.beginPath();g.ellipse(0,0,.21,.055,0,0,TAU);g.fill();g.restore();p.surface=c;
+    c=canvas(192);g=c.getContext("2d");
+    var glow=g.createRadialGradient(96,96,12,96,96,94);
+    glow.addColorStop(0,rgba(p.rgb,.38));glow.addColorStop(.35,rgba(p.rgb,.22));
+    glow.addColorStop(.7,rgba(p.rgb,.08));glow.addColorStop(1,rgba(p.rgb,0));
+    g.fillStyle=glow;g.fillRect(0,0,192,192);p.glow=c;
+    p.orbit=rgba(p.rgb,.48);p.orbitSoft=rgba(p.rgb,.24);p.sheen=rgba(p.rgb,.3);
+  });
+  function project(time,kind){
+    var angle=kind==="quas"?-.38:kind==="wex"?.48:-.24;
+    angle+=Math.sin(time*.2)*.14;
+    var ca=Math.cos(angle),sa=Math.sin(angle), phase=time*(kind==="wex"?.85:.45);
+    var cp=Math.cos(phase),sp=Math.sin(phase);
+    for(var i=0;i<count;i++){
+      var ax=ct[i]*cp-st[i]*sp, ay=st[i]*cp+ct[i]*sp;
+      var z=ay*1.22, scale=4.8/(4.8-z), x=ax*1.44, y=ay*.45;
+      points[i*3]=(x*ca-y*sa)*scale;points[i*3+1]=(x*sa+y*ca)*scale;points[i*3+2]=z;
+    }
+  }
+  function ring(g,p,front,r,detail){
+    g.strokeStyle=front?p.orbit:p.orbitSoft;g.lineWidth=(front?.9:.65)/r;
+    g.beginPath();var open=false;
+    for(var i=0;i<=count;i++){
+      var k=(i%count)*3, visible=(points[k+2]>=0)===front;
+      if(visible){if(open)g.lineTo(points[k],points[k+1]);else g.moveTo(points[k],points[k+1]);}
+      open=visible;
+    }g.stroke();
+    for(var j=0;j<(detail?3:2);j++){
+      var k=((j*23+5)%count)*3,z=points[k+2];if((z>=0)!==front)continue;
+      var s=(.044+j*.009)*(1+z*.14),x=points[k],y=points[k+1];
+      g.globalAlpha=front?.7:.32;g.drawImage(p.glow,x-s*5,y-s*5,s*10,s*10);g.globalAlpha=1;
+      g.fillStyle=p.rim;g.beginPath();g.arc(x,y,s,0,TAU);g.fill();
+      g.fillStyle=p.pale;g.beginPath();g.arc(x-s*.2,y-s*.2,s*.42,0,TAU);g.fill();
+    }
+  }
+  function ice(g,p,t,r,detail,front){
+    for(var j=0;j<(detail?5:3);j++){
+      var a=t*.23+j*2.399, z=Math.sin(a), x=Math.cos(a)*1.19,y=z*.32;
+      if((z>0)!==front)continue;
+      var size=.1+(j%3)*.021;
+      g.save();g.translate(x,y);g.rotate(a*.3+.3);g.globalAlpha=front?.82:.5;
+      g.fillStyle=p.rim;g.beginPath();g.moveTo(0,-size*1.8);g.lineTo(size*.6,0);g.lineTo(0,size);g.lineTo(-size*.65,0);g.closePath();g.fill();
+      g.strokeStyle=p.pale;g.lineWidth=.65/r;g.beginPath();g.moveTo(0,-size*1.8);g.lineTo(0,size);g.lineTo(-size*.65,0);g.stroke();g.restore();
+    }
+  }
+  function flames(g,p,t,detail){
+    var tongues=detail?5:3;
+    for(var j=0;j<tongues;j++){
+      var a=-2.77+j*2.16/(tongues-1), x=Math.cos(a)*.77, y=Math.sin(a)*.8;
+      var sway=Math.sin(t*1.5+j*1.9)*.14, rise=.5+(j%2)*.2+Math.sin(t*2+j)*.1;
+      g.save();g.translate(x,y);g.rotate((j-(tongues-1)/2)*.25);
+      g.fillStyle=j%2?"rgba(251,191,36,.6)":"rgba(234,88,12,.58)";
+      g.beginPath();g.moveTo(-.14,.2);g.bezierCurveTo(-.29,-.1,sway+.16,-rise*.52,sway,-rise);
+      g.bezierCurveTo(sway+.33,-rise*.28,.3,.05,.12,.23);g.closePath();g.fill();
+      g.fillStyle="rgba(254,240,138,.6)";g.beginPath();g.moveTo(-.03,.14);
+      g.quadraticCurveTo(-.11,-.1,sway,-rise*.58);g.quadraticCurveTo(.19,-.07,.08,.17);g.fill();g.restore();
+    }
+  }
+  function storm(g,p,t,r,detail){
+    var pulse=.42+Math.sin(t*2.8)*.18;
+    g.save();g.beginPath();g.arc(0,0,.96,0,TAU);g.clip();
+    for(var j=0;j<(detail?3:2);j++){
+      var path=lightning[j], shift=Math.sin(t*.65+j)*.05;
+      g.globalAlpha=pulse+.12*j;g.beginPath();g.moveTo(path[0]+shift,path[1]);
+      for(var k=2;k<path.length;k+=2)g.lineTo(path[k]+shift,path[k+1]);
+      g.strokeStyle=p.rim;g.lineWidth=2.9/r;g.stroke();
+      g.strokeStyle=p.pale;g.lineWidth=.85/r;g.stroke();
+    }g.restore();
+  }
+  function currents(g,p,t,r,kind,detail){
+    g.save();g.beginPath();g.arc(0,0,.95,0,TAU);g.clip();
+    g.rotate(Math.sin(t*.4)*.15+(kind==="wex"?-1:.3));
+    for(var j=0;j<(detail?3:2);j++){
+      g.strokeStyle=j===0?p.pale:p.rim;g.globalAlpha=.2+Math.sin(t*.7+j)*.05;
+      g.lineWidth=(j===0?.85:1.65)/r;g.beginPath();
+      g.ellipse(.06,.07,.91-j*.18,.23+j*.12,-.4,t*.18+j, t*.18+j+3.6);g.stroke();
+    }g.restore();
+  }
+  function motes(g,p,t,kind,detail){
+    for(var j=0;j<(detail?5:2);j++){
+      var life=(t*(kind==="exort"?.21:.11)+j*.239)%1;
+      var a=j*2.399, x=Math.cos(a)*(.87+life*.38),y=-.3-life*1.52;
+      if(kind!=="exort")y=Math.sin(a)*(.93+life*.46);
+      var size=.018+(j%2)*.01;
+      g.globalAlpha=Math.sin(life*Math.PI)*.75;g.fillStyle=p.rim;
+      g.beginPath();g.arc(x,y,size,0,TAU);g.fill();
+    }g.globalAlpha=1;
+  }
+  return {draw:function(g,x,y,r,t,kind,detail,power){
+    var p=themes[kind]||themes.quas;if(!r||r<1)return;
+    power=power||0;g.save();g.translate(x,y);g.scale(r,r);
+    g.globalAlpha=.88+Math.sin(t*.8)*.08+power*.06;
+    g.drawImage(p.glow,-2.02,-2.02,4.04,4.04);g.globalAlpha=1;
+    project(t,kind);ring(g,p,false,r,detail);
+    if(kind==="quas")ice(g,p,t,r,detail,false);
+    if(kind==="exort")flames(g,p,t,detail);
+    g.drawImage(p.surface,-1.104,-1.104,2.208,2.208);
+    currents(g,p,t,r,kind,detail);
+    if(kind==="wex")storm(g,p,t,r,detail);
+    if(kind==="quas")ice(g,p,t,r,detail,true);
+    ring(g,p,true,r,detail);motes(g,p,t,kind,detail);
+    g.restore();
+  }};
+}
+
+(function(){
+  'use strict';
+  var stage=document.querySelector('.hero-stage');
+  var canvas=stage&&stage.querySelector('.spell-canvas');
+  var ctx=canvas&&canvas.getContext('2d',{alpha:true});
+  if(!ctx) return;
+  var renderer;
+  try{renderer=createInvokerRenderer();}catch(error){return;}
+  var motion=window.matchMedia('(prefers-reduced-motion: reduce)');
+  var mobile=window.matchMedia('(max-width: 640px), (pointer: coarse)');
+  var fine=window.matchMedia('(hover: hover) and (pointer: fine)');
+  var connection=navigator.connection;
+  var constrained=(navigator.deviceMemory&&navigator.deviceMemory<=4)||
+    (navigator.hardwareConcurrency&&navigator.hardwareConcurrency<=4);
+  var anchors=Array.prototype.slice.call(stage.querySelectorAll('[data-element]'));
+  var orbs=[],width=0,height=0,dpr=1,lite=false,autoLite=false;
+  var visible=false,suspended=false,contextLost=false,raf=0,last=0,lastPaint=0,elapsed=0,expensiveFrames=0;
+  var pointerX=-1000,pointerY=-1000;
+
+  function measure(){
+    if(contextLost) return;
+    lite=autoLite||mobile.matches||constrained||!!(connection&&connection.saveData);
+    document.documentElement.classList.toggle('fx-lite',!!lite);
+    var bounds=stage.getBoundingClientRect();
+    width=bounds.width;height=bounds.height;
+    if(!width||!height) return;
+    dpr=Math.min(window.devicePixelRatio||1,lite?1.25:1.5,
+      Math.sqrt((lite?400000:900000)/(width*height)));
+    canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    orbs=anchors.map(function(el){
+      var rect=el.getBoundingClientRect();
+      return {kind:el.dataset.element,x:rect.left-bounds.left+rect.width/2,
+        y:rect.top-bounds.top+rect.height/2,r:rect.width*.46,power:0};
+    });
+    visible=bounds.bottom>0&&bounds.top<window.innerHeight;
+    draw();sync();
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,width,height);
+    for(var i=0;i<orbs.length;i++){
+      var orb=orbs[i];
+      var dx=pointerX-orb.x,dy=pointerY-orb.y;
+      var target=!motion.matches&&fine.matches&&dx*dx+dy*dy<orb.r*orb.r*5?1:0;
+      orb.power+=(target-orb.power)*.09;
+      var bob=motion.matches?0:Math.sin(elapsed*.9+i*2.1)*orb.r*.075;
+      renderer.draw(ctx,orb.x,orb.y+bob,orb.r,elapsed,orb.kind,lite?0:1,orb.power);
+    }
+    if(!stage.classList.contains('fx-ready')) stage.classList.add('fx-ready');
+  }
+
+  function frame(now){
+    raf=0;
+    if(!visible||document.hidden||motion.matches||suspended||contextLost) return;
+    var interval=1000/(lite?30:60);
+    if(!last) last=now-interval;
+    var delta=now-last;
+    if(delta>=interval-.5){
+      elapsed+=lastPaint?Math.min(now-lastPaint,64)/1000:0;
+      lastPaint=now;
+      last=delta<interval?now:now-(delta%interval);
+      var started=performance.now();
+      draw();
+      expensiveFrames=performance.now()-started>7?expensiveFrames+1:Math.max(0,expensiveFrames-1);
+      if(!lite&&expensiveFrames>24){autoLite=true;measure();}
+    }
+    if(!raf) raf=requestAnimationFrame(frame);
+  }
+
+  function sync(){
+    var paused=!visible||document.hidden||motion.matches||suspended||contextLost;
+    stage.classList.toggle('fx-paused',paused);
+    document.documentElement.classList.toggle('fx-page-paused',document.hidden||suspended);
+    if(paused){cancelAnimationFrame(raf);raf=0;last=lastPaint=0;}
+    else if(!raf){last=lastPaint=0;raf=requestAnimationFrame(frame);}
+  }
+
+  function preferenceChanged(){elapsed=0;measure();}
+  function listen(query,fn){
+    if(query.addEventListener) query.addEventListener('change',fn);
+    else if(query.addListener) query.addListener(fn);
+  }
+  listen(motion,preferenceChanged);listen(mobile,measure);
+  if(connection&&connection.addEventListener) connection.addEventListener('change',measure);
+  if('ResizeObserver' in window) new ResizeObserver(measure).observe(stage);
+  else window.addEventListener('resize',measure,{passive:true});
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(entries){
+      visible=entries[0].isIntersecting;sync();
+    },{threshold:0}).observe(stage);
+  }else{
+    window.addEventListener('scroll',function(){
+      var rect=stage.getBoundingClientRect();
+      visible=rect.bottom>0&&rect.top<window.innerHeight;sync();
+    },{passive:true});
+  }
+  stage.addEventListener('pointermove',function(event){
+    if(!fine.matches||motion.matches) return;
+    var rect=stage.getBoundingClientRect();
+    pointerX=event.clientX-rect.left;pointerY=event.clientY-rect.top;
+  },{passive:true});
+  stage.addEventListener('pointerleave',function(){pointerX=pointerY=-1000;},{passive:true});
+  document.addEventListener('visibilitychange',sync);
+  canvas.addEventListener('contextlost',function(event){
+    event.preventDefault();contextLost=true;stage.classList.remove('fx-ready');sync();
+  });
+  canvas.addEventListener('contextrestored',function(){
+    try{renderer=createInvokerRenderer();contextLost=false;measure();}catch(error){contextLost=true;}
+  });
+  window.addEventListener('pagehide',function(){suspended=true;sync();});
+  window.addEventListener('pageshow',function(){suspended=false;measure();});
+  measure();
+})();
+
+})();
+</script>
+</body>
+</html>
